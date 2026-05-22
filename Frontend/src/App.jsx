@@ -3,10 +3,9 @@ import "./App.css";
 import Topbar from "./Components/Topbar/Topbar";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
-
+import Home from './Pages/Home/Home'
 
 import './App.css'
-import Home from './Pages/Home/Home'
 
 function App() {
   return (
@@ -20,10 +19,13 @@ function App() {
       {/* 🔄 Routes */}
       <Routes>
 
-       
+       <Route path="/" element={<Home />} />
+
       </Routes>
 
      <Footer />
+
+     
      
     </Router>
   );
