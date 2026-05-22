@@ -1,4 +1,7 @@
-/* PharmaHero.css */
+/* =========================================================
+   PREMIUM PHARMA HERO SECTION
+   FULLY RESPONSIVE FOR ALL DEVICES
+========================================================= */
 
 * {
   margin: 0;
@@ -8,204 +11,402 @@
 
 .pharmaHero {
   width: 100%;
-  min-height: 100vh;
+  min-height: 82vh;
   position: relative;
   overflow: hidden;
-  background-size: cover;
-  background-position: center;
+
   display: flex;
   align-items: center;
-  padding: 80px 6%;
+
+  padding: 60px 7%;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
+/* =========================================================
+   OVERLAY
+========================================================= */
 
 .pharmaOverlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at top right,
-    rgba(44, 201, 180, 0.35),
-    transparent 35%
-  );
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0, 30, 10, 0.90),
+      rgba(0, 45, 15, 0.82),
+      rgba(20, 60, 20, 0.72)
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(220, 255, 0, 0.20),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(70, 255, 100, 0.14),
+      transparent 35%
+    );
+
   z-index: 1;
 }
 
-.pharmaContainer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  gap: 60px;
-  align-items: center;
-  position: relative;
-  z-index: 2;
+/* =========================================================
+   PREMIUM GLOW EFFECT
+========================================================= */
+
+.pharmaHero::before {
+  content: "";
+
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  top: -140px;
+  right: -140px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(213, 255, 0, 0.14),
+    transparent 70%
+  );
+
+  z-index: 1;
+
+  pointer-events: none;
 }
 
-/* LEFT SIDE */
+.pharmaHero::after {
+  content: "";
+
+  position: absolute;
+
+  width: 400px;
+  height: 400px;
+
+  bottom: -100px;
+  left: -100px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(60, 255, 120, 0.10),
+    transparent 70%
+  );
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.pharmaContainer {
+  width: 100%;
+
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 60px;
+}
+
+/* =========================================================
+   LEFT SECTION
+========================================================= */
 
 .pharmaLeft {
   flex: 1;
-  max-width: 760px;
+  max-width: 700px;
 }
+
+/* =========================================================
+   TAG
+========================================================= */
 
 .pharmaTag {
   width: fit-content;
-  padding: 12px 24px;
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(14px);
-  color: #f5f5f5;
-  font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 30px;
+
   display: flex;
   align-items: center;
   gap: 10px;
+
+  padding: 11px 22px;
+
+  margin-bottom: 24px;
+
+  border-radius: 50px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  border: 1px solid rgba(220, 255, 0, 0.18);
+
+  backdrop-filter: blur(14px);
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
   transition: 0.4s ease;
 }
 
 .pharmaTag:hover {
-  transform: translateY(-3px);
-  background: rgba(44, 201, 180, 0.15);
+  transform: translateY(-4px);
+
+  background: rgba(213, 255, 0, 0.10);
+
+  border-color: rgba(213, 255, 0, 0.35);
 }
 
 .tagDot {
   width: 10px;
   height: 10px;
-  background: #2cc9b4;
+
   border-radius: 50%;
-  box-shadow: 0 0 15px #2cc9b4;
+
+  background: #d8ff3e;
+
+  box-shadow: 0 0 14px #d8ff3e;
 }
+
+/* =========================================================
+   TITLE WRAP
+========================================================= */
 
 .pharmaTitleWrap {
   display: flex;
   align-items: center;
-  gap: 25px;
-  margin-bottom: 25px;
+  gap: 24px;
+
+  margin-bottom: 24px;
 }
 
+/* =========================================================
+   LOGO
+========================================================= */
+
 .pharmaLogo {
-  width: 130px;
-  height: 130px;
+  width: 110px;
+  height: 110px;
+
   object-fit: contain;
+
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
+
   padding: 8px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 3px solid rgba(220, 255, 0, 0.16);
+
   backdrop-filter: blur(10px);
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  transition: 0.4s ease;
+
+  transition: 0.5s ease;
 }
 
 .pharmaLogo:hover {
   transform: rotate(5deg) scale(1.05);
-  box-shadow: 0 0 25px rgba(44, 201, 180, 0.4);
+
+  box-shadow: 0 0 25px rgba(213, 255, 0, 0.42);
 }
+
+/* =========================================================
+   TITLE
+========================================================= */
 
 .pharmaTitle {
   color: white;
-  font-size: 4rem;
-  line-height: 1.1;
+
+  font-size: 3.2rem;
   font-weight: 800;
+
+  line-height: 1.12;
+
+  letter-spacing: -1px;
 }
 
 .pharmaTitle span {
-  color: #2cc9b4;
+  color: #d8ff3e;
 }
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
 
 .pharmaDescription {
   color: rgba(255, 255, 255, 0.82);
-  font-size: 1.2rem;
-  line-height: 1.9;
-  max-width: 720px;
-  margin-bottom: 35px;
+
+  font-size: 1rem;
+
+  line-height: 1.8;
+
+  margin-bottom: 28px;
+
+  max-width: 650px;
 }
 
-/* BUTTONS */
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 .pharmaButtons {
   display: flex;
-  gap: 20px;
-  margin-bottom: 35px;
+  align-items: center;
+  gap: 18px;
+
   flex-wrap: wrap;
+
+  margin-bottom: 30px;
 }
 
 .submitBtn,
 .issueBtn {
   border: none;
   outline: none;
+
   cursor: pointer;
-  padding: 18px 34px;
-  border-radius: 16px;
-  font-size: 1rem;
-  font-weight: 700;
-  transition: 0.4s ease;
+
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 15px 28px;
+
+  border-radius: 16px;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  transition: 0.4s ease;
 }
 
+/* PRIMARY BUTTON */
+
 .submitBtn {
-  background: linear-gradient(135deg, #11b7c9, #31d3a6);
-  color: white;
-  box-shadow: 0 10px 30px rgba(49, 211, 166, 0.3);
+  background: linear-gradient(
+    135deg,
+    #63b600,
+    #d8ff3e
+  );
+
+  color: #143300;
+
+  box-shadow: 0 10px 28px rgba(180, 255, 0, 0.30);
 }
 
 .submitBtn:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 15px 35px rgba(49, 211, 166, 0.5);
+  transform: translateY(-5px) scale(1.03);
+
+  box-shadow: 0 16px 35px rgba(180, 255, 0, 0.50);
 }
 
+/* SECONDARY BUTTON */
+
 .issueBtn {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
+
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  border: 1px solid rgba(220, 255, 0, 0.16);
+
   backdrop-filter: blur(10px);
 }
 
 .issueBtn:hover {
-  background: rgba(44, 201, 180, 0.15);
   transform: translateY(-5px);
+
+  background: rgba(213, 255, 0, 0.10);
+
+  border-color: rgba(213, 255, 0, 0.35);
 }
 
-/* SEARCH */
+/* =========================================================
+   SEARCH BAR
+========================================================= */
 
 .pharmaSearch {
   width: 100%;
-  max-width: 720px;
-  height: 75px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 22px;
-  overflow: hidden;
+  max-width: 650px;
+
+  height: 65px;
+
   display: flex;
   align-items: center;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.07);
+
+  border: 1px solid rgba(220, 255, 0, 0.16);
+
   backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  transition: 0.4s ease;
+}
+
+.pharmaSearch:hover {
+  border-color: rgba(213, 255, 0, 0.35);
 }
 
 .pharmaSearch input {
   flex: 1;
+
   height: 100%;
+
   border: none;
   outline: none;
+
   background: transparent;
-  padding: 0 28px;
+
+  padding: 0 22px;
+
   color: white;
-  font-size: 1.05rem;
+
+  font-size: 0.95rem;
 }
 
 .pharmaSearch input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .pharmaSearch button {
-  width: 85px;
-  height: 85%;
-  margin-right: 6px;
+  width: 72px;
+  height: 84%;
+
+  margin-right: 5px;
+
   border: none;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #11b7c9, #31d3a6);
-  color: white;
-  font-size: 1.3rem;
+
+  border-radius: 15px;
+
   cursor: pointer;
+
+  background: linear-gradient(
+    135deg,
+    #63b600,
+    #d8ff3e
+  );
+
+  color: #173600;
+
+  font-size: 1.1rem;
+
   transition: 0.4s ease;
 }
 
@@ -213,87 +414,144 @@
   transform: scale(1.05);
 }
 
-/* RIGHT SIDE */
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
 
 .pharmaRight {
-  width: 500px;
+  width: 460px;
+
   display: flex;
   flex-direction: column;
-  gap: 30px;
+
+  gap: 24px;
 }
+
+/* =========================================================
+   STATS CARD
+========================================================= */
 
 .statsCard {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
-  padding: 35px;
-  border-radius: 30px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  gap: 18px;
+
+  padding: 28px;
+
+  border-radius: 28px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  border: 1px solid rgba(220, 255, 0, 0.14);
+
+  backdrop-filter: blur(14px);
 }
 
 .statBox {
-  padding: 25px;
+  padding: 22px;
+
   border-radius: 20px;
-  transition: 0.4s ease;
+
   background: rgba(255, 255, 255, 0.05);
+
+  transition: 0.4s ease;
 }
 
 .statBox:hover {
   transform: translateY(-6px);
-  background: rgba(44, 201, 180, 0.12);
+
+  background: rgba(220, 255, 0, 0.10);
 }
 
 .statBox h2 {
-  color: #ffffff;
-  font-size: 2.4rem;
-  margin-bottom: 10px;
+  color: #d8ff3e;
+
+  font-size: 2rem;
+  font-weight: 800;
+
+  margin-bottom: 8px;
 }
 
 .statBox p {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 0.85rem;
+
+  line-height: 1.5;
+
   text-transform: uppercase;
+
   letter-spacing: 1px;
 }
 
+/* =========================================================
+   FLOATING CARD
+========================================================= */
+
 .floatingCard {
   display: flex;
-  gap: 18px;
   align-items: center;
-  padding: 28px;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  gap: 16px;
+
+  padding: 22px;
+
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  border: 1px solid rgba(220, 255, 0, 0.14);
+
+  backdrop-filter: blur(14px);
+
   transition: 0.4s ease;
 }
 
 .floatingCard:hover {
   transform: translateY(-5px);
-  background: rgba(44, 201, 180, 0.12);
+
+  background: rgba(220, 255, 0, 0.10);
 }
 
 .floatingIcon {
-  font-size: 3rem;
-  color: #2cc9b4;
+  font-size: 2.5rem;
+
+  color: #d8ff3e;
+
+  min-width: 45px;
 }
 
 .floatingCard h3 {
   color: white;
-  margin-bottom: 8px;
-  font-size: 1.4rem;
+
+  font-size: 1.15rem;
+
+  margin-bottom: 6px;
 }
 
 .floatingCard p {
   color: rgba(255, 255, 255, 0.75);
+
   line-height: 1.7;
+
+  font-size: 0.92rem;
 }
 
-/* RESPONSIVE */
+/* =========================================================
+   LARGE SCREEN
+========================================================= */
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
+  .pharmaTitle {
+    font-size: 2.9rem;
+  }
+}
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (max-width: 1100px) {
   .pharmaContainer {
     flex-direction: column;
     align-items: flex-start;
@@ -304,13 +562,23 @@
   }
 
   .pharmaTitle {
-    font-size: 3.3rem;
+    font-size: 2.7rem;
   }
 }
 
+/* =========================================================
+   TABLET
+========================================================= */
+
 @media (max-width: 768px) {
   .pharmaHero {
-    padding: 70px 5%;
+    min-height: auto;
+
+    padding: 60px 5%;
+  }
+
+  .pharmaContainer {
+    gap: 45px;
   }
 
   .pharmaTitleWrap {
@@ -318,55 +586,127 @@
     align-items: flex-start;
   }
 
+  .pharmaLogo {
+    width: 95px;
+    height: 95px;
+  }
+
   .pharmaTitle {
-    font-size: 2.6rem;
+    font-size: 2.2rem;
   }
 
   .pharmaDescription {
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 0.95rem;
+  }
+
+  .pharmaButtons {
+    width: 100%;
+  }
+
+  .submitBtn,
+  .issueBtn {
+    flex: 1;
   }
 
   .statsCard {
     grid-template-columns: 1fr;
   }
 
-  .pharmaSearch {
-    height: 65px;
-  }
-
-  .pharmaSearch button {
-    width: 70px;
+  .floatingCard {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
-@media (max-width: 480px) {
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+  .pharmaHero {
+    padding: 50px 5%;
+  }
+
+  .pharmaTag {
+    font-size: 12px;
+
+    padding: 10px 16px;
+  }
+
   .pharmaTitle {
-    font-size: 2.1rem;
+    font-size: 1.85rem;
+
+    line-height: 1.2;
+  }
+
+  .pharmaDescription {
+    font-size: 0.9rem;
   }
 
   .pharmaButtons {
     flex-direction: column;
-    width: 100%;
   }
 
   .submitBtn,
   .issueBtn {
     width: 100%;
-    justify-content: center;
+  }
+
+  .pharmaSearch {
+    height: 58px;
   }
 
   .pharmaSearch input {
-    font-size: 0.9rem;
-    padding: 0 18px;
+    padding: 0 16px;
+
+    font-size: 0.88rem;
   }
 
-  .pharmaLogo {
-    width: 100px;
-    height: 100px;
+  .pharmaSearch button {
+    width: 62px;
+
+    font-size: 1rem;
+  }
+
+  .statsCard {
+    padding: 20px;
+  }
+
+  .statBox {
+    padding: 18px;
   }
 
   .statBox h2 {
-    font-size: 2rem;
+    font-size: 1.7rem;
+  }
+
+  .floatingCard {
+    padding: 18px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+  .pharmaTitle {
+    font-size: 1.6rem;
+  }
+
+  .pharmaLogo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .pharmaTag {
+    font-size: 11px;
+  }
+
+  .submitBtn,
+  .issueBtn {
+    padding: 14px 20px;
+
+    font-size: 0.85rem;
   }
 }
