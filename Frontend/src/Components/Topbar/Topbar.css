@@ -1,0 +1,225 @@
+/* =========================================
+   TOPBAR MAIN
+========================================= */
+
+.topbarMainContainer {
+  width: 100%;
+  background: #fffdf4;
+  border-bottom: 2px solid #f1c232;
+  position: relative;
+  z-index: 999;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.topbarWrapper {
+  max-width: 1500px;
+  margin: auto;
+  min-height: 120px;
+  padding: 14px 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  position: relative;
+}
+
+/* =========================================
+   LEFT SECTION
+========================================= */
+
+.topbarLeftSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+
+.topbarProjectName {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #d4a100;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.topbarDivider {
+  width: 2px;
+  height: 55px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.topbarEmailContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.topbarEmailItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+}
+
+.topbarMailIcon {
+  color: #d4a100;
+  font-size: 20px;
+}
+
+/* =========================================
+   CENTER LOGO
+========================================= */
+
+.topbarCenterSection {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.topbarLogo {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+
+  border-radius: 50%;
+  background: white;
+
+  padding: 5px;
+
+  transition: 0.4s ease;
+}
+
+.topbarLogo:hover {
+  transform: scale(1.05) rotate(2deg);
+}
+
+/* =========================================
+   RIGHT SECTION
+========================================= */
+
+.topbarRightSection {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.topbarSubmitButton {
+  padding: 14px 30px;
+  border: none;
+  outline: none;
+
+  background: linear-gradient(
+    135deg,
+    #f1c232,
+    #d4a100
+  );
+
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+
+  border-radius: 50px;
+  cursor: pointer;
+
+  transition: 0.4s ease;
+
+  box-shadow: 0 8px 20px rgba(212, 161, 0, 0.25);
+}
+
+.topbarSubmitButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(212, 161, 0, 0.35);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1200px) {
+  .topbarWrapper {
+    padding: 18px 25px;
+  }
+
+  .topbarProjectName {
+    font-size: 28px;
+  }
+
+  .topbarLogo {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+@media (max-width: 992px) {
+  .topbarWrapper {
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  .topbarCenterSection {
+    position: relative;
+    left: auto;
+    transform: none;
+    order: 1;
+  }
+
+  .topbarLeftSection {
+    order: 2;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .topbarDivider {
+    display: none;
+  }
+
+  .topbarEmailContainer {
+    align-items: center;
+  }
+
+  .topbarRightSection {
+    order: 3;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .topbarWrapper {
+    padding: 18px 15px;
+  }
+
+  .topbarProjectName {
+    font-size: 24px;
+  }
+
+  .topbarLogo {
+    width: 95px;
+    height: 95px;
+  }
+
+  .topbarEmailItem {
+    font-size: 13px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .topbarSubmitButton {
+    width: 100%;
+    max-width: 250px;
+    padding: 13px 20px;
+    font-size: 15px;
+  }
+}
