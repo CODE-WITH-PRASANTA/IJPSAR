@@ -56,11 +56,11 @@ const Navbar = () => {
             <div className="navbarDropdownMenu navbarSmallDropdown">
 
               <Link
-                to="/about-journal"
+                to="/about-ijpasr"
                 className="navbarDropdownItem"
                 onClick={closeMobileMenu}
               >
-                About Journal
+                About IJPASR
               </Link>
 
               <Link
@@ -72,19 +72,11 @@ const Navbar = () => {
               </Link>
 
               <Link
-                to="/aim-scope"
+                to="/indexing-abstracting"
                 className="navbarDropdownItem"
                 onClick={closeMobileMenu}
               >
-                Aim & Scope
-              </Link>
-
-              <Link
-                to="/peer-review"
-                className="navbarDropdownItem"
-                onClick={closeMobileMenu}
-              >
-                Peer Review Process
+              Indexing & Abstracting
               </Link>
 
               <Link
@@ -92,7 +84,23 @@ const Navbar = () => {
                 className="navbarDropdownItem"
                 onClick={closeMobileMenu}
               >
-                Publication Ethics
+               Publication Ethics
+              </Link>
+
+              <Link
+                to="/peer-review-process"
+                className="navbarDropdownItem"
+                onClick={closeMobileMenu}
+              >
+                Peer Review Process
+              </Link>
+
+               <Link
+                to="/plagiarism-policy"
+                className="navbarDropdownItem"
+                onClick={closeMobileMenu}
+              >
+               Plagiarism Policy
               </Link>
 
             </div>
