@@ -3,7 +3,7 @@ import "./Topbar.css";
 import { HiOutlineMail } from "react-icons/hi";
 
 /* IMPORT LOGO IMAGE */
-import logo from "../../assets/logo.png";
+import logo from "../../assets/p-2.JPEG";
 
 const Topbar = () => {
   return (

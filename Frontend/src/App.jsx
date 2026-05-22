@@ -1,15 +1,30 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Topbar from "./Components/Topbar/Topbar";
+import Navbar from "./Components/Navbar/Navbar";
+import Footer from "./Components/Footer/Footer";
 
-import './App.css'
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-    
-    </>
-  )
+    <Router>
+
+      {/* 🔝 Global Top Layout */}
+      <Topbar />
+      <Navbar />
+      
+
+      {/* 🔄 Routes */}
+      <Routes>
+
+       
+      </Routes>
+
+     <Footer />
+     
+    </Router>
+  );
 }
 
-export default App
+export default App;

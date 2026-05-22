@@ -1,0 +1,387 @@
+/* =========================================
+   FOOTER MAIN
+========================================= */
+
+.footerMainContainer {
+    width: 100%;
+    background: var(--darkBlue);
+    padding: 42px 0 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    font-family: "Poppins", sans-serif;
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* TOP GLOW EFFECT */
+
+.footerMainContainer::before {
+    content: "";
+    position: absolute;
+    top: -120px;
+    left: -120px;
+
+    width: 280px;
+    height: 280px;
+
+    background: var(--lightGreenBg);
+    filter: blur(80px);
+    border-radius: 50%;
+}
+
+/* =========================================
+   FOOTER WRAPPER
+========================================= */
+
+.footerWrapper {
+    width: 92%;
+    max-width: 1600px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 0.8fr 0.8fr 1fr;
+    gap: 45px;
+
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================================
+   LEFT SECTION
+========================================= */
+
+.footerLeftSection {
+    width: 100%;
+}
+
+.footerLogoContainer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.footerLogoImage {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+    border-radius: 50%;
+
+    box-shadow: 0 0 12px rgba(216, 255, 62, 0.25);
+}
+
+.footerLogoTextContainer h2 {
+    color: var(--whiteColor);
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 0.5px;
+
+    transition: 0.3s ease;
+}
+
+.footerLogoTextContainer h2:hover {
+    color: var(--primaryColor);
+}
+
+.footerLogoTextContainer p {
+    color: var(--textLight);
+    font-size: 14px;
+    margin-top: 4px;
+    line-height: 1.5;
+}
+
+.footerDescription {
+    margin-top: 24px;
+
+    color: var(--textLight);
+    font-size: 15px;
+    line-height: 2;
+    max-width: 420px;
+}
+
+/* =========================================
+   SOCIAL ICONS
+========================================= */
+
+.footerSocialIconsContainer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.footerSocialIconsContainer a {
+    width: 42px;
+    height: 42px;
+
+    background: var(--lightGreenBg);
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--whiteColor);
+    font-size: 17px;
+
+    text-decoration: none;
+
+    transition: all 0.3s ease;
+
+    border: 1px solid transparent;
+}
+
+.footerSocialIconsContainer a:hover {
+    background: var(--secondaryColor);
+    color: var(--whiteColor);
+
+    transform: translateY(-4px);
+
+    border-color: var(--primaryColor);
+
+    box-shadow: var(--greenShadow);
+}
+
+/* =========================================
+   TITLES
+========================================= */
+
+.footerLinksSection h3 {
+    color: var(--whiteColor);
+    font-size: 20px;
+    font-weight: 700;
+
+    margin-bottom: 24px;
+
+    letter-spacing: 1px;
+
+    position: relative;
+
+    transition: 0.3s ease;
+
+    cursor: pointer;
+}
+
+.footerLinksSection h3::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+
+    width: 45px;
+    height: 2px;
+
+    background: var(--primaryColor);
+
+    transition: 0.3s ease;
+}
+
+.footerLinksSection h3:hover {
+    color: var(--primaryColor);
+}
+
+.footerLinksSection h3:hover::after {
+    width: 75px;
+}
+
+/* =========================================
+   LINKS
+========================================= */
+
+.footerLinksList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.footerLinksList a {
+    color: var(--textLight);
+
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 400;
+
+    transition: all 0.3s ease;
+
+    width: fit-content;
+}
+
+.footerLinksList a:hover {
+    color: var(--primaryColor);
+
+    transform: translateX(5px);
+
+    text-shadow: 0 0 12px rgba(216, 255, 62, 0.35);
+}
+
+/* =========================================
+   CONTACT
+========================================= */
+
+.footerContactContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.footerContactItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    color: var(--textLight);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.footerContactItem svg {
+    font-size: 20px;
+    min-width: 20px;
+    margin-top: 2px;
+
+    color: var(--primaryColor);
+}
+
+.footerContactItem a {
+    color: var(--textLight);
+    text-decoration: none;
+
+    transition: 0.3s ease;
+}
+
+.footerContactItem a:hover {
+    color: var(--primaryColor);
+}
+
+/* =========================================
+   FOOTER BOTTOM
+========================================= */
+
+.footerBottomContainer {
+    width: 100%;
+    margin-top: 40px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    position: relative;
+    z-index: 2;
+}
+
+.footerBottomWrapper {
+    width: 92%;
+    max-width: 1600px;
+    margin: auto;
+
+    padding: 20px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footerBottomWrapper p {
+    color: var(--textGray);
+    font-size: 15px;
+    margin: 0;
+}
+
+.footerBottomRight {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    color: var(--textGray);
+    font-size: 15px;
+}
+
+.footerBottomRight span {
+    transition: 0.3s ease;
+}
+
+.footerBottomRight span:hover {
+    color: var(--primaryColor);
+    cursor: pointer;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media screen and (max-width: 1400px) {
+
+    .footerWrapper {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 40px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+
+    .footerWrapper {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .footerMainContainer {
+        padding-top: 38px;
+    }
+
+    .footerWrapper {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .footerBottomWrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .footerWrapper {
+        width: 90%;
+    }
+
+    .footerLogoTextContainer h2 {
+        font-size: 24px;
+    }
+
+    .footerLogoTextContainer p {
+        font-size: 13px;
+    }
+
+    .footerDescription {
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .footerLinksSection h3 {
+        font-size: 18px;
+    }
+
+    .footerLinksList a {
+        font-size: 15px;
+    }
+
+    .footerContactItem {
+        font-size: 15px;
+    }
+
+    .footerSocialIconsContainer a {
+        width: 40px;
+        height: 40px;
+    }
+
+    .footerBottomWrapper {
+        padding: 18px 0;
+    }
+}
