@@ -1,0 +1,372 @@
+/* PharmaHero.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.pharmaHero {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  padding: 80px 6%;
+}
+
+.pharmaOverlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top right,
+    rgba(44, 201, 180, 0.35),
+    transparent 35%
+  );
+  z-index: 1;
+}
+
+.pharmaContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* LEFT SIDE */
+
+.pharmaLeft {
+  flex: 1;
+  max-width: 760px;
+}
+
+.pharmaTag {
+  width: fit-content;
+  padding: 12px 24px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+  color: #f5f5f5;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.4s ease;
+}
+
+.pharmaTag:hover {
+  transform: translateY(-3px);
+  background: rgba(44, 201, 180, 0.15);
+}
+
+.tagDot {
+  width: 10px;
+  height: 10px;
+  background: #2cc9b4;
+  border-radius: 50%;
+  box-shadow: 0 0 15px #2cc9b4;
+}
+
+.pharmaTitleWrap {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.pharmaLogo {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 8px;
+  backdrop-filter: blur(10px);
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  transition: 0.4s ease;
+}
+
+.pharmaLogo:hover {
+  transform: rotate(5deg) scale(1.05);
+  box-shadow: 0 0 25px rgba(44, 201, 180, 0.4);
+}
+
+.pharmaTitle {
+  color: white;
+  font-size: 4rem;
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.pharmaTitle span {
+  color: #2cc9b4;
+}
+
+.pharmaDescription {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.2rem;
+  line-height: 1.9;
+  max-width: 720px;
+  margin-bottom: 35px;
+}
+
+/* BUTTONS */
+
+.pharmaButtons {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 35px;
+  flex-wrap: wrap;
+}
+
+.submitBtn,
+.issueBtn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 18px 34px;
+  border-radius: 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: 0.4s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.submitBtn {
+  background: linear-gradient(135deg, #11b7c9, #31d3a6);
+  color: white;
+  box-shadow: 0 10px 30px rgba(49, 211, 166, 0.3);
+}
+
+.submitBtn:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(49, 211, 166, 0.5);
+}
+
+.issueBtn {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+}
+
+.issueBtn:hover {
+  background: rgba(44, 201, 180, 0.15);
+  transform: translateY(-5px);
+}
+
+/* SEARCH */
+
+.pharmaSearch {
+  width: 100%;
+  max-width: 720px;
+  height: 75px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.pharmaSearch input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0 28px;
+  color: white;
+  font-size: 1.05rem;
+}
+
+.pharmaSearch input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.pharmaSearch button {
+  width: 85px;
+  height: 85%;
+  margin-right: 6px;
+  border: none;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #11b7c9, #31d3a6);
+  color: white;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+.pharmaSearch button:hover {
+  transform: scale(1.05);
+}
+
+/* RIGHT SIDE */
+
+.pharmaRight {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.statsCard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+  padding: 35px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.statBox {
+  padding: 25px;
+  border-radius: 20px;
+  transition: 0.4s ease;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.statBox:hover {
+  transform: translateY(-6px);
+  background: rgba(44, 201, 180, 0.12);
+}
+
+.statBox h2 {
+  color: #ffffff;
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
+
+.statBox p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.floatingCard {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  padding: 28px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: 0.4s ease;
+}
+
+.floatingCard:hover {
+  transform: translateY(-5px);
+  background: rgba(44, 201, 180, 0.12);
+}
+
+.floatingIcon {
+  font-size: 3rem;
+  color: #2cc9b4;
+}
+
+.floatingCard h3 {
+  color: white;
+  margin-bottom: 8px;
+  font-size: 1.4rem;
+}
+
+.floatingCard p {
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1200px) {
+  .pharmaContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pharmaRight {
+    width: 100%;
+  }
+
+  .pharmaTitle {
+    font-size: 3.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pharmaHero {
+    padding: 70px 5%;
+  }
+
+  .pharmaTitleWrap {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pharmaTitle {
+    font-size: 2.6rem;
+  }
+
+  .pharmaDescription {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .statsCard {
+    grid-template-columns: 1fr;
+  }
+
+  .pharmaSearch {
+    height: 65px;
+  }
+
+  .pharmaSearch button {
+    width: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pharmaTitle {
+    font-size: 2.1rem;
+  }
+
+  .pharmaButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .submitBtn,
+  .issueBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pharmaSearch input {
+    font-size: 0.9rem;
+    padding: 0 18px;
+  }
+
+  .pharmaLogo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .statBox h2 {
+    font-size: 2rem;
+  }
+}
