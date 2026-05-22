@@ -5,7 +5,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Home from './Pages/Home/Home'
 
-import './App.css'
+import Authors from "./Pages/Authors/Authors";
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
       <Routes>
 
        <Route path="/" element={<Home />} />
+       <Route path="/authors" element={<Authors />} />
 
       </Routes>
 
