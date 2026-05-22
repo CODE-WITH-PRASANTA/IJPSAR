@@ -334,14 +334,72 @@
         padding-top: 38px;
     }
 
+    /* =========================
+       FOOTER GRID MOBILE
+    ========================= */
+
     .footerWrapper {
-        grid-template-columns: 1fr;
-        gap: 35px;
+        width: 92%;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        gap: 35px 28px;
+
+        align-items: flex-start;
     }
+
+    /* LEFT SECTION FULL WIDTH */
+
+    .footerLeftSection {
+        grid-column: 1 / -1;
+    }
+
+    /* EACH COLUMN */
+
+    .footerLinksSection {
+        width: 100%;
+    }
+
+    /* TITLE */
+
+    .footerLinksSection h3 {
+        font-size: 19px;
+        margin-bottom: 18px;
+    }
+
+    /* LINKS */
+
+    .footerLinksList {
+        gap: 12px;
+    }
+
+    .footerLinksList a {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* CONTACT */
+
+    .footerContactContainer {
+        gap: 14px;
+    }
+
+    .footerContactItem {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .footerContactItem svg {
+        font-size: 18px;
+    }
+
+    /* BOTTOM */
 
     .footerBottomWrapper {
         flex-direction: column;
         align-items: flex-start;
+        gap: 10px;
     }
 }
 
@@ -349,6 +407,16 @@
 
     .footerWrapper {
         width: 90%;
+        gap: 30px 20px;
+    }
+
+    .footerLogoContainer {
+        align-items: center;
+    }
+
+    .footerLogoImage {
+        width: 48px;
+        height: 48px;
     }
 
     .footerLogoTextContainer h2 {
@@ -360,28 +428,39 @@
     }
 
     .footerDescription {
+        margin-top: 18px;
         font-size: 14px;
         line-height: 1.8;
     }
 
-    .footerLinksSection h3 {
-        font-size: 18px;
-    }
-
-    .footerLinksList a {
-        font-size: 15px;
-    }
-
-    .footerContactItem {
-        font-size: 15px;
+    .footerSocialIconsContainer {
+        margin-top: 18px;
     }
 
     .footerSocialIconsContainer a {
-        width: 40px;
-        height: 40px;
+        width: 38px;
+        height: 38px;
+        font-size: 15px;
+    }
+
+    .footerLinksSection h3 {
+        font-size: 17px;
+    }
+
+    .footerLinksList a {
+        font-size: 13px;
+    }
+
+    .footerContactItem {
+        font-size: 13px;
     }
 
     .footerBottomWrapper {
-        padding: 18px 0;
+        padding: 16px 0;
+    }
+
+    .footerBottomWrapper p,
+    .footerBottomRight {
+        font-size: 13px;
     }
 }
