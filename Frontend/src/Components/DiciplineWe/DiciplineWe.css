@@ -1,0 +1,496 @@
+/* DiciplineWe.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.diciplinewe {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  padding: 110px 7%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f7fff9 45%,
+      #effff5 100%
+    );
+}
+
+/* GLOW EFFECTS */
+
+.diciplinewe-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  z-index: 0;
+}
+
+.glow-one {
+  width: 350px;
+  height: 350px;
+
+  background: rgba(0, 200, 120, 0.12);
+
+  top: -100px;
+  left: -120px;
+}
+
+.glow-two {
+  width: 400px;
+  height: 400px;
+
+  background: rgba(140, 255, 0, 0.08);
+
+  right: -120px;
+  bottom: -150px;
+}
+
+.diciplinewe-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* HEADER */
+
+.diciplinewe-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.diciplinewe-tag {
+  display: inline-block;
+
+  margin-bottom: 24px;
+
+  color: #00a86b;
+
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 4px;
+
+  text-transform: uppercase;
+}
+
+.diciplinewe-title {
+  font-size: 4.5rem;
+  line-height: 1.05;
+  font-weight: 800;
+
+  color: #112019;
+
+  margin-bottom: 22px;
+
+  letter-spacing: -2px;
+}
+
+.diciplinewe-description {
+  max-width: 800px;
+  margin: auto;
+
+  font-size: 1.35rem;
+  line-height: 1.9;
+
+  color: #61716a;
+}
+
+/* GRID */
+
+.diciplinewe-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+/* CARD */
+
+.diciplinewe-card {
+  position: relative;
+
+  padding: 42px 34px;
+
+  border-radius: 32px;
+
+  background: rgba(255, 255, 255, 0.9);
+
+  border: 1px solid rgba(0, 168, 107, 0.08);
+
+  backdrop-filter: blur(14px);
+
+  overflow: hidden;
+
+  transition: all 0.45s ease;
+
+  min-height: 340px;
+
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.04),
+    0 6px 20px rgba(0, 168, 107, 0.05);
+}
+
+/* HOVER BG */
+
+.diciplinewe-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0, 200, 120, 0.05),
+      rgba(140, 255, 0, 0.03)
+    );
+
+  opacity: 0;
+
+  transition: 0.4s ease;
+}
+
+.diciplinewe-card:hover::before {
+  opacity: 1;
+}
+
+.diciplinewe-card:hover {
+  transform: translateY(-12px);
+
+  border-color: rgba(0, 168, 107, 0.18);
+
+  box-shadow:
+    0 25px 55px rgba(0, 0, 0, 0.08),
+    0 10px 30px rgba(0, 168, 107, 0.12);
+}
+
+/* ICON */
+
+.diciplinewe-iconbox {
+  width: 85px;
+  height: 85px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f3fff7 0%,
+      #e9fff1 100%
+    );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 34px;
+
+  transition: 0.4s ease;
+}
+
+.diciplinewe-card:hover .diciplinewe-iconbox {
+  transform: scale(1.08);
+}
+
+.diciplinewe-icon {
+  font-size: 2rem;
+  color: #00a86b;
+}
+
+/* CONTENT */
+
+.diciplinewe-card h3 {
+  font-size: 2rem;
+  line-height: 1.3;
+  font-weight: 800;
+
+  color: #112019;
+
+  margin-bottom: 18px;
+}
+
+.diciplinewe-card p {
+  font-size: 1.08rem;
+  line-height: 1.9;
+
+  color: #64746f;
+}
+
+/* HOVER LINE */
+
+.diciplinewe-hoverline {
+  position: absolute;
+
+  bottom: 0;
+  left: 0;
+
+  width: 0%;
+  height: 5px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #00a86b,
+      #5dff8b
+    );
+
+  transition: 0.45s ease;
+}
+
+.diciplinewe-card:hover .diciplinewe-hoverline {
+  width: 100%;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 1400px) {
+
+  .diciplinewe-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .diciplinewe-title {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 1100px) {
+
+  .diciplinewe-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .diciplinewe-title {
+    font-size: 3.4rem;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .diciplinewe {
+    padding: 90px 5%;
+  }
+
+  .diciplinewe-description {
+    font-size: 1.1rem;
+  }
+
+  .diciplinewe-card {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .diciplinewe {
+    padding: 75px 5%;
+  }
+
+  .diciplinewe-header {
+    margin-bottom: 60px;
+  }
+
+  .diciplinewe-title {
+    font-size: 2.7rem;
+    line-height: 1.15;
+  }
+
+  .diciplinewe-description {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .diciplinewe-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .diciplinewe-card {
+    min-height: auto;
+    padding: 34px 28px;
+  }
+
+  .diciplinewe-card h3 {
+    font-size: 1.7rem;
+  }
+
+  .diciplinewe-card p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .diciplinewe {
+    padding: 65px 4%;
+  }
+
+  .diciplinewe-tag {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .diciplinewe-title {
+    font-size: 2rem;
+  }
+
+  .diciplinewe-description {
+    font-size: 0.95rem;
+  }
+
+  .diciplinewe-card {
+    border-radius: 24px;
+  }
+
+  .diciplinewe-iconbox {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+  }
+
+  .diciplinewe-icon {
+    font-size: 1.7rem;
+  }
+}
+/* ======================================= */
+/* MOBILE PAGINATION SLIDER */
+/* ======================================= */
+
+.diciplinewe-mobile-wrapper {
+  display: none;
+}
+
+/* MOBILE ONLY */
+
+@media (max-width: 768px) {
+
+  /* HIDE GRID */
+  .diciplinewe-grid {
+    display: none;
+  }
+
+  /* SHOW SLIDER */
+  .diciplinewe-mobile-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .mobile-card {
+    width: 100%;
+    min-height: 320px;
+  }
+
+  /* ARROWS */
+
+  .diciplinewe-arrow {
+    position: absolute;
+    top: 42%;
+
+    transform: translateY(-50%);
+
+    width: 44px;
+    height: 44px;
+
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+    color: #00a86b;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 10;
+
+    box-shadow:
+      0 10px 30px rgba(0, 168, 107, 0.12);
+
+    transition: 0.3s ease;
+  }
+
+  .diciplinewe-arrow:hover {
+    background: #00a86b;
+    color: #ffffff;
+  }
+
+  .diciplinewe-arrow.left {
+    left: -8px;
+  }
+
+  .diciplinewe-arrow.right {
+    right: -8px;
+  }
+
+  /* DOTS */
+
+  .diciplinewe-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 28px;
+  }
+
+  .diciplinewe-dot {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: rgba(0, 168, 107, 0.2);
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+  }
+
+  .active-dot {
+    width: 34px;
+
+    border-radius: 30px;
+
+    background: linear-gradient(
+      90deg,
+      #00a86b,
+      #5dff8b
+    );
+  }
+
+  .active-line {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .mobile-card {
+    padding: 34px 26px;
+    border-radius: 24px;
+  }
+
+  .diciplinewe-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+
+  .diciplinewe-arrow.left {
+    left: -5px;
+  }
+
+  .diciplinewe-arrow.right {
+    right: -5px;
+  }
+}

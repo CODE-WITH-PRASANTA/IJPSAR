@@ -1,0 +1,366 @@
+/* IJwelcomes.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ijwelcome {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 110px 7%;
+  background: #ffffff;
+}
+
+/* LIGHT OVERLAY EFFECT */
+.ijwelcome::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(181, 255, 0, 0.08),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(0, 168, 107, 0.06),
+      transparent 30%
+    );
+  z-index: 1;
+}
+
+/* GREEN GLOW */
+.ijwelcome-overlay {
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 500px;
+  height: 500px;
+  background: rgba(186, 255, 0, 0.12);
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+/* CONTAINER */
+
+.ijwelcome-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 80px;
+}
+
+/* ===================== */
+/* LEFT SECTION */
+/* ===================== */
+
+.ijwelcome-left {
+  flex: 1;
+  max-width: 850px;
+}
+
+.ijwelcome-tag {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 50px;
+
+  background: rgba(186, 255, 0, 0.08);
+  border: 1px solid rgba(0, 128, 85, 0.12);
+
+  backdrop-filter: blur(10px);
+
+  color: #008055;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+/* TITLE */
+
+.ijwelcome-title {
+  font-size: 5rem;
+  line-height: 1.05;
+  font-weight: 800;
+  margin-bottom: 28px;
+  letter-spacing: -2px;
+  color: #052e24;
+}
+
+.ijwelcome-title span {
+  color: #7bc400;
+}
+
+/* DESCRIPTION */
+
+.ijwelcome-description {
+  font-size: 1.22rem;
+  line-height: 1.95;
+  color: #5d6d67;
+  max-width: 760px;
+  margin-bottom: 45px;
+}
+
+/* ===================== */
+/* STATS */
+/* ===================== */
+
+.ijwelcome-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.ijwelcome-stat-card {
+  min-width: 190px;
+  padding: 28px 24px;
+  border-radius: 24px;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(0, 128, 85, 0.08);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.06),
+    0 2px 10px rgba(123, 196, 0, 0.05);
+
+  transition: all 0.4s ease;
+}
+
+.ijwelcome-stat-card:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(123, 196, 0, 0.35);
+
+  box-shadow:
+    0 18px 40px rgba(123, 196, 0, 0.12);
+}
+
+.ijwelcome-stat-card h3 {
+  font-size: 2rem;
+  color: #7bc400;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+
+.ijwelcome-stat-card p {
+  color: #5d6d67;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+/* ===================== */
+/* RIGHT SECTION */
+/* ===================== */
+
+.ijwelcome-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ijwelcome-card {
+  width: 420px;
+  padding: 52px 40px;
+  border-radius: 32px;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(0, 128, 85, 0.08);
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.08),
+    0 5px 25px rgba(123, 196, 0, 0.08);
+}
+
+.ijwelcome-card h2 {
+  font-size: 2.2rem;
+  color: #052e24;
+  margin-bottom: 18px;
+  font-weight: 800;
+}
+
+.ijwelcome-card p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #5d6d67;
+  margin-bottom: 35px;
+}
+
+/* ===================== */
+/* BUTTON */
+/* ===================== */
+
+.ijwelcome-btn {
+  width: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  padding: 22px 30px;
+  border-radius: 18px;
+
+  background: linear-gradient(
+    90deg,
+    #9fe400 0%,
+    #c8ff39 100%
+  );
+
+  color: #03261f;
+
+  font-size: 1.15rem;
+  font-weight: 800;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  transition: all 0.4s ease;
+
+  box-shadow:
+    0 12px 35px rgba(159, 228, 0, 0.28);
+}
+
+.ijwelcome-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+
+  box-shadow:
+    0 18px 40px rgba(159, 228, 0, 0.4);
+}
+
+.ijwelcome-btn-icon {
+  font-size: 1rem;
+}
+
+/* ===================== */
+/* RESPONSIVE */
+/* ===================== */
+
+@media (max-width: 1400px) {
+
+  .ijwelcome-title {
+    font-size: 4.2rem;
+  }
+}
+
+@media (max-width: 1200px) {
+
+  .ijwelcome-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ijwelcome-right {
+    width: 100%;
+  }
+
+  .ijwelcome-card {
+    width: 100%;
+  }
+
+  .ijwelcome-title {
+    font-size: 3.8rem;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .ijwelcome {
+    padding: 90px 5%;
+  }
+
+  .ijwelcome-title {
+    font-size: 3rem;
+    line-height: 1.15;
+  }
+
+  .ijwelcome-description {
+    font-size: 1.1rem;
+  }
+
+  .ijwelcome-stats {
+    gap: 18px;
+  }
+
+  .ijwelcome-stat-card {
+    flex: 1 1 250px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .ijwelcome {
+    padding: 75px 5%;
+  }
+
+  .ijwelcome-title {
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+  }
+
+  .ijwelcome-description {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .ijwelcome-card {
+    padding: 40px 28px;
+    border-radius: 24px;
+  }
+
+  .ijwelcome-card h2 {
+    font-size: 1.8rem;
+  }
+
+  .ijwelcome-btn {
+    font-size: 1rem;
+    padding: 18px 24px;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .ijwelcome {
+    padding: 65px 4%;
+  }
+
+  .ijwelcome-tag {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  .ijwelcome-title {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .ijwelcome-description {
+    font-size: 0.95rem;
+  }
+
+  .ijwelcome-stats {
+    flex-direction: column;
+  }
+
+  .ijwelcome-stat-card {
+    width: 100%;
+  }
+
+  .ijwelcome-card {
+    padding: 32px 22px;
+  }
+
+  .ijwelcome-card h2 {
+    font-size: 1.5rem;
+  }
+}
