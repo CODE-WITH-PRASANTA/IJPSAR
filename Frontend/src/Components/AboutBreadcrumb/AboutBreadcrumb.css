@@ -1,0 +1,629 @@
+/* =========================================================
+   ABOUT BREADCRUMB - PREMIUM RESPONSIVE CSS
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.aboutBreadcrumb {
+  width: 100%;
+  min-height: 42vh;
+
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  padding: 70px 7%;
+
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+  isolation: isolate;
+}
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.aboutBreadcrumb::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(2, 22, 8, 0.88),
+      rgba(6, 48, 18, 0.78),
+      rgba(16, 62, 20, 0.70)
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(220, 255, 0, 0.16),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(40, 255, 120, 0.10),
+      transparent 35%
+    );
+
+  z-index: -1;
+}
+
+/* =========================================================
+   ANIMATED GLOW EFFECTS
+========================================================= */
+
+.aboutGlow {
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(90px);
+
+  z-index: -1;
+}
+
+.aboutGlow1 {
+  width: 320px;
+  height: 320px;
+
+  background: rgba(212, 255, 0, 0.16);
+
+  top: -100px;
+  right: -70px;
+
+  animation: glowFloat1 8s ease-in-out infinite;
+}
+
+.aboutGlow2 {
+  width: 260px;
+  height: 260px;
+
+  background: rgba(40, 255, 120, 0.10);
+
+  bottom: -90px;
+  left: -70px;
+
+  animation: glowFloat2 10s ease-in-out infinite;
+}
+
+@keyframes glowFloat1 {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(25px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes glowFloat2 {
+  0% {
+    transform: translateX(0px);
+  }
+
+  50% {
+    transform: translateX(25px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.aboutBreadcrumbContainer {
+  width: 100%;
+
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 50px;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.aboutBreadcrumbContent {
+  flex: 1;
+  max-width: 720px;
+
+  animation: fadeUp 1s ease;
+}
+
+/* =========================================================
+   TAG
+========================================================= */
+
+.aboutMiniTag {
+  width: fit-content;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 18px;
+
+  margin-bottom: 20px;
+
+  border-radius: 50px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(212, 255, 0, 0.18);
+
+  backdrop-filter: blur(10px);
+
+  color: white;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: 0.4s ease;
+}
+
+.aboutMiniTag:hover {
+  transform: translateY(-4px);
+
+  background: rgba(212, 255, 0, 0.12);
+
+  border-color: rgba(212, 255, 0, 0.35);
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.aboutBreadcrumbContent h1 {
+  color: white;
+
+  font-size: 3rem;
+  font-weight: 800;
+
+  line-height: 1.1;
+
+  margin-bottom: 18px;
+}
+
+.aboutBreadcrumbContent h1 span {
+  color: #d8ff3e;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.aboutBreadcrumbContent p {
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 1rem;
+
+  line-height: 1.8;
+
+  max-width: 650px;
+
+  margin-bottom: 28px;
+}
+
+/* =========================================================
+   BREADCRUMB PATH
+========================================================= */
+
+.breadcrumbPath {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  flex-wrap: wrap;
+
+  padding: 14px 20px;
+
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(212, 255, 0, 0.18);
+
+  backdrop-filter: blur(14px);
+}
+
+.breadcrumbPath a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  text-decoration: none;
+
+  color: #d8ff3e;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.breadcrumbPath a:hover {
+  color: white;
+}
+
+.breadcrumbArrow {
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 0.8rem;
+}
+
+.breadcrumbPath span {
+  color: white;
+
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* =========================================================
+   RIGHT CARD
+========================================================= */
+
+.aboutRightCard {
+  width: 360px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 32px;
+
+  border-radius: 28px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(212, 255, 0, 0.18);
+
+  backdrop-filter: blur(16px);
+
+  transition: 0.4s ease;
+
+  animation: fadeScale 1s ease;
+}
+
+.aboutRightCard:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(212, 255, 0, 0.35);
+
+  box-shadow: 0 12px 30px rgba(212, 255, 0, 0.12);
+}
+
+/* =========================================================
+   ANIMATED CIRCLE
+========================================================= */
+
+.circleAnimation {
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+
+  top: -50px;
+  right: -50px;
+
+  background: radial-gradient(
+    circle,
+    rgba(212, 255, 0, 0.22),
+    transparent 70%
+  );
+
+  animation: rotateGlow 8s linear infinite;
+}
+
+@keyframes rotateGlow {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.aboutRightCard h3 {
+  color: white;
+
+  font-size: 1.45rem;
+  font-weight: 700;
+
+  margin-bottom: 16px;
+
+  position: relative;
+  z-index: 2;
+}
+
+.aboutRightCard p {
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: 0.95rem;
+
+  line-height: 1.8;
+
+  margin-bottom: 24px;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.aboutRightCard button {
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 14px 24px;
+
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    #63b600,
+    #d8ff3e
+  );
+
+  color: #173600;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  transition: 0.4s ease;
+
+  position: relative;
+  z-index: 2;
+}
+
+.aboutRightCard button:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 10px 24px rgba(212, 255, 0, 0.30);
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================================
+   LARGE DEVICES
+========================================================= */
+
+@media (max-width: 1300px) {
+  .aboutBreadcrumbContent h1 {
+    font-size: 2.7rem;
+  }
+}
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (max-width: 1100px) {
+  .aboutBreadcrumb {
+    padding: 65px 5%;
+  }
+
+  .aboutBreadcrumbContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .aboutRightCard {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+  .aboutBreadcrumb {
+    min-height: auto;
+
+    padding: 55px 5%;
+  }
+
+  .aboutBreadcrumbContainer {
+    gap: 35px;
+  }
+
+  .aboutBreadcrumbContent h1 {
+    font-size: 2.2rem;
+  }
+
+  .aboutBreadcrumbContent p {
+    font-size: 0.95rem;
+  }
+
+  .breadcrumbPath {
+    padding: 12px 16px;
+  }
+
+  .aboutRightCard {
+    padding: 26px;
+  }
+
+  .aboutRightCard h3 {
+    font-size: 1.25rem;
+  }
+
+  .aboutRightCard p {
+    font-size: 0.92rem;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+  .aboutBreadcrumb {
+    padding: 50px 5%;
+  }
+
+  .aboutMiniTag {
+    font-size: 11px;
+
+    padding: 9px 15px;
+  }
+
+  .aboutBreadcrumbContent h1 {
+    font-size: 1.8rem;
+
+    line-height: 1.2;
+  }
+
+  .aboutBreadcrumbContent p {
+    font-size: 0.9rem;
+
+    line-height: 1.7;
+  }
+
+  .breadcrumbPath {
+    width: 100%;
+
+    justify-content: center;
+
+    padding: 12px 14px;
+
+    gap: 10px;
+  }
+
+  .breadcrumbPath a,
+  .breadcrumbPath span {
+    font-size: 0.88rem;
+  }
+
+  .aboutRightCard {
+    width: 100%;
+
+    padding: 22px;
+
+    border-radius: 22px;
+  }
+
+  .aboutRightCard h3 {
+    font-size: 1.1rem;
+  }
+
+  .aboutRightCard p {
+    font-size: 0.88rem;
+  }
+
+  .aboutRightCard button {
+    width: 100%;
+
+    padding: 13px 20px;
+
+    font-size: 0.9rem;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+  .aboutBreadcrumb {
+    padding: 45px 4%;
+  }
+
+  .aboutBreadcrumbContent h1 {
+    font-size: 1.5rem;
+  }
+
+  .aboutBreadcrumbContent p {
+    font-size: 0.84rem;
+  }
+
+  .breadcrumbPath {
+    padding: 10px 12px;
+  }
+
+  .breadcrumbPath a,
+  .breadcrumbPath span {
+    font-size: 0.8rem;
+  }
+
+  .aboutRightCard {
+    padding: 18px;
+  }
+
+  .aboutRightCard h3 {
+    font-size: 1rem;
+  }
+
+  .aboutRightCard p {
+    font-size: 0.82rem;
+  }
+
+  .aboutRightCard button {
+    font-size: 0.82rem;
+  }
+}

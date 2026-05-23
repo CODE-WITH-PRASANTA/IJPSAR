@@ -1,0 +1,786 @@
+/* =========================================================
+   ABOUT JOURNAL - FULLY UPDATED PREMIUM CSS
+   WHITE PREMIUM UI + RESPONSIVE FOR ALL DEVICES
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.aboutJournal {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  padding: 100px 7%;
+
+  background: #ffffff;
+
+  isolation: isolate;
+}
+
+/* =========================================================
+   PREMIUM GLOW EFFECTS
+========================================================= */
+
+.journalGlow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+  z-index: -1;
+}
+
+.journalGlow1 {
+  width: 380px;
+  height: 380px;
+
+  background: rgba(212, 255, 0, 0.10);
+
+  top: -140px;
+  right: -100px;
+
+  animation: glowFloat1 8s ease-in-out infinite;
+}
+
+.journalGlow2 {
+  width: 320px;
+  height: 320px;
+
+  background: rgba(60, 255, 120, 0.08);
+
+  bottom: -140px;
+  left: -100px;
+
+  animation: glowFloat2 10s ease-in-out infinite;
+}
+
+@keyframes glowFloat1 {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(25px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes glowFloat2 {
+  0% {
+    transform: translateX(0px);
+  }
+
+  50% {
+    transform: translateX(25px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.aboutJournalContainer {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 55px;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.aboutJournalLeft {
+  flex: 1;
+  max-width: 860px;
+}
+
+/* =========================================================
+   TAG
+========================================================= */
+
+.journalTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 20px;
+
+  border-radius: 50px;
+
+  background: rgba(127, 184, 0, 0.08);
+
+  border: 1px solid rgba(127, 184, 0, 0.18);
+
+  color: #5d8a00;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  margin-bottom: 26px;
+
+  transition: 0.4s ease;
+}
+
+.journalTag:hover {
+  transform: translateY(-4px);
+
+  background: rgba(127, 184, 0, 0.14);
+
+  border-color: rgba(127, 184, 0, 0.35);
+}
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.aboutJournalLeft h1 {
+  color: #0a1f2f;
+
+  font-size: 3.6rem;
+  font-weight: 800;
+
+  line-height: 1.12;
+
+  margin-bottom: 26px;
+}
+
+.aboutJournalLeft h1 span {
+  color: #7fb800;
+}
+
+/* =========================================================
+   PARAGRAPH
+========================================================= */
+
+.aboutJournalLeft p {
+  color: #334155;
+
+  font-size: 1rem;
+
+  line-height: 1.95;
+
+  margin-bottom: 24px;
+}
+
+/* =========================================================
+   FEATURE GRID
+========================================================= */
+
+.journalFeatureGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 24px;
+
+  margin: 50px 0;
+}
+
+/* =========================================================
+   FEATURE CARDS
+========================================================= */
+
+.journalFeatureCard {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+
+  padding: 26px;
+
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(248, 255, 240, 0.98),
+      rgba(240, 255, 228, 0.98)
+    );
+
+  border: 1px solid rgba(127, 184, 0, 0.16);
+
+  overflow: hidden;
+
+  transition: all 0.45s ease;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(127, 184, 0, 0.04);
+}
+
+/* TOP BORDER */
+
+.journalFeatureCard::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #63b600,
+      #d8ff3e,
+      #63b600
+    );
+}
+
+/* PREMIUM GLOW */
+
+.journalFeatureCard::after {
+  content: "";
+
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(212, 255, 0, 0.18),
+      transparent 70%
+    );
+
+  top: -60px;
+  right: -60px;
+
+  opacity: 0;
+
+  transition: 0.5s ease;
+}
+
+.journalFeatureCard:hover::after {
+  opacity: 1;
+}
+
+.journalFeatureCard:hover {
+  transform: translateY(-10px);
+
+  border-color: rgba(127, 184, 0, 0.35);
+
+  box-shadow:
+    0 20px 45px rgba(127, 184, 0, 0.15);
+}
+
+/* =========================================================
+   FEATURE ICON
+========================================================= */
+
+.featureIcon {
+  min-width: 60px;
+  width: 60px;
+  height: 60px;
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #63b600,
+      #d8ff3e
+    );
+
+  color: #173600;
+
+  font-size: 1.4rem;
+
+  transition: 0.45s ease;
+
+  box-shadow:
+    0 10px 24px rgba(127, 184, 0, 0.20);
+}
+
+.journalFeatureCard:hover .featureIcon {
+  transform: rotate(-8deg) scale(1.08);
+}
+
+.journalFeatureCard h3 {
+  color: #102030;
+
+  font-size: 1.1rem;
+
+  margin-bottom: 8px;
+}
+
+.journalFeatureCard p {
+  color: #475569;
+
+  font-size: 0.92rem;
+
+  line-height: 1.75;
+
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   CONTENT CARDS
+========================================================= */
+
+.focusSection,
+.disclaimerCard,
+.journalInfoCard,
+.publishCard {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 34px;
+
+  margin-top: 40px;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(248, 255, 240, 0.98),
+      rgba(240, 255, 228, 0.98)
+    );
+
+  border: 1px solid rgba(127, 184, 0, 0.16);
+
+  transition: 0.45s ease;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* TOP LINE */
+
+.focusSection::before,
+.disclaimerCard::before,
+.journalInfoCard::before,
+.publishCard::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #63b600,
+      #d8ff3e,
+      #63b600
+    );
+}
+
+.focusSection:hover,
+.disclaimerCard:hover,
+.journalInfoCard:hover,
+.publishCard:hover {
+  transform: translateY(-8px);
+
+  border-color: rgba(127, 184, 0, 0.35);
+
+  box-shadow:
+    0 20px 45px rgba(127, 184, 0, 0.14);
+}
+
+/* =========================================================
+   SECTION TITLES
+========================================================= */
+
+.focusTitle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 22px;
+}
+
+.focusTitle svg {
+  color: #7fb800;
+
+  font-size: 1.6rem;
+}
+
+.focusTitle h2,
+.disclaimerCard h2,
+.journalInfoTop h2,
+.publishCard h3 {
+  color: #102030;
+
+  font-size: 1.8rem;
+}
+
+.focusSection p,
+.disclaimerCard p,
+.publishCard p {
+  color: #475569;
+}
+
+/* =========================================================
+   RIGHT SIDEBAR
+========================================================= */
+
+.aboutJournalRight {
+  width: 390px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 28px;
+}
+
+/* =========================================================
+   INFO HEADER
+========================================================= */
+
+.journalInfoTop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 30px;
+}
+
+.journalInfoTop svg {
+  color: #7fb800;
+
+  font-size: 1.6rem;
+}
+
+/* =========================================================
+   INFO ITEMS
+========================================================= */
+
+.journalInfoItem {
+  padding: 18px 0;
+
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.journalInfoItem:last-child {
+  border-bottom: none;
+}
+
+.journalInfoItem h4 {
+  color: #7fb800;
+
+  font-size: 0.95rem;
+
+  margin-bottom: 8px;
+}
+
+.journalInfoItem p {
+  color: #475569;
+
+  font-size: 0.92rem;
+
+  line-height: 1.75;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.publishCard button {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+
+  padding: 15px 20px;
+
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #63b600,
+      #d8ff3e
+    );
+
+  color: #173600;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  transition: 0.45s ease;
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.publishCard button::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 100%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.45),
+      transparent
+    );
+
+  transition: 0.7s ease;
+}
+
+.publishCard button:hover::before {
+  left: 100%;
+}
+
+.publishCard button:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 15px 30px rgba(127, 184, 0, 0.25);
+}
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (max-width: 1400px) {
+  .aboutJournalLeft h1 {
+    font-size: 3.1rem;
+  }
+}
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (max-width: 1200px) {
+  .aboutJournal {
+    padding: 85px 5%;
+  }
+
+  .aboutJournalContainer {
+    flex-direction: column;
+  }
+
+  .aboutJournalRight {
+    width: 100%;
+  }
+
+  .aboutJournalLeft {
+    max-width: 100%;
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 992px) {
+  .aboutJournalLeft h1 {
+    font-size: 2.7rem;
+  }
+
+  .journalFeatureGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* =========================================================
+   MOBILE TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+  .aboutJournal {
+    padding: 70px 5%;
+  }
+
+  .aboutJournalContainer {
+    gap: 40px;
+  }
+
+  .aboutJournalLeft h1 {
+    font-size: 2.2rem;
+  }
+
+  .aboutJournalLeft p {
+    font-size: 0.95rem;
+  }
+
+  .journalFeatureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .journalFeatureCard,
+  .focusSection,
+  .disclaimerCard,
+  .journalInfoCard,
+  .publishCard {
+    padding: 24px;
+  }
+
+  .focusTitle h2,
+  .disclaimerCard h2,
+  .journalInfoTop h2,
+  .publishCard h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+  .aboutJournal {
+    padding: 60px 5%;
+  }
+
+  .journalTag {
+    font-size: 11px;
+
+    padding: 10px 16px;
+
+    letter-spacing: 1.5px;
+  }
+
+  .aboutJournalLeft h1 {
+    font-size: 1.9rem;
+
+    line-height: 1.2;
+  }
+
+  .aboutJournalLeft p {
+    font-size: 0.9rem;
+
+    line-height: 1.8;
+  }
+
+  .journalFeatureCard {
+    flex-direction: column;
+
+    gap: 16px;
+  }
+
+  .featureIcon {
+    width: 52px;
+    height: 52px;
+
+    min-width: 52px;
+
+    font-size: 1.1rem;
+  }
+
+  .journalFeatureCard h3 {
+    font-size: 1rem;
+  }
+
+  .journalFeatureCard p {
+    font-size: 0.88rem;
+  }
+
+  .focusTitle {
+    align-items: flex-start;
+  }
+
+  .focusTitle h2,
+  .disclaimerCard h2,
+  .journalInfoTop h2,
+  .publishCard h3 {
+    font-size: 1.3rem;
+  }
+
+  .journalInfoItem h4 {
+    font-size: 0.88rem;
+  }
+
+  .journalInfoItem p,
+  .publishCard p {
+    font-size: 0.88rem;
+  }
+
+  .publishCard button {
+    padding: 14px 18px;
+
+    font-size: 0.9rem;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+  .aboutJournal {
+    padding: 50px 4%;
+  }
+
+  .aboutJournalLeft h1 {
+    font-size: 1.6rem;
+  }
+
+  .aboutJournalLeft p {
+    font-size: 0.84rem;
+  }
+
+  .journalFeatureCard,
+  .focusSection,
+  .disclaimerCard,
+  .journalInfoCard,
+  .publishCard {
+    padding: 18px;
+
+    border-radius: 24px;
+  }
+
+  .journalTag {
+    font-size: 10px;
+  }
+
+  .focusTitle h2,
+  .disclaimerCard h2,
+  .journalInfoTop h2,
+  .publishCard h3 {
+    font-size: 1.1rem;
+  }
+
+  .publishCard button {
+    font-size: 0.82rem;
+  }
+}
