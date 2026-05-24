@@ -1,0 +1,247 @@
+/* =========================================
+   AUTHORS PAGE
+========================================= */
+
+.authorsMainContainer {
+  width: 100%;
+  background: #f8f8f8;
+  padding: 70px 20px;
+}
+
+.authorsWrapper {
+  width: 100%;
+  max-width: 1320px;
+  margin: auto;
+  display: flex;
+  gap: 55px;
+  align-items: flex-start;
+}
+
+/* =========================================
+   LEFT SIDE
+========================================= */
+
+.authorsLeftSection {
+  flex: 1;
+}
+
+.authorsTag {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #63B600;
+  margin-bottom: 18px;
+}
+
+.authorsMainHeading {
+  font-size: 42px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 18px;
+}
+
+.authorsDescription {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #374151;
+  margin-bottom: 35px;
+}
+
+.authorsContentSection {
+  margin-bottom: 30px;
+}
+
+.authorsSectionHeading {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 14px;
+}
+
+.authorsText {
+  font-size: 17px;
+  line-height: 1.9;
+  color: #374151;
+}
+
+.authorsList {
+  padding-left: 22px;
+}
+
+.authorsList li {
+  font-size: 17px;
+  line-height: 1.9;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+/* =========================================
+   TERMS
+========================================= */
+
+.authorsTermsSection {
+  margin-top: 40px;
+}
+
+.authorsTermsHeading {
+  font-size: 28px;
+  line-height: 1.4;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 16px;
+}
+
+.authorsTermsText {
+  font-size: 17px;
+  line-height: 2;
+  color: #374151;
+}
+
+/* =========================================
+   RIGHT SIDE
+========================================= */
+
+.authorsRightSection {
+  width: 360px;
+  position: sticky;
+  top: 110px;
+}
+
+.authorsSidebarCard {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #63B600;
+  border-radius: 22px;
+  padding: 28px;
+  margin-bottom: 24px;
+  transition: 0.4s ease;
+}
+
+.authorsSidebarCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(216, 255, 62, 0.25);
+}
+
+.authorsSidebarHeading {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #111827;
+  margin-bottom: 20px;
+}
+
+.authorsLinksWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorsSidebarLink {
+  font-size: 16px;
+  color: #374151;
+  text-decoration: none;
+  padding: 14px 0;
+  border-bottom: 1px solid #ececec;
+  transition: 0.3s ease;
+}
+
+.authorsSidebarLink:last-child {
+  border-bottom: none;
+}
+
+.authorsSidebarLink:hover {
+  color: #63B600;
+  padding-left: 8px;
+}
+
+.authorsChargeText {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #374151;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 992px) {
+  .authorsWrapper {
+    flex-direction: column;
+  }
+
+  .authorsRightSection {
+    width: 100%;
+    position: static;
+  }
+
+  .authorsMainHeading {
+    font-size: 36px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .authorsMainContainer {
+    padding: 50px 16px;
+  }
+
+  .authorsWrapper {
+    gap: 35px;
+  }
+
+  .authorsMainHeading {
+    font-size: 30px;
+  }
+
+  .authorsDescription,
+  .authorsText,
+  .authorsTermsText,
+  .authorsList li,
+  .authorsSidebarLink,
+  .authorsChargeText {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .authorsSectionHeading {
+    font-size: 22px;
+  }
+
+  .authorsTermsHeading {
+    font-size: 24px;
+  }
+
+  .authorsSidebarCard {
+    padding: 22px;
+    border-radius: 18px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  .authorsMainHeading {
+    font-size: 26px;
+  }
+
+  .authorsSectionHeading {
+    font-size: 20px;
+  }
+
+  .authorsTermsHeading {
+    font-size: 22px;
+  }
+
+  .authorsSidebarHeading {
+    font-size: 16px;
+  }
+
+  .authorsSidebarCard {
+    padding: 20px;
+  }
+}

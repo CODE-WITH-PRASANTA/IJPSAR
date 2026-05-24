@@ -1,0 +1,636 @@
+/* =========================================================
+   PUBLICATION ETHICS BREADCRUMB
+   PREMIUM • PROFESSIONAL • RESPONSIVE
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.publicationEthicsBreadcrumb {
+  width: 100%;
+  min-height: 250px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  padding: 45px 7%;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* =========================================================
+   DARK PREMIUM OVERLAY
+========================================================= */
+
+.publicationEthicsOverlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 10, 4, 0.95) 0%,
+      rgba(0, 40, 10, 0.88) 40%,
+      rgba(28, 70, 8, 0.72) 75%,
+      rgba(160, 220, 0, 0.35) 100%
+    );
+
+  z-index: 1;
+}
+
+/* =========================================================
+   GLOW EFFECTS
+========================================================= */
+
+.publicationEthicsGlowOne {
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  border-radius: 50%;
+
+  top: -100px;
+  left: -80px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(210, 255, 0, 0.16),
+      transparent 72%
+    );
+
+  filter: blur(10px);
+
+  animation: ethicsFloat 7s ease-in-out infinite;
+
+  z-index: 1;
+}
+
+.publicationEthicsGlowTwo {
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  border-radius: 50%;
+
+  bottom: -100px;
+  right: -80px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(180, 255, 0, 0.14),
+      transparent 72%
+    );
+
+  filter: blur(10px);
+
+  animation: ethicsFloat 9s ease-in-out infinite;
+
+  z-index: 1;
+}
+
+@keyframes ethicsFloat {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(14px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.publicationEthicsContainer {
+  width: 100%;
+  max-width: 1550px;
+
+  margin: auto;
+
+  position: relative;
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 35px;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.publicationEthicsContent {
+  flex: 1;
+  max-width: 700px;
+}
+
+/* =========================================================
+   TOP TAG
+========================================================= */
+
+.publicationEthicsTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 18px;
+
+  border-radius: 50px;
+
+  background:
+    rgba(195, 255, 0, 0.08);
+
+  border: 1px solid
+    rgba(195, 255, 0, 0.18);
+
+  backdrop-filter: blur(10px);
+
+  color: #d6ff2f;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1.3px;
+
+  margin-bottom: 16px;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.publicationEthicsContent h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+
+  line-height: 1.15;
+
+  color: #ffffff;
+
+  margin-bottom: 14px;
+}
+
+.publicationEthicsContent h1 span {
+  color: #d6ff2f;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.publicationEthicsContent p {
+  font-size: 0.95rem;
+
+  line-height: 1.8;
+
+  color:
+    rgba(255, 255, 255, 0.80);
+
+  max-width: 620px;
+
+  margin-bottom: 20px;
+}
+
+/* =========================================================
+   BREADCRUMB
+========================================================= */
+
+.publicationEthicsPath {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+
+  padding: 10px 20px;
+
+  border-radius: 50px;
+
+  background:
+    rgba(195, 255, 0, 0.08);
+
+  border: 1px solid
+    rgba(195, 255, 0, 0.14);
+
+  backdrop-filter: blur(10px);
+}
+
+.publicationEthicsPath a {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  text-decoration: none;
+
+  color: #ffffff;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  transition: 0.35s ease;
+}
+
+.publicationEthicsPath a:hover {
+  color: #d6ff2f;
+}
+
+.publicationPathArrow {
+  font-size: 0.65rem;
+
+  color:
+    rgba(255, 255, 255, 0.55);
+}
+
+.publicationEthicsPath span {
+  color: #d6ff2f;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* =========================================================
+   RIGHT CARD
+========================================================= */
+
+.publicationEthicsCard {
+  width: 100%;
+  max-width: 320px;
+
+  padding: 24px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(25, 65, 10, 0.78),
+      rgba(110, 170, 0, 0.18)
+    );
+
+  border: 1px solid
+    rgba(200, 255, 0, 0.12);
+
+  backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 18px 35px rgba(0, 0, 0, 0.22);
+
+  transition: 0.45s ease;
+}
+
+.publicationEthicsCard:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 22px 40px rgba(180, 255, 0, 0.14);
+}
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.publicationEthicsIcon {
+  width: 55px;
+  height: 55px;
+
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #d6ff2f,
+      #8de400
+    );
+
+  color: #061f00;
+
+  font-size: 1.2rem;
+
+  margin-bottom: 16px;
+
+  box-shadow:
+    0 10px 22px rgba(180, 255, 0, 0.18);
+}
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.publicationEthicsCard h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+
+  line-height: 1.4;
+
+  color: #ffffff;
+
+  margin-bottom: 12px;
+}
+
+.publicationEthicsCard p {
+  font-size: 0.85rem;
+
+  line-height: 1.7;
+
+  color:
+    rgba(255, 255, 255, 0.78);
+
+  margin-bottom: 18px;
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.publicationEthicsStats {
+  display: flex;
+  gap: 12px;
+}
+
+.publicationStatBox {
+  flex: 1;
+
+  text-align: center;
+
+  padding: 12px 10px;
+
+  border-radius: 14px;
+
+  background:
+    rgba(255, 255, 255, 0.05);
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.08);
+
+  transition: 0.35s ease;
+}
+
+.publicationStatBox:hover {
+  transform: translateY(-4px);
+
+  background:
+    rgba(195, 255, 0, 0.10);
+}
+
+.publicationStatBox h4 {
+  font-size: 1.1rem;
+  font-weight: 800;
+
+  color: #d6ff2f;
+
+  margin-bottom: 4px;
+}
+
+.publicationStatBox span {
+  font-size: 0.68rem;
+  font-weight: 600;
+
+  color:
+    rgba(255, 255, 255, 0.72);
+}
+
+/* =========================================================
+   1200px
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .publicationEthicsContent h1 {
+    font-size: 2.2rem;
+  }
+
+  .publicationEthicsContainer {
+    gap: 28px;
+  }
+}
+
+/* =========================================================
+   992px
+========================================================= */
+
+@media (max-width: 992px) {
+
+  .publicationEthicsBreadcrumb {
+    min-height: auto;
+
+    padding: 45px 5%;
+  }
+
+  .publicationEthicsContainer {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 28px;
+  }
+
+  .publicationEthicsContent {
+    max-width: 100%;
+  }
+
+  .publicationEthicsCard {
+    max-width: 100%;
+  }
+
+  .publicationEthicsContent h1 {
+    font-size: 2rem;
+  }
+}
+
+/* =========================================================
+   768px
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .publicationEthicsBreadcrumb {
+    padding: 40px 5%;
+  }
+
+  .publicationEthicsContent h1 {
+    font-size: 1.7rem;
+  }
+
+  .publicationEthicsContent p {
+    font-size: 0.86rem;
+  }
+
+  .publicationEthicsCard {
+    padding: 22px 20px;
+  }
+}
+
+/* =========================================================
+   576px
+========================================================= */
+
+@media (max-width: 576px) {
+
+  .publicationEthicsBreadcrumb {
+    padding: 35px 4%;
+  }
+
+  .publicationEthicsTag {
+    font-size: 9px;
+
+    padding: 7px 14px;
+  }
+
+  .publicationEthicsContent h1 {
+    font-size: 1.45rem;
+  }
+
+  .publicationEthicsContent p {
+    font-size: 0.8rem;
+
+    line-height: 1.7;
+  }
+
+  .publicationEthicsPath {
+    width: 100%;
+
+    justify-content: center;
+
+    padding: 10px 14px;
+  }
+
+  .publicationEthicsPath a,
+  .publicationEthicsPath span {
+    font-size: 0.76rem;
+  }
+
+  .publicationEthicsCard {
+    padding: 20px 18px;
+
+    border-radius: 20px;
+  }
+
+  .publicationEthicsCard h3 {
+    font-size: 1.05rem;
+  }
+
+  .publicationEthicsCard p {
+    font-size: 0.78rem;
+  }
+}
+
+/* =========================================================
+   420px
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .publicationEthicsBreadcrumb {
+    padding: 30px 4%;
+  }
+
+  .publicationEthicsContainer {
+    gap: 22px;
+  }
+
+  .publicationEthicsTag {
+    width: 100%;
+
+    justify-content: center;
+
+    text-align: center;
+  }
+
+  .publicationEthicsContent h1 {
+    font-size: 1.2rem;
+  }
+
+  .publicationEthicsContent p {
+    font-size: 0.72rem;
+  }
+
+  .publicationEthicsPath {
+    flex-direction: column;
+
+    border-radius: 16px;
+  }
+
+  .publicationPathArrow {
+    transform: rotate(90deg);
+  }
+
+  .publicationEthicsStats {
+    flex-direction: column;
+  }
+
+  .publicationEthicsCard {
+    padding: 18px 16px;
+  }
+
+  .publicationEthicsIcon {
+    width: 50px;
+    height: 50px;
+
+    font-size: 1.05rem;
+  }
+
+  .publicationStatBox h4 {
+    font-size: 0.95rem;
+  }
+
+  .publicationStatBox span {
+    font-size: 0.64rem;
+  }
+}
+
+/* =========================================================
+   360px
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .publicationEthicsBreadcrumb {
+    padding: 28px 3%;
+  }
+
+  .publicationEthicsContent h1 {
+    font-size: 1.05rem;
+  }
+
+  .publicationEthicsContent p {
+    font-size: 0.68rem;
+  }
+
+  .publicationEthicsCard {
+    padding: 16px 14px;
+  }
+
+  .publicationEthicsCard h3 {
+    font-size: 0.9rem;
+  }
+
+  .publicationEthicsCard p {
+    font-size: 0.7rem;
+  }
+}

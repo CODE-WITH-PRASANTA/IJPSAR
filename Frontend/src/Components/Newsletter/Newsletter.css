@@ -1,0 +1,627 @@
+/* =========================================================
+   PREMIUM NEWSLETTER - FULLY RESPONSIVE CSS
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.newsletter {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  padding: 100px 7%;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fbf9 0%,
+      #ffffff 100%
+    );
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.newsletterContainer {
+  position: relative;
+
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 70px;
+
+  padding: 75px 70px;
+
+  border-radius: 38px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #082a57 0%,
+      #0a4f73 45%,
+      #0db7a7 100%
+    );
+
+  box-shadow:
+    0 25px 60px rgba(0, 182, 155, 0.16);
+
+  z-index: 1;
+}
+
+/* =========================================================
+   GLOW EFFECTS
+========================================================= */
+
+.newsletterGlowOne {
+  position: absolute;
+
+  width: 380px;
+  height: 380px;
+
+  border-radius: 50%;
+
+  top: -160px;
+  left: -140px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(214, 255, 58, 0.22),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+.newsletterGlowTwo {
+  position: absolute;
+
+  width: 320px;
+  height: 320px;
+
+  border-radius: 50%;
+
+  bottom: -140px;
+  right: -120px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.10),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.newsletterLeft {
+  flex: 1;
+
+  position: relative;
+  z-index: 2;
+}
+
+.newsletterTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 22px;
+
+  border-radius: 50px;
+
+  background:
+    rgba(255, 255, 255, 0.12);
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.14);
+
+  color: #d6ff3a;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 1.6px;
+
+  margin-bottom: 24px;
+
+  backdrop-filter: blur(10px);
+}
+
+.newsletterTag svg {
+  color: #d6ff3a;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.newsletterLeft h2 {
+  font-size: 3.1rem;
+  font-weight: 800;
+
+  line-height: 1.2;
+
+  color: white;
+
+  margin-bottom: 20px;
+}
+
+.newsletterLeft h2 span {
+  color: #d6ff3a;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.newsletterLeft p {
+  font-size: 1.05rem;
+
+  line-height: 1.9;
+
+  color:
+    rgba(255, 255, 255, 0.78);
+
+  max-width: 620px;
+
+  margin-bottom: 34px;
+}
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.newsletterFeatures {
+  display: flex;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 16px;
+}
+
+.newsletterFeatureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 18px;
+
+  border-radius: 50px;
+
+  background:
+    rgba(255, 255, 255, 0.10);
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.12);
+
+  backdrop-filter: blur(12px);
+
+  transition: 0.35s ease;
+
+  color: white;
+}
+
+.newsletterFeatureItem:hover {
+  transform: translateY(-4px);
+
+  background:
+    rgba(214, 255, 58, 0.14);
+
+  border-color:
+    rgba(214, 255, 58, 0.25);
+}
+
+.newsletterFeatureItem svg {
+  color: #d6ff3a;
+}
+
+.newsletterFeatureItem span {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.newsletterRight {
+  width: 100%;
+  max-width: 540px;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   FORM CARD
+========================================================= */
+
+.newsletterFormCard {
+  width: 100%;
+
+  padding: 40px;
+
+  border-radius: 30px;
+
+  background:
+    rgba(255, 255, 255, 0.10);
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.14);
+
+  backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.14);
+}
+
+.newsletterFormCard h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+
+  color: white;
+
+  margin-bottom: 24px;
+}
+
+/* =========================================================
+   INPUT WRAP
+========================================================= */
+
+.newsletterInputWrap {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-bottom: 16px;
+}
+
+.newsletterInputWrap input {
+  flex: 1;
+
+  width: 100%;
+
+  height: 62px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 16px;
+
+  padding: 0 20px;
+
+  background: white;
+
+  color: #08203a;
+
+  font-size: 1rem;
+
+  transition: 0.35s ease;
+}
+
+.newsletterInputWrap input:focus {
+  box-shadow:
+    0 0 0 4px
+    rgba(214, 255, 58, 0.18);
+}
+
+.newsletterInputWrap button {
+  height: 62px;
+
+  min-width: 180px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 0 28px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #d6ff3a,
+      #00b69b
+    );
+
+  color: #08203a;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  transition: 0.35s ease;
+}
+
+.newsletterInputWrap button:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 15px 30px rgba(214, 255, 58, 0.25);
+}
+
+.newsletterFormCard small {
+  color:
+    rgba(255, 255, 255, 0.72);
+
+  font-size: 0.85rem;
+}
+
+/* =========================================================
+   1600px
+========================================================= */
+
+@media (max-width: 1600px) {
+  .newsletterContainer {
+    padding: 70px 60px;
+  }
+}
+
+/* =========================================================
+   1400px
+========================================================= */
+
+@media (max-width: 1400px) {
+  .newsletter {
+    padding: 90px 5%;
+  }
+
+  .newsletterLeft h2 {
+    font-size: 2.8rem;
+  }
+}
+
+/* =========================================================
+   1200px
+========================================================= */
+
+@media (max-width: 1200px) {
+  .newsletterContainer {
+    gap: 50px;
+  }
+
+  .newsletterLeft h2 {
+    font-size: 2.5rem;
+  }
+
+  .newsletterRight {
+    max-width: 500px;
+  }
+}
+
+/* =========================================================
+   992px
+========================================================= */
+
+@media (max-width: 992px) {
+  .newsletter {
+    padding: 80px 5%;
+  }
+
+  .newsletterContainer {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    padding: 55px 45px;
+
+    gap: 45px;
+  }
+
+  .newsletterRight {
+    max-width: 100%;
+  }
+
+  .newsletterLeft h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* =========================================================
+   768px
+========================================================= */
+
+@media (max-width: 768px) {
+  .newsletter {
+    padding: 70px 5%;
+  }
+
+  .newsletterContainer {
+    padding: 45px 30px;
+
+    border-radius: 28px;
+  }
+
+  .newsletterLeft h2 {
+    font-size: 1.9rem;
+  }
+
+  .newsletterLeft p {
+    font-size: 0.95rem;
+  }
+
+  .newsletterFeatures {
+    gap: 12px;
+  }
+
+  .newsletterInputWrap {
+    flex-direction: column;
+  }
+
+  .newsletterInputWrap input,
+  .newsletterInputWrap button {
+    width: 100%;
+  }
+
+  .newsletterInputWrap button {
+    min-width: 100%;
+
+    justify-content: center;
+  }
+}
+
+/* =========================================================
+   576px
+========================================================= */
+
+@media (max-width: 576px) {
+  .newsletter {
+    padding: 60px 4%;
+  }
+
+  .newsletterContainer {
+    padding: 36px 22px;
+
+    border-radius: 24px;
+
+    gap: 35px;
+  }
+
+  .newsletterTag {
+    font-size: 10px;
+
+    padding: 8px 16px;
+
+    letter-spacing: 1px;
+  }
+
+  .newsletterLeft h2 {
+    font-size: 1.65rem;
+  }
+
+  .newsletterLeft p {
+    font-size: 0.88rem;
+
+    line-height: 1.8;
+  }
+
+  .newsletterFeatures {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .newsletterFeatureItem {
+    width: 100%;
+
+    justify-content: center;
+  }
+
+  .newsletterFormCard {
+    padding: 28px 20px;
+
+    border-radius: 22px;
+  }
+
+  .newsletterFormCard h3 {
+    font-size: 1.2rem;
+  }
+
+  .newsletterInputWrap input,
+  .newsletterInputWrap button {
+    height: 56px;
+
+    font-size: 0.92rem;
+  }
+}
+
+/* =========================================================
+   420px
+========================================================= */
+
+@media (max-width: 420px) {
+  .newsletterContainer {
+    padding: 30px 18px;
+  }
+
+  .newsletterLeft h2 {
+    font-size: 1.4rem;
+  }
+
+  .newsletterLeft p {
+    font-size: 0.82rem;
+  }
+
+  .newsletterFeatureItem span {
+    font-size: 0.82rem;
+  }
+
+  .newsletterFormCard {
+    padding: 24px 16px;
+  }
+
+  .newsletterFormCard h3 {
+    font-size: 1.05rem;
+  }
+
+  .newsletterInputWrap input,
+  .newsletterInputWrap button {
+    height: 52px;
+
+    border-radius: 14px;
+  }
+
+  .newsletterInputWrap button {
+    font-size: 0.85rem;
+  }
+}
+
+/* =========================================================
+   360px
+========================================================= */
+
+@media (max-width: 360px) {
+  .newsletterLeft h2 {
+    font-size: 1.25rem;
+  }
+
+  .newsletterLeft p {
+    font-size: 0.78rem;
+  }
+
+  .newsletterFeatureItem {
+    padding: 10px 14px;
+  }
+
+  .newsletterFeatureItem span {
+    font-size: 0.76rem;
+  }
+
+  .newsletterFormCard {
+    padding: 20px 14px;
+  }
+
+  .newsletterInputWrap input,
+  .newsletterInputWrap button {
+    height: 48px;
+
+    font-size: 0.8rem;
+  }
+
+  .newsletterFormCard small {
+    font-size: 0.72rem;
+  }
+}

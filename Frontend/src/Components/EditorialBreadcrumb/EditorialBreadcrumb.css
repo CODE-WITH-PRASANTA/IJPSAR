@@ -1,0 +1,679 @@
+/* =========================================================
+   EDITORIAL BREADCRUMB - PROFESSIONAL SIZE
+   FULLY RESPONSIVE PREMIUM CSS
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.editorialBreadcrumb {
+  width: 100%;
+  min-height: 340px;
+
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  padding: 55px 7%;
+
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+  isolation: isolate;
+}
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.editorialBreadcrumb::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(3, 18, 8, 0.82),
+      rgba(5, 32, 12, 0.74),
+      rgba(8, 52, 16, 0.70)
+    );
+
+  z-index: -1;
+}
+
+/* =========================================================
+   GLOW EFFECTS
+========================================================= */
+
+.editorialGlow {
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(90px);
+
+  z-index: -1;
+}
+
+.editorialGlow1 {
+  width: 280px;
+  height: 280px;
+
+  background: rgba(212, 255, 0, 0.10);
+
+  top: -80px;
+  right: -70px;
+
+  animation: glowMove1 8s ease-in-out infinite;
+}
+
+.editorialGlow2 {
+  width: 220px;
+  height: 220px;
+
+  background: rgba(40, 255, 120, 0.08);
+
+  bottom: -60px;
+  left: -60px;
+
+  animation: glowMove2 10s ease-in-out infinite;
+}
+
+@keyframes glowMove1 {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(18px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes glowMove2 {
+  0% {
+    transform: translateX(0px);
+  }
+
+  50% {
+    transform: translateX(18px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+/* =========================================================
+   FLOATING EFFECT
+========================================================= */
+
+.floatingCircle {
+  position: absolute;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  animation: floatCircle 6s linear infinite;
+}
+
+.circle1 {
+  width: 16px;
+  height: 16px;
+
+  top: 22%;
+  left: 18%;
+}
+
+.circle2 {
+  width: 12px;
+  height: 12px;
+
+  bottom: 18%;
+  right: 25%;
+}
+
+@keyframes floatCircle {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-14px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.editorialBreadcrumbContainer {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 40px;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.editorialBreadcrumbLeft {
+  flex: 1;
+  max-width: 700px;
+}
+
+/* =========================================================
+   TAG
+========================================================= */
+
+.editorialTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 16px;
+
+  border-radius: 50px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(212, 255, 0, 0.18);
+
+  color: #d8ff3e;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  margin-bottom: 18px;
+
+  transition: 0.4s ease;
+}
+
+.editorialTag:hover {
+  transform: translateY(-3px);
+
+  background: rgba(212, 255, 0, 0.10);
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.editorialBreadcrumbLeft h1 {
+  color: white;
+
+  font-size: 3rem;
+  font-weight: 800;
+
+  line-height: 1.1;
+
+  margin-bottom: 16px;
+}
+
+.editorialBreadcrumbLeft h1 span {
+  color: #d8ff3e;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.editorialBreadcrumbLeft p {
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 0.96rem;
+
+  line-height: 1.8;
+
+  max-width: 620px;
+
+  margin-bottom: 24px;
+}
+
+/* =========================================================
+   BREADCRUMB PATH
+========================================================= */
+
+.editorialPath {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  flex-wrap: wrap;
+
+  padding: 12px 18px;
+
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(212, 255, 0, 0.18);
+
+  backdrop-filter: blur(10px);
+}
+
+.editorialPath a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  text-decoration: none;
+
+  color: #d8ff3e;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.editorialPath a:hover {
+  color: white;
+}
+
+.editorialArrow {
+  color: rgba(255, 255, 255, 0.6);
+
+  font-size: 0.72rem;
+}
+
+.editorialPath span {
+  color: white;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* =========================================================
+   RIGHT CARD
+========================================================= */
+
+.editorialInfoCard {
+  width: 340px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 26px;
+
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(212, 255, 0, 0.16);
+
+  backdrop-filter: blur(16px);
+
+  transition: 0.45s ease;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.editorialInfoCard:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(212, 255, 0, 0.35);
+
+  box-shadow:
+    0 18px 40px rgba(212, 255, 0, 0.14);
+}
+
+/* =========================================================
+   GLOW CIRCLE
+========================================================= */
+
+.editorialCircle {
+  position: absolute;
+
+  width: 150px;
+  height: 150px;
+
+  border-radius: 50%;
+
+  top: -40px;
+  right: -40px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(212, 255, 0, 0.18),
+      transparent 70%
+    );
+
+  animation: rotateGlow 8s linear infinite;
+}
+
+@keyframes rotateGlow {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   CARD TOP
+========================================================= */
+
+.editorialCardTop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 18px;
+}
+
+.editorialCardTop svg {
+  color: #d8ff3e;
+
+  font-size: 1.3rem;
+}
+
+.editorialCardTop h3 {
+  color: white;
+
+  font-size: 1.3rem;
+}
+
+.editorialInfoCard p {
+  color: rgba(255, 255, 255, 0.80);
+
+  font-size: 0.92rem;
+
+  line-height: 1.7;
+
+  margin-bottom: 22px;
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.editorialStats {
+  display: flex;
+  gap: 14px;
+
+  margin-bottom: 22px;
+}
+
+.editorialStatItem {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px;
+
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  border: 1px solid rgba(212, 255, 0, 0.12);
+
+  transition: 0.4s ease;
+}
+
+.editorialStatItem:hover {
+  transform: translateY(-4px);
+
+  background: rgba(212, 255, 0, 0.08);
+}
+
+.editorialStatItem svg {
+  color: #d8ff3e;
+
+  font-size: 1.1rem;
+}
+
+.editorialStatItem h4 {
+  color: white;
+
+  font-size: 1rem;
+
+  margin-bottom: 2px;
+}
+
+.editorialStatItem span {
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 0.78rem;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.editorialInfoCard button {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 13px 18px;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #63b600,
+      #d8ff3e
+    );
+
+  color: #173600;
+
+  font-size: 0.92rem;
+  font-weight: 700;
+
+  transition: 0.45s ease;
+}
+
+.editorialInfoCard button:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 12px 24px rgba(212, 255, 0, 0.28);
+}
+
+/* =========================================================
+   LARGE LAPTOP
+========================================================= */
+
+@media (max-width: 1200px) {
+  .editorialBreadcrumb {
+    padding: 50px 5%;
+  }
+
+  .editorialBreadcrumbContainer {
+    gap: 35px;
+  }
+
+  .editorialBreadcrumbLeft h1 {
+    font-size: 2.5rem;
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 992px) {
+  .editorialBreadcrumb {
+    min-height: auto;
+  }
+
+  .editorialBreadcrumbContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .editorialInfoCard {
+    width: 100%;
+  }
+
+  .editorialBreadcrumbLeft {
+    max-width: 100%;
+  }
+
+  .editorialBreadcrumbLeft h1 {
+    font-size: 2.2rem;
+  }
+}
+
+/* =========================================================
+   MOBILE TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+  .editorialBreadcrumb {
+    padding: 45px 5%;
+  }
+
+  .editorialBreadcrumbLeft h1 {
+    font-size: 1.9rem;
+  }
+
+  .editorialBreadcrumbLeft p {
+    font-size: 0.9rem;
+  }
+
+  .editorialInfoCard {
+    padding: 22px;
+  }
+
+  .editorialStats {
+    flex-direction: column;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+  .editorialBreadcrumb {
+    padding: 40px 5%;
+  }
+
+  .editorialTag {
+    font-size: 10px;
+
+    padding: 8px 14px;
+  }
+
+  .editorialBreadcrumbLeft h1 {
+    font-size: 1.6rem;
+  }
+
+  .editorialBreadcrumbLeft p {
+    font-size: 0.85rem;
+
+    line-height: 1.7;
+  }
+
+  .editorialPath {
+    width: 100%;
+
+    justify-content: center;
+
+    padding: 11px 14px;
+  }
+
+  .editorialPath a,
+  .editorialPath span {
+    font-size: 0.8rem;
+  }
+
+  .editorialInfoCard {
+    padding: 20px;
+
+    border-radius: 20px;
+  }
+
+  .editorialCardTop h3 {
+    font-size: 1.05rem;
+  }
+
+  .editorialInfoCard p {
+    font-size: 0.84rem;
+  }
+
+  .editorialInfoCard button {
+    font-size: 0.84rem;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+  .editorialBreadcrumb {
+    padding: 36px 4%;
+  }
+
+  .editorialBreadcrumbLeft h1 {
+    font-size: 1.4rem;
+  }
+
+  .editorialInfoCard {
+    padding: 18px;
+  }
+
+  .editorialStatItem {
+    padding: 12px;
+  }
+
+  .editorialStatItem h4 {
+    font-size: 0.9rem;
+  }
+
+  .editorialStatItem span {
+    font-size: 0.7rem;
+  }
+
+  .editorialInfoCard button {
+    padding: 12px 14px;
+
+    font-size: 0.78rem;
+  }
+}

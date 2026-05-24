@@ -1,0 +1,642 @@
+/* =========================================================
+   INDEXING & ABSTRACTING BREADCRUMB
+   UPDATED GREEN + LIME PREMIUM THEME
+   FULLY RESPONSIVE FOR ALL DEVICES
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.indexingBreadcrumb {
+  width: 100%;
+  min-height: 320px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  padding: 65px 7%;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* =========================================================
+   DARK GREEN OVERLAY
+========================================================= */
+
+.indexingBreadcrumbOverlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 20, 8, 0.96) 0%,
+      rgba(0, 45, 12, 0.90) 38%,
+      rgba(20, 80, 10, 0.78) 70%,
+      rgba(90, 160, 10, 0.52) 100%
+    );
+
+  z-index: 1;
+}
+
+/* =========================================================
+   GLOW EFFECTS
+========================================================= */
+
+.indexingGlowOne {
+  position: absolute;
+
+  width: 320px;
+  height: 320px;
+
+  border-radius: 50%;
+
+  top: -120px;
+  left: -120px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(190, 255, 0, 0.22),
+      transparent 70%
+    );
+
+  filter: blur(10px);
+
+  animation: glowMove 8s ease-in-out infinite;
+
+  z-index: 1;
+}
+
+.indexingGlowTwo {
+  position: absolute;
+
+  width: 280px;
+  height: 280px;
+
+  border-radius: 50%;
+
+  bottom: -120px;
+  right: -120px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(190, 255, 0, 0.14),
+      transparent 72%
+    );
+
+  filter: blur(10px);
+
+  animation: glowMove 10s ease-in-out infinite;
+
+  z-index: 1;
+}
+
+@keyframes glowMove {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(18px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.indexingBreadcrumbContainer {
+  width: 100%;
+
+  position: relative;
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 45px;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.indexingBreadcrumbContent {
+  flex: 1;
+  max-width: 720px;
+}
+
+/* =========================================================
+   MINI TAG
+========================================================= */
+
+.indexingMiniTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 9px 18px;
+
+  border-radius: 50px;
+
+  background:
+    rgba(180, 255, 0, 0.08);
+
+  border: 1px solid
+    rgba(190, 255, 0, 0.18);
+
+  backdrop-filter: blur(10px);
+
+  color: #d7ff2f;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 1.2px;
+
+  margin-bottom: 20px;
+}
+
+.indexingMiniTag svg {
+  color: #d7ff2f;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.indexingBreadcrumbContent h1 {
+  font-size: 3rem;
+  font-weight: 800;
+
+  line-height: 1.15;
+
+  color: #ffffff;
+
+  margin-bottom: 16px;
+}
+
+.indexingBreadcrumbContent h1 span {
+  color: #d7ff2f;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.indexingBreadcrumbContent p {
+  font-size: 0.98rem;
+
+  line-height: 1.9;
+
+  color:
+    rgba(255, 255, 255, 0.78);
+
+  max-width: 660px;
+
+  margin-bottom: 24px;
+}
+
+/* =========================================================
+   BREADCRUMB
+========================================================= */
+
+.indexingBreadcrumbPath {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+
+  padding: 12px 22px;
+
+  border-radius: 50px;
+
+  background:
+    rgba(180, 255, 0, 0.08);
+
+  border: 1px solid
+    rgba(190, 255, 0, 0.14);
+
+  backdrop-filter: blur(10px);
+}
+
+.indexingBreadcrumbPath a {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  text-decoration: none;
+
+  color: #ffffff;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  transition: 0.35s ease;
+}
+
+.indexingBreadcrumbPath a:hover {
+  color: #d7ff2f;
+}
+
+.pathArrow {
+  color:
+    rgba(255, 255, 255, 0.55);
+
+  font-size: 0.7rem;
+}
+
+.indexingBreadcrumbPath span {
+  color: #d7ff2f;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* =========================================================
+   RIGHT CARD
+========================================================= */
+
+.indexingInfoCard {
+  width: 100%;
+  max-width: 330px;
+
+  padding: 30px;
+
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(45, 80, 20, 0.78),
+      rgba(80, 130, 10, 0.35)
+    );
+
+  border: 1px solid
+    rgba(190, 255, 0, 0.14);
+
+  backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.24);
+
+  transition: 0.4s ease;
+}
+
+.indexingInfoCard:hover {
+  transform: translateY(-8px);
+
+  box-shadow:
+    0 25px 50px rgba(180, 255, 0, 0.18);
+}
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.indexingCardIcon {
+  width: 60px;
+  height: 60px;
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #d7ff2f,
+      #8de000
+    );
+
+  color: #062000;
+
+  font-size: 1.4rem;
+
+  margin-bottom: 18px;
+
+  box-shadow:
+    0 10px 24px rgba(190, 255, 0, 0.24);
+}
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.indexingInfoCard h3 {
+  font-size: 1.45rem;
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  color: #ffffff;
+
+  margin-bottom: 14px;
+}
+
+.indexingInfoCard p {
+  font-size: 0.92rem;
+
+  line-height: 1.8;
+
+  color:
+    rgba(255, 255, 255, 0.76);
+
+  margin-bottom: 24px;
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.indexingStats {
+  display: flex;
+  gap: 14px;
+}
+
+.indexingStatBox {
+  flex: 1;
+
+  text-align: center;
+
+  padding: 15px 12px;
+
+  border-radius: 16px;
+
+  background:
+    rgba(255, 255, 255, 0.05);
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.08);
+
+  transition: 0.35s ease;
+}
+
+.indexingStatBox:hover {
+  transform: translateY(-4px);
+
+  background:
+    rgba(190, 255, 0, 0.10);
+}
+
+.indexingStatBox h4 {
+  font-size: 1.3rem;
+  font-weight: 800;
+
+  color: #d7ff2f;
+
+  margin-bottom: 5px;
+}
+
+.indexingStatBox span {
+  font-size: 0.74rem;
+  font-weight: 600;
+
+  color:
+    rgba(255, 255, 255, 0.72);
+}
+
+/* =========================================================
+   1400px
+========================================================= */
+
+@media (max-width: 1400px) {
+
+  .indexingBreadcrumb {
+    padding: 60px 6%;
+  }
+
+  .indexingBreadcrumbContent h1 {
+    font-size: 2.7rem;
+  }
+}
+
+/* =========================================================
+   1200px
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .indexingBreadcrumbContainer {
+    gap: 35px;
+  }
+
+  .indexingBreadcrumbContent h1 {
+    font-size: 2.4rem;
+  }
+}
+
+/* =========================================================
+   992px
+========================================================= */
+
+@media (max-width: 992px) {
+
+  .indexingBreadcrumb {
+    min-height: auto;
+
+    padding: 55px 5%;
+  }
+
+  .indexingBreadcrumbContainer {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 30px;
+  }
+
+  .indexingInfoCard {
+    max-width: 100%;
+  }
+
+  .indexingBreadcrumbContent h1 {
+    font-size: 2.1rem;
+  }
+}
+
+/* =========================================================
+   768px
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .indexingBreadcrumb {
+    padding: 50px 5%;
+  }
+
+  .indexingMiniTag {
+    font-size: 10px;
+
+    padding: 7px 14px;
+  }
+
+  .indexingBreadcrumbContent h1 {
+    font-size: 1.8rem;
+  }
+
+  .indexingBreadcrumbContent p {
+    font-size: 0.88rem;
+  }
+
+  .indexingInfoCard {
+    padding: 24px 20px;
+  }
+}
+
+/* =========================================================
+   576px
+========================================================= */
+
+@media (max-width: 576px) {
+
+  .indexingBreadcrumb {
+    padding: 45px 4%;
+  }
+
+  .indexingBreadcrumbContent h1 {
+    font-size: 1.5rem;
+  }
+
+  .indexingBreadcrumbContent p {
+    font-size: 0.82rem;
+
+    line-height: 1.7;
+  }
+
+  .indexingBreadcrumbPath {
+    width: 100%;
+
+    justify-content: center;
+
+    padding: 10px 16px;
+  }
+
+  .indexingBreadcrumbPath a,
+  .indexingBreadcrumbPath span {
+    font-size: 0.76rem;
+  }
+
+  .indexingInfoCard {
+    padding: 22px 18px;
+
+    border-radius: 22px;
+  }
+
+  .indexingInfoCard h3 {
+    font-size: 1.2rem;
+  }
+
+  .indexingInfoCard p {
+    font-size: 0.8rem;
+  }
+
+  .indexingStats {
+    flex-direction: column;
+  }
+}
+
+/* =========================================================
+   420px
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .indexingBreadcrumb {
+    padding: 40px 4%;
+  }
+
+  .indexingMiniTag {
+    width: 100%;
+
+    justify-content: center;
+
+    text-align: center;
+
+    font-size: 9px;
+  }
+
+  .indexingBreadcrumbContent h1 {
+    font-size: 1.25rem;
+  }
+
+  .indexingBreadcrumbContent p {
+    font-size: 0.74rem;
+  }
+
+  .indexingBreadcrumbPath {
+    flex-direction: column;
+
+    border-radius: 18px;
+  }
+
+  .pathArrow {
+    transform: rotate(90deg);
+  }
+
+  .indexingInfoCard {
+    padding: 18px 15px;
+  }
+
+  .indexingCardIcon {
+    width: 48px;
+    height: 48px;
+
+    font-size: 1rem;
+  }
+
+  .indexingInfoCard h3 {
+    font-size: 1rem;
+  }
+
+  .indexingInfoCard p {
+    font-size: 0.72rem;
+  }
+
+  .indexingStatBox h4 {
+    font-size: 1rem;
+  }
+
+  .indexingStatBox span {
+    font-size: 0.66rem;
+  }
+}
+
+/* =========================================================
+   360px
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .indexingBreadcrumbContent h1 {
+    font-size: 1.08rem;
+  }
+
+  .indexingBreadcrumbContent p {
+    font-size: 0.7rem;
+  }
+
+  .indexingInfoCard {
+    padding: 16px 12px;
+  }
+}
