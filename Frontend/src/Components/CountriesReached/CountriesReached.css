@@ -1,0 +1,243 @@
+/* CountriesReached.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.countriesReached {
+  width: 100%;
+  padding: 90px 20px;
+  background: linear-gradient(
+    180deg,
+    #f5fbf8 0%,
+    #eefbf5 100%
+  );
+  overflow: hidden;
+}
+
+.countriesReached-wrapper {
+  position: relative;
+  max-width: 1350px;
+  margin: auto;
+  padding: 70px 50px;
+  border-radius: 36px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.96),
+    rgba(239, 255, 247, 0.95)
+  );
+  border: 1px solid rgba(0, 179, 126, 0.12);
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.05),
+    0 8px 25px rgba(0, 179, 126, 0.08);
+  overflow: hidden;
+}
+
+.countriesReached-bgShape {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(0, 179, 126, 0.14),
+    transparent 70%
+  );
+  top: -220px;
+  right: -120px;
+  z-index: 0;
+}
+
+.countriesReached-container {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.countriesReached-card {
+  position: relative;
+  padding: 35px 25px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 179, 126, 0.08);
+  transition: all 0.45s ease;
+  overflow: hidden;
+}
+
+.countriesReached-card::before {
+  content: "";
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  background: rgba(0, 179, 126, 0.05);
+  border-radius: 50%;
+  top: -60px;
+  right: -50px;
+}
+
+.countriesReached-card:hover {
+  transform: translateY(-12px);
+  border-color: rgba(0, 179, 126, 0.22);
+  box-shadow:
+    0 20px 35px rgba(0, 179, 126, 0.12),
+    0 10px 20px rgba(0, 0, 0, 0.06);
+}
+
+.countriesReached-top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.countriesReached-icon {
+  min-width: 72px;
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  background: linear-gradient(
+    135deg,
+    #00c98d,
+    #00996b
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 28px;
+  box-shadow: 0 12px 25px rgba(0, 201, 141, 0.28);
+}
+
+.countriesReached-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #03261e;
+  line-height: 1;
+}
+
+.countriesReached-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #55706a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.countriesReached-line {
+  width: 70px;
+  height: 4px;
+  border-radius: 50px;
+  background: linear-gradient(
+    to right,
+    #00c98d,
+    #8ef5cf
+  );
+}
+
+/* ========================= */
+/* LARGE TABLET */
+/* ========================= */
+
+@media (max-width: 1100px) {
+
+  .countriesReached-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .countriesReached-wrapper {
+    padding: 55px 35px;
+  }
+
+}
+
+/* ========================= */
+/* TABLET */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .countriesReached {
+    padding: 70px 18px;
+  }
+
+  .countriesReached-wrapper {
+    padding: 45px 24px;
+    border-radius: 28px;
+  }
+
+  .countriesReached-container {
+    gap: 22px;
+  }
+
+  .countriesReached-card {
+    padding: 30px 22px;
+  }
+
+  .countriesReached-number {
+    font-size: 2.5rem;
+  }
+
+  .countriesReached-icon {
+    width: 65px;
+    height: 65px;
+    min-width: 65px;
+    font-size: 25px;
+  }
+
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media (max-width: 576px) {
+
+  .countriesReached-container {
+    grid-template-columns: 1fr;
+  }
+
+  .countriesReached-wrapper {
+    padding: 30px 18px;
+    border-radius: 24px;
+  }
+
+  .countriesReached-card {
+    padding: 28px 20px;
+    border-radius: 22px;
+  }
+
+  .countriesReached-top {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .countriesReached-icon {
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+    font-size: 22px;
+    border-radius: 16px;
+  }
+
+  .countriesReached-number {
+    font-size: 2.1rem;
+  }
+
+  .countriesReached-title {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  .countriesReached-line {
+    width: 55px;
+    height: 3px;
+  }
+
+}

@@ -6,6 +6,7 @@ import Footer from "./Components/Footer/Footer";
 import Home from './Pages/Home/Home'
 
 import Authors from "./Pages/Authors/Authors";
+import Contact from "./Pages/Contact/Contact";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
 
        <Route path="/" element={<Home />} />
        <Route path="/authors" element={<Authors />} />
+       <Route path="/contact" element={<Contact/>}/>
 
       </Routes>
 
