@@ -1,0 +1,419 @@
+/* ContactSub.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.contactsub {
+  width: 100%;
+  padding: 110px 7%;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f7fff9 45%,
+    #effff4 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+/* BACKGROUND GLOW */
+
+.contactsub::before {
+  content: "";
+  position: absolute;
+  top: -150px;
+  right: -100px;
+  width: 450px;
+  height: 450px;
+  background: rgba(132, 255, 0, 0.08);
+  border-radius: 50%;
+  filter: blur(90px);
+}
+
+/* MAIN CONTAINER */
+
+.contactsub-container {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  padding: 70px;
+
+  border-radius: 40px;
+
+  background: linear-gradient(
+    135deg,
+    #032b22 0%,
+    #074d3b 40%,
+    #0d7a5c 100%
+  );
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 70px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.12),
+    0 10px 35px rgba(0, 168, 107, 0.14);
+}
+
+/* INNER GLOW */
+
+.contactsub-container::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -120px;
+
+  width: 400px;
+  height: 400px;
+
+  background: rgba(164, 255, 0, 0.12);
+
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+/* ===================== */
+/* LEFT SIDE */
+/* ===================== */
+
+.contactsub-left {
+  flex: 1;
+  max-width: 700px;
+}
+
+.contactsub-tag {
+  display: inline-block;
+
+  margin-bottom: 24px;
+
+  padding: 10px 22px;
+
+  border-radius: 50px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(164, 255, 0, 0.15);
+
+  color: #b9ff37;
+
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+}
+
+.contactsub-title {
+  font-size: 4rem;
+  line-height: 1.08;
+  font-weight: 800;
+
+  color: #ffffff;
+
+  margin-bottom: 24px;
+  letter-spacing: -2px;
+}
+
+.contactsub-description {
+  font-size: 1.18rem;
+  line-height: 1.9;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  margin-bottom: 35px;
+}
+
+/* FEATURES */
+
+.contactsub-features {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contactsub-feature {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.contactsub-check {
+  color: #b9ff37;
+  font-size: 1rem;
+}
+
+/* ===================== */
+/* RIGHT SIDE */
+/* ===================== */
+
+.contactsub-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.contactsub-card {
+  width: 100%;
+  max-width: 500px;
+
+  padding: 45px 40px;
+
+  border-radius: 32px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 15px 35px rgba(0, 0, 0, 0.18);
+}
+
+/* ICON */
+
+.contactsub-icon-box {
+  width: 78px;
+  height: 78px;
+
+  border-radius: 24px;
+
+  background: linear-gradient(
+    135deg,
+    #b9ff37 0%,
+    #d9ff73 100%
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 28px;
+
+  box-shadow:
+    0 12px 30px rgba(185, 255, 55, 0.28);
+}
+
+.contactsub-icon {
+  font-size: 2rem;
+  color: #063b2e;
+}
+
+/* CARD TEXT */
+
+.contactsub-card h3 {
+  font-size: 2rem;
+  font-weight: 800;
+
+  color: #ffffff;
+
+  margin-bottom: 14px;
+}
+
+.contactsub-card p {
+  font-size: 1rem;
+  line-height: 1.8;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  margin-bottom: 28px;
+}
+
+/* FORM */
+
+.contactsub-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* INPUT */
+
+.contactsub-input {
+  width: 100%;
+  height: 68px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 18px;
+
+  padding: 0 22px;
+
+  background: #ffffff;
+
+  color: #0d1f1a;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.contactsub-input::placeholder {
+  color: #6f7b76;
+}
+
+/* BUTTON */
+
+.contactsub-btn {
+  width: 100%;
+  height: 64px;
+
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  border-radius: 18px;
+
+  background: linear-gradient(
+    90deg,
+    #a5ff00 0%,
+    #d7ff68 100%
+  );
+
+  color: #03261f;
+
+  font-size: 1.05rem;
+  font-weight: 800;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  transition: all 0.4s ease;
+
+  box-shadow:
+    0 12px 30px rgba(165, 255, 0, 0.3);
+}
+
+.contactsub-btn:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 18px 38px rgba(165, 255, 0, 0.4);
+}
+
+/* ===================== */
+/* RESPONSIVE */
+/* ===================== */
+
+@media (max-width: 1200px) {
+
+  .contactsub-container {
+    flex-direction: column;
+    padding: 60px;
+  }
+
+  .contactsub-left,
+  .contactsub-right {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .contactsub-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .contactsub {
+    padding: 90px 5%;
+  }
+
+  .contactsub-title {
+    font-size: 3rem;
+  }
+
+  .contactsub-description {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .contactsub {
+    padding: 75px 5%;
+  }
+
+  .contactsub-container {
+    padding: 45px 28px;
+    border-radius: 30px;
+    gap: 45px;
+  }
+
+  .contactsub-title {
+    font-size: 2.4rem;
+    line-height: 1.15;
+  }
+
+  .contactsub-description {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .contactsub-card {
+    padding: 36px 24px;
+    border-radius: 26px;
+  }
+
+  .contactsub-card h3 {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .contactsub {
+    padding: 65px 4%;
+  }
+
+  .contactsub-container {
+    padding: 38px 20px;
+  }
+
+  .contactsub-tag {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  .contactsub-title {
+    font-size: 2rem;
+  }
+
+  .contactsub-feature {
+    font-size: 0.95rem;
+    align-items: flex-start;
+  }
+
+  .contactsub-input,
+  .contactsub-btn {
+    height: 58px;
+    font-size: 0.95rem;
+  }
+
+  .contactsub-icon-box {
+    width: 68px;
+    height: 68px;
+  }
+
+  .contactsub-icon {
+    font-size: 1.7rem;
+  }
+}

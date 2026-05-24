@@ -10,6 +10,7 @@ import IndexingAbstracting from "./Pages/IndexingAbstracting/IndexingAbstracting
 import PublicationEthics from "./Pages/PublicationEthics/PublicationEthics";
 
 import Authors from "./Pages/Authors/Authors";
+import Contact from "./Pages/Contact/Contact";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/publication-ethics" element={<PublicationEthics />} />
 
        <Route path="/authors" element={<Authors />} />
+       <Route path="/contact" element={<Contact/>}/>
 
       </Routes>
 

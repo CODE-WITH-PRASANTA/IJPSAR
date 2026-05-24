@@ -1,0 +1,370 @@
+/* Researchers.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.researchers {
+  width: 100%;
+  padding: 110px 20px;
+  background: linear-gradient(
+    to bottom,
+    #f7fffb,
+    #ffffff
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.researchers-container {
+  max-width: 1400px;
+  margin: auto;
+}
+
+/* =========================
+   HEADING
+========================= */
+
+.researchers-heading {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.researchers-tag {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: rgba(11, 181, 130, 0.1);
+  color: #0bb582;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 22px;
+  border: 1px solid rgba(11, 181, 130, 0.2);
+}
+
+.researchers-heading h2 {
+  font-size: 58px;
+  line-height: 1.15;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 22px;
+}
+
+.researchers-heading p {
+  max-width: 760px;
+  margin: auto;
+  font-size: 19px;
+  line-height: 1.8;
+  color: #5f6b7a;
+}
+
+/* =========================
+   MOBILE NAVIGATION
+========================= */
+
+.researchers-mobile-nav {
+  display: none;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.researchers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.researchers-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 42px 36px;
+  min-height: 290px;
+  overflow: hidden;
+  border: 1px solid rgba(11, 181, 130, 0.12);
+
+  transition: all 0.45s ease;
+
+  box-shadow:
+    0 10px 40px rgba(15, 23, 42, 0.05),
+    0 2px 10px rgba(11, 181, 130, 0.03);
+
+  flex: 0 0 100%;
+}
+
+.researchers-card:hover {
+  transform: translateY(-12px);
+  border-color: rgba(11, 181, 130, 0.35);
+
+  box-shadow:
+    0 20px 60px rgba(11, 181, 130, 0.12),
+    0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* Glow */
+
+.researchers-card-glow {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(
+    circle,
+    rgba(11, 181, 130, 0.15),
+    transparent 70%
+  );
+
+  top: -80px;
+  right: -80px;
+  opacity: 0;
+  transition: 0.5s ease;
+}
+
+.researchers-card:hover .researchers-card-glow {
+  opacity: 1;
+}
+
+/* =========================
+   ICON
+========================= */
+
+.researchers-icon {
+  width: 82px;
+  height: 82px;
+  border-radius: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    135deg,
+    rgba(11, 181, 130, 0.12),
+    rgba(11, 181, 130, 0.04)
+  );
+
+  color: #0bb582;
+  font-size: 32px;
+
+  margin-bottom: 30px;
+
+  transition: all 0.4s ease;
+}
+
+.researchers-card:hover .researchers-icon {
+  transform: rotate(-8deg) scale(1.08);
+  background: #0bb582;
+  color: #ffffff;
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.researchers-card h3 {
+  font-size: 32px;
+  line-height: 1.3;
+  font-weight: 750;
+  color: #0f172a;
+  margin-bottom: 18px;
+}
+
+.researchers-card p {
+  font-size: 18px;
+  line-height: 1.9;
+  color: #64748b;
+}
+
+/* =========================
+   LARGE DEVICE
+========================= */
+
+@media (max-width: 1200px) {
+  .researchers-heading h2 {
+    font-size: 50px;
+  }
+
+  .researchers-card h3 {
+    font-size: 28px;
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 992px) {
+
+  .researchers {
+    padding: 90px 18px;
+  }
+
+  .researchers-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .researchers-heading h2 {
+    font-size: 42px;
+  }
+
+  .researchers-heading p {
+    font-size: 17px;
+  }
+
+  .researchers-card {
+    padding: 34px 28px;
+    min-height: 260px;
+  }
+
+  .researchers-card h3 {
+    font-size: 26px;
+  }
+
+  .researchers-card p {
+    font-size: 16px;
+  }
+}
+
+/* =========================
+   MOBILE SLIDER
+========================= */
+
+@media (max-width: 768px) {
+
+  .researchers {
+    padding: 75px 16px;
+  }
+
+  .researchers-heading {
+    margin-bottom: 40px;
+  }
+
+  .researchers-heading h2 {
+    font-size: 34px;
+  }
+
+  .researchers-heading p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* BUTTONS */
+
+  .researchers-mobile-nav {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .researchers-mobile-nav button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: #0bb582;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 10px 25px rgba(11, 181, 130, 0.25);
+  }
+
+  .researchers-mobile-nav button:hover {
+    transform: translateY(-3px);
+  }
+
+  /* MOBILE PAGINATION */
+
+  .researchers-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 18px;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    padding-bottom: 10px;
+  }
+
+  .researchers-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .researchers-card {
+    min-width: 100%;
+    scroll-snap-align: center;
+
+    border-radius: 24px;
+    min-height: auto;
+
+    padding: 30px 24px;
+  }
+
+  .researchers-icon {
+    width: 72px;
+    height: 72px;
+    font-size: 28px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  .researchers-card h3 {
+    font-size: 24px;
+  }
+
+  .researchers-card p {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+  .researchers-heading h2 {
+    font-size: 29px;
+  }
+
+  .researchers-tag {
+    font-size: 12px;
+    padding: 9px 18px;
+    letter-spacing: 2px;
+  }
+
+  .researchers-card {
+    padding: 26px 20px;
+  }
+
+  .researchers-card h3 {
+    font-size: 21px;
+  }
+
+  .researchers-card p {
+    font-size: 14px;
+  }
+
+  .researchers-mobile-nav button {
+    width: 44px;
+    height: 44px;
+    font-size: 14px;
+  }
+}
