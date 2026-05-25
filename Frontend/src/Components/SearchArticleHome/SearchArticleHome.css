@@ -1,4 +1,7 @@
-/* SearchArticleHome.css */
+/* =========================
+   SearchArticleHome.css
+   DARK PREMIUM #64C345 THEME
+========================= */
 
 * {
   margin: 0;
@@ -14,12 +17,23 @@
   padding: 95px 8%;
 
   background:
+    radial-gradient(
+      circle at left,
+      rgba(100,195,69,0.22),
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at right,
+      rgba(100,195,69,0.18),
+      transparent 25%
+    ),
     linear-gradient(
       135deg,
-      #031f17 0%,
-      #083b2b 35%,
-      #0d5f48 70%,
-      #00b977 100%
+      #071407 0%,
+      #0d220d 18%,
+      #163616 38%,
+      #245224 68%,
+      #64c345 100%
     );
 
   isolation: isolate;
@@ -35,10 +49,11 @@
 
   background:
     linear-gradient(
-      135deg,
-      rgba(255,255,255,0.04),
-      rgba(255,255,255,0.01)
+      rgba(0,0,0,0.20),
+      rgba(0,0,0,0.10)
     );
+
+  backdrop-filter: blur(2px);
 
   z-index: 1;
 }
@@ -49,23 +64,26 @@
 
 .searcharticlehome::before {
   content: "";
+
   position: absolute;
   inset: 0;
 
   background-image:
     linear-gradient(
-      rgba(255,255,255,0.05) 1px,
+      rgba(255,255,255,0.04) 1px,
       transparent 1px
     ),
     linear-gradient(
       90deg,
-      rgba(255,255,255,0.05) 1px,
+      rgba(255,255,255,0.04) 1px,
       transparent 1px
     );
 
   background-size: 60px 60px;
 
-  opacity: 0.15;
+  opacity: 0.14;
+
+  animation: gridMove 20s linear infinite;
 
   z-index: 0;
 }
@@ -76,33 +94,36 @@
 
 .searcharticlehome-glow {
   position: absolute;
+
   border-radius: 50%;
-  filter: blur(120px);
+
+  filter: blur(130px);
+
   z-index: 0;
 }
 
 .searcharticlehome-glow1 {
-  width: 320px;
-  height: 320px;
+  width: 340px;
+  height: 340px;
 
-  background: rgba(255,255,255,0.08);
+  background: rgba(100,195,69,0.28);
 
   top: -120px;
-  left: -120px;
+  left: -140px;
 
   animation: searchGlow 8s ease-in-out infinite;
 }
 
 .searcharticlehome-glow2 {
-  width: 420px;
-  height: 420px;
+  width: 460px;
+  height: 460px;
 
-  background: rgba(0,255,170,0.16);
+  background: rgba(255,255,255,0.08);
 
-  right: -140px;
-  bottom: -140px;
+  right: -180px;
+  bottom: -180px;
 
-  animation: searchGlow 10s ease-in-out infinite alternate;
+  animation: searchGlowTwo 10s ease-in-out infinite alternate;
 }
 
 /* =========================
@@ -137,7 +158,7 @@
   align-items: center;
   gap: 10px;
 
-  padding: 10px 20px;
+  padding: 12px 22px;
 
   border-radius: 50px;
 
@@ -147,17 +168,17 @@
 
   backdrop-filter: blur(16px);
 
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 
   box-shadow:
-    0 10px 30px rgba(0,0,0,0.20),
+    0 12px 35px rgba(0,0,0,0.22),
     inset 0 1px 0 rgba(255,255,255,0.08);
 
   animation: fadeDown 1s ease;
 }
 
 .searcharticlehome-breadcrumb span {
-  color: rgba(255,255,255,0.88);
+  color: rgba(255,255,255,0.82);
 
   font-size: 14px;
   font-weight: 500;
@@ -166,7 +187,7 @@
 }
 
 .searcharticlehome-breadcrumb span:hover {
-  color: #9fffd8;
+  color: #dfffd2;
 }
 
 .searcharticlehome-breadcrumb .active {
@@ -175,7 +196,7 @@
 }
 
 .searcharticlehome-breadcrumb-icon {
-  color: #8fffd2;
+  color: #d7ffca;
   font-size: 11px;
 }
 
@@ -184,8 +205,8 @@
 ========================= */
 
 .searcharticlehome-title {
-  font-size: 5rem;
-  line-height: 1.05;
+  font-size: 5.2rem;
+  line-height: 1.02;
   font-weight: 800;
 
   color: #ffffff;
@@ -194,27 +215,33 @@
 
   letter-spacing: -2px;
 
+  text-shadow:
+    0 5px 30px rgba(0,0,0,0.28);
+
   animation: fadeUp 1s ease;
 }
 
 .searcharticlehome-title span {
-  color: #9fffd8;
+  color: #e5ffd9;
+
   position: relative;
   z-index: 1;
 }
 
 /* UNDERLINE */
+
 .searcharticlehome-title span::after {
   content: "";
 
   position: absolute;
+
   left: 0;
-  bottom: 8px;
+  bottom: 10px;
 
   width: 100%;
   height: 14px;
 
-  background: rgba(159,255,216,0.18);
+  background: rgba(100,195,69,0.26);
 
   border-radius: 20px;
 
@@ -228,7 +255,7 @@
 .searcharticlehome-description {
   max-width: 760px;
 
-  color: rgba(255,255,255,0.80);
+  color: rgba(255,255,255,0.82);
 
   font-size: 1.08rem;
   line-height: 1.9;
@@ -249,12 +276,12 @@
   background:
     linear-gradient(
       to right,
-      #ffffff,
-      #9fffd8
+      #64c345,
+      #efffe8
     );
 
   box-shadow:
-    0 0 25px rgba(255,255,255,0.25);
+    0 0 28px rgba(100,195,69,0.55);
 
   animation: widthGrow 1.2s ease;
 }
@@ -264,6 +291,7 @@
 ========================= */
 
 @keyframes fadeUp {
+
   from {
     opacity: 0;
     transform: translateY(40px);
@@ -276,6 +304,7 @@
 }
 
 @keyframes fadeDown {
+
   from {
     opacity: 0;
     transform: translateY(-25px);
@@ -288,6 +317,7 @@
 }
 
 @keyframes widthGrow {
+
   from {
     width: 0;
   }
@@ -298,16 +328,39 @@
 }
 
 @keyframes searchGlow {
+
   0% {
     transform: translateY(0px) scale(1);
   }
 
   50% {
-    transform: translateY(-18px) scale(1.05);
+    transform: translateY(-20px) scale(1.08);
   }
 
   100% {
     transform: translateY(0px) scale(1);
+  }
+}
+
+@keyframes searchGlowTwo {
+
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  100% {
+    transform: translateY(-25px) scale(1.10);
+  }
+}
+
+@keyframes gridMove {
+
+  0% {
+    transform: translate(0,0);
+  }
+
+  100% {
+    transform: translate(60px,60px);
   }
 }
 
@@ -318,7 +371,7 @@
 @media (max-width: 1200px) {
 
   .searcharticlehome-title {
-    font-size: 4rem;
+    font-size: 4.2rem;
   }
 }
 
@@ -329,7 +382,7 @@
   }
 
   .searcharticlehome-title {
-    font-size: 3.4rem;
+    font-size: 3.5rem;
   }
 }
 
@@ -345,6 +398,10 @@
 
   .searcharticlehome-description {
     font-size: 1rem;
+  }
+
+  .searcharticlehome-line {
+    width: 90px;
   }
 }
 

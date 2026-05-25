@@ -1,86 +1,170 @@
-/* =========================
-   CURRENT HOME - PREMIUM GREEN GLASS UI
-========================= */
-
 .currenthome {
   position: relative;
   width: 100%;
-  min-height: 280px;
+  min-height: 320px;
+
   display: flex;
   align-items: center;
-  overflow: hidden;
-  padding: 75px 8%;
 
-  /* DARK GREEN PREMIUM BACKGROUND */
+  overflow: hidden;
+
+  padding: 85px 8%;
+
   background:
     linear-gradient(
       135deg,
-      #042f2a 0%,
-      #064e3b 30%,
-      #047857 65%,
-      #059669 100%
+      #071407 0%,
+      #0d210d 15%,
+      #163616 35%,
+      #245224 60%,
+      #356f35 82%,
+      #4f9b37 100%
     );
 
   isolation: isolate;
 }
 
 /* =========================
-   PREMIUM BACKGROUND EFFECTS
+   PREMIUM DARK OVERLAY
+========================= */
+
+.currenthome-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.34),
+      rgba(0, 0, 0, 0.16)
+    );
+
+  backdrop-filter: blur(3px);
+
+  z-index: 1;
+}
+
+/* =========================
+   ANIMATED GRID EFFECT
 ========================= */
 
 .currenthome::before {
   content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    );
+
+  background-size: 65px 65px;
+
+  opacity: 0.15;
+
+  animation: gridMove 20s linear infinite;
+
+  z-index: 1;
+}
+
+/* =========================
+   PREMIUM LIGHT EFFECT
+========================= */
+
+.currenthome::after {
+  content: "";
+
   position: absolute;
   inset: 0;
 
   background:
     radial-gradient(
       circle at top left,
-      rgba(16, 185, 129, 0.28),
-      transparent 35%
+      rgba(144, 255, 109, 0.18),
+      transparent 34%
     ),
     radial-gradient(
       circle at bottom right,
-      rgba(110, 255, 199, 0.22),
-      transparent 40%
+      rgba(255, 255, 255, 0.06),
+      transparent 38%
     ),
     radial-gradient(
       circle at center,
-      rgba(255, 255, 255, 0.05),
-      transparent 60%
+      rgba(0, 0, 0, 0.38),
+      transparent 65%
     );
 
   z-index: 1;
 }
 
-/* GRID OVERLAY */
-.currenthome::after {
-  content: "";
+/* =========================
+   PREMIUM GLOW EFFECTS
+========================= */
+
+.currenthome-glow {
   position: absolute;
-  inset: 0;
 
-  background-image:
-    linear-gradient(
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 1px
-    );
+  border-radius: 50%;
 
-  background-size: 55px 55px;
-  opacity: 0.18;
-  z-index: 1;
+  filter: blur(110px);
+
+  z-index: 0;
 }
 
-/* GLASS OVERLAY */
-.currenthome-overlay {
+/* LEFT GLOW */
+
+.currenthome-glow1 {
+  width: 380px;
+  height: 380px;
+
+  background: rgba(100, 195, 69, 0.34);
+
+  top: -120px;
+  left: -100px;
+
+  animation: floatGlow 8s ease-in-out infinite;
+}
+
+/* RIGHT GLOW */
+
+.currenthome-glow2 {
+  width: 460px;
+  height: 460px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  right: -180px;
+  bottom: -220px;
+
+  animation: floatGlowTwo 11s ease-in-out infinite alternate;
+}
+
+/* CENTER GLOW */
+
+.currenthome-glow3 {
   position: absolute;
-  inset: 0;
-  backdrop-filter: blur(2px);
-  z-index: 1;
+
+  width: 260px;
+  height: 260px;
+
+  border-radius: 50%;
+
+  background: rgba(100, 195, 69, 0.18);
+
+  top: 18%;
+  right: 20%;
+
+  filter: blur(80px);
+
+  z-index: 0;
+
+  animation: pulseGlow 7s ease infinite;
 }
 
 /* =========================
@@ -90,60 +174,70 @@
 .currenthome-container {
   position: relative;
   z-index: 5;
+
   width: 100%;
   max-width: 1250px;
 }
 
 /* =========================
-   PREMIUM BREADCRUMB
+   PREMIUM GLASS BREADCRUMB
 ========================= */
 
 .currenthome-breadcrumb {
   display: inline-flex;
   align-items: center;
+
   gap: 10px;
 
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 
-  padding: 13px 24px;
+  padding: 14px 24px;
+
   border-radius: 60px;
 
   background: rgba(255, 255, 255, 0.08);
 
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.10);
 
   backdrop-filter: blur(18px);
 
   box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.22),
+    0 12px 40px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   animation: fadeDown 1s ease;
 }
 
-/* Breadcrumb Text */
+/* TEXT */
+
 .currenthome-breadcrumb span {
-  color: #e7fff5;
+  color: rgba(255, 255, 255, 0.76);
+
   font-size: 14px;
   font-weight: 500;
+
   transition: all 0.3s ease;
+
   cursor: pointer;
 }
 
 .currenthome-breadcrumb span:hover {
-  color: #9effd3;
+  color: #d7ffca;
 }
 
-/* Active */
+/* ACTIVE */
+
 .currenthome-breadcrumb .active {
   color: #ffffff;
   font-weight: 700;
 }
 
-/* Icon */
+/* ICON */
+
 .currenthome-icon {
   font-size: 11px;
-  color: #7effc7;
+
+  color: #cfffbc;
 }
 
 /* =========================
@@ -151,41 +245,52 @@
 ========================= */
 
 .currenthome-title {
-  font-size: 4.2rem;
+  font-size: 4.6rem;
   font-weight: 800;
-  line-height: 1.05;
+
+  line-height: 1.02;
 
   color: #ffffff;
 
-  margin-bottom: 24px;
-  letter-spacing: -1.5px;
+  margin-bottom: 26px;
+
+  letter-spacing: -2px;
 
   animation: fadeUp 1s ease;
+
+  text-shadow:
+    0 6px 30px rgba(0, 0, 0, 0.30);
 }
 
-/* GREEN HIGHLIGHT TEXT */
+/* GREEN TEXT */
+
 .currenthome-title span {
-  color: #9effd3;
+  color: #d7ffca;
+
   position: relative;
   z-index: 1;
 }
 
-/* Glow Highlight */
+/* UNDERLINE EFFECT */
+
 .currenthome-title span::after {
   content: "";
 
   position: absolute;
+
   left: 0;
   bottom: 8px;
 
   width: 100%;
   height: 14px;
 
-  background: rgba(110, 255, 199, 0.22);
+  background: rgba(100, 195, 69, 0.28);
 
   border-radius: 30px;
 
   z-index: -1;
+
+  animation: pulseLine 3s ease infinite;
 }
 
 /* =========================
@@ -193,7 +298,7 @@
 ========================= */
 
 .currenthome-line {
-  width: 120px;
+  width: 130px;
   height: 5px;
 
   border-radius: 50px;
@@ -201,72 +306,14 @@
   background:
     linear-gradient(
       to right,
-      #9effd3,
-      #ffffff
+      #64c345,
+      #e7ffd8
     );
 
   box-shadow:
-    0 0 18px rgba(158, 255, 211, 0.5);
+    0 0 28px rgba(100, 195, 69, 0.60);
 
-  animation: widthGrow 1.2s ease;
-}
-
-/* =========================
-   PREMIUM GLOW EFFECTS
-========================= */
-
-.currenthome-glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  z-index: 0;
-}
-
-/* TOP LEFT GLOW */
-.currenthome-glow1 {
-  width: 280px;
-  height: 280px;
-
-  background: rgba(110, 255, 199, 0.22);
-
-  top: -90px;
-  left: -70px;
-
-  animation: floatGlow 6s ease-in-out infinite;
-}
-
-/* BOTTOM RIGHT GLOW */
-.currenthome-glow2 {
-  width: 340px;
-  height: 340px;
-
-  background: rgba(255, 255, 255, 0.10);
-
-  right: -120px;
-  bottom: -140px;
-
-  animation: floatGlow 8s ease-in-out infinite alternate;
-}
-
-/* EXTRA PREMIUM CIRCLE */
-.currenthome-glow3 {
-  position: absolute;
-
-  width: 180px;
-  height: 180px;
-
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.06);
-
-  top: 20%;
-  right: 20%;
-
-  filter: blur(60px);
-
-  z-index: 0;
-
-  animation: floatGlow 7s ease infinite;
+  animation: widthGrow 1.3s ease;
 }
 
 /* =========================
@@ -274,6 +321,7 @@
 ========================= */
 
 @keyframes fadeUp {
+
   from {
     opacity: 0;
     transform: translateY(45px);
@@ -286,9 +334,10 @@
 }
 
 @keyframes fadeDown {
+
   from {
     opacity: 0;
-    transform: translateY(-25px);
+    transform: translateY(-30px);
   }
 
   to {
@@ -298,22 +347,39 @@
 }
 
 @keyframes widthGrow {
+
   from {
     width: 0;
   }
 
   to {
-    width: 120px;
+    width: 130px;
+  }
+}
+
+@keyframes pulseLine {
+
+  0% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.45;
   }
 }
 
 @keyframes floatGlow {
+
   0% {
     transform: translateY(0px) scale(1);
   }
 
   50% {
-    transform: translateY(-20px) scale(1.05);
+    transform: translateY(-30px) scale(1.08);
   }
 
   100% {
@@ -321,42 +387,84 @@
   }
 }
 
-/* =========================
-   RESPONSIVE DESIGN
-========================= */
+@keyframes floatGlowTwo {
 
-/* Large Laptop */
-@media (max-width: 1200px) {
-  .currenthome-title {
-    font-size: 3.6rem;
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  100% {
+    transform: translateY(-40px) scale(1.15);
   }
 }
 
-/* Laptop */
+@keyframes pulseGlow {
+
+  0% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.95;
+    transform: scale(1.20);
+  }
+
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+}
+
+@keyframes gridMove {
+
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(65px, 65px);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1200px) {
+
+  .currenthome-title {
+    font-size: 3.9rem;
+  }
+}
+
 @media (max-width: 992px) {
+
   .currenthome {
-    min-height: 240px;
-    padding: 65px 6%;
+    min-height: 260px;
+
+    padding: 72px 6%;
   }
 
   .currenthome-title {
-    font-size: 3rem;
+    font-size: 3.1rem;
   }
 
   .currenthome-breadcrumb {
-    padding: 11px 20px;
+    padding: 12px 20px;
   }
 }
 
-/* Tablet */
 @media (max-width: 768px) {
+
   .currenthome {
-    min-height: 220px;
-    padding: 55px 5%;
+    min-height: 230px;
+
+    padding: 60px 5%;
   }
 
   .currenthome-title {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
   }
 
   .currenthome-line {
@@ -365,6 +473,7 @@
 
   .currenthome-breadcrumb {
     padding: 10px 18px;
+
     gap: 8px;
   }
 
@@ -373,25 +482,27 @@
   }
 
   .currenthome-glow1 {
-    width: 220px;
-    height: 220px;
+    width: 240px;
+    height: 240px;
   }
 
   .currenthome-glow2 {
-    width: 250px;
-    height: 250px;
+    width: 280px;
+    height: 280px;
   }
 }
 
-/* Mobile */
 @media (max-width: 576px) {
+
   .currenthome {
-    min-height: 200px;
-    padding: 45px 5%;
+    min-height: 210px;
+
+    padding: 50px 5%;
   }
 
   .currenthome-title {
     font-size: 2rem;
+
     margin-bottom: 18px;
   }
 
@@ -402,8 +513,11 @@
 
   .currenthome-breadcrumb {
     flex-wrap: wrap;
+
     border-radius: 40px;
+
     padding: 9px 16px;
+
     margin-bottom: 20px;
   }
 
@@ -418,35 +532,5 @@
   .currenthome-line {
     width: 70px;
     height: 4px;
-  }
-
-  .currenthome-glow1 {
-    width: 180px;
-    height: 180px;
-  }
-
-  .currenthome-glow2 {
-    width: 190px;
-    height: 190px;
-  }
-}
-
-/* Small Mobile */
-@media (max-width: 400px) {
-  .currenthome {
-    min-height: 180px;
-    padding: 40px 5%;
-  }
-
-  .currenthome-title {
-    font-size: 1.7rem;
-  }
-
-  .currenthome-breadcrumb {
-    padding: 8px 14px;
-  }
-
-  .currenthome-breadcrumb span {
-    font-size: 11px;
   }
 }

@@ -1,4 +1,7 @@
-/* ArchiveResesrche.css */
+/* =========================
+   ArchiveResearch.css
+   PREMIUM WHITE + #64C345 THEME
+========================= */
 
 * {
   margin: 0;
@@ -17,40 +20,44 @@
     linear-gradient(
       135deg,
       #ffffff 0%,
-      #f5fff9 45%,
-      #e5fff2 100%
+      #f7fff3 40%,
+      #edfbe7 100%
     );
 }
 
 /* =========================
-   GLOW EFFECTS
+   PREMIUM GLOW EFFECTS
 ========================= */
 
 .archiveresearch-glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(120px);
+  filter: blur(130px);
   z-index: 0;
 }
 
 .archiveresearch-glow1 {
-  width: 300px;
-  height: 300px;
+  width: 320px;
+  height: 320px;
 
-  background: rgba(0,168,107,0.10);
+  background: rgba(100,195,69,0.14);
 
-  top: -100px;
-  left: -100px;
+  top: -120px;
+  left: -120px;
+
+  animation: glowFloat 8s ease-in-out infinite;
 }
 
 .archiveresearch-glow2 {
-  width: 350px;
-  height: 350px;
+  width: 380px;
+  height: 380px;
 
-  background: rgba(0,255,170,0.12);
+  background: rgba(100,195,69,0.12);
 
-  right: -120px;
-  bottom: -120px;
+  right: -150px;
+  bottom: -150px;
+
+  animation: glowFloatTwo 10s ease-in-out infinite alternate;
 }
 
 /* =========================
@@ -68,39 +75,43 @@
 
 .archiveresearch-header {
   text-align: center;
-  margin-bottom: 55px;
+  margin-bottom: 60px;
 }
 
 .archiveresearch-tag {
   display: inline-block;
 
-  padding: 12px 22px;
+  padding: 12px 24px;
 
   border-radius: 50px;
 
-  background: rgba(0,168,107,0.08);
+  background: rgba(100,195,69,0.10);
 
-  color: #00a86b;
+  color: #64c345;
 
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
 
   margin-bottom: 24px;
+
+  border: 1px solid rgba(100,195,69,0.10);
+
+  backdrop-filter: blur(12px);
 }
 
 .archiveresearch-title {
   font-size: 4rem;
-  line-height: 1.1;
+  line-height: 1.08;
   font-weight: 800;
 
-  color: #071b14;
+  color: #081c15;
 
   margin-bottom: 22px;
 }
 
 .archiveresearch-title span {
-  color: #00a86b;
+  color: #64c345;
 }
 
 .archiveresearch-description {
@@ -110,7 +121,7 @@
 
   color: #64748b;
 
-  font-size: 1.12rem;
+  font-size: 1.08rem;
   line-height: 1.9;
 }
 
@@ -121,15 +132,15 @@
 .archiveresearch-table-wrapper {
   width: 100%;
 
-  border-radius: 32px;
+  border-radius: 34px;
 
   overflow: hidden;
 
-  background: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.88);
 
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
 
-  border: 1px solid rgba(0,168,107,0.10);
+  border: 1px solid rgba(100,195,69,0.10);
 
   box-shadow:
     0 25px 60px rgba(0,0,0,0.05);
@@ -141,6 +152,7 @@
 
 .archiveresearch-table-header {
   display: grid;
+
   grid-template-columns:
     1fr
     1.3fr
@@ -150,13 +162,13 @@
 
   gap: 20px;
 
-  padding: 28px 30px;
+  padding: 30px;
 
   background:
     linear-gradient(
       135deg,
-      #052f24,
-      #00a86b
+      #264d20,
+      #64c345
     );
 
   color: #ffffff;
@@ -180,6 +192,7 @@
 
 .archiveresearch-row {
   display: grid;
+
   grid-template-columns:
     1fr
     1.3fr
@@ -191,39 +204,50 @@
 
   align-items: center;
 
-  padding: 28px 30px;
+  padding: 30px;
 
   border-bottom:
-    1px solid rgba(0,168,107,0.08);
+    1px solid rgba(100,195,69,0.08);
 
   transition: 0.4s ease;
 
-  background: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.92);
 }
 
 .archiveresearch-row:hover {
-  background: rgba(0,168,107,0.05);
+  background: rgba(100,195,69,0.05);
 
-  transform: translateX(5px);
+  transform: translateX(6px);
 }
 
-/* YEAR */
+/* =========================
+   YEAR
+========================= */
+
 .archiveresearch-year {
   font-size: 1.5rem;
   font-weight: 800;
 
-  color: #052f24;
+  color: #264d20;
 }
 
-/* TEXT */
+/* =========================
+   TEXT
+========================= */
+
 .archiveresearch-row div {
   color: #0f172a;
 
   font-size: 1rem;
   font-weight: 500;
+
+  line-height: 1.7;
 }
 
-/* BUTTON */
+/* =========================
+   BUTTON
+========================= */
+
 .archiveresearch-btn-box {
   display: flex;
   justify-content: flex-end;
@@ -245,8 +269,8 @@
   background:
     linear-gradient(
       135deg,
-      #052f24,
-      #00a86b
+      #264d20,
+      #64c345
     );
 
   color: #ffffff;
@@ -257,7 +281,7 @@
   transition: 0.4s ease;
 
   box-shadow:
-    0 12px 25px rgba(0,168,107,0.18);
+    0 14px 28px rgba(100,195,69,0.22);
 }
 
 .archiveresearch-btn:hover {
@@ -266,9 +290,42 @@
   background:
     linear-gradient(
       135deg,
-      #031f17,
-      #00c17c
+      #1b3816,
+      #72d64f
     );
+
+  box-shadow:
+    0 18px 35px rgba(100,195,69,0.28);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes glowFloat {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-25px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes glowFloatTwo {
+
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  100% {
+    transform: translateY(-30px) scale(1.08);
+  }
 }
 
 /* =========================
@@ -293,6 +350,7 @@
   }
 
   /* MOBILE TABLE */
+
   .archiveresearch-table-header {
     display: none;
   }
@@ -308,9 +366,9 @@
 
     border-radius: 24px;
 
-    background: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.96);
 
-    border: 1px solid rgba(0,168,107,0.08);
+    border: 1px solid rgba(100,195,69,0.08);
   }
 
   .archiveresearch-row div {
@@ -325,16 +383,18 @@
     content: attr(data-label);
 
     position: absolute;
+
     left: 0;
     top: 0;
 
     font-weight: 700;
 
-    color: #00a86b;
+    color: #64c345;
   }
 
   .archiveresearch-btn-box {
     justify-content: flex-start;
+
     padding-left: 0 !important;
   }
 
@@ -367,6 +427,7 @@
 
   .archiveresearch-row div {
     padding-left: 110px;
+
     font-size: 14px;
   }
 
