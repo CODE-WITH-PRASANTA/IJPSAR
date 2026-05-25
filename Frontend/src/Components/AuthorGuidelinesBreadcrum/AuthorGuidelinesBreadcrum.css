@@ -1,0 +1,641 @@
+/* =========================================================
+   AUTHOR GUIDELINES BREADCRUMB
+   PREMIUM GREEN THEME
+   FULLY RESPONSIVE
+========================================================= */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.authorGuideBreadcrum{
+  width: 100%;
+  min-height: 190px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  padding: 32px 7%;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  z-index: 1;
+}
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.authorGuideBreadcrum::before{
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 10, 4, 0.96) 0%,
+      rgba(0, 40, 10, 0.90) 40%,
+      rgba(28, 70, 8, 0.72) 75%,
+      rgba(160, 220, 0, 0.35) 100%
+    );
+
+  z-index: -2;
+}
+
+/* =========================================================
+   EXTRA OVERLAY
+========================================================= */
+
+.authorGuideBreadcrum-overlay{
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to right,
+      rgba(0,0,0,0.15),
+      transparent
+    );
+
+  z-index: -1;
+}
+
+/* =========================================================
+   GLOW EFFECTS
+========================================================= */
+
+.authorGuideBreadcrum-glowOne,
+.authorGuideBreadcrum-glowTwo{
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(90px);
+
+  z-index: -1;
+}
+
+.authorGuideBreadcrum-glowOne{
+  width: 240px;
+  height: 240px;
+
+  top: -100px;
+  left: -70px;
+
+  background: rgba(180,255,0,0.14);
+
+  animation: authorGlow 7s ease-in-out infinite;
+}
+
+.authorGuideBreadcrum-glowTwo{
+  width: 220px;
+  height: 220px;
+
+  bottom: -100px;
+  right: -70px;
+
+  background: rgba(0,255,180,0.10);
+
+  animation: authorGlow 9s ease-in-out infinite;
+}
+
+@keyframes authorGlow{
+
+  0%{
+    transform: translateY(0px);
+  }
+
+  50%{
+    transform: translateY(12px);
+  }
+
+  100%{
+    transform: translateY(0px);
+  }
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.authorGuideBreadcrum-container{
+  width: 100%;
+  max-width: 1450px;
+
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 35px;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.authorGuideBreadcrum-left{
+  flex: 1;
+  max-width: 720px;
+}
+
+/* =========================================================
+   TAG
+========================================================= */
+
+.authorGuideBreadcrum-tag{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 16px;
+
+  border-radius: 50px;
+
+  background: rgba(195,255,0,0.08);
+
+  border: 1px solid rgba(195,255,0,0.18);
+
+  backdrop-filter: blur(10px);
+
+  color: #d6ff2f;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  margin-bottom: 14px;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.authorGuideBreadcrum-left h1{
+  font-size: 2.5rem;
+  font-weight: 800;
+
+  line-height: 1.1;
+
+  color: #ffffff;
+
+  margin-bottom: 12px;
+}
+
+.authorGuideBreadcrum-left h1 span{
+  color: #d6ff2f;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.authorGuideBreadcrum-left p{
+  font-size: 0.9rem;
+
+  line-height: 1.7;
+
+  color: rgba(255,255,255,0.82);
+
+  max-width: 620px;
+
+  margin-bottom: 18px;
+}
+
+/* =========================================================
+   BREADCRUMB PATH
+========================================================= */
+
+.authorGuideBreadcrum-path{
+  display: inline-flex;
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+
+  padding: 10px 18px;
+
+  border-radius: 50px;
+
+  background: rgba(195,255,0,0.08);
+
+  border: 1px solid rgba(195,255,0,0.14);
+
+  backdrop-filter: blur(10px);
+}
+
+.authorGuideBreadcrum-path a{
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  text-decoration: none;
+
+  color: #d6ff2f;
+
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.authorGuideBreadcrum-path a:hover{
+  color: #ffffff;
+}
+
+.authorGuideBreadcrum-arrow{
+  color: rgba(255,255,255,0.65);
+
+  font-size: 0.7rem;
+}
+
+.authorGuideBreadcrum-path span{
+  color: rgba(255,255,255,0.78);
+
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+/* =========================================================
+   RIGHT CARD
+========================================================= */
+
+.authorGuideBreadcrum-card{
+  width: 100%;
+  max-width: 300px;
+
+  padding: 22px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(25,65,10,0.78),
+      rgba(110,170,0,0.18)
+    );
+
+  border: 1px solid rgba(200,255,0,0.12);
+
+  backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 15px 30px rgba(0,0,0,0.20);
+
+  transition: 0.4s ease;
+}
+
+.authorGuideBreadcrum-card:hover{
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 20px 38px rgba(180,255,0,0.15);
+}
+
+/* =========================================================
+   CARD ICON
+========================================================= */
+
+.authorGuideBreadcrum-cardIcon{
+  width: 54px;
+  height: 54px;
+
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #d6ff2f,
+      #8de400
+    );
+
+  color: #061f00;
+
+  font-size: 1.2rem;
+
+  margin-bottom: 16px;
+}
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.authorGuideBreadcrum-card h3{
+  font-size: 1.1rem;
+  font-weight: 700;
+
+  line-height: 1.5;
+
+  color: #ffffff;
+
+  margin-bottom: 12px;
+}
+
+.authorGuideBreadcrum-card p{
+  font-size: 0.8rem;
+
+  line-height: 1.7;
+
+  color: rgba(255,255,255,0.78);
+
+  margin-bottom: 18px;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.authorGuideBreadcrum-card button{
+  border: none;
+  outline: none;
+
+  padding: 11px 20px;
+
+  border-radius: 50px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #d6ff2f,
+      #9ce500
+    );
+
+  color: #062400;
+
+  font-size: 0.78rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.35s ease;
+}
+
+.authorGuideBreadcrum-card button:hover{
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 24px rgba(180,255,0,0.18);
+}
+
+/* =========================================================
+   1400px
+========================================================= */
+
+@media (max-width: 1400px){
+
+  .authorGuideBreadcrum-left h1{
+    font-size: 2.2rem;
+  }
+}
+
+/* =========================================================
+   1200px
+========================================================= */
+
+@media (max-width: 1200px){
+
+  .authorGuideBreadcrum{
+    padding: 30px 5%;
+  }
+
+  .authorGuideBreadcrum-container{
+    gap: 28px;
+  }
+
+  .authorGuideBreadcrum-left h1{
+    font-size: 2rem;
+  }
+}
+
+/* =========================================================
+   992px
+========================================================= */
+
+@media (max-width: 992px){
+
+  .authorGuideBreadcrum{
+    min-height: auto;
+
+    padding: 32px 5%;
+  }
+
+  .authorGuideBreadcrum-container{
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 24px;
+  }
+
+  .authorGuideBreadcrum-left{
+    max-width: 100%;
+  }
+
+  .authorGuideBreadcrum-card{
+    max-width: 100%;
+  }
+
+  .authorGuideBreadcrum-left h1{
+    font-size: 1.8rem;
+  }
+}
+
+/* =========================================================
+   768px
+========================================================= */
+
+@media (max-width: 768px){
+
+  .authorGuideBreadcrum{
+    padding: 28px 5%;
+  }
+
+  .authorGuideBreadcrum-left h1{
+    font-size: 1.55rem;
+  }
+
+  .authorGuideBreadcrum-left p{
+    font-size: 0.80rem;
+  }
+
+  .authorGuideBreadcrum-card{
+    padding: 20px;
+  }
+}
+
+/* =========================================================
+   576px
+========================================================= */
+
+@media (max-width: 576px){
+
+  .authorGuideBreadcrum{
+    padding: 24px 4%;
+  }
+
+  .authorGuideBreadcrum-tag{
+    font-size: 7px;
+
+    padding: 6px 12px;
+  }
+
+  .authorGuideBreadcrum-left h1{
+    font-size: 1.3rem;
+  }
+
+  .authorGuideBreadcrum-left p{
+    font-size: 0.72rem;
+
+    line-height: 1.6;
+  }
+
+  .authorGuideBreadcrum-path{
+    width: 100%;
+
+    justify-content: center;
+
+    padding: 8px 12px;
+
+    border-radius: 14px;
+  }
+
+  .authorGuideBreadcrum-path a,
+  .authorGuideBreadcrum-path span{
+    font-size: 0.70rem;
+  }
+
+  .authorGuideBreadcrum-card{
+    padding: 18px 16px;
+
+    border-radius: 20px;
+  }
+
+  .authorGuideBreadcrum-card h3{
+    font-size: 0.95rem;
+  }
+
+  .authorGuideBreadcrum-card p{
+    font-size: 0.72rem;
+  }
+
+  .authorGuideBreadcrum-card button{
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   420px
+========================================================= */
+
+@media (max-width: 420px){
+
+  .authorGuideBreadcrum{
+    padding: 22px 4%;
+  }
+
+  .authorGuideBreadcrum-container{
+    gap: 18px;
+  }
+
+  .authorGuideBreadcrum-tag{
+    width: 100%;
+  }
+
+  .authorGuideBreadcrum-left h1{
+    font-size: 1.08rem;
+  }
+
+  .authorGuideBreadcrum-left p{
+    font-size: 0.68rem;
+  }
+
+  .authorGuideBreadcrum-path{
+    flex-direction: column;
+
+    gap: 6px;
+  }
+
+  .authorGuideBreadcrum-card{
+    padding: 16px 14px;
+  }
+
+  .authorGuideBreadcrum-cardIcon{
+    width: 48px;
+    height: 48px;
+
+    font-size: 1rem;
+  }
+
+  .authorGuideBreadcrum-card h3{
+    font-size: 0.84rem;
+  }
+
+  .authorGuideBreadcrum-card p{
+    font-size: 0.66rem;
+  }
+}
+
+/* =========================================================
+   360px
+========================================================= */
+
+@media (max-width: 360px){
+
+  .authorGuideBreadcrum{
+    padding: 20px 3%;
+  }
+
+  .authorGuideBreadcrum-left h1{
+    font-size: 0.95rem;
+  }
+
+  .authorGuideBreadcrum-left p{
+    font-size: 0.62rem;
+  }
+
+  .authorGuideBreadcrum-path a,
+  .authorGuideBreadcrum-path span{
+    font-size: 0.62rem;
+  }
+
+  .authorGuideBreadcrum-card{
+    padding: 14px 12px;
+  }
+
+  .authorGuideBreadcrum-card h3{
+    font-size: 0.78rem;
+  }
+
+  .authorGuideBreadcrum-card p{
+    font-size: 0.62rem;
+  }
+
+  .authorGuideBreadcrum-card button{
+    width: 100%;
+
+    font-size: 0.68rem;
+
+    padding: 9px 12px;
+  }
+}

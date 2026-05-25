@@ -1,0 +1,647 @@
+/* =========================================================
+   SUBMIT MANUSCRIPT BREADCRUMB
+   FULLY RESPONSIVE • PREMIUM UI
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.submitManuscriptBreadcrumb {
+  width: 100%;
+  min-height: 250px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  padding: 45px 7%;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* =========================================================
+   PREMIUM OVERLAY
+========================================================= */
+
+.submitManuscriptBreadcrumbOverlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 10, 4, 0.96) 0%,
+      rgba(0, 40, 10, 0.90) 40%,
+      rgba(28, 70, 8, 0.72) 75%,
+      rgba(160, 220, 0, 0.35) 100%
+    );
+
+  z-index: 1;
+}
+
+/* =========================================================
+   GLOW EFFECTS
+========================================================= */
+
+.submitManuscriptBreadcrumbGlowOne,
+.submitManuscriptBreadcrumbGlowTwo {
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(12px);
+
+  z-index: 1;
+}
+
+.submitManuscriptBreadcrumbGlowOne {
+  width: 260px;
+  height: 260px;
+
+  top: -100px;
+  left: -80px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(210, 255, 0, 0.16),
+      transparent 72%
+    );
+
+  animation:
+    submitFloat 7s ease-in-out infinite;
+}
+
+.submitManuscriptBreadcrumbGlowTwo {
+  width: 220px;
+  height: 220px;
+
+  bottom: -100px;
+  right: -80px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(180, 255, 0, 0.14),
+      transparent 72%
+    );
+
+  animation:
+    submitFloat 9s ease-in-out infinite;
+}
+
+@keyframes submitFloat {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(14px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.submitManuscriptBreadcrumbContainer {
+  width: 100%;
+  max-width: 1550px;
+
+  margin: auto;
+
+  position: relative;
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 35px;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.submitManuscriptBreadcrumbLeft {
+  flex: 1;
+  max-width: 700px;
+}
+
+/* =========================================================
+   TOP TAG
+========================================================= */
+
+.submitManuscriptBreadcrumbTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 8px 18px;
+
+  border-radius: 50px;
+
+  background:
+    rgba(195, 255, 0, 0.08);
+
+  border:
+    1px solid rgba(195, 255, 0, 0.18);
+
+  backdrop-filter: blur(10px);
+
+  color: #d6ff2f;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1.3px;
+
+  margin-bottom: 16px;
+
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.submitManuscriptBreadcrumbLeft h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+
+  line-height: 1.15;
+
+  color: #ffffff;
+
+  margin-bottom: 14px;
+}
+
+.submitManuscriptBreadcrumbLeft h1 span {
+  color: #d6ff2f;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.submitManuscriptBreadcrumbLeft p {
+  font-size: 0.95rem;
+
+  line-height: 1.8;
+
+  color:
+    rgba(255, 255, 255, 0.80);
+
+  max-width: 620px;
+
+  margin-bottom: 20px;
+}
+
+/* =========================================================
+   BREADCRUMB PATH
+========================================================= */
+
+.submitManuscriptBreadcrumbPath {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+
+  padding: 10px 20px;
+
+  border-radius: 50px;
+
+  background:
+    rgba(195, 255, 0, 0.08);
+
+  border:
+    1px solid rgba(195, 255, 0, 0.14);
+
+  backdrop-filter: blur(10px);
+}
+
+.submitManuscriptBreadcrumbItem {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  color: #ffffff;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  transition: 0.35s ease;
+}
+
+.submitManuscriptBreadcrumbItem:hover {
+  color: #d6ff2f;
+}
+
+.submitManuscriptBreadcrumbItem.active {
+  color: #d6ff2f;
+}
+
+.submitManuscriptBreadcrumbArrow {
+  font-size: 0.65rem;
+
+  color:
+    rgba(255, 255, 255, 0.55);
+}
+
+/* =========================================================
+   RIGHT CARD
+========================================================= */
+
+.submitManuscriptBreadcrumbCard {
+  width: 100%;
+  max-width: 320px;
+
+  padding: 24px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(25, 65, 10, 0.78),
+      rgba(110, 170, 0, 0.18)
+    );
+
+  border:
+    1px solid rgba(200, 255, 0, 0.12);
+
+  backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 18px 35px rgba(0, 0, 0, 0.22);
+
+  transition: 0.45s ease;
+}
+
+.submitManuscriptBreadcrumbCard:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 22px 40px rgba(180, 255, 0, 0.14);
+}
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.submitManuscriptCardIcon {
+  width: 55px;
+  height: 55px;
+
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #d6ff2f,
+      #8de400
+    );
+
+  color: #061f00;
+
+  font-size: 1.2rem;
+
+  margin-bottom: 16px;
+
+  box-shadow:
+    0 10px 22px rgba(180, 255, 0, 0.18);
+}
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.submitManuscriptBreadcrumbCard h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+
+  line-height: 1.4;
+
+  color: #ffffff;
+
+  margin-bottom: 12px;
+}
+
+.submitManuscriptBreadcrumbCard p {
+  font-size: 0.85rem;
+
+  line-height: 1.7;
+
+  color:
+    rgba(255, 255, 255, 0.78);
+
+  margin-bottom: 18px;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.submitManuscriptBreadcrumbCard button {
+  border: none;
+  outline: none;
+
+  padding: 12px 22px;
+
+  border-radius: 50px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #d6ff2f,
+      #9ce500
+    );
+
+  color: #062400;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.35s ease;
+}
+
+.submitManuscriptBreadcrumbCard button:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 24px rgba(180,255,0,0.18);
+}
+
+/* =========================================================
+   1400px
+========================================================= */
+
+@media (max-width: 1400px) {
+
+  .submitManuscriptBreadcrumbLeft h1 {
+    font-size: 2.3rem;
+  }
+}
+
+/* =========================================================
+   1200px
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .submitManuscriptBreadcrumb {
+    padding: 42px 5%;
+  }
+
+  .submitManuscriptBreadcrumbContainer {
+    gap: 28px;
+  }
+
+  .submitManuscriptBreadcrumbLeft h1 {
+    font-size: 2.1rem;
+  }
+}
+
+/* =========================================================
+   992px
+========================================================= */
+
+@media (max-width: 992px) {
+
+  .submitManuscriptBreadcrumb {
+    min-height: auto;
+
+    padding: 42px 5%;
+  }
+
+  .submitManuscriptBreadcrumbContainer {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 28px;
+  }
+
+  .submitManuscriptBreadcrumbLeft {
+    max-width: 100%;
+  }
+
+  .submitManuscriptBreadcrumbCard {
+    max-width: 100%;
+  }
+
+  .submitManuscriptBreadcrumbLeft h1 {
+    font-size: 1.9rem;
+  }
+}
+
+/* =========================================================
+   768px
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .submitManuscriptBreadcrumb {
+    padding: 38px 5%;
+  }
+
+  .submitManuscriptBreadcrumbLeft h1 {
+    font-size: 1.7rem;
+  }
+
+  .submitManuscriptBreadcrumbLeft p {
+    font-size: 0.84rem;
+  }
+
+  .submitManuscriptBreadcrumbCard {
+    padding: 22px 20px;
+  }
+
+  .submitManuscriptBreadcrumbCard h3 {
+    font-size: 1.08rem;
+  }
+}
+
+/* =========================================================
+   576px
+========================================================= */
+
+@media (max-width: 576px) {
+
+  .submitManuscriptBreadcrumb {
+    padding: 35px 4%;
+  }
+
+  .submitManuscriptBreadcrumbTag {
+    font-size: 8px;
+
+    padding: 7px 14px;
+  }
+
+  .submitManuscriptBreadcrumbLeft h1 {
+    font-size: 1.45rem;
+  }
+
+  .submitManuscriptBreadcrumbLeft p {
+    font-size: 0.78rem;
+
+    line-height: 1.7;
+  }
+
+  .submitManuscriptBreadcrumbPath {
+    width: 100%;
+
+    justify-content: center;
+
+    padding: 10px 14px;
+
+    border-radius: 16px;
+  }
+
+  .submitManuscriptBreadcrumbItem {
+    font-size: 0.74rem;
+  }
+
+  .submitManuscriptBreadcrumbCard {
+    padding: 20px 18px;
+
+    border-radius: 20px;
+  }
+
+  .submitManuscriptBreadcrumbCard h3 {
+    font-size: 1rem;
+  }
+
+  .submitManuscriptBreadcrumbCard p {
+    font-size: 0.76rem;
+  }
+
+  .submitManuscriptBreadcrumbCard button {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   420px
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .submitManuscriptBreadcrumb {
+    padding: 30px 4%;
+  }
+
+  .submitManuscriptBreadcrumbContainer {
+    gap: 22px;
+  }
+
+  .submitManuscriptBreadcrumbTag {
+    width: 100%;
+
+    text-align: center;
+
+    justify-content: center;
+  }
+
+  .submitManuscriptBreadcrumbLeft h1 {
+    font-size: 1.2rem;
+  }
+
+  .submitManuscriptBreadcrumbLeft p {
+    font-size: 0.72rem;
+  }
+
+  .submitManuscriptBreadcrumbPath {
+    flex-direction: column;
+
+    gap: 8px;
+  }
+
+  .submitManuscriptBreadcrumbArrow {
+    transform: rotate(90deg);
+  }
+
+  .submitManuscriptBreadcrumbCard {
+    padding: 18px 16px;
+  }
+
+  .submitManuscriptCardIcon {
+    width: 50px;
+    height: 50px;
+
+    font-size: 1.05rem;
+  }
+
+  .submitManuscriptBreadcrumbCard h3 {
+    font-size: 0.95rem;
+  }
+
+  .submitManuscriptBreadcrumbCard p {
+    font-size: 0.72rem;
+  }
+}
+
+/* =========================================================
+   360px
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .submitManuscriptBreadcrumb {
+    padding: 26px 3%;
+  }
+
+  .submitManuscriptBreadcrumbLeft h1 {
+    font-size: 1rem;
+  }
+
+  .submitManuscriptBreadcrumbLeft p {
+    font-size: 0.66rem;
+  }
+
+  .submitManuscriptBreadcrumbItem {
+    font-size: 0.68rem;
+  }
+
+  .submitManuscriptBreadcrumbCard {
+    padding: 16px 14px;
+  }
+
+  .submitManuscriptBreadcrumbCard h3 {
+    font-size: 0.88rem;
+  }
+
+  .submitManuscriptBreadcrumbCard p {
+    font-size: 0.68rem;
+  }
+
+  .submitManuscriptBreadcrumbCard button {
+    font-size: 0.74rem;
+    padding: 10px 16px;
+  }
+}

@@ -1,0 +1,597 @@
+/* =========================================================
+   ARTICLE DETAILS BREADCRUMB
+   PREMIUM PROFESSIONAL RESPONSIVE CSS
+========================================================= */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.articleDetailsBread{
+  position: relative;
+
+  width: 100%;
+
+  min-height: 250px;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  padding: 50px 7%;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  z-index: 1;
+}
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.articleDetailsBreadOverlay{
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 8, 20, 0.95) 0%,
+      rgba(0, 35, 25, 0.88) 45%,
+      rgba(0, 110, 90, 0.45) 100%
+    );
+
+  z-index: -2;
+}
+
+/* =========================================================
+   GLOW EFFECTS
+========================================================= */
+
+.articleDetailsGlowOne,
+.articleDetailsGlowTwo{
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(90px);
+
+  z-index: -1;
+
+  pointer-events: none;
+}
+
+.articleDetailsGlowOne{
+  width: 220px;
+  height: 220px;
+
+  top: -80px;
+  left: -80px;
+
+  background: rgba(0,255,170,0.15);
+}
+
+.articleDetailsGlowTwo{
+  width: 260px;
+  height: 260px;
+
+  bottom: -120px;
+  right: -100px;
+
+  background: rgba(200,255,0,0.10);
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.articleDetailsBreadContainer{
+  width: 100%;
+  max-width: 1450px;
+
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 40px;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.articleDetailsBreadLeft{
+  width: 100%;
+  max-width: 760px;
+
+  animation: articleFadeLeft 1s ease;
+}
+
+/* =========================================================
+   MINI TAG
+========================================================= */
+
+.articleDetailsMiniTag{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 16px;
+
+  border-radius: 50px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(200,255,0,0.12),
+      rgba(0,255,180,0.10)
+    );
+
+  border: 1px solid rgba(200,255,0,0.16);
+
+  color: #d6ff2f;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  margin-bottom: 16px;
+}
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.articleDetailsBreadLeft h1{
+  font-size: 3.2rem;
+  font-weight: 800;
+
+  line-height: 1.1;
+
+  color: #ffffff;
+
+  margin-bottom: 14px;
+}
+
+.articleDetailsBreadLeft h1 span{
+  color: #c8ff2e;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.articleDetailsBreadLeft p{
+  font-size: 0.96rem;
+
+  line-height: 1.8;
+
+  color: rgba(255,255,255,0.82);
+
+  max-width: 680px;
+
+  margin-bottom: 24px;
+}
+
+/* =========================================================
+   BREADCRUMB PATH
+========================================================= */
+
+.articleDetailsBreadPath{
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  padding: 12px 20px;
+
+  border-radius: 60px;
+
+  background: rgba(255,255,255,0.08);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(14px);
+}
+
+.articleDetailsBreadPath a,
+.articleDetailsBreadPath span{
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  text-decoration: none;
+
+  color: #ffffff;
+
+  font-size: 0.88rem;
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.articleDetailsBreadPath a:hover{
+  color: #c8ff2e;
+}
+
+.articleDetailsArrow{
+  font-size: 0.7rem;
+
+  color: rgba(255,255,255,0.55);
+}
+
+/* =========================================================
+   RIGHT CARD
+========================================================= */
+
+.articleDetailsBreadCard{
+  width: 320px;
+
+  padding: 28px;
+
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(18,45,35,0.78),
+      rgba(90,180,40,0.18)
+    );
+
+  border: 1px solid rgba(200,255,0,0.14);
+
+  backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.20);
+
+  animation: articleFadeUp 1s ease;
+}
+
+/* =========================================================
+   CARD ICON
+========================================================= */
+
+.articleDetailsCardIcon{
+  width: 64px;
+  height: 64px;
+
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #c8ff2e,
+      #8fff00
+    );
+
+  color: #071c34;
+
+  font-size: 1.5rem;
+
+  margin-bottom: 20px;
+
+  box-shadow:
+    0 12px 28px rgba(200,255,46,0.25);
+}
+
+/* =========================================================
+   CARD TITLE
+========================================================= */
+
+.articleDetailsBreadCard h3{
+  font-size: 1.6rem;
+  font-weight: 800;
+
+  line-height: 1.4;
+
+  color: #ffffff;
+
+  margin-bottom: 14px;
+}
+
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+.articleDetailsBreadCard p{
+  font-size: 0.90rem;
+
+  line-height: 1.8;
+
+  color: rgba(255,255,255,0.82);
+
+  margin-bottom: 22px;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.articleDetailsBreadCard button{
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+
+  padding: 13px 24px;
+
+  border-radius: 60px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #c8ff2e,
+      #8fff00
+    );
+
+  color: #071c34;
+
+  font-size: 0.92rem;
+  font-weight: 700;
+
+  transition: 0.4s ease;
+}
+
+.articleDetailsBreadCard button:hover{
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 14px 30px rgba(200,255,46,0.30);
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes articleFadeLeft{
+  from{
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to{
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes articleFadeUp{
+  from{
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   1200px
+========================================================= */
+
+@media (max-width: 1200px){
+
+  .articleDetailsBread{
+    padding: 45px 5%;
+  }
+
+  .articleDetailsBreadLeft h1{
+    font-size: 2.8rem;
+  }
+
+  .articleDetailsBreadCard{
+    width: 300px;
+  }
+}
+
+/* =========================================================
+   992px
+========================================================= */
+
+@media (max-width: 992px){
+
+  .articleDetailsBread{
+    min-height: auto;
+
+    padding: 45px 5%;
+  }
+
+  .articleDetailsBreadContainer{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .articleDetailsBreadCard{
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .articleDetailsBreadLeft h1{
+    font-size: 2.4rem;
+  }
+}
+
+/* =========================================================
+   768px
+========================================================= */
+
+@media (max-width: 768px){
+
+  .articleDetailsBread{
+    padding: 42px 5%;
+  }
+
+  .articleDetailsBreadLeft h1{
+    font-size: 2rem;
+  }
+
+  .articleDetailsBreadLeft p{
+    font-size: 0.90rem;
+  }
+
+  .articleDetailsBreadCard{
+    padding: 24px;
+  }
+
+  .articleDetailsBreadCard h3{
+    font-size: 1.4rem;
+  }
+}
+
+/* =========================================================
+   576px
+========================================================= */
+
+@media (max-width: 576px){
+
+  .articleDetailsBread{
+    padding: 38px 4%;
+  }
+
+  .articleDetailsMiniTag{
+    font-size: 9px;
+
+    padding: 6px 14px;
+  }
+
+  .articleDetailsBreadLeft h1{
+    font-size: 1.7rem;
+  }
+
+  .articleDetailsBreadLeft p{
+    font-size: 0.84rem;
+
+    margin-bottom: 20px;
+  }
+
+  .articleDetailsBreadPath{
+    padding: 10px 16px;
+
+    gap: 8px;
+  }
+
+  .articleDetailsBreadPath a,
+  .articleDetailsBreadPath span{
+    font-size: 0.76rem;
+  }
+
+  .articleDetailsBreadCard{
+    padding: 22px;
+
+    border-radius: 22px;
+  }
+
+  .articleDetailsCardIcon{
+    width: 56px;
+    height: 56px;
+
+    font-size: 1.3rem;
+  }
+
+  .articleDetailsBreadCard h3{
+    font-size: 1.2rem;
+  }
+
+  .articleDetailsBreadCard p{
+    font-size: 0.82rem;
+  }
+
+  .articleDetailsBreadCard button{
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   420px
+========================================================= */
+
+@media (max-width: 420px){
+
+  .articleDetailsBread{
+    padding: 34px 4%;
+  }
+
+  .articleDetailsBreadLeft h1{
+    font-size: 1.45rem;
+  }
+
+  .articleDetailsBreadLeft p{
+    font-size: 0.78rem;
+  }
+
+  .articleDetailsBreadCard{
+    padding: 20px;
+  }
+
+  .articleDetailsBreadCard h3{
+    font-size: 1.05rem;
+  }
+
+  .articleDetailsBreadCard p{
+    font-size: 0.76rem;
+  }
+}
+
+/* =========================================================
+   360px
+========================================================= */
+
+@media (max-width: 360px){
+
+  .articleDetailsBread{
+    padding: 30px 3%;
+  }
+
+  .articleDetailsBreadLeft h1{
+    font-size: 1.2rem;
+  }
+
+  .articleDetailsBreadLeft p{
+    font-size: 0.72rem;
+  }
+
+  .articleDetailsBreadPath{
+    padding: 9px 12px;
+  }
+
+  .articleDetailsBreadPath a,
+  .articleDetailsBreadPath span{
+    font-size: 0.68rem;
+  }
+
+  .articleDetailsBreadCard{
+    padding: 18px;
+  }
+
+  .articleDetailsBreadCard h3{
+    font-size: 0.95rem;
+  }
+
+  .articleDetailsBreadCard button{
+    font-size: 0.82rem;
+
+    padding: 11px 18px;
+  }
+}
