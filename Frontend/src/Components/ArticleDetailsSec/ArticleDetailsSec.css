@@ -1,0 +1,762 @@
+/* =========================================================
+   ARTICLE DETAILS SECTION
+   PREMIUM WHITE + GREEN UI
+========================================================= */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.articleDetailsSection{
+  width: 100%;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  padding: 90px 7%;
+}
+
+/* =========================================================
+   BACKGROUND GLOW
+========================================================= */
+
+.articleDetailsBgGlowOne,
+.articleDetailsBgGlowTwo{
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(120px);
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+.articleDetailsBgGlowOne{
+  width: 320px;
+  height: 320px;
+
+  top: -100px;
+  left: -100px;
+
+  background: rgba(0,191,166,0.06);
+}
+
+.articleDetailsBgGlowTwo{
+  width: 260px;
+  height: 260px;
+
+  bottom: -100px;
+  right: -100px;
+
+  background: rgba(200,255,46,0.08);
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.articleDetailsContainer{
+  width: 100%;
+  max-width: 1450px;
+
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1fr 380px;
+
+  gap: 50px;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.articleDetailsLeft{
+  width: 100%;
+}
+
+/* =========================================================
+   TOP TAGS
+========================================================= */
+
+.articleDetailsTags{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  margin-bottom: 24px;
+}
+
+.articleDetailsTag{
+  padding: 8px 16px;
+
+  border-radius: 50px;
+
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+
+  border: 1px solid rgba(0,191,166,0.12);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,191,166,0.08),
+      rgba(200,255,46,0.08)
+    );
+
+  color: #071c34;
+}
+
+.articleDetailsTag.active{
+  background:
+    linear-gradient(
+      135deg,
+      #00bfa6,
+      #74ff2b
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 10px 25px rgba(0,191,166,0.18);
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.articleDetailsTitle{
+  font-size: 3.4rem;
+  font-weight: 800;
+
+  line-height: 1.15;
+
+  color: #071c34;
+
+  margin-bottom: 24px;
+
+  animation: fadeUp 0.8s ease;
+}
+
+/* =========================================================
+   AUTHORS
+========================================================= */
+
+.articleDetailsAuthors{
+  font-size: 1.25rem;
+
+  color: #445268;
+
+  line-height: 1.8;
+
+  margin-bottom: 22px;
+}
+
+.articleDetailsAffiliation{
+  font-size: 1rem;
+
+  line-height: 1.9;
+
+  color: #5d6b7d;
+
+  margin-bottom: 36px;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.articleDetailsActions{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 16px;
+
+  margin-bottom: 34px;
+}
+
+.articleDetailsBtn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 16px 28px;
+
+  border-radius: 18px;
+
+  border: 1px solid rgba(0,191,166,0.10);
+
+  background: #ffffff;
+
+  color: #071c34;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.4s ease;
+
+  box-shadow:
+    0 12px 28px rgba(0,20,40,0.05);
+}
+
+.articleDetailsBtn:hover{
+  transform: translateY(-5px);
+
+  border-color: rgba(0,191,166,0.20);
+
+  box-shadow:
+    0 18px 40px rgba(0,191,166,0.12);
+}
+
+.articleDetailsBtn.primary{
+  background:
+    linear-gradient(
+      135deg,
+      #071c34,
+      #00bfa6
+    );
+
+  color: #ffffff;
+
+  border: none;
+
+  box-shadow:
+    0 16px 35px rgba(0,191,166,0.18);
+}
+
+/* =========================================================
+   DOI
+========================================================= */
+
+.articleDetailsDOI{
+  font-size: 1.1rem;
+
+  color: #071c34;
+
+  margin-bottom: 50px;
+
+  line-height: 1.8;
+}
+
+.articleDetailsDOI span{
+  color: #00bfa6;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   CONTENT BLOCKS
+========================================================= */
+
+.articleDetailsBlock{
+  margin-bottom: 46px;
+
+  padding: 38px;
+
+  border-radius: 32px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.98),
+      rgba(247,255,251,0.98)
+    );
+
+  border: 1px solid rgba(0,191,166,0.10);
+
+  box-shadow:
+    0 15px 40px rgba(0,20,40,0.05);
+
+  transition: 0.45s ease;
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.articleDetailsBlock::before{
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 5px;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #00bfa6,
+      #c8ff2e
+    );
+}
+
+.articleDetailsBlock:hover{
+  transform: translateY(-8px);
+
+  box-shadow:
+    0 22px 55px rgba(0,191,166,0.10);
+}
+
+/* =========================================================
+   BLOCK TITLE
+========================================================= */
+
+.articleDetailsBlock h2{
+  font-size: 2.2rem;
+  font-weight: 800;
+
+  color: #071c34;
+
+  margin-bottom: 24px;
+}
+
+.articleDetailsBlock h3{
+  font-size: 1.8rem;
+  font-weight: 800;
+
+  color: #071c34;
+
+  margin-bottom: 18px;
+}
+
+/* =========================================================
+   PARAGRAPH
+========================================================= */
+
+.articleDetailsBlock p{
+  font-size: 1.08rem;
+
+  line-height: 2;
+
+  color: #4f5d70;
+}
+
+/* =========================================================
+   KEYWORDS
+========================================================= */
+
+.articleKeywords{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 14px;
+
+  margin-top: 24px;
+}
+
+.articleKeyword{
+  padding: 10px 18px;
+
+  border-radius: 50px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,191,166,0.08),
+      rgba(200,255,46,0.08)
+    );
+
+  border: 1px solid rgba(0,191,166,0.10);
+
+  color: #071c34;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* =========================================================
+   REFERENCES
+========================================================= */
+
+.articleReferences{
+  padding-left: 22px;
+}
+
+.articleReferences li{
+  margin-bottom: 18px;
+
+  color: #4f5d70;
+
+  line-height: 1.9;
+
+  font-size: 1rem;
+}
+
+/* =========================================================
+   RIGHT SIDEBAR
+========================================================= */
+
+.articleDetailsRight{
+  width: 100%;
+}
+
+/* =========================================================
+   STICKY WRAPPER
+========================================================= */
+
+.articleDetailsSticky{
+  position: sticky;
+
+  top: 120px;
+}
+
+/* =========================================================
+   SIDEBAR CARD
+========================================================= */
+
+.articleSidebarCard{
+  padding: 34px;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.98),
+      rgba(246,255,250,0.98)
+    );
+
+  border: 1px solid rgba(0,191,166,0.10);
+
+  box-shadow:
+    0 14px 35px rgba(0,20,40,0.05);
+
+  margin-bottom: 28px;
+
+  transition: 0.4s ease;
+}
+
+.articleSidebarCard:hover{
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 20px 45px rgba(0,191,166,0.10);
+}
+
+/* =========================================================
+   SIDEBAR TITLE
+========================================================= */
+
+.articleSidebarTitle{
+  font-size: 1.25rem;
+  font-weight: 800;
+
+  color: #071c34;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+
+  margin-bottom: 26px;
+}
+
+/* =========================================================
+   METRICS
+========================================================= */
+
+.articleMetricItem{
+  display: flex;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 14px 0;
+
+  border-bottom: 1px dashed rgba(0,191,166,0.12);
+}
+
+.articleMetricItem:last-child{
+  border-bottom: none;
+}
+
+.articleMetricItem strong{
+  color: #071c34;
+}
+
+.articleMetricItem span{
+  color: #4f5d70;
+}
+
+/* =========================================================
+   RELATED LINKS
+========================================================= */
+
+.articleRelatedLinks{
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.articleRelatedItem{
+  padding: 18px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,191,166,0.05),
+      rgba(200,255,46,0.05)
+    );
+
+  border: 1px solid rgba(0,191,166,0.08);
+
+  color: #071c34;
+
+  font-weight: 600;
+
+  transition: 0.35s ease;
+
+  cursor: pointer;
+}
+
+.articleRelatedItem:hover{
+  transform: translateX(6px);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,191,166,0.12),
+      rgba(200,255,46,0.10)
+    );
+}
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes fadeUp{
+  from{
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   1400px
+========================================================= */
+
+@media (max-width: 1400px){
+
+  .articleDetailsSection{
+    padding: 80px 5%;
+  }
+
+  .articleDetailsTitle{
+    font-size: 3rem;
+  }
+}
+
+/* =========================================================
+   1200px
+========================================================= */
+
+@media (max-width: 1200px){
+
+  .articleDetailsContainer{
+    grid-template-columns: 1fr 340px;
+  }
+
+  .articleDetailsTitle{
+    font-size: 2.6rem;
+  }
+}
+
+/* =========================================================
+   992px
+========================================================= */
+
+@media (max-width: 992px){
+
+  .articleDetailsSection{
+    padding: 70px 5%;
+  }
+
+  .articleDetailsContainer{
+    grid-template-columns: 1fr;
+
+    gap: 40px;
+  }
+
+  .articleDetailsSticky{
+    position: relative;
+    top: 0;
+  }
+
+  .articleDetailsTitle{
+    font-size: 2.2rem;
+  }
+}
+
+/* =========================================================
+   768px
+========================================================= */
+
+@media (max-width: 768px){
+
+  .articleDetailsSection{
+    padding: 60px 5%;
+  }
+
+  .articleDetailsTitle{
+    font-size: 1.8rem;
+  }
+
+  .articleDetailsAuthors{
+    font-size: 1rem;
+  }
+
+  .articleDetailsBlock{
+    padding: 30px;
+  }
+
+  .articleDetailsBlock h2{
+    font-size: 1.8rem;
+  }
+
+  .articleDetailsBlock h3{
+    font-size: 1.5rem;
+  }
+
+  .articleDetailsBlock p{
+    font-size: 0.96rem;
+  }
+}
+
+/* =========================================================
+   576px
+========================================================= */
+
+@media (max-width: 576px){
+
+  .articleDetailsSection{
+    padding: 50px 4%;
+  }
+
+  .articleDetailsTitle{
+    font-size: 1.55rem;
+  }
+
+  .articleDetailsActions{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .articleDetailsBtn{
+    width: 100%;
+  }
+
+  .articleDetailsBlock{
+    padding: 24px;
+
+    border-radius: 24px;
+  }
+
+  .articleDetailsBlock h2{
+    font-size: 1.5rem;
+  }
+
+  .articleDetailsBlock h3{
+    font-size: 1.2rem;
+  }
+
+  .articleSidebarCard{
+    padding: 24px;
+  }
+}
+
+/* =========================================================
+   420px
+========================================================= */
+
+@media (max-width: 420px){
+
+  .articleDetailsTitle{
+    font-size: 1.3rem;
+  }
+
+  .articleDetailsAuthors{
+    font-size: 0.88rem;
+  }
+
+  .articleDetailsAffiliation{
+    font-size: 0.82rem;
+  }
+
+  .articleDetailsBlock{
+    padding: 20px;
+  }
+
+  .articleDetailsBlock p{
+    font-size: 0.88rem;
+  }
+
+  .articleDetailsBtn{
+    font-size: 0.88rem;
+    padding: 14px 18px;
+  }
+
+  .articleSidebarTitle{
+    font-size: 1rem;
+  }
+}
+
+/* =========================================================
+   360px
+========================================================= */
+
+@media (max-width: 360px){
+
+  .articleDetailsSection{
+    padding: 40px 3%;
+  }
+
+  .articleDetailsTitle{
+    font-size: 1.1rem;
+  }
+
+  .articleDetailsBlock h2{
+    font-size: 1.2rem;
+  }
+
+  .articleDetailsBlock h3{
+    font-size: 1rem;
+  }
+
+  .articleDetailsBlock p{
+    font-size: 0.80rem;
+  }
+
+  .articleRelatedItem{
+    font-size: 0.82rem;
+  }
+}

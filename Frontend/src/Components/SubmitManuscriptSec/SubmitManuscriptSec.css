@@ -1,0 +1,732 @@
+/* =========================================================
+   SUBMIT MANUSCRIPT SECTION
+   PREMIUM • FULLY RESPONSIVE • PROFESSIONAL UI
+========================================================= */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.submitManuscriptSection{
+  position: relative;
+  width: 100%;
+  padding: 100px 6%;
+  background: #ffffff;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* =========================================================
+   BACKGROUND GLOW
+========================================================= */
+
+.submitManuscriptSection::before{
+  content: "";
+  position: absolute;
+  top: -220px;
+  left: -220px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: rgba(183,255,0,0.10);
+  filter: blur(120px);
+  z-index: -1;
+}
+
+.submitManuscriptSection::after{
+  content: "";
+  position: absolute;
+  right: -220px;
+  bottom: -220px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: rgba(0,212,170,0.08);
+  filter: blur(120px);
+  z-index: -1;
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.submitManuscriptContainer{
+  width: 100%;
+  max-width: 1600px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1.7fr 0.7fr;
+  gap: 45px;
+  align-items: flex-start;
+}
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.submitManuscriptLeft{
+  width: 100%;
+}
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.submitManuscriptHeading{
+  margin-bottom: 45px;
+}
+
+.submitManuscriptHeading span{
+  display: inline-block;
+  margin-bottom: 18px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  letter-spacing: 4px;
+  text-transform: uppercase;
+
+  color: #00b894;
+}
+
+.submitManuscriptHeading h2{
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.15;
+
+  color: #07294d;
+
+  margin-bottom: 22px;
+}
+
+.submitManuscriptHeading h2 span{
+  color: #b8db00;
+
+  font-size: inherit;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.submitManuscriptHeading p{
+  max-width: 950px;
+
+  font-size: 1.15rem;
+  line-height: 1.9;
+
+  color: #617282;
+}
+
+/* =========================================================
+   FORM WRAPPER
+========================================================= */
+
+.submitManuscriptFormWrapper{
+  position: relative;
+
+  padding: 45px;
+
+  border-radius: 34px;
+
+  background: rgba(255,255,255,0.85);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(0,184,148,0.10);
+
+  box-shadow:
+    0 10px 35px rgba(0,0,0,0.06);
+
+  overflow: hidden;
+}
+
+.submitManuscriptFormWrapper::before{
+  content: "";
+
+  position: absolute;
+
+  top: -120px;
+  right: -120px;
+
+  width: 280px;
+  height: 280px;
+
+  border-radius: 50%;
+
+  background: rgba(183,255,0,0.10);
+
+  filter: blur(80px);
+}
+
+/* =========================================================
+   FORM GRID
+========================================================= */
+
+.submitManuscriptGrid{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 28px;
+}
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.submitManuscriptField{
+  display: flex;
+  flex-direction: column;
+}
+
+.submitManuscriptField label{
+  margin-bottom: 14px;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  color: #07294d;
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.submitManuscriptField input,
+.submitManuscriptField select,
+.submitManuscriptField textarea{
+  width: 100%;
+
+  padding: 18px 20px;
+
+  border-radius: 18px;
+
+  border: 1px solid rgba(0,184,148,0.12);
+
+  background: #ffffff;
+
+  font-size: 1rem;
+  color: #07294d;
+
+  outline: none;
+
+  transition: all 0.35s ease;
+}
+
+.submitManuscriptField input::placeholder,
+.submitManuscriptField textarea::placeholder{
+  color: #98a5b3;
+}
+
+.submitManuscriptField textarea{
+  min-height: 180px;
+  resize: none;
+}
+
+/* =========================================================
+   INPUT FOCUS
+========================================================= */
+
+.submitManuscriptField input:focus,
+.submitManuscriptField select:focus,
+.submitManuscriptField textarea:focus{
+  border-color: #00b894;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 0 0 4px rgba(0,184,148,0.08),
+    0 10px 25px rgba(0,184,148,0.08);
+}
+
+/* =========================================================
+   FULL WIDTH
+========================================================= */
+
+.submitManuscriptFull{
+  grid-column: span 2;
+}
+
+/* =========================================================
+   FILE INPUT
+========================================================= */
+
+.submitManuscriptFile{
+  padding: 14px !important;
+  cursor: pointer;
+}
+
+/* =========================================================
+   CHECKBOX
+========================================================= */
+
+.submitManuscriptCheckbox{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.submitManuscriptCheckbox input{
+  width: 18px;
+  height: 18px;
+
+  accent-color: #00b894;
+
+  cursor: pointer;
+}
+
+.submitManuscriptCheckbox span{
+  color: #617282;
+
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.submitManuscriptBtnWrapper{
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 40px;
+}
+
+.submitManuscriptBtn{
+  position: relative;
+  overflow: hidden;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  padding: 18px 36px;
+
+  border: none;
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #b8ff00 0%,
+      #00d4aa 100%
+    );
+
+  color: #07294d;
+
+  font-size: 1.05rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.4s ease;
+
+  box-shadow:
+    0 12px 30px rgba(0,184,148,0.18);
+}
+
+.submitManuscriptBtn::before{
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(255,255,255,0.25);
+
+  transform: skewX(-25deg);
+
+  transition: 0.6s;
+}
+
+.submitManuscriptBtn:hover::before{
+  left: 120%;
+}
+
+.submitManuscriptBtn:hover{
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 18px 40px rgba(0,184,148,0.28);
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.submitManuscriptSidebar{
+  position: sticky;
+  top: 120px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* =========================================================
+   SIDEBAR CARD
+========================================================= */
+
+.submitManuscriptSidebarCard{
+  position: relative;
+
+  padding: 35px;
+
+  border-radius: 28px;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(0,184,148,0.10);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.05);
+
+  overflow: hidden;
+
+  transition: all 0.4s ease;
+}
+
+.submitManuscriptSidebarCard::before{
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(183,255,0,0.05),
+      rgba(0,212,170,0.04)
+    );
+
+  opacity: 0;
+
+  transition: 0.4s ease;
+}
+
+.submitManuscriptSidebarCard:hover::before{
+  opacity: 1;
+}
+
+.submitManuscriptSidebarCard:hover{
+  transform: translateY(-6px);
+
+  border-color: rgba(0,184,148,0.25);
+
+  box-shadow:
+    0 16px 40px rgba(0,184,148,0.12);
+}
+
+.submitManuscriptSidebarCard h3{
+  margin-bottom: 25px;
+
+  font-size: 1.1rem;
+  font-weight: 800;
+
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  color: #07294d;
+}
+
+.submitManuscriptSidebarCard p{
+  font-size: 1rem;
+  line-height: 1.9;
+
+  color: #617282;
+}
+
+/* =========================================================
+   SIDEBAR LINKS
+========================================================= */
+
+.submitManuscriptSidebarLinks{
+  display: flex;
+  flex-direction: column;
+}
+
+.submitManuscriptSidebarLinks a{
+  padding: 16px 0;
+
+  text-decoration: none;
+
+  color: #07294d;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  border-bottom: 1px solid rgba(0,184,148,0.08);
+
+  transition: all 0.35s ease;
+}
+
+.submitManuscriptSidebarLinks a:last-child{
+  border-bottom: none;
+}
+
+.submitManuscriptSidebarLinks a:hover{
+  color: #00b894;
+  padding-left: 10px;
+}
+
+/* =========================================================
+   1400px
+========================================================= */
+
+@media (max-width: 1400px){
+
+  .submitManuscriptHeading h2{
+    font-size: 3.5rem;
+  }
+}
+
+/* =========================================================
+   1200px
+========================================================= */
+
+@media (max-width: 1200px){
+
+  .submitManuscriptContainer{
+    grid-template-columns: 1fr;
+  }
+
+  .submitManuscriptSidebar{
+    position: relative;
+    top: 0;
+
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+
+    gap: 25px;
+  }
+}
+
+/* =========================================================
+   992px
+========================================================= */
+
+@media (max-width: 992px){
+
+  .submitManuscriptSection{
+    padding: 80px 5%;
+  }
+
+  .submitManuscriptHeading h2{
+    font-size: 2.9rem;
+  }
+
+  .submitManuscriptHeading p{
+    font-size: 1.05rem;
+  }
+
+  .submitManuscriptFormWrapper{
+    padding: 35px;
+  }
+}
+
+/* =========================================================
+   768px
+========================================================= */
+
+@media (max-width: 768px){
+
+  .submitManuscriptSection{
+    padding: 70px 5%;
+  }
+
+  .submitManuscriptHeading{
+    margin-bottom: 35px;
+  }
+
+  .submitManuscriptHeading span{
+    font-size: 12px;
+    letter-spacing: 3px;
+  }
+
+  .submitManuscriptHeading h2{
+    font-size: 2.2rem;
+    line-height: 1.3;
+  }
+
+  .submitManuscriptHeading p{
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .submitManuscriptFormWrapper{
+    padding: 28px;
+    border-radius: 24px;
+  }
+
+  .submitManuscriptGrid{
+    grid-template-columns: 1fr;
+  }
+
+  .submitManuscriptFull{
+    grid-column: span 1;
+  }
+
+  .submitManuscriptSidebar{
+    grid-template-columns: 1fr;
+  }
+
+  .submitManuscriptBtnWrapper{
+    justify-content: center;
+  }
+
+  .submitManuscriptBtn{
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   576px
+========================================================= */
+
+@media (max-width: 576px){
+
+  .submitManuscriptSection{
+    padding: 60px 4%;
+  }
+
+  .submitManuscriptHeading h2{
+    font-size: 1.8rem;
+  }
+
+  .submitManuscriptHeading p{
+    font-size: 0.95rem;
+  }
+
+  .submitManuscriptFormWrapper{
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  .submitManuscriptField label{
+    font-size: 0.95rem;
+  }
+
+  .submitManuscriptField input,
+  .submitManuscriptField select,
+  .submitManuscriptField textarea{
+    padding: 16px;
+    font-size: 0.95rem;
+
+    border-radius: 16px;
+  }
+
+  .submitManuscriptSidebarCard{
+    padding: 26px 22px;
+
+    border-radius: 22px;
+  }
+
+  .submitManuscriptSidebarCard h3{
+    font-size: 1rem;
+  }
+
+  .submitManuscriptSidebarLinks a{
+    font-size: 0.95rem;
+  }
+
+  .submitManuscriptCheckbox{
+    align-items: flex-start;
+  }
+
+  .submitManuscriptCheckbox span{
+    font-size: 0.92rem;
+  }
+
+  .submitManuscriptBtn{
+    padding: 16px 24px;
+    font-size: 0.95rem;
+  }
+}
+
+/* =========================================================
+   400px
+========================================================= */
+
+@media (max-width: 400px){
+
+  .submitManuscriptSection{
+    padding: 55px 4%;
+  }
+
+  .submitManuscriptHeading h2{
+    font-size: 1.55rem;
+  }
+
+  .submitManuscriptHeading p{
+    font-size: 0.9rem;
+  }
+
+  .submitManuscriptFormWrapper{
+    padding: 20px;
+  }
+
+  .submitManuscriptSidebarCard{
+    padding: 22px 18px;
+  }
+
+  .submitManuscriptSidebarLinks a{
+    font-size: 0.9rem;
+  }
+
+  .submitManuscriptBtn{
+    font-size: 0.9rem;
+    padding: 15px 20px;
+  }
+}
+
+/* =========================================================
+   360px
+========================================================= */
+
+@media (max-width: 360px){
+
+  .submitManuscriptHeading h2{
+    font-size: 1.35rem;
+  }
+
+  .submitManuscriptHeading p{
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+
+  .submitManuscriptField label{
+    font-size: 0.88rem;
+  }
+
+  .submitManuscriptField input,
+  .submitManuscriptField select,
+  .submitManuscriptField textarea{
+    padding: 14px;
+    font-size: 0.88rem;
+  }
+
+  .submitManuscriptCheckbox span{
+    font-size: 0.85rem;
+  }
+
+  .submitManuscriptSidebarCard h3{
+    font-size: 0.92rem;
+  }
+
+  .submitManuscriptSidebarCard p,
+  .submitManuscriptSidebarLinks a{
+    font-size: 0.85rem;
+  }
+
+  .submitManuscriptBtn{
+    font-size: 0.85rem;
+    padding: 14px 18px;
+  }
+}
