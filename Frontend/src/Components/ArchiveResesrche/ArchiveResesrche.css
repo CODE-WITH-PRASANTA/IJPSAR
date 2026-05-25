@@ -1,0 +1,377 @@
+/* ArchiveResesrche.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.archiveresearch {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  padding: 90px 7%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f5fff9 45%,
+      #e5fff2 100%
+    );
+}
+
+/* =========================
+   GLOW EFFECTS
+========================= */
+
+.archiveresearch-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+}
+
+.archiveresearch-glow1 {
+  width: 300px;
+  height: 300px;
+
+  background: rgba(0,168,107,0.10);
+
+  top: -100px;
+  left: -100px;
+}
+
+.archiveresearch-glow2 {
+  width: 350px;
+  height: 350px;
+
+  background: rgba(0,255,170,0.12);
+
+  right: -120px;
+  bottom: -120px;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.archiveresearch-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.archiveresearch-header {
+  text-align: center;
+  margin-bottom: 55px;
+}
+
+.archiveresearch-tag {
+  display: inline-block;
+
+  padding: 12px 22px;
+
+  border-radius: 50px;
+
+  background: rgba(0,168,107,0.08);
+
+  color: #00a86b;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  margin-bottom: 24px;
+}
+
+.archiveresearch-title {
+  font-size: 4rem;
+  line-height: 1.1;
+  font-weight: 800;
+
+  color: #071b14;
+
+  margin-bottom: 22px;
+}
+
+.archiveresearch-title span {
+  color: #00a86b;
+}
+
+.archiveresearch-description {
+  max-width: 850px;
+
+  margin: auto;
+
+  color: #64748b;
+
+  font-size: 1.12rem;
+  line-height: 1.9;
+}
+
+/* =========================
+   TABLE WRAPPER
+========================= */
+
+.archiveresearch-table-wrapper {
+  width: 100%;
+
+  border-radius: 32px;
+
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.75);
+
+  backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(0,168,107,0.10);
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.05);
+}
+
+/* =========================
+   TABLE HEADER
+========================= */
+
+.archiveresearch-table-header {
+  display: grid;
+  grid-template-columns:
+    1fr
+    1.3fr
+    1.2fr
+    1.3fr
+    0.8fr;
+
+  gap: 20px;
+
+  padding: 28px 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #052f24,
+      #00a86b
+    );
+
+  color: #ffffff;
+
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  font-size: 14px;
+}
+
+.archiveresearch-table-header div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* =========================
+   TABLE ROW
+========================= */
+
+.archiveresearch-row {
+  display: grid;
+  grid-template-columns:
+    1fr
+    1.3fr
+    1.2fr
+    1.3fr
+    0.8fr;
+
+  gap: 20px;
+
+  align-items: center;
+
+  padding: 28px 30px;
+
+  border-bottom:
+    1px solid rgba(0,168,107,0.08);
+
+  transition: 0.4s ease;
+
+  background: rgba(255,255,255,0.75);
+}
+
+.archiveresearch-row:hover {
+  background: rgba(0,168,107,0.05);
+
+  transform: translateX(5px);
+}
+
+/* YEAR */
+.archiveresearch-year {
+  font-size: 1.5rem;
+  font-weight: 800;
+
+  color: #052f24;
+}
+
+/* TEXT */
+.archiveresearch-row div {
+  color: #0f172a;
+
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* BUTTON */
+.archiveresearch-btn-box {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.archiveresearch-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border: none;
+
+  padding: 14px 24px;
+
+  border-radius: 50px;
+
+  cursor: pointer;
+
+  background:
+    linear-gradient(
+      135deg,
+      #052f24,
+      #00a86b
+    );
+
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  transition: 0.4s ease;
+
+  box-shadow:
+    0 12px 25px rgba(0,168,107,0.18);
+}
+
+.archiveresearch-btn:hover {
+  transform: translateY(-4px);
+
+  background:
+    linear-gradient(
+      135deg,
+      #031f17,
+      #00c17c
+    );
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+  .archiveresearch-title {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 900px) {
+
+  .archiveresearch {
+    padding: 70px 5%;
+  }
+
+  .archiveresearch-title {
+    font-size: 2.7rem;
+  }
+
+  /* MOBILE TABLE */
+  .archiveresearch-table-header {
+    display: none;
+  }
+
+  .archiveresearch-row {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+
+    padding: 24px;
+
+    margin-bottom: 18px;
+
+    border-radius: 24px;
+
+    background: rgba(255,255,255,0.92);
+
+    border: 1px solid rgba(0,168,107,0.08);
+  }
+
+  .archiveresearch-row div {
+    position: relative;
+
+    padding-left: 130px;
+
+    font-size: 15px;
+  }
+
+  .archiveresearch-row div::before {
+    content: attr(data-label);
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    font-weight: 700;
+
+    color: #00a86b;
+  }
+
+  .archiveresearch-btn-box {
+    justify-content: flex-start;
+    padding-left: 0 !important;
+  }
+
+  .archiveresearch-btn-box::before {
+    display: none;
+  }
+
+  .archiveresearch-year {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .archiveresearch {
+    padding: 60px 4%;
+  }
+
+  .archiveresearch-title {
+    font-size: 2rem;
+  }
+
+  .archiveresearch-description {
+    font-size: 0.95rem;
+  }
+
+  .archiveresearch-row {
+    padding: 20px;
+  }
+
+  .archiveresearch-row div {
+    padding-left: 110px;
+    font-size: 14px;
+  }
+
+  .archiveresearch-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

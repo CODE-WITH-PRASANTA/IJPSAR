@@ -16,6 +16,10 @@ import ArticleDetails from "./Pages/ArticleDetails/ArticleDetails";
 
 import Authors from "./Pages/Authors/Authors";
 import Contact from "./Pages/Contact/Contact";
+import CurrentIsuue from "./Pages/CurrentIsuue/CurrentIsuue";
+import Archives from "./Pages/Archives/Archives";
+import SearchArticle from "./Pages/SearchArticle/SearchArticle";
+import Nomination from "./Pages/Nomination/Nomination";
 
 function App() {
   return (
@@ -42,6 +46,10 @@ function App() {
 
        <Route path="/authors" element={<Authors />} />
        <Route path="/contact" element={<Contact/>}/>
+       <Route path="/current-issue" element={<CurrentIsuue/>}/>
+       <Route path="/archives" element={<Archives/>}/>
+       <Route path="/search-articles" element={<SearchArticle/>}/>
+       <Route path="/best-paper-award" element={<Nomination/>}/>
 
       </Routes>
 

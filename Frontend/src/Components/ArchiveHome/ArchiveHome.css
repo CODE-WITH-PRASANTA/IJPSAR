@@ -1,0 +1,342 @@
+/* ArchiveHome.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.archivehome {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  padding: 85px 8%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #031f17 0%,
+      #083b2b 35%,
+      #0d5f48 70%,
+      #00b977 100%
+    );
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
+.archivehome-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.04),
+      rgba(255,255,255,0.01)
+    );
+
+  z-index: 1;
+}
+
+/* =========================
+   GLOW EFFECTS
+========================= */
+
+.archivehome-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+}
+
+.archivehome-glow1 {
+  width: 300px;
+  height: 300px;
+
+  background: rgba(255,255,255,0.08);
+
+  top: -120px;
+  left: -120px;
+
+  animation: archiveGlow 8s ease-in-out infinite;
+}
+
+.archivehome-glow2 {
+  width: 380px;
+  height: 380px;
+
+  background: rgba(0,255,170,0.18);
+
+  right: -120px;
+  bottom: -120px;
+
+  animation: archiveGlow 10s ease-in-out infinite alternate;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.archivehome-container {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 1400px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.archivehome-content {
+  width: 100%;
+  max-width: 850px;
+}
+
+/* =========================
+   BREADCRUMB
+========================= */
+
+.archivehome-breadcrumb {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 9px 18px;
+
+  border-radius: 50px;
+
+  background: rgba(255,255,255,0.08);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(10px);
+
+  margin-bottom: 24px;
+
+  animation: fadeDown 1s ease;
+}
+
+.archivehome-breadcrumb span {
+  color: rgba(255,255,255,0.88);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: 0.3s ease;
+}
+
+.archivehome-breadcrumb span:hover {
+  color: #9fffd8;
+}
+
+.archivehome-breadcrumb .active {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.archivehome-breadcrumb-icon {
+  color: #8fffd2;
+  font-size: 11px;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.archivehome-title {
+  font-size: 5rem;
+  line-height: 1.05;
+  font-weight: 800;
+
+  color: #ffffff;
+
+  margin-bottom: 24px;
+
+  animation: fadeUp 1s ease;
+}
+
+.archivehome-title span {
+  color: #9fffd8;
+  position: relative;
+}
+
+/* UNDERLINE */
+.archivehome-title span::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: 8px;
+
+  width: 100%;
+  height: 14px;
+
+  background: rgba(159,255,216,0.18);
+
+  border-radius: 20px;
+
+  z-index: -1;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.archivehome-description {
+  max-width: 720px;
+
+  color: rgba(255,255,255,0.75);
+
+  font-size: 1.15rem;
+  line-height: 1.9;
+
+  margin-bottom: 34px;
+}
+
+/* =========================
+   LINE
+========================= */
+
+.archivehome-line {
+  width: 140px;
+  height: 6px;
+
+  border-radius: 50px;
+
+  background:
+    linear-gradient(
+      to right,
+      #ffffff,
+      #9fffd8
+    );
+
+  box-shadow:
+    0 0 25px rgba(255,255,255,0.25);
+
+  animation: widthGrow 1.2s ease;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes widthGrow {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 140px;
+  }
+}
+
+@keyframes archiveGlow {
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  50% {
+    transform: translateY(-18px) scale(1.05);
+  }
+
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1200px) {
+
+  .archivehome-title {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .archivehome {
+    padding: 75px 6%;
+  }
+
+  .archivehome-title {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .archivehome {
+    padding: 65px 5%;
+  }
+
+  .archivehome-title {
+    font-size: 2.8rem;
+  }
+
+  .archivehome-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .archivehome {
+    padding: 55px 4%;
+  }
+
+  .archivehome-title {
+    font-size: 2.2rem;
+  }
+
+  .archivehome-breadcrumb {
+    padding: 8px 16px;
+    gap: 8px;
+  }
+
+  .archivehome-breadcrumb span {
+    font-size: 12px;
+  }
+
+  .archivehome-description {
+    font-size: 0.95rem;
+  }
+
+  .archivehome-line {
+    width: 90px;
+    height: 5px;
+  }
+}

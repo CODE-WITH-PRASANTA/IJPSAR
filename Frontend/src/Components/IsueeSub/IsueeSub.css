@@ -1,0 +1,413 @@
+/* IsueeSub.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.isueesub {
+  position: relative;
+  width: 100%;
+  padding: 90px 7%;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f5fff9 45%,
+      #e6fff2 100%
+    );
+}
+
+/* =========================
+   GLOW EFFECTS
+========================= */
+
+.isueesub-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+}
+
+.isueesub-glow1 {
+  width: 320px;
+  height: 320px;
+
+  background: rgba(0, 168, 107, 0.12);
+
+  top: -100px;
+  left: -80px;
+}
+
+.isueesub-glow2 {
+  width: 350px;
+  height: 350px;
+
+  background: rgba(0, 255, 170, 0.12);
+
+  right: -100px;
+  bottom: -120px;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.isueesub-container {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+
+  padding: 70px;
+
+  border-radius: 36px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #052f24 0%,
+      #0d5f48 45%,
+      #00b977 100%
+    );
+
+  overflow: hidden;
+
+  box-shadow:
+    0 30px 70px rgba(0, 168, 107, 0.18);
+}
+
+/* Glass Overlay */
+.isueesub-container::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.08),
+      rgba(255,255,255,0.02)
+    );
+
+  z-index: 1;
+}
+
+/* =========================
+   LEFT SIDE
+========================= */
+
+.isueesub-left {
+  position: relative;
+  z-index: 2;
+
+  flex: 1;
+}
+
+.isueesub-badge {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 20px;
+
+  border-radius: 50px;
+
+  background: rgba(255,255,255,0.12);
+
+  border: 1px solid rgba(255,255,255,0.12);
+
+  backdrop-filter: blur(10px);
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  margin-bottom: 28px;
+}
+
+.isueesub-title {
+  font-size: 4rem;
+  line-height: 1.1;
+  font-weight: 800;
+
+  color: #ffffff;
+
+  margin-bottom: 22px;
+}
+
+.isueesub-title span {
+  color: #9fffd3;
+}
+
+.isueesub-description {
+  max-width: 650px;
+
+  color: rgba(255,255,255,0.78);
+
+  font-size: 1.15rem;
+  line-height: 1.9;
+
+  margin-bottom: 34px;
+}
+
+/* FEATURES */
+.isueesub-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.isueesub-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 14px 20px;
+
+  border-radius: 50px;
+
+  background: rgba(255,255,255,0.08);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  backdrop-filter: blur(10px);
+}
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.isueesub-right {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 520px;
+}
+
+.isueesub-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* INPUT */
+.isueesub-input-box {
+  width: 100%;
+  height: 78px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 0 28px;
+
+  border-radius: 24px;
+
+  background: rgba(255,255,255,0.96);
+
+  border: 1px solid rgba(255,255,255,0.4);
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,0.08);
+}
+
+.isueesub-input-icon {
+  color: #00a86b;
+  font-size: 1.2rem;
+}
+
+.isueesub-input-box input {
+  width: 100%;
+  height: 100%;
+
+  border: none;
+  outline: none;
+  background: transparent;
+
+  color: #052f24;
+
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.isueesub-input-box input::placeholder {
+  color: #6b7280;
+}
+
+/* BUTTON */
+.isueesub-btn {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  height: 64px;
+
+  padding: 0 34px;
+
+  border: none;
+  border-radius: 20px;
+
+  cursor: pointer;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #f5fff9
+    );
+
+  color: #052f24;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  transition: 0.4s ease;
+
+  box-shadow:
+    0 15px 35px rgba(0,0,0,0.12);
+}
+
+.isueesub-btn:hover {
+  transform: translateY(-5px);
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #dcfff0
+    );
+}
+
+/* NOTE */
+.isueesub-note {
+  margin-top: 22px;
+
+  color: rgba(255,255,255,0.75);
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1200px) {
+
+  .isueesub-title {
+    font-size: 3.2rem;
+  }
+
+  .isueesub-container {
+    padding: 60px;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .isueesub-container {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 45px;
+  }
+
+  .isueesub-right {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .isueesub {
+    padding: 70px 5%;
+  }
+
+  .isueesub-container {
+    padding: 45px 30px;
+    border-radius: 28px;
+  }
+
+  .isueesub-title {
+    font-size: 2.5rem;
+  }
+
+  .isueesub-description {
+    font-size: 1rem;
+  }
+
+  .isueesub-input-box {
+    height: 68px;
+    border-radius: 20px;
+    padding: 0 22px;
+  }
+
+  .isueesub-btn {
+    width: 100%;
+    height: 60px;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .isueesub {
+    padding: 60px 4%;
+  }
+
+  .isueesub-container {
+    padding: 35px 22px;
+    border-radius: 24px;
+  }
+
+  .isueesub-title {
+    font-size: 2rem;
+  }
+
+  .isueesub-badge {
+    font-size: 12px;
+    padding: 10px 16px;
+  }
+
+  .isueesub-feature {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .isueesub-input-box {
+    height: 62px;
+    border-radius: 18px;
+    padding: 0 18px;
+  }
+
+  .isueesub-input-box input {
+    font-size: 0.95rem;
+  }
+
+  .isueesub-btn {
+    height: 56px;
+    font-size: 0.95rem;
+  }
+}
