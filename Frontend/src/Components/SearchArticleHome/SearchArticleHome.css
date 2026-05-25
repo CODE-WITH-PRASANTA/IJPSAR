@@ -1,0 +1,389 @@
+/* SearchArticleHome.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.searcharticlehome {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  padding: 95px 8%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #031f17 0%,
+      #083b2b 35%,
+      #0d5f48 70%,
+      #00b977 100%
+    );
+
+  isolation: isolate;
+}
+
+/* =========================
+   PREMIUM OVERLAY
+========================= */
+
+.searcharticlehome-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.04),
+      rgba(255,255,255,0.01)
+    );
+
+  z-index: 1;
+}
+
+/* =========================
+   GRID EFFECT
+========================= */
+
+.searcharticlehome::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.05) 1px,
+      transparent 1px
+    );
+
+  background-size: 60px 60px;
+
+  opacity: 0.15;
+
+  z-index: 0;
+}
+
+/* =========================
+   GLOW EFFECTS
+========================= */
+
+.searcharticlehome-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+}
+
+.searcharticlehome-glow1 {
+  width: 320px;
+  height: 320px;
+
+  background: rgba(255,255,255,0.08);
+
+  top: -120px;
+  left: -120px;
+
+  animation: searchGlow 8s ease-in-out infinite;
+}
+
+.searcharticlehome-glow2 {
+  width: 420px;
+  height: 420px;
+
+  background: rgba(0,255,170,0.16);
+
+  right: -140px;
+  bottom: -140px;
+
+  animation: searchGlow 10s ease-in-out infinite alternate;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.searcharticlehome-container {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 1450px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.searcharticlehome-content {
+  width: 100%;
+  max-width: 950px;
+}
+
+/* =========================
+   BREADCRUMB
+========================= */
+
+.searcharticlehome-breadcrumb {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 20px;
+
+  border-radius: 50px;
+
+  background: rgba(255,255,255,0.08);
+
+  border: 1px solid rgba(255,255,255,0.10);
+
+  backdrop-filter: blur(16px);
+
+  margin-bottom: 28px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.20),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+
+  animation: fadeDown 1s ease;
+}
+
+.searcharticlehome-breadcrumb span {
+  color: rgba(255,255,255,0.88);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: 0.3s ease;
+}
+
+.searcharticlehome-breadcrumb span:hover {
+  color: #9fffd8;
+}
+
+.searcharticlehome-breadcrumb .active {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.searcharticlehome-breadcrumb-icon {
+  color: #8fffd2;
+  font-size: 11px;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.searcharticlehome-title {
+  font-size: 5rem;
+  line-height: 1.05;
+  font-weight: 800;
+
+  color: #ffffff;
+
+  margin-bottom: 24px;
+
+  letter-spacing: -2px;
+
+  animation: fadeUp 1s ease;
+}
+
+.searcharticlehome-title span {
+  color: #9fffd8;
+  position: relative;
+  z-index: 1;
+}
+
+/* UNDERLINE */
+.searcharticlehome-title span::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: 8px;
+
+  width: 100%;
+  height: 14px;
+
+  background: rgba(159,255,216,0.18);
+
+  border-radius: 20px;
+
+  z-index: -1;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.searcharticlehome-description {
+  max-width: 760px;
+
+  color: rgba(255,255,255,0.80);
+
+  font-size: 1.08rem;
+  line-height: 1.9;
+
+  margin-bottom: 36px;
+}
+
+/* =========================
+   PREMIUM LINE
+========================= */
+
+.searcharticlehome-line {
+  width: 140px;
+  height: 6px;
+
+  border-radius: 50px;
+
+  background:
+    linear-gradient(
+      to right,
+      #ffffff,
+      #9fffd8
+    );
+
+  box-shadow:
+    0 0 25px rgba(255,255,255,0.25);
+
+  animation: widthGrow 1.2s ease;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes widthGrow {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 140px;
+  }
+}
+
+@keyframes searchGlow {
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  50% {
+    transform: translateY(-18px) scale(1.05);
+  }
+
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1200px) {
+
+  .searcharticlehome-title {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .searcharticlehome {
+    padding: 80px 6%;
+  }
+
+  .searcharticlehome-title {
+    font-size: 3.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .searcharticlehome {
+    padding: 70px 5%;
+  }
+
+  .searcharticlehome-title {
+    font-size: 2.8rem;
+  }
+
+  .searcharticlehome-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .searcharticlehome {
+    padding: 60px 4%;
+  }
+
+  .searcharticlehome-title {
+    font-size: 2.2rem;
+  }
+
+  .searcharticlehome-breadcrumb {
+    padding: 8px 16px;
+    gap: 8px;
+  }
+
+  .searcharticlehome-breadcrumb span {
+    font-size: 12px;
+  }
+
+  .searcharticlehome-description {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .searcharticlehome-line {
+    width: 90px;
+    height: 5px;
+  }
+
+  .searcharticlehome-glow1 {
+    width: 220px;
+    height: 220px;
+  }
+
+  .searcharticlehome-glow2 {
+    width: 260px;
+    height: 260px;
+  }
+}
