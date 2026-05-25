@@ -8,6 +8,8 @@ import AboutIJPSAR from './Pages/AboutIJPSAR/AboutIJPSAR'
 import EditorialBoard from "./Pages/EditorialBoard/EditorialBoard";
 import IndexingAbstracting from "./Pages/IndexingAbstracting/IndexingAbstracting";
 import PublicationEthics from "./Pages/PublicationEthics/PublicationEthics";
+import PeerReview from "./Pages/PeerReview/PeerReview";
+import PlagiarismPolicy from "./Pages/PlagiarismPolicy/PlagiarismPolicy";
 
 import Authors from "./Pages/Authors/Authors";
 import Contact from "./Pages/Contact/Contact";
@@ -33,6 +35,8 @@ function App() {
         <Route path="/editorial-board" element={<EditorialBoard />} />
         <Route path="/indexing-abstracting" element={<IndexingAbstracting />} />
         <Route path="/publication-ethics" element={<PublicationEthics />} />
+        <Route path="/peer-review-process" element={<PeerReview />} />
+        <Route path="/plagiarism-policy" element={<PlagiarismPolicy />} />
 
        <Route path="/authors" element={<Authors />} />
        <Route path="/contact" element={<Contact/>}/>
