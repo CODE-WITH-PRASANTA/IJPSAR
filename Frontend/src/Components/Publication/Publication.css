@@ -13,8 +13,8 @@
   padding: 110px 20px;
   background: linear-gradient(
     180deg,
-    #f7fffc 0%,
-    #effff9 50%,
+    #ffffff 0%,
+    #f8fff6 50%,
     #ffffff 100%
   );
   overflow: hidden;
@@ -29,7 +29,7 @@
   left: -200px;
   width: 450px;
   height: 450px;
-  background: rgba(16, 185, 129, 0.08);
+  background: rgba(100, 195, 69, 0.10);
   border-radius: 50%;
   filter: blur(40px);
 }
@@ -41,7 +41,7 @@
   right: -180px;
   width: 400px;
   height: 400px;
-  background: rgba(5, 150, 105, 0.08);
+  background: rgba(100, 195, 69, 0.08);
   border-radius: 50%;
   filter: blur(40px);
 }
@@ -64,8 +64,8 @@
   display: inline-block;
   padding: 10px 24px;
   border-radius: 50px;
-  background: rgba(16, 185, 129, 0.12);
-  color: #059669;
+  background: rgba(100, 195, 69, 0.12);
+  color: #64c345;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 3px;
@@ -82,7 +82,7 @@
 }
 
 .publication-title span {
-  color: #059669;
+  color: #64c345;
 }
 
 .publication-description {
@@ -106,14 +106,16 @@
 
 .publication-process-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.96);
   border-radius: 32px;
   padding: 80px 28px 35px;
   text-align: center;
-  border: 1px solid rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(100, 195, 69, 0.12);
+
   box-shadow:
     0 15px 35px rgba(15, 23, 42, 0.05),
-    0 5px 15px rgba(16, 185, 129, 0.08);
+    0 5px 15px rgba(100, 195, 69, 0.08);
+
   transition: all 0.45s ease;
   overflow: hidden;
   backdrop-filter: blur(10px);
@@ -121,10 +123,13 @@
 
 .publication-process-card:hover {
   transform: translateY(-12px);
+
   box-shadow:
-    0 25px 50px rgba(16, 185, 129, 0.18),
+    0 25px 50px rgba(100, 195, 69, 0.18),
     0 10px 25px rgba(15, 23, 42, 0.08);
 }
+
+/* STEP NUMBER */
 
 .publication-step-number {
   position: absolute;
@@ -133,14 +138,26 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #10b981, #047857);
+
+  background: linear-gradient(
+    135deg,
+    #64c345,
+    #4ea531
+  );
+
   color: #fff;
   font-size: 14px;
   font-weight: 700;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  box-shadow:
+    0 8px 20px rgba(100, 195, 69, 0.25);
 }
+
+/* ICON */
 
 .publication-icon-box {
   width: 105px;
@@ -148,14 +165,22 @@
   margin: auto;
   margin-bottom: 30px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #10b981, #065f46);
+
+  background: linear-gradient(
+    135deg,
+    #64c345,
+    #4ea531
+  );
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   color: #fff;
   font-size: 38px;
+
   box-shadow:
-    0 18px 40px rgba(16, 185, 129, 0.28);
+    0 18px 40px rgba(100, 195, 69, 0.28);
 }
 
 .publication-process-card h3 {
@@ -179,11 +204,13 @@
   right: -45px;
   width: 60px;
   height: 5px;
+
   background: linear-gradient(
     90deg,
-    #10b981,
-    #34d399
+    #64c345,
+    #8be36f
   );
+
   border-radius: 50px;
 }
 
@@ -208,16 +235,27 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+
   width: 46px;
   height: 46px;
+
   border: none;
   border-radius: 50%;
-  background: linear-gradient(135deg, #10b981, #047857);
+
+  background: linear-gradient(
+    135deg,
+    #64c345,
+    #4ea531
+  );
+
   color: #fff;
   font-size: 18px;
   cursor: pointer;
+
   z-index: 10;
-  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+
+  box-shadow:
+    0 10px 25px rgba(100, 195, 69, 0.3);
 }
 
 .publication-mobile-btn.left {
@@ -241,7 +279,9 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #cbd5e1;
+
+  background: #d4d4d8;
+
   cursor: pointer;
   transition: 0.3s;
 }
@@ -249,12 +289,14 @@
 .publication-dot.active {
   width: 34px;
   border-radius: 20px;
-  background: #10b981;
+
+  background: #64c345;
 }
 
 /* LAPTOP */
 
 @media (max-width: 1400px) {
+
   .publication-process-wrapper {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -271,6 +313,7 @@
 /* TABLET */
 
 @media (max-width: 992px) {
+
   .publication-process-wrapper {
     grid-template-columns: repeat(2, 1fr);
   }

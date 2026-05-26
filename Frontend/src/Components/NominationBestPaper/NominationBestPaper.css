@@ -1,0 +1,656 @@
+/* =========================
+   NominationPaper.css
+   PREMIUM WHITE + #64C345 UI
+========================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+.nominationpaper{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+
+  padding:95px 7%;
+
+  background:
+  radial-gradient(
+    circle at left,
+    rgba(100,195,69,0.14),
+    transparent 22%
+  ),
+  radial-gradient(
+    circle at right,
+    rgba(100,195,69,0.10),
+    transparent 25%
+  ),
+  linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f5fff2 45%,
+    #ebf9e6 100%
+  );
+}
+
+/* =========================
+   PREMIUM GLOW
+========================= */
+
+.nominationpaper::before{
+  content:"";
+
+  position:absolute;
+
+  top:-140px;
+  left:-140px;
+
+  width:340px;
+  height:340px;
+
+  border-radius:50%;
+
+  background:rgba(100,195,69,0.18);
+
+  filter:blur(120px);
+
+  animation:paperGlow 8s ease-in-out infinite;
+
+  z-index:0;
+}
+
+.nominationpaper::after{
+  content:"";
+
+  position:absolute;
+
+  right:-180px;
+  bottom:-180px;
+
+  width:420px;
+  height:420px;
+
+  border-radius:50%;
+
+  background:rgba(100,195,69,0.12);
+
+  filter:blur(130px);
+
+  animation:paperGlowTwo 10s ease-in-out infinite alternate;
+
+  z-index:0;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.nominationpaper-container{
+  position:relative;
+  z-index:2;
+
+  max-width:1450px;
+  margin:auto;
+}
+
+/* =========================
+   TOP
+========================= */
+
+.nominationpaper-top{
+  margin-bottom:40px;
+}
+
+.nominationpaper-tag{
+  display:inline-block;
+
+  color:#64c345;
+
+  font-size:14px;
+  font-weight:700;
+
+  letter-spacing:3px;
+  text-transform:uppercase;
+
+  margin-bottom:18px;
+
+  padding:10px 20px;
+
+  border-radius:50px;
+
+  background:rgba(100,195,69,0.10);
+
+  border:1px solid rgba(100,195,69,0.10);
+}
+
+.nominationpaper-title{
+  font-size:4rem;
+  line-height:1.15;
+  font-weight:800;
+
+  color:#102b0d;
+}
+
+.nominationpaper-title span{
+  color:#64c345;
+}
+
+/* =========================
+   ALERT
+========================= */
+
+.nominationpaper-alert{
+  display:flex;
+  align-items:center;
+  gap:16px;
+
+  padding:26px 30px;
+
+  border-left:5px solid #64c345;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,255,255,0.92),
+    rgba(245,255,242,0.88)
+  );
+
+  border-radius:22px;
+
+  margin-bottom:60px;
+
+  backdrop-filter:blur(14px);
+
+  box-shadow:
+  0 20px 45px rgba(100,195,69,0.08);
+}
+
+.nominationpaper-alert-icon{
+  color:#64c345;
+  font-size:1.2rem;
+}
+
+.nominationpaper-alert p{
+  color:#102b0d;
+
+  font-size:1rem;
+  font-weight:600;
+
+  line-height:1.8;
+}
+
+.nominationpaper-alert span{
+  color:#64c345;
+  font-weight:700;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.nominationpaper-content{
+  margin-bottom:60px;
+}
+
+.nominationpaper-content p{
+  color:#475569;
+
+  font-size:1.05rem;
+  line-height:2;
+
+  margin-bottom:22px;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.nominationpaper-section{
+  margin-bottom:70px;
+}
+
+.nominationpaper-section h2{
+  font-size:2.5rem;
+  font-weight:800;
+
+  color:#102b0d;
+
+  margin-bottom:20px;
+}
+
+.nominationpaper-section p{
+  color:#64748b;
+
+  font-size:1rem;
+  line-height:1.9;
+
+  margin-bottom:24px;
+}
+
+.nominationpaper-section ul{
+  padding-left:24px;
+}
+
+.nominationpaper-section ul li{
+  color:#334155;
+
+  font-size:1rem;
+  line-height:2;
+
+  margin-bottom:10px;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.nominationpaper-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+
+  gap:30px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.nominationpaper-card{
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,255,255,0.96),
+    rgba(245,255,242,0.92)
+  );
+
+  padding:36px;
+
+  border-radius:28px;
+
+  border:1px solid rgba(100,195,69,0.10);
+
+  backdrop-filter:blur(16px);
+
+  box-shadow:
+  0 22px 50px rgba(0,0,0,0.05);
+
+  transition:0.4s ease;
+}
+
+.nominationpaper-card:hover{
+  transform:translateY(-6px);
+
+  box-shadow:
+  0 30px 60px rgba(100,195,69,0.14);
+}
+
+.nominationpaper-card h3{
+  font-size:1.55rem;
+  font-weight:800;
+
+  color:#102b0d;
+
+  margin-bottom:18px;
+}
+
+/* =========================
+   CHECKLIST
+========================= */
+
+.nominationpaper-checklist{
+  list-style:none;
+  padding-left:0 !important;
+}
+
+.nominationpaper-checklist li{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+
+  margin-bottom:18px;
+}
+
+.nominationpaper-checklist svg{
+  color:#64c345;
+
+  margin-top:6px;
+}
+
+/* =========================
+   RECOGNITION
+========================= */
+
+.nominationpaper-recognition{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+
+  gap:24px;
+}
+
+.nominationpaper-recognition-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  padding:26px;
+
+  background:#ffffff;
+
+  border-radius:22px;
+
+  border:1px solid rgba(100,195,69,0.10);
+
+  box-shadow:
+  0 15px 35px rgba(0,0,0,0.04);
+
+  color:#102b0d;
+
+  font-size:1rem;
+  font-weight:600;
+
+  transition:0.35s ease;
+}
+
+.nominationpaper-recognition-item:hover{
+  transform:translateY(-4px);
+
+  box-shadow:
+  0 20px 40px rgba(100,195,69,0.12);
+}
+
+.nominationpaper-recognition-item svg{
+  color:#64c345;
+}
+
+/* =========================
+   APPLY
+========================= */
+
+.nominationpaper-apply{
+  position:relative;
+  overflow:hidden;
+
+  padding:50px;
+
+  border-radius:34px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #122d0e,
+    #275420,
+    #64c345
+  );
+
+  color:#ffffff;
+
+  box-shadow:
+  0 35px 70px rgba(100,195,69,0.20);
+}
+
+.nominationpaper-apply::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.02)
+  );
+}
+
+.nominationpaper-apply h2{
+  position:relative;
+  z-index:2;
+
+  font-size:2.5rem;
+  font-weight:800;
+
+  margin-bottom:18px;
+}
+
+.nominationpaper-apply p{
+  position:relative;
+  z-index:2;
+
+  color:rgba(255,255,255,0.84);
+
+  font-size:1rem;
+  line-height:2;
+
+  margin-bottom:28px;
+}
+
+/* =========================
+   APPLY BOX
+========================= */
+
+.nominationpaper-apply-box{
+  position:relative;
+  z-index:2;
+
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+
+  padding:24px 28px;
+
+  border-radius:22px;
+
+  background:rgba(255,255,255,0.10);
+
+  border:1px solid rgba(255,255,255,0.10);
+
+  margin-bottom:40px;
+
+  backdrop-filter:blur(12px);
+}
+
+.nominationpaper-apply-box svg{
+  color:#dfffd2;
+}
+
+.nominationpaper-apply-box span{
+  color:#ffffff;
+  font-weight:600;
+}
+
+.nominationpaper-apply-box a{
+  color:#dfffd2;
+
+  text-decoration:none;
+
+  font-weight:700;
+}
+
+/* =========================
+   DETAILS WRAPPER
+========================= */
+
+.nominationpaper-details-wrapper{
+  position:relative;
+  z-index:2;
+
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+
+  gap:30px;
+}
+
+/* =========================
+   DETAILS CARD
+========================= */
+
+.nominationpaper-details-card{
+  background:rgba(255,255,255,0.10);
+
+  border:1px solid rgba(255,255,255,0.10);
+
+  border-radius:26px;
+
+  padding:34px;
+
+  backdrop-filter:blur(12px);
+
+  transition:0.4s ease;
+}
+
+.nominationpaper-details-card:hover{
+  transform:translateY(-5px);
+
+  background:rgba(255,255,255,0.14);
+}
+
+.nominationpaper-details-card h3{
+  font-size:1.7rem;
+  font-weight:800;
+
+  color:#ffffff;
+
+  margin-bottom:24px;
+}
+
+.nominationpaper-details-card ul{
+  padding-left:22px;
+}
+
+.nominationpaper-details-card ul li{
+  color:rgba(255,255,255,0.88);
+
+  font-size:1rem;
+  line-height:2;
+
+  margin-bottom:10px;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes paperGlow{
+
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-22px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+}
+
+@keyframes paperGlowTwo{
+
+  0%{
+    transform:translateY(0px) scale(1);
+  }
+
+  100%{
+    transform:translateY(-28px) scale(1.08);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1200px){
+
+  .nominationpaper-title{
+    font-size:3.2rem;
+  }
+}
+
+@media(max-width:992px){
+
+  .nominationpaper{
+    padding:80px 5%;
+  }
+
+  .nominationpaper-grid,
+  .nominationpaper-recognition,
+  .nominationpaper-details-wrapper{
+    grid-template-columns:1fr;
+  }
+
+  .nominationpaper-title{
+    font-size:2.8rem;
+  }
+}
+
+@media(max-width:768px){
+
+  .nominationpaper-title{
+    font-size:2.3rem;
+  }
+
+  .nominationpaper-section h2,
+  .nominationpaper-apply h2{
+    font-size:1.9rem;
+  }
+
+  .nominationpaper-card,
+  .nominationpaper-apply{
+    padding:28px;
+  }
+
+  .nominationpaper-details-card{
+    padding:24px;
+  }
+}
+
+@media(max-width:480px){
+
+  .nominationpaper{
+    padding:60px 4%;
+  }
+
+  .nominationpaper-title{
+    font-size:1.9rem;
+  }
+
+  .nominationpaper-alert{
+    flex-direction:column;
+    align-items:flex-start;
+
+    padding:20px;
+  }
+
+  .nominationpaper-card{
+    padding:24px;
+  }
+
+  .nominationpaper-card h3{
+    font-size:1.3rem;
+  }
+
+  .nominationpaper-apply{
+    padding:24px;
+  }
+
+  .nominationpaper-apply-box{
+    padding:18px;
+  }
+
+  .nominationpaper-details-card{
+    padding:20px;
+  }
+
+  .nominationpaper-details-card h3{
+    font-size:1.4rem;
+  }
+
+  .nominationpaper-details-card ul li{
+    font-size:0.95rem;
+    line-height:1.8;
+  }
+}

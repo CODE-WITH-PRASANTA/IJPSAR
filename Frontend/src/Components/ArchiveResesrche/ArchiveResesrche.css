@@ -1,0 +1,438 @@
+/* =========================
+   ArchiveResearch.css
+   PREMIUM WHITE + #64C345 THEME
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.archiveresearch {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  padding: 90px 7%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f7fff3 40%,
+      #edfbe7 100%
+    );
+}
+
+/* =========================
+   PREMIUM GLOW EFFECTS
+========================= */
+
+.archiveresearch-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(130px);
+  z-index: 0;
+}
+
+.archiveresearch-glow1 {
+  width: 320px;
+  height: 320px;
+
+  background: rgba(100,195,69,0.14);
+
+  top: -120px;
+  left: -120px;
+
+  animation: glowFloat 8s ease-in-out infinite;
+}
+
+.archiveresearch-glow2 {
+  width: 380px;
+  height: 380px;
+
+  background: rgba(100,195,69,0.12);
+
+  right: -150px;
+  bottom: -150px;
+
+  animation: glowFloatTwo 10s ease-in-out infinite alternate;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.archiveresearch-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.archiveresearch-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.archiveresearch-tag {
+  display: inline-block;
+
+  padding: 12px 24px;
+
+  border-radius: 50px;
+
+  background: rgba(100,195,69,0.10);
+
+  color: #64c345;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  margin-bottom: 24px;
+
+  border: 1px solid rgba(100,195,69,0.10);
+
+  backdrop-filter: blur(12px);
+}
+
+.archiveresearch-title {
+  font-size: 4rem;
+  line-height: 1.08;
+  font-weight: 800;
+
+  color: #081c15;
+
+  margin-bottom: 22px;
+}
+
+.archiveresearch-title span {
+  color: #64c345;
+}
+
+.archiveresearch-description {
+  max-width: 850px;
+
+  margin: auto;
+
+  color: #64748b;
+
+  font-size: 1.08rem;
+  line-height: 1.9;
+}
+
+/* =========================
+   TABLE WRAPPER
+========================= */
+
+.archiveresearch-table-wrapper {
+  width: 100%;
+
+  border-radius: 34px;
+
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.88);
+
+  backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(100,195,69,0.10);
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.05);
+}
+
+/* =========================
+   TABLE HEADER
+========================= */
+
+.archiveresearch-table-header {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1.3fr
+    1.2fr
+    1.3fr
+    0.8fr;
+
+  gap: 20px;
+
+  padding: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #264d20,
+      #64c345
+    );
+
+  color: #ffffff;
+
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  font-size: 14px;
+}
+
+.archiveresearch-table-header div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* =========================
+   TABLE ROW
+========================= */
+
+.archiveresearch-row {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1.3fr
+    1.2fr
+    1.3fr
+    0.8fr;
+
+  gap: 20px;
+
+  align-items: center;
+
+  padding: 30px;
+
+  border-bottom:
+    1px solid rgba(100,195,69,0.08);
+
+  transition: 0.4s ease;
+
+  background: rgba(255,255,255,0.92);
+}
+
+.archiveresearch-row:hover {
+  background: rgba(100,195,69,0.05);
+
+  transform: translateX(6px);
+}
+
+/* =========================
+   YEAR
+========================= */
+
+.archiveresearch-year {
+  font-size: 1.5rem;
+  font-weight: 800;
+
+  color: #264d20;
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.archiveresearch-row div {
+  color: #0f172a;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+  line-height: 1.7;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.archiveresearch-btn-box {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.archiveresearch-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border: none;
+
+  padding: 14px 24px;
+
+  border-radius: 50px;
+
+  cursor: pointer;
+
+  background:
+    linear-gradient(
+      135deg,
+      #264d20,
+      #64c345
+    );
+
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  transition: 0.4s ease;
+
+  box-shadow:
+    0 14px 28px rgba(100,195,69,0.22);
+}
+
+.archiveresearch-btn:hover {
+  transform: translateY(-4px);
+
+  background:
+    linear-gradient(
+      135deg,
+      #1b3816,
+      #72d64f
+    );
+
+  box-shadow:
+    0 18px 35px rgba(100,195,69,0.28);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes glowFloat {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-25px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes glowFloatTwo {
+
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  100% {
+    transform: translateY(-30px) scale(1.08);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+  .archiveresearch-title {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 900px) {
+
+  .archiveresearch {
+    padding: 70px 5%;
+  }
+
+  .archiveresearch-title {
+    font-size: 2.7rem;
+  }
+
+  /* MOBILE TABLE */
+
+  .archiveresearch-table-header {
+    display: none;
+  }
+
+  .archiveresearch-row {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+
+    padding: 24px;
+
+    margin-bottom: 18px;
+
+    border-radius: 24px;
+
+    background: rgba(255,255,255,0.96);
+
+    border: 1px solid rgba(100,195,69,0.08);
+  }
+
+  .archiveresearch-row div {
+    position: relative;
+
+    padding-left: 130px;
+
+    font-size: 15px;
+  }
+
+  .archiveresearch-row div::before {
+    content: attr(data-label);
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    font-weight: 700;
+
+    color: #64c345;
+  }
+
+  .archiveresearch-btn-box {
+    justify-content: flex-start;
+
+    padding-left: 0 !important;
+  }
+
+  .archiveresearch-btn-box::before {
+    display: none;
+  }
+
+  .archiveresearch-year {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .archiveresearch {
+    padding: 60px 4%;
+  }
+
+  .archiveresearch-title {
+    font-size: 2rem;
+  }
+
+  .archiveresearch-description {
+    font-size: 0.95rem;
+  }
+
+  .archiveresearch-row {
+    padding: 20px;
+  }
+
+  .archiveresearch-row div {
+    padding-left: 110px;
+
+    font-size: 14px;
+  }
+
+  .archiveresearch-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

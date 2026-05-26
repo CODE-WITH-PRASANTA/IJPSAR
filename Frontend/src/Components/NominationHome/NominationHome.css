@@ -1,0 +1,485 @@
+/* =========================
+   NominationHome.css
+   PREMIUM WHITE + #64C345 DARK UI
+========================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+.nominationhome{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+
+  padding:90px 8%;
+
+  background:
+  radial-gradient(
+    circle at left,
+    rgba(100,195,69,0.22),
+    transparent 22%
+  ),
+  radial-gradient(
+    circle at right,
+    rgba(100,195,69,0.18),
+    transparent 25%
+  ),
+  linear-gradient(
+    135deg,
+    #081407 0%,
+    #122d0e 20%,
+    #1d4717 45%,
+    #2d6923 72%,
+    #64c345 100%
+  );
+
+  isolation:isolate;
+}
+
+/* =========================
+   PREMIUM OVERLAY
+========================= */
+
+.nominationhome-overlay{
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    rgba(0,0,0,0.18),
+    rgba(0,0,0,0.08)
+  );
+
+  backdrop-filter:blur(2px);
+
+  z-index:1;
+}
+
+/* =========================
+   GRID EFFECT
+========================= */
+
+.nominationhome::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background-image:
+  linear-gradient(
+    rgba(255,255,255,0.04) 1px,
+    transparent 1px
+  ),
+  linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 1px,
+    transparent 1px
+  );
+
+  background-size:60px 60px;
+
+  opacity:0.12;
+
+  animation:gridMove 20s linear infinite;
+
+  z-index:0;
+}
+
+/* =========================
+   GLOW EFFECTS
+========================= */
+
+.nominationhome-glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(130px);
+  z-index:0;
+}
+
+.nominationhome-glow1{
+  width:340px;
+  height:340px;
+
+  background:rgba(100,195,69,0.26);
+
+  top:-120px;
+  left:-140px;
+
+  animation:nominationGlow 8s ease-in-out infinite;
+}
+
+.nominationhome-glow2{
+  width:440px;
+  height:440px;
+
+  background:rgba(255,255,255,0.08);
+
+  right:-160px;
+  bottom:-160px;
+
+  animation:nominationGlowTwo 10s ease-in-out infinite alternate;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.nominationhome-container{
+  position:relative;
+  z-index:2;
+
+  width:100%;
+  max-width:1450px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.nominationhome-content{
+  width:100%;
+  max-width:950px;
+}
+
+/* =========================
+   BREADCRUMB
+========================= */
+
+.nominationhome-breadcrumb{
+  width:fit-content;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  padding:10px 20px;
+
+  border-radius:50px;
+
+  background:rgba(255,255,255,0.08);
+
+  border:1px solid rgba(255,255,255,0.10);
+
+  backdrop-filter:blur(16px);
+
+  margin-bottom:30px;
+
+  box-shadow:
+  0 12px 35px rgba(0,0,0,0.22);
+
+  animation:fadeDown 1s ease;
+}
+
+.nominationhome-breadcrumb span{
+  color:rgba(255,255,255,0.84);
+
+  font-size:14px;
+  font-weight:500;
+
+  transition:0.3s ease;
+}
+
+.nominationhome-breadcrumb span:hover{
+  color:#e5ffd9;
+}
+
+.nominationhome-breadcrumb .active{
+  color:#ffffff;
+  font-weight:700;
+}
+
+.nominationhome-breadcrumb-icon{
+  color:#dfffd2;
+  font-size:11px;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.nominationhome-title{
+  font-size:5rem;
+  line-height:1.04;
+  font-weight:800;
+
+  color:#ffffff;
+
+  margin-bottom:24px;
+
+  letter-spacing:-2px;
+
+  text-shadow:
+  0 5px 30px rgba(0,0,0,0.25);
+
+  animation:fadeUp 1s ease;
+}
+
+.nominationhome-title span{
+  color:#e5ffd9;
+
+  position:relative;
+  z-index:1;
+}
+
+/* UNDERLINE */
+
+.nominationhome-title span::after{
+  content:"";
+
+  position:absolute;
+  left:0;
+  bottom:8px;
+
+  width:100%;
+  height:14px;
+
+  background:rgba(100,195,69,0.28);
+
+  border-radius:20px;
+
+  z-index:-1;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.nominationhome-description{
+  max-width:760px;
+
+  color:rgba(255,255,255,0.80);
+
+  font-size:1.08rem;
+  line-height:1.9;
+
+  margin-bottom:38px;
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.nominationhome-features{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+
+  margin-bottom:40px;
+}
+
+.nominationhome-feature{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  padding:14px 22px;
+
+  border-radius:50px;
+
+  background:rgba(255,255,255,0.08);
+
+  border:1px solid rgba(255,255,255,0.10);
+
+  backdrop-filter:blur(12px);
+
+  color:#ffffff;
+
+  font-size:14px;
+  font-weight:600;
+
+  transition:0.4s ease;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.12);
+}
+
+.nominationhome-feature:hover{
+  transform:translateY(-4px);
+
+  background:rgba(255,255,255,0.12);
+}
+
+/* =========================
+   LINE
+========================= */
+
+.nominationhome-line{
+  width:140px;
+  height:6px;
+
+  border-radius:50px;
+
+  background:
+  linear-gradient(
+    to right,
+    #64c345,
+    #efffe8
+  );
+
+  box-shadow:
+  0 0 28px rgba(100,195,69,0.55);
+
+  animation:widthGrow 1.2s ease;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp{
+
+  from{
+    opacity:0;
+    transform:translateY(40px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes fadeDown{
+
+  from{
+    opacity:0;
+    transform:translateY(-25px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes widthGrow{
+
+  from{
+    width:0;
+  }
+
+  to{
+    width:140px;
+  }
+}
+
+@keyframes nominationGlow{
+
+  0%{
+    transform:translateY(0px) scale(1);
+  }
+
+  50%{
+    transform:translateY(-20px) scale(1.08);
+  }
+
+  100%{
+    transform:translateY(0px) scale(1);
+  }
+}
+
+@keyframes nominationGlowTwo{
+
+  0%{
+    transform:translateY(0px) scale(1);
+  }
+
+  100%{
+    transform:translateY(-26px) scale(1.10);
+  }
+}
+
+@keyframes gridMove{
+
+  0%{
+    transform:translate(0,0);
+  }
+
+  100%{
+    transform:translate(60px,60px);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1200px){
+
+  .nominationhome-title{
+    font-size:4rem;
+  }
+}
+
+@media(max-width:992px){
+
+  .nominationhome{
+    padding:80px 6%;
+  }
+
+  .nominationhome-title{
+    font-size:3.5rem;
+  }
+}
+
+@media(max-width:768px){
+
+  .nominationhome{
+    padding:70px 5%;
+  }
+
+  .nominationhome-title{
+    font-size:2.8rem;
+  }
+
+  .nominationhome-description{
+    font-size:1rem;
+  }
+}
+
+@media(max-width:480px){
+
+  .nominationhome{
+    padding:60px 4%;
+  }
+
+  .nominationhome-title{
+    font-size:2.2rem;
+  }
+
+  .nominationhome-breadcrumb{
+    padding:8px 16px;
+    gap:8px;
+  }
+
+  .nominationhome-breadcrumb span{
+    font-size:12px;
+  }
+
+  .nominationhome-description{
+    font-size:0.95rem;
+  }
+
+  .nominationhome-feature{
+    width:100%;
+    justify-content:center;
+  }
+
+  .nominationhome-line{
+    width:90px;
+    height:5px;
+  }
+
+  .nominationhome-glow1{
+    width:220px;
+    height:220px;
+  }
+
+  .nominationhome-glow2{
+    width:260px;
+    height:260px;
+  }
+}

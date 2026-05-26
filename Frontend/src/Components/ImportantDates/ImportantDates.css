@@ -9,13 +9,49 @@
 .importantdates {
   width: 100%;
   padding: 110px 20px;
+
   background: linear-gradient(
     to bottom,
-    #f7fffb,
+    #f8fff6,
     #ffffff
   );
+
   overflow: hidden;
   position: relative;
+}
+
+/* BACKGROUND GLOW */
+
+.importantdates::before {
+  content: "";
+  position: absolute;
+
+  top: -180px;
+  left: -180px;
+
+  width: 420px;
+  height: 420px;
+
+  background: rgba(100, 195, 69, 0.10);
+
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+.importantdates::after {
+  content: "";
+  position: absolute;
+
+  bottom: -180px;
+  right: -180px;
+
+  width: 420px;
+  height: 420px;
+
+  background: rgba(100, 195, 69, 0.08);
+
+  border-radius: 50%;
+  filter: blur(80px);
 }
 
 .importantdates-container {
@@ -24,8 +60,12 @@
 
   display: grid;
   grid-template-columns: 0.9fr 1.2fr;
+
   gap: 70px;
   align-items: center;
+
+  position: relative;
+  z-index: 2;
 }
 
 /* =========================
@@ -43,11 +83,11 @@
 
   border-radius: 999px;
 
-  background: rgba(11, 181, 130, 0.1);
+  background: rgba(100, 195, 69, 0.10);
 
-  border: 1px solid rgba(11, 181, 130, 0.15);
+  border: 1px solid rgba(100, 195, 69, 0.18);
 
-  color: #0bb582;
+  color: #64c345;
 
   font-size: 14px;
   font-weight: 700;
@@ -64,6 +104,10 @@
   color: #0f172a;
 
   margin-bottom: 24px;
+}
+
+.importantdates-left h2 span {
+  color: #64c345;
 }
 
 .importantdates-left p {
@@ -89,8 +133,8 @@
 
   background: linear-gradient(
     135deg,
-    #0f172a,
-    #0bb582
+    #64c345,
+    #4fa733
   );
 
   color: #ffffff;
@@ -107,11 +151,14 @@
   transition: 0.4s ease;
 
   box-shadow:
-    0 15px 40px rgba(11, 181, 130, 0.22);
+    0 15px 40px rgba(100, 195, 69, 0.24);
 }
 
 .importantdates-btn:hover {
   transform: translateY(-5px) scale(1.02);
+
+  box-shadow:
+    0 20px 45px rgba(100, 195, 69, 0.32);
 }
 
 /* FLOATING CARD */
@@ -119,9 +166,9 @@
 .importantdates-floating-card {
   margin-top: 45px;
 
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.96);
 
-  border: 1px solid rgba(11, 181, 130, 0.12);
+  border: 1px solid rgba(100, 195, 69, 0.12);
 
   border-radius: 24px;
 
@@ -135,6 +182,8 @@
 
   box-shadow:
     0 10px 30px rgba(15, 23, 42, 0.05);
+
+  backdrop-filter: blur(10px);
 }
 
 .importantdates-floating-icon {
@@ -143,9 +192,9 @@
 
   border-radius: 18px;
 
-  background: rgba(11, 181, 130, 0.1);
+  background: rgba(100, 195, 69, 0.10);
 
-  color: #0bb582;
+  color: #64c345;
 
   display: flex;
   align-items: center;
@@ -157,6 +206,7 @@
 .importantdates-floating-card h4 {
   font-size: 22px;
   font-weight: 700;
+
   color: #0f172a;
 
   margin-bottom: 6px;
@@ -172,13 +222,13 @@
 ========================= */
 
 .importantdates-right {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
 
   border-radius: 32px;
 
   padding: 24px 30px;
 
-  border: 1px solid rgba(11, 181, 130, 0.1);
+  border: 1px solid rgba(100, 195, 69, 0.10);
 
   backdrop-filter: blur(10px);
 
@@ -227,7 +277,7 @@
 }
 
 .importantdates-row:hover {
-  background: rgba(11, 181, 130, 0.05);
+  background: rgba(100, 195, 69, 0.05);
 }
 
 /* EVENT */
@@ -268,8 +318,8 @@
 /* STATUS COLORS */
 
 .open {
-  background: rgba(11, 181, 130, 0.14);
-  color: #0bb582;
+  background: rgba(100, 195, 69, 0.14);
+  color: #64c345;
 }
 
 .soon {
@@ -378,7 +428,7 @@
 
     background: #ffffff;
 
-    border: 1px solid rgba(11, 181, 130, 0.08);
+    border: 1px solid rgba(100, 195, 69, 0.10);
 
     box-shadow:
       0 5px 20px rgba(15, 23, 42, 0.04);
@@ -414,7 +464,9 @@
 
   .importantdates-tag {
     font-size: 12px;
+
     letter-spacing: 2px;
+
     padding: 8px 18px;
   }
 
@@ -430,6 +482,7 @@
   .importantdates-floating-icon {
     width: 60px;
     height: 60px;
+
     font-size: 24px;
   }
 
