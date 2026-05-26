@@ -22,12 +22,12 @@
   background:
     radial-gradient(
       circle at top left,
-      rgba(181, 255, 0, 0.08),
+      rgba(100, 195, 69, 0.12),
       transparent 35%
     ),
     radial-gradient(
       circle at bottom right,
-      rgba(0, 168, 107, 0.06),
+      rgba(100, 195, 69, 0.08),
       transparent 30%
     );
   z-index: 1;
@@ -40,7 +40,7 @@
   right: -120px;
   width: 500px;
   height: 500px;
-  background: rgba(186, 255, 0, 0.12);
+  background: rgba(100, 195, 69, 0.15);
   border-radius: 50%;
   filter: blur(60px);
 }
@@ -71,12 +71,12 @@
   padding: 10px 22px;
   border-radius: 50px;
 
-  background: rgba(186, 255, 0, 0.08);
-  border: 1px solid rgba(0, 128, 85, 0.12);
+  background: rgba(100, 195, 69, 0.08);
+  border: 1px solid rgba(100, 195, 69, 0.18);
 
   backdrop-filter: blur(10px);
 
-  color: #008055;
+  color: #64c345;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -92,11 +92,11 @@
   font-weight: 800;
   margin-bottom: 28px;
   letter-spacing: -2px;
-  color: #052e24;
+  color: #0b1f13;
 }
 
 .ijwelcome-title span {
-  color: #7bc400;
+  color: #64c345;
 }
 
 /* DESCRIPTION */
@@ -104,7 +104,7 @@
 .ijwelcome-description {
   font-size: 1.22rem;
   line-height: 1.95;
-  color: #5d6d67;
+  color: #5b6760;
   max-width: 760px;
   margin-bottom: 45px;
 }
@@ -126,11 +126,11 @@
 
   background: #ffffff;
 
-  border: 1px solid rgba(0, 128, 85, 0.08);
+  border: 1px solid rgba(100, 195, 69, 0.12);
 
   box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.06),
-    0 2px 10px rgba(123, 196, 0, 0.05);
+    0 10px 30px rgba(0, 0, 0, 0.05),
+    0 2px 12px rgba(100, 195, 69, 0.08);
 
   transition: all 0.4s ease;
 }
@@ -138,15 +138,15 @@
 .ijwelcome-stat-card:hover {
   transform: translateY(-6px);
 
-  border-color: rgba(123, 196, 0, 0.35);
+  border-color: rgba(100, 195, 69, 0.35);
 
   box-shadow:
-    0 18px 40px rgba(123, 196, 0, 0.12);
+    0 18px 40px rgba(100, 195, 69, 0.18);
 }
 
 .ijwelcome-stat-card h3 {
   font-size: 2rem;
-  color: #7bc400;
+  color: #64c345;
   margin-bottom: 10px;
   font-weight: 800;
 }
@@ -175,16 +175,16 @@
 
   background: #ffffff;
 
-  border: 1px solid rgba(0, 128, 85, 0.08);
+  border: 1px solid rgba(100, 195, 69, 0.12);
 
   box-shadow:
-    0 25px 60px rgba(0, 0, 0, 0.08),
-    0 5px 25px rgba(123, 196, 0, 0.08);
+    0 25px 60px rgba(0, 0, 0, 0.06),
+    0 5px 25px rgba(100, 195, 69, 0.10);
 }
 
 .ijwelcome-card h2 {
   font-size: 2.2rem;
-  color: #052e24;
+  color: #0b1f13;
   margin-bottom: 18px;
   font-weight: 800;
 }
@@ -210,12 +210,12 @@
   border-radius: 18px;
 
   background: linear-gradient(
-    90deg,
-    #9fe400 0%,
-    #c8ff39 100%
+    135deg,
+    #64c345 0%,
+    #89df6d 100%
   );
 
-  color: #03261f;
+  color: #ffffff;
 
   font-size: 1.15rem;
   font-weight: 800;
@@ -228,14 +228,14 @@
   transition: all 0.4s ease;
 
   box-shadow:
-    0 12px 35px rgba(159, 228, 0, 0.28);
+    0 12px 35px rgba(100, 195, 69, 0.28);
 }
 
 .ijwelcome-btn:hover {
   transform: translateY(-4px) scale(1.02);
 
   box-shadow:
-    0 18px 40px rgba(159, 228, 0, 0.4);
+    0 18px 40px rgba(100, 195, 69, 0.4);
 }
 
 .ijwelcome-btn-icon {

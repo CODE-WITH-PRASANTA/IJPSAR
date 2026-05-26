@@ -1,4 +1,7 @@
-/* SearchSub.css */
+/* =========================
+   SearchSub.css
+   PREMIUM WHITE + #64C345 DARK UI
+========================= */
 
 *{
   margin:0;
@@ -14,44 +17,62 @@
   padding:90px 7%;
 
   background:
+  radial-gradient(
+    circle at left,
+    rgba(100,195,69,0.16),
+    transparent 22%
+  ),
+  radial-gradient(
+    circle at right,
+    rgba(100,195,69,0.12),
+    transparent 26%
+  ),
   linear-gradient(
     135deg,
     #ffffff 0%,
-    #f4fff8 45%,
-    #e4fff1 100%
+    #f5fff2 45%,
+    #ebf9e6 100%
   );
 }
 
-/* GLOW */
+/* =========================
+   PREMIUM GLOW
+========================= */
 
 .searchsub-glow{
   position:absolute;
   border-radius:50%;
-  filter:blur(120px);
+  filter:blur(130px);
   z-index:0;
 }
 
 .searchsub-glow1{
-  width:320px;
-  height:320px;
+  width:340px;
+  height:340px;
 
-  background:rgba(0,168,107,0.10);
+  background:rgba(100,195,69,0.18);
 
   top:-120px;
   left:-120px;
+
+  animation:searchGlow 8s ease-in-out infinite;
 }
 
 .searchsub-glow2{
-  width:380px;
-  height:380px;
+  width:420px;
+  height:420px;
 
-  background:rgba(0,255,170,0.14);
+  background:rgba(100,195,69,0.14);
 
   right:-120px;
-  bottom:-120px;
+  bottom:-140px;
+
+  animation:searchGlowTwo 10s ease-in-out infinite alternate;
 }
 
-/* CONTAINER */
+/* =========================
+   CONTAINER
+========================= */
 
 .searchsub-container{
   position:relative;
@@ -62,25 +83,28 @@
   align-items:center;
   gap:60px;
 
-  padding:70px;
+  padding:75px;
 
-  border-radius:40px;
+  border-radius:42px;
 
   overflow:hidden;
 
   background:
   linear-gradient(
     135deg,
-    #052f24 0%,
-    #0a4b39 40%,
-    #00b977 100%
+    #122d0e 0%,
+    #1f4a18 38%,
+    #2f6d24 72%,
+    #64c345 100%
   );
 
   box-shadow:
-  0 30px 70px rgba(0,168,107,0.18);
+  0 35px 80px rgba(100,195,69,0.22);
 }
 
-/* GLASS EFFECT */
+/* =========================
+   GLASS EFFECT
+========================= */
 
 .searchsub-container::before{
   content:"";
@@ -91,14 +115,38 @@
   background:
   linear-gradient(
     135deg,
-    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.10),
     rgba(255,255,255,0.02)
   );
 
   z-index:1;
 }
 
-/* LEFT */
+/* EXTRA GLOW */
+
+.searchsub-container::after{
+  content:"";
+
+  position:absolute;
+
+  top:-140px;
+  right:-120px;
+
+  width:320px;
+  height:320px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.08);
+
+  filter:blur(90px);
+
+  z-index:1;
+}
+
+/* =========================
+   LEFT
+========================= */
 
 .searchsub-left{
   position:relative;
@@ -107,7 +155,9 @@
   flex:1;
 }
 
-/* BADGE */
+/* =========================
+   BADGE
+========================= */
 
 .searchsub-badge{
   width:fit-content;
@@ -116,7 +166,7 @@
   align-items:center;
   gap:10px;
 
-  padding:12px 20px;
+  padding:12px 22px;
 
   border-radius:50px;
 
@@ -131,39 +181,51 @@
   font-size:14px;
   font-weight:600;
 
-  margin-bottom:28px;
+  margin-bottom:30px;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.12);
 }
 
-/* TITLE */
+/* =========================
+   TITLE
+========================= */
 
 .searchsub-title{
   font-size:4rem;
-  line-height:1.1;
+  line-height:1.08;
   font-weight:800;
 
   color:#ffffff;
 
-  margin-bottom:22px;
+  margin-bottom:24px;
+
+  text-shadow:
+  0 5px 30px rgba(0,0,0,0.18);
 }
 
 .searchsub-title span{
-  color:#aaffdc;
+  color:#e4ffd8;
 }
 
-/* DESCRIPTION */
+/* =========================
+   DESCRIPTION
+========================= */
 
 .searchsub-description{
   max-width:650px;
 
-  color:rgba(255,255,255,0.78);
+  color:rgba(255,255,255,0.82);
 
   font-size:1.12rem;
   line-height:1.9;
 
-  margin-bottom:34px;
+  margin-bottom:36px;
 }
 
-/* FEATURES */
+/* =========================
+   FEATURES
+========================= */
 
 .searchsub-features{
   display:flex;
@@ -176,13 +238,13 @@
   align-items:center;
   gap:10px;
 
-  padding:14px 20px;
+  padding:14px 22px;
 
   border-radius:50px;
 
   background:rgba(255,255,255,0.08);
 
-  border:1px solid rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.10);
 
   color:#ffffff;
 
@@ -190,9 +252,19 @@
   font-weight:600;
 
   backdrop-filter:blur(10px);
+
+  transition:0.35s ease;
 }
 
-/* RIGHT */
+.searchsub-feature:hover{
+  transform:translateY(-3px);
+
+  background:rgba(255,255,255,0.12);
+}
+
+/* =========================
+   RIGHT
+========================= */
 
 .searchsub-right{
   position:relative;
@@ -202,7 +274,9 @@
   max-width:520px;
 }
 
-/* FORM */
+/* =========================
+   FORM
+========================= */
 
 .searchsub-form{
   display:flex;
@@ -210,7 +284,9 @@
   gap:22px;
 }
 
-/* INPUT */
+/* =========================
+   INPUT
+========================= */
 
 .searchsub-inputbox{
   width:100%;
@@ -226,7 +302,7 @@
 
   background:rgba(255,255,255,0.96);
 
-  border:1px solid rgba(255,255,255,0.5);
+  border:1px solid rgba(255,255,255,0.4);
 
   box-shadow:
   0 15px 40px rgba(0,0,0,0.08);
@@ -236,10 +312,14 @@
 
 .searchsub-inputbox:hover{
   transform:translateY(-3px);
+
+  box-shadow:
+  0 18px 45px rgba(100,195,69,0.18);
 }
 
 .searchsub-inputicon{
-  color:#00a86b;
+  color:#64c345;
+
   font-size:1.15rem;
 }
 
@@ -251,7 +331,7 @@
   outline:none;
   background:transparent;
 
-  color:#052f24;
+  color:#173f13;
 
   font-size:1rem;
   font-weight:500;
@@ -261,14 +341,16 @@
   color:#64748b;
 }
 
-/* BUTTON */
+/* =========================
+   BUTTON
+========================= */
 
 .searchsub-btn{
   width:fit-content;
 
   height:64px;
 
-  padding:0 34px;
+  padding:0 36px;
 
   border:none;
   border-radius:20px;
@@ -284,10 +366,10 @@
   linear-gradient(
     135deg,
     #ffffff,
-    #ebfff5
+    #efffe8
   );
 
-  color:#052f24;
+  color:#173f13;
 
   font-size:1rem;
   font-weight:700;
@@ -295,7 +377,7 @@
   transition:0.4s ease;
 
   box-shadow:
-  0 15px 35px rgba(0,0,0,0.12);
+  0 18px 35px rgba(0,0,0,0.12);
 }
 
 .searchsub-btn:hover{
@@ -305,22 +387,59 @@
   linear-gradient(
     135deg,
     #ffffff,
-    #ccffe8
+    #dcffd0
   );
+
+  box-shadow:
+  0 24px 40px rgba(0,0,0,0.16);
 }
 
-/* NOTE */
+/* =========================
+   NOTE
+========================= */
 
 .searchsub-note{
-  margin-top:18px;
+  margin-top:20px;
 
-  color:rgba(255,255,255,0.76);
+  color:rgba(255,255,255,0.78);
 
   font-size:14px;
   line-height:1.8;
 }
 
-/* RESPONSIVE */
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes searchGlow{
+
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-25px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+}
+
+@keyframes searchGlowTwo{
+
+  0%{
+    transform:translateY(0px) scale(1);
+  }
+
+  100%{
+    transform:translateY(-30px) scale(1.08);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:1200px){
 

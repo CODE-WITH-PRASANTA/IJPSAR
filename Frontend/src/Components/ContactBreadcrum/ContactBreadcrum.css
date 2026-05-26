@@ -1,95 +1,230 @@
-/* ContactBreadcrum.css */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* =========================
+   PREMIUM CONTACT BREADCRUMB
+========================= */
 
 .contactBreadcrum {
   position: relative;
+
   width: 100%;
+
   padding: 120px 20px;
+
   overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    #042b24 0%,
-    #063c31 35%,
-    #0a5f4e 70%,
-    #00b37e 100%
-  );
+
+  background:
+    linear-gradient(
+      135deg,
+      #173f13 0%,
+      #22571b 22%,
+      #347c28 48%,
+      #4ca439 72%,
+      #64c345 100%
+    );
+
+  isolation: isolate;
 }
 
-/* ========================= */
-/* OVERLAY */
-/* ========================= */
+/* =========================
+   PREMIUM ANIMATED OVERLAY
+========================= */
 
 .contactBreadcrum-overlay {
   position: absolute;
   inset: 0;
+
   background:
     linear-gradient(
-      rgba(255, 255, 255, 0.02),
-      rgba(255, 255, 255, 0.01)
+      rgba(0, 0, 0, 0.18),
+      rgba(0, 0, 0, 0.06)
     );
+
   z-index: 1;
 }
 
-/* ========================= */
-/* GLOW EFFECTS */
-/* ========================= */
+/* =========================
+   GRID ANIMATION
+========================= */
+
+.contactBreadcrum::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    );
+
+  background-size: 60px 60px;
+
+  opacity: 0.35;
+
+  animation: gridMove 18s linear infinite;
+
+  z-index: 1;
+}
+
+/* =========================
+   DARK SHADOW LAYER
+========================= */
+
+.contactBreadcrum::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(255, 255, 255, 0.10),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(0, 0, 0, 0.35),
+      transparent 45%
+    );
+
+  z-index: 1;
+}
+
+/* =========================
+   PREMIUM GLOW EFFECTS
+========================= */
 
 .contactBreadcrum-glowOne {
   position: absolute;
-  width: 420px;
-  height: 420px;
-  background: rgba(0, 255, 179, 0.16);
+
+  width: 500px;
+  height: 500px;
+
+  background: rgba(154, 255, 122, 0.22);
+
   border-radius: 50%;
-  top: -180px;
-  right: -100px;
-  filter: blur(40px);
+
+  top: -220px;
+  right: -120px;
+
+  filter: blur(90px);
+
+  animation: floatGlow 8s ease-in-out infinite;
+
+  z-index: 0;
 }
 
 .contactBreadcrum-glowTwo {
   position: absolute;
-  width: 320px;
-  height: 320px;
-  background: rgba(255, 255, 255, 0.08);
+
+  width: 380px;
+  height: 380px;
+
+  background: rgba(255, 255, 255, 0.10);
+
   border-radius: 50%;
-  bottom: -140px;
-  left: -80px;
-  filter: blur(30px);
+
+  bottom: -160px;
+  left: -100px;
+
+  filter: blur(70px);
+
+  animation: floatGlowTwo 10s ease-in-out infinite alternate;
+
+  z-index: 0;
 }
 
-/* ========================= */
-/* CONTAINER */
-/* ========================= */
+/* EXTRA FLOATING GLOW */
+
+.contactBreadcrum-glowThree {
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  border-radius: 50%;
+
+  top: 20%;
+  left: 40%;
+
+  filter: blur(60px);
+
+  animation: pulseGlow 6s ease-in-out infinite;
+
+  z-index: 0;
+}
+
+/* =========================
+   CONTAINER
+========================= */
 
 .contactBreadcrum-container {
   position: relative;
-  z-index: 2;
+  z-index: 5;
+
   width: 100%;
   max-width: 1380px;
+
   margin: auto;
 }
 
-/* ========================= */
-/* BREADCRUMB */
-/* ========================= */
+/* =========================
+   PREMIUM GLASS EFFECT
+========================= */
+
+.contactBreadcrum-container::before {
+  content: "";
+
+  position: absolute;
+
+  inset: -45px;
+
+  border-radius: 42px;
+
+  background: rgba(255, 255, 255, 0.07);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  backdrop-filter: blur(22px);
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  z-index: -1;
+}
+
+/* =========================
+   BREADCRUMB
+========================= */
 
 .contactBreadcrum-path {
   display: flex;
   align-items: center;
+
   gap: 12px;
+
   margin-bottom: 24px;
+
   flex-wrap: wrap;
 }
 
 .contactBreadcrum-link {
   font-size: 1rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.78);
+
+  color: rgba(255, 255, 255, 0.72);
+
   transition: 0.3s ease;
+
   cursor: pointer;
 }
 
@@ -99,60 +234,170 @@
 
 .contactBreadcrum-arrow {
   font-size: 0.8rem;
-  color: #8ff5d0;
+
+  color: #d8ffd0;
 }
 
 .contactBreadcrum-active {
   font-size: 1rem;
   font-weight: 700;
+
   color: #ffffff;
 }
 
-/* ========================= */
-/* HEADING */
-/* ========================= */
+/* =========================
+   HEADING
+========================= */
 
 .contactBreadcrum-heading {
   font-size: 5rem;
   line-height: 1.05;
+
   font-weight: 800;
+
   color: #ffffff;
+
   margin-bottom: 22px;
+
   max-width: 760px;
+
   letter-spacing: -2px;
+
+  text-shadow:
+    0 4px 25px rgba(0, 0, 0, 0.18);
+
+  animation: fadeUp 1s ease;
 }
 
-/* ========================= */
-/* DESCRIPTION */
-/* ========================= */
+.contactBreadcrum-heading span {
+  color: #eaffdf;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
 
 .contactBreadcrum-description {
   max-width: 700px;
+
   font-size: 1.15rem;
   line-height: 2;
-  color: rgba(255, 255, 255, 0.78);
+
+  color: rgba(255, 255, 255, 0.88);
+
   margin-bottom: 35px;
+
+  animation: fadeUp 1.2s ease;
 }
 
-/* ========================= */
-/* LINE */
-/* ========================= */
+/* =========================
+   LINE
+========================= */
 
 .contactBreadcrum-line {
   width: 130px;
   height: 5px;
+
   border-radius: 50px;
+
   background: linear-gradient(
     135deg,
     #ffffff,
-    #7effd5
+    #d9ffd0
   );
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.18);
+
+  box-shadow:
+    0 8px 20px rgba(255, 255, 255, 0.22);
+
+  animation: lineGrow 1.3s ease;
 }
 
-/* ========================= */
-/* TABLET */
-/* ========================= */
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes floatGlow {
+
+  0% {
+    transform: translateY(0px) translateX(0px) scale(1);
+  }
+
+  50% {
+    transform: translateY(-25px) translateX(-10px) scale(1.06);
+  }
+
+  100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+  }
+}
+
+@keyframes floatGlowTwo {
+
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  100% {
+    transform: translateY(-35px) scale(1.08);
+  }
+}
+
+@keyframes pulseGlow {
+
+  0% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.15);
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+}
+
+@keyframes gridMove {
+
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(60px, 60px);
+  }
+}
+
+@keyframes fadeUp {
+
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lineGrow {
+
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 130px;
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 992px) {
 
@@ -167,12 +412,7 @@
   .contactBreadcrum-description {
     font-size: 1.05rem;
   }
-
 }
-
-/* ========================= */
-/* MOBILE */
-/* ========================= */
 
 @media (max-width: 768px) {
 
@@ -180,27 +420,16 @@
     padding: 75px 18px;
   }
 
-  .contactBreadcrum-path {
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-
-  .contactBreadcrum-link,
-  .contactBreadcrum-active {
-    font-size: 0.9rem;
-  }
-
   .contactBreadcrum-heading {
     font-size: 2.7rem;
     line-height: 1.15;
-    margin-bottom: 18px;
+
     letter-spacing: -1px;
   }
 
   .contactBreadcrum-description {
     font-size: 0.96rem;
     line-height: 1.8;
-    margin-bottom: 26px;
   }
 
   .contactBreadcrum-line {
@@ -209,13 +438,42 @@
   }
 
   .contactBreadcrum-glowOne {
-    width: 260px;
-    height: 260px;
+    width: 300px;
+    height: 300px;
   }
 
   .contactBreadcrum-glowTwo {
-    width: 180px;
-    height: 180px;
+    width: 220px;
+    height: 220px;
   }
 
+  .contactBreadcrum-container::before {
+    inset: -20px;
+
+    border-radius: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .contactBreadcrum {
+    padding: 65px 16px;
+  }
+
+  .contactBreadcrum-heading {
+    font-size: 2.1rem;
+  }
+
+  .contactBreadcrum-description {
+    font-size: 0.92rem;
+  }
+
+  .contactBreadcrum-link,
+  .contactBreadcrum-active {
+    font-size: 0.82rem;
+  }
+
+  .contactBreadcrum-line {
+    width: 75px;
+  }
 }

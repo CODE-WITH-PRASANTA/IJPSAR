@@ -1,4 +1,6 @@
-/* IsueeSub.css */
+/* =========================
+   ISUEESUB - PREMIUM WHITE & #64C345 UI
+========================= */
 
 * {
   margin: 0;
@@ -9,16 +11,66 @@
 .isueesub {
   position: relative;
   width: 100%;
-  padding: 90px 7%;
+
+  padding: 100px 7%;
+
   overflow: hidden;
 
   background:
     linear-gradient(
       135deg,
       #ffffff 0%,
-      #f5fff9 45%,
-      #e6fff2 100%
+      #f8fff5 45%,
+      #eefbe8 100%
     );
+}
+
+/* =========================
+   PREMIUM BACKGROUND GLOW
+========================= */
+
+.isueesub::before {
+  content: "";
+
+  position: absolute;
+
+  top: -180px;
+  left: -120px;
+
+  width: 420px;
+  height: 420px;
+
+  border-radius: 50%;
+
+  background: rgba(100, 195, 69, 0.12);
+
+  filter: blur(130px);
+
+  animation: floatGlow 8s ease-in-out infinite;
+
+  z-index: 0;
+}
+
+.isueesub::after {
+  content: "";
+
+  position: absolute;
+
+  right: -150px;
+  bottom: -180px;
+
+  width: 460px;
+  height: 460px;
+
+  border-radius: 50%;
+
+  background: rgba(100, 195, 69, 0.10);
+
+  filter: blur(130px);
+
+  animation: floatGlowTwo 10s ease-in-out infinite alternate;
+
+  z-index: 0;
 }
 
 /* =========================
@@ -27,8 +79,11 @@
 
 .isueesub-glow {
   position: absolute;
+
   border-radius: 50%;
+
   filter: blur(120px);
+
   z-index: 0;
 }
 
@@ -36,7 +91,7 @@
   width: 320px;
   height: 320px;
 
-  background: rgba(0, 168, 107, 0.12);
+  background: rgba(100, 195, 69, 0.14);
 
   top: -100px;
   left: -80px;
@@ -46,7 +101,7 @@
   width: 350px;
   height: 350px;
 
-  background: rgba(0, 255, 170, 0.12);
+  background: rgba(100, 195, 69, 0.12);
 
   right: -100px;
   bottom: -120px;
@@ -65,27 +120,32 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   gap: 60px;
 
-  padding: 70px;
+  padding: 75px;
 
-  border-radius: 36px;
+  border-radius: 40px;
 
   background:
     linear-gradient(
       135deg,
-      #052f24 0%,
-      #0d5f48 45%,
-      #00b977 100%
+      #173f13 0%,
+      #285d1d 40%,
+      #4da932 75%,
+      #64c345 100%
     );
 
   overflow: hidden;
 
   box-shadow:
-    0 30px 70px rgba(0, 168, 107, 0.18);
+    0 35px 70px rgba(100, 195, 69, 0.22);
 }
 
-/* Glass Overlay */
+/* =========================
+   GLASS OVERLAY
+========================= */
+
 .isueesub-container::before {
   content: "";
 
@@ -98,6 +158,30 @@
       rgba(255,255,255,0.08),
       rgba(255,255,255,0.02)
     );
+
+  z-index: 1;
+}
+
+/* =========================
+   EXTRA GLOW
+========================= */
+
+.isueesub-container::after {
+  content: "";
+
+  position: absolute;
+
+  top: -120px;
+  right: -120px;
+
+  width: 300px;
+  height: 300px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.08);
+
+  filter: blur(90px);
 
   z-index: 1;
 }
@@ -118,13 +202,14 @@
 
   display: flex;
   align-items: center;
+
   gap: 10px;
 
-  padding: 12px 20px;
+  padding: 12px 22px;
 
   border-radius: 50px;
 
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.10);
 
   border: 1px solid rgba(255,255,255,0.12);
 
@@ -135,47 +220,56 @@
   font-size: 14px;
   font-weight: 600;
 
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 }
 
 .isueesub-title {
   font-size: 4rem;
-  line-height: 1.1;
+  line-height: 1.08;
+
   font-weight: 800;
 
   color: #ffffff;
 
-  margin-bottom: 22px;
+  margin-bottom: 24px;
+
+  text-shadow:
+    0 5px 25px rgba(0,0,0,0.18);
 }
 
 .isueesub-title span {
-  color: #9fffd3;
+  color: #dfffd2;
 }
 
 .isueesub-description {
   max-width: 650px;
 
-  color: rgba(255,255,255,0.78);
+  color: rgba(255,255,255,0.82);
 
   font-size: 1.15rem;
   line-height: 1.9;
 
-  margin-bottom: 34px;
+  margin-bottom: 36px;
 }
 
-/* FEATURES */
+/* =========================
+   FEATURES
+========================= */
+
 .isueesub-features {
   display: flex;
   flex-wrap: wrap;
+
   gap: 16px;
 }
 
 .isueesub-feature {
   display: flex;
   align-items: center;
+
   gap: 10px;
 
-  padding: 14px 20px;
+  padding: 14px 22px;
 
   border-radius: 50px;
 
@@ -189,6 +283,14 @@
   font-weight: 600;
 
   backdrop-filter: blur(10px);
+
+  transition: 0.35s ease;
+}
+
+.isueesub-feature:hover {
+  transform: translateY(-3px);
+
+  background: rgba(255,255,255,0.12);
 }
 
 /* =========================
@@ -206,16 +308,21 @@
 .isueesub-form {
   display: flex;
   flex-direction: column;
+
   gap: 22px;
 }
 
-/* INPUT */
+/* =========================
+   INPUT BOX
+========================= */
+
 .isueesub-input-box {
   width: 100%;
   height: 78px;
 
   display: flex;
   align-items: center;
+
   gap: 14px;
 
   padding: 0 28px;
@@ -228,10 +335,20 @@
 
   box-shadow:
     0 15px 40px rgba(0,0,0,0.08);
+
+  transition: 0.35s ease;
+}
+
+.isueesub-input-box:focus-within {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 18px 40px rgba(100,195,69,0.20);
 }
 
 .isueesub-input-icon {
-  color: #00a86b;
+  color: #64c345;
+
   font-size: 1.2rem;
 }
 
@@ -241,9 +358,10 @@
 
   border: none;
   outline: none;
+
   background: transparent;
 
-  color: #052f24;
+  color: #173f13;
 
   font-size: 1.05rem;
   font-weight: 500;
@@ -253,18 +371,22 @@
   color: #6b7280;
 }
 
-/* BUTTON */
+/* =========================
+   BUTTON
+========================= */
+
 .isueesub-btn {
   width: fit-content;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 12px;
 
   height: 64px;
 
-  padding: 0 34px;
+  padding: 0 36px;
 
   border: none;
   border-radius: 20px;
@@ -275,10 +397,10 @@
     linear-gradient(
       135deg,
       #ffffff,
-      #f5fff9
+      #efffe8
     );
 
-  color: #052f24;
+  color: #173f13;
 
   font-size: 1rem;
   font-weight: 700;
@@ -286,7 +408,7 @@
   transition: 0.4s ease;
 
   box-shadow:
-    0 15px 35px rgba(0,0,0,0.12);
+    0 18px 35px rgba(0,0,0,0.12);
 }
 
 .isueesub-btn:hover {
@@ -296,18 +418,55 @@
     linear-gradient(
       135deg,
       #ffffff,
-      #dcfff0
+      #dcffd0
     );
+
+  box-shadow:
+    0 24px 40px rgba(0,0,0,0.16);
 }
 
-/* NOTE */
+/* =========================
+   NOTE
+========================= */
+
 .isueesub-note {
   margin-top: 22px;
 
-  color: rgba(255,255,255,0.75);
+  color: rgba(255,255,255,0.78);
 
   font-size: 14px;
+
   line-height: 1.7;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes floatGlow {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-25px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes floatGlowTwo {
+
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  100% {
+    transform: translateY(-30px) scale(1.06);
+  }
 }
 
 /* =========================
@@ -329,6 +488,7 @@
 
   .isueesub-container {
     flex-direction: column;
+
     align-items: flex-start;
 
     gap: 45px;
@@ -347,7 +507,8 @@
 
   .isueesub-container {
     padding: 45px 30px;
-    border-radius: 28px;
+
+    border-radius: 30px;
   }
 
   .isueesub-title {
@@ -360,13 +521,17 @@
 
   .isueesub-input-box {
     height: 68px;
+
     border-radius: 20px;
+
     padding: 0 22px;
   }
 
   .isueesub-btn {
     width: 100%;
+
     height: 60px;
+
     border-radius: 18px;
   }
 }
@@ -379,6 +544,7 @@
 
   .isueesub-container {
     padding: 35px 22px;
+
     border-radius: 24px;
   }
 
@@ -388,17 +554,21 @@
 
   .isueesub-badge {
     font-size: 12px;
+
     padding: 10px 16px;
   }
 
   .isueesub-feature {
     width: 100%;
+
     justify-content: center;
   }
 
   .isueesub-input-box {
     height: 62px;
+
     border-radius: 18px;
+
     padding: 0 18px;
   }
 
@@ -408,6 +578,7 @@
 
   .isueesub-btn {
     height: 56px;
+
     font-size: 0.95rem;
   }
 }

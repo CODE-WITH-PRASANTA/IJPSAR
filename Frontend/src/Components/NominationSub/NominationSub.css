@@ -1,32 +1,102 @@
+/* =========================
+   NominationSub.css
+   PREMIUM WHITE + #64C345 UI
+========================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
 /* MAIN SECTION */
 
 .nominationsub{
+  position:relative;
   width:100%;
-  padding:50px 4%;
+  overflow:hidden;
+
+  padding:70px 4%;
+
   background:
+  radial-gradient(
+    circle at left,
+    rgba(100,195,69,0.14),
+    transparent 24%
+  ),
+  radial-gradient(
+    circle at right,
+    rgba(100,195,69,0.10),
+    transparent 28%
+  ),
   linear-gradient(
     135deg,
-    #effff6 0%,
-    #f7fffb 45%,
-    #ecfff5 100%
+    #ffffff 0%,
+    #f5fff2 45%,
+    #ebf9e6 100%
   );
-
-  position:relative;
-  overflow:hidden;
 }
 
-/* CONTAINER */
+/* PREMIUM GLOW */
+
+.nominationsub::before{
+  content:"";
+
+  position:absolute;
+
+  top:-140px;
+  left:-120px;
+
+  width:340px;
+  height:340px;
+
+  border-radius:50%;
+
+  background:rgba(100,195,69,0.16);
+
+  filter:blur(120px);
+
+  animation:nominationGlow 8s ease-in-out infinite;
+
+  z-index:0;
+}
+
+.nominationsub::after{
+  content:"";
+
+  position:absolute;
+
+  right:-180px;
+  bottom:-180px;
+
+  width:420px;
+  height:420px;
+
+  border-radius:50%;
+
+  background:rgba(100,195,69,0.12);
+
+  filter:blur(130px);
+
+  animation:nominationGlowTwo 10s ease-in-out infinite alternate;
+
+  z-index:0;
+}
+
+/* =========================
+   CONTAINER
+========================= */
 
 .nominationsub-container{
-  max-width:1650px;
-  margin:auto;
-
   position:relative;
   z-index:2;
 
-  padding:50px 65px;
+  max-width:1650px;
+  margin:auto;
 
-  border-radius:38px;
+  padding:60px 70px;
+
+  border-radius:40px;
 
   display:flex;
   justify-content:space-between;
@@ -38,18 +108,64 @@
   background:
   linear-gradient(
     135deg,
-    #12342c 0%,
-    #0f5b45 45%,
-    #00b96b 100%
+    #102b0d 0%,
+    #22491c 38%,
+    #38742a 70%,
+    #64c345 100%
   );
 
   box-shadow:
-  0 25px 60px rgba(0,168,107,0.18);
+  0 35px 70px rgba(100,195,69,0.20);
 }
 
-/* LEFT */
+/* GLASS EFFECT */
+
+.nominationsub-container::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.02)
+  );
+
+  z-index:1;
+}
+
+/* EXTRA LIGHT */
+
+.nominationsub-container::after{
+  content:"";
+
+  position:absolute;
+
+  top:-120px;
+  right:-120px;
+
+  width:320px;
+  height:320px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.08);
+
+  filter:blur(90px);
+
+  z-index:1;
+}
+
+/* =========================
+   LEFT
+========================= */
 
 .nominationsub-left{
+  position:relative;
+  z-index:2;
+
   flex:1;
 }
 
@@ -62,7 +178,7 @@
   align-items:center;
   gap:8px;
 
-  padding:10px 18px;
+  padding:12px 20px;
 
   border-radius:50px;
 
@@ -70,30 +186,38 @@
 
   border:1px solid rgba(255,255,255,0.12);
 
+  backdrop-filter:blur(10px);
+
   color:#ffffff;
 
-  font-size:0.88rem;
+  font-size:0.9rem;
   font-weight:600;
 
-  margin-bottom:24px;
+  margin-bottom:26px;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.10);
 }
 
 /* TITLE */
 
 .nominationsub-title{
   font-size:4rem;
-  line-height:1.1;
+  line-height:1.08;
   font-weight:800;
 
   color:#ffffff;
 
-  margin-bottom:18px;
+  margin-bottom:20px;
 
   letter-spacing:-2px;
+
+  text-shadow:
+  0 5px 25px rgba(0,0,0,0.16);
 }
 
 .nominationsub-title span{
-  color:#b8ffe0;
+  color:#e5ffd9;
 }
 
 /* DESCRIPTION */
@@ -101,12 +225,12 @@
 .nominationsub-description{
   max-width:720px;
 
-  color:rgba(255,255,255,0.82);
+  color:rgba(255,255,255,0.84);
 
   font-size:1rem;
   line-height:1.9;
 
-  margin-bottom:26px;
+  margin-bottom:30px;
 }
 
 /* FEATURES */
@@ -114,7 +238,7 @@
 .nominationsub-features{
   display:flex;
   flex-wrap:wrap;
-  gap:14px;
+  gap:16px;
 }
 
 .nominationsub-feature{
@@ -122,7 +246,7 @@
   align-items:center;
   gap:10px;
 
-  padding:12px 20px;
+  padding:13px 22px;
 
   border-radius:50px;
 
@@ -130,21 +254,34 @@
 
   border:1px solid rgba(255,255,255,0.10);
 
+  backdrop-filter:blur(10px);
+
   color:#ffffff;
 
-  font-size:0.9rem;
+  font-size:0.92rem;
   font-weight:600;
 
   transition:0.4s ease;
 }
 
-.nominationsub-feature svg{
-  color:#caffdf;
+.nominationsub-feature:hover{
+  transform:translateY(-3px);
+
+  background:rgba(255,255,255,0.12);
 }
 
-/* RIGHT */
+.nominationsub-feature svg{
+  color:#dfffd2;
+}
+
+/* =========================
+   RIGHT
+========================= */
 
 .nominationsub-right{
+  position:relative;
+  z-index:2;
+
   width:480px;
 }
 
@@ -154,7 +291,7 @@
   width:100%;
   position:relative;
 
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
 .nominationsub-inputbox svg{
@@ -164,28 +301,44 @@
 
   transform:translateY(-50%);
 
-  color:#00a86b;
+  color:#64c345;
+
+  font-size:1rem;
 }
 
 .nominationsub-inputbox input{
   width:100%;
-  height:74px;
+  height:76px;
 
   border:none;
   outline:none;
 
-  border-radius:22px;
+  border-radius:24px;
 
-  padding:0 24px 0 58px;
+  padding:0 24px 0 60px;
 
   background:#ffffff;
 
   color:#0f172a;
 
   font-size:1rem;
+  font-weight:500;
 
   box-shadow:
-  0 10px 30px rgba(0,0,0,0.08);
+  0 14px 35px rgba(0,0,0,0.08);
+
+  transition:0.35s ease;
+}
+
+.nominationsub-inputbox input:focus{
+  transform:translateY(-2px);
+
+  box-shadow:
+  0 18px 40px rgba(100,195,69,0.18);
+}
+
+.nominationsub-inputbox input::placeholder{
+  color:#64748b;
 }
 
 /* BUTTON */
@@ -206,37 +359,87 @@
 
   border-radius:20px;
 
-  background:#ffffff;
+  background:
+  linear-gradient(
+    135deg,
+    #ffffff,
+    #efffe8
+  );
 
-  color:#083326;
+  color:#173f13;
 
   font-size:1rem;
   font-weight:700;
 
   transition:0.4s ease;
+
+  box-shadow:
+  0 18px 35px rgba(0,0,0,0.12);
 }
 
 .nominationsub-btn svg{
-  color:#00a86b;
+  color:#64c345;
 }
 
 .nominationsub-btn:hover{
-  transform:translateY(-4px);
+  transform:translateY(-5px);
 
-  background:#dffff0;
+  background:
+  linear-gradient(
+    135deg,
+    #ffffff,
+    #dcffd0
+  );
+
+  box-shadow:
+  0 24px 45px rgba(0,0,0,0.16);
 }
 
 /* NOTE */
 
 .nominationsub-note{
-  margin-top:14px;
+  margin-top:16px;
 
   color:rgba(255,255,255,0.82);
 
-  font-size:0.88rem;
+  font-size:0.9rem;
+
+  line-height:1.8;
 }
 
-/* RESPONSIVE */
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes nominationGlow{
+
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-24px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+}
+
+@keyframes nominationGlowTwo{
+
+  0%{
+    transform:translateY(0px) scale(1);
+  }
+
+  100%{
+    transform:translateY(-30px) scale(1.08);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:992px){
 
@@ -265,6 +468,8 @@
   .nominationsub-container{
     padding:35px 24px;
     gap:40px;
+
+    border-radius:28px;
   }
 
   .nominationsub-title{
@@ -273,6 +478,7 @@
 
   .nominationsub-inputbox input{
     height:66px;
+    border-radius:20px;
   }
 
   .nominationsub-btn{

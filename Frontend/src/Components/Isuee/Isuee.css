@@ -1,4 +1,6 @@
-/* Isuee.css */
+/* =========================
+   ISUEE - PREMIUM WHITE & #64C345 UI
+========================= */
 
 * {
   margin: 0;
@@ -9,15 +11,66 @@
 .isuee {
   position: relative;
   width: 100%;
-  padding: 80px 7%;
+
+  padding: 90px 7%;
+
   overflow: hidden;
 
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #f5fff9 45%,
-    #e4fff1 100%
-  );
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f8fff5 40%,
+      #eefbe8 100%
+    );
+}
+
+/* =========================
+   PREMIUM BACKGROUND EFFECTS
+========================= */
+
+.isuee::before {
+  content: "";
+
+  position: absolute;
+
+  top: -150px;
+  left: -120px;
+
+  width: 420px;
+  height: 420px;
+
+  border-radius: 50%;
+
+  background: rgba(100, 195, 69, 0.12);
+
+  filter: blur(120px);
+
+  animation: floatGlow 8s ease-in-out infinite;
+
+  z-index: 0;
+}
+
+.isuee::after {
+  content: "";
+
+  position: absolute;
+
+  right: -140px;
+  bottom: -180px;
+
+  width: 460px;
+  height: 460px;
+
+  border-radius: 50%;
+
+  background: rgba(100, 195, 69, 0.10);
+
+  filter: blur(130px);
+
+  animation: floatGlowTwo 10s ease-in-out infinite alternate;
+
+  z-index: 0;
 }
 
 /* =========================
@@ -34,7 +87,8 @@
 .isuee-glow1 {
   width: 320px;
   height: 320px;
-  background: rgba(0, 168, 107, 0.12);
+
+  background: rgba(100, 195, 69, 0.14);
 
   top: -80px;
   left: -80px;
@@ -43,7 +97,8 @@
 .isuee-glow2 {
   width: 350px;
   height: 350px;
-  background: rgba(0, 255, 170, 0.12);
+
+  background: rgba(100, 195, 69, 0.12);
 
   bottom: -120px;
   right: -120px;
@@ -73,41 +128,51 @@
   justify-content: space-between;
   align-items: center;
 
-  margin-bottom: 40px;
+  margin-bottom: 45px;
   gap: 20px;
 }
 
 .isuee-subtitle {
-  color: #00a86b;
+  color: #64c345;
+
   font-size: 14px;
   letter-spacing: 3px;
   font-weight: 700;
 
   margin-bottom: 14px;
+
   display: inline-block;
 }
 
 .isuee-title {
   font-size: 4rem;
   color: #081c15;
-  line-height: 1.1;
+
+  line-height: 1.08;
   font-weight: 800;
 }
 
 .isuee-title span {
-  color: #00a86b;
+  color: #64c345;
 }
+
+/* =========================
+   ARCHIVE BUTTON
+========================= */
 
 .isuee-archive-btn {
   border: none;
-  background: white;
 
-  padding: 18px 28px;
-  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+
+  padding: 18px 30px;
+
+  border-radius: 20px;
 
   font-size: 1rem;
   font-weight: 700;
-  color: #083b2b;
+
+  color: #123524;
 
   cursor: pointer;
 
@@ -115,9 +180,13 @@
   align-items: center;
   gap: 12px;
 
-  border: 1px solid rgba(0, 168, 107, 0.15);
+  border: 1px solid rgba(100, 195, 69, 0.14);
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 
   transition: 0.4s ease;
 }
@@ -125,13 +194,17 @@
 .isuee-archive-btn:hover {
   transform: translateY(-5px);
 
-  background: linear-gradient(
-    135deg,
-    #00a86b,
-    #00d28a
-  );
+  background:
+    linear-gradient(
+      135deg,
+      #64c345,
+      #4ea932
+    );
 
-  color: white;
+  color: #ffffff;
+
+  box-shadow:
+    0 18px 35px rgba(100, 195, 69, 0.28);
 }
 
 /* =========================
@@ -141,6 +214,7 @@
 .isuee-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+
   gap: 28px;
 }
 
@@ -149,16 +223,17 @@
 ========================= */
 
 .isuee-card {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.88);
 
-  border-radius: 28px;
-  padding: 28px;
+  border-radius: 30px;
 
-  border: 1px solid rgba(0, 168, 107, 0.1);
+  padding: 30px;
 
-  backdrop-filter: blur(12px);
+  border: 1px solid rgba(100, 195, 69, 0.10);
 
-  transition: 0.4s ease;
+  backdrop-filter: blur(16px);
+
+  transition: 0.45s ease;
 
   box-shadow:
     0 15px 40px rgba(0, 0, 0, 0.05),
@@ -169,24 +244,31 @@
   transform: translateY(-8px);
 
   box-shadow:
-    0 25px 50px rgba(0, 168, 107, 0.15);
+    0 28px 55px rgba(100, 195, 69, 0.16);
 }
 
-/* TOP */
+/* =========================
+   TOP
+========================= */
+
 .isuee-card-top {
   display: flex;
   justify-content: space-between;
+
   gap: 12px;
 
   margin-bottom: 18px;
+
   flex-wrap: wrap;
 }
 
 .isuee-category {
-  background: #ecfff5;
-  color: #008a58;
+  background: rgba(100, 195, 69, 0.10);
+
+  color: #4f9f35;
 
   padding: 10px 16px;
+
   border-radius: 30px;
 
   font-size: 13px;
@@ -196,69 +278,89 @@
 .isuee-date {
   display: flex;
   align-items: center;
+
   gap: 8px;
 
   color: #667085;
+
   font-size: 14px;
 }
 
 .isuee-volume {
   display: flex;
   align-items: center;
+
   gap: 8px;
 
   color: #6b7280;
 
   margin-bottom: 18px;
+
   font-size: 14px;
 }
 
 .isuee-card-title {
   font-size: 1.5rem;
+
   line-height: 1.4;
+
   color: #071b14;
 
   margin-bottom: 18px;
+
   font-weight: 800;
 }
 
 .isuee-authors {
   display: flex;
   align-items: flex-start;
+
   gap: 10px;
 
   color: #64748b;
 
   margin-bottom: 22px;
+
   line-height: 1.6;
 }
 
-.isuee-doi {
-  background: #f5fff9;
+/* =========================
+   DOI BOX
+========================= */
 
-  border-radius: 18px;
+.isuee-doi {
+  background: rgba(100, 195, 69, 0.05);
+
+  border-radius: 20px;
+
   padding: 16px;
 
   margin-bottom: 25px;
 
-  border: 1px dashed rgba(0, 168, 107, 0.2);
+  border: 1px dashed rgba(100, 195, 69, 0.22);
 }
 
 .isuee-doi span {
   font-size: 14px;
   font-weight: 700;
-  color: #083b2b;
+
+  color: #1a412c;
 }
 
 .isuee-doi p {
   margin-top: 8px;
+
   color: #0f172a;
 
   line-height: 1.6;
+
   word-break: break-word;
 }
 
-/* BOTTOM */
+/* =========================
+   CARD BOTTOM
+========================= */
+
 .isuee-card-bottom {
   display: flex;
   justify-content: space-between;
@@ -267,40 +369,50 @@
   gap: 15px;
 }
 
+/* PDF BUTTON */
+
 .isuee-pdf-btn {
   border: none;
 
-  background: linear-gradient(
-    135deg,
-    #072f23,
-    #00a86b
-  );
+  background:
+    linear-gradient(
+      135deg,
+      #264d20,
+      #64c345
+    );
 
-  color: white;
+  color: #ffffff;
 
-  padding: 14px 20px;
-  border-radius: 14px;
+  padding: 14px 22px;
+
+  border-radius: 16px;
 
   font-weight: 700;
 
   display: flex;
   align-items: center;
+
   gap: 10px;
 
   cursor: pointer;
 
   transition: 0.4s ease;
+
+  box-shadow:
+    0 14px 28px rgba(100, 195, 69, 0.22);
 }
 
 .isuee-pdf-btn:hover {
   transform: scale(1.04);
 }
 
+/* READ BUTTON */
+
 .isuee-read-btn {
   border: none;
   background: transparent;
 
-  color: #0a7c50;
+  color: #4f9f35;
 
   font-weight: 700;
   font-size: 1rem;
@@ -309,6 +421,7 @@
 
   display: flex;
   align-items: center;
+
   gap: 10px;
 }
 
@@ -319,6 +432,7 @@
 .isuee-sidebar {
   display: flex;
   flex-direction: column;
+
   gap: 30px;
 }
 
@@ -326,11 +440,12 @@
   background: rgba(255, 255, 255, 0.92);
 
   padding: 30px;
-  border-radius: 28px;
 
-  border: 1px solid rgba(0, 168, 107, 0.1);
+  border-radius: 30px;
 
-  backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 195, 69, 0.10);
+
+  backdrop-filter: blur(12px);
 
   box-shadow:
     0 15px 35px rgba(0, 0, 0, 0.05);
@@ -344,21 +459,25 @@
   text-transform: uppercase;
   letter-spacing: 2px;
 
-  color: #0a7c50;
+  color: #4f9f35;
 }
 
-/* DETAILS */
+/* =========================
+   DETAILS
+========================= */
+
 .isuee-detail-row {
   display: flex;
   justify-content: space-between;
 
   padding: 16px 0;
 
-  border-bottom: 1px dashed rgba(0, 168, 107, 0.15);
+  border-bottom: 1px dashed rgba(100, 195, 69, 0.18);
 }
 
 .isuee-detail-row span {
   font-weight: 700;
+
   color: #081c15;
 }
 
@@ -367,11 +486,12 @@
 }
 
 /* =========================
-   PREMIUM DROPDOWN
+   PREMIUM SELECT
 ========================= */
 
 .isuee-select-wrapper {
   position: relative;
+
   margin-bottom: 20px;
 }
 
@@ -380,7 +500,8 @@
   height: 62px;
 
   border-radius: 18px;
-  border: 1px solid rgba(0, 168, 107, 0.18);
+
+  border: 1px solid rgba(100, 195, 69, 0.18);
 
   padding: 0 22px;
 
@@ -393,10 +514,11 @@
     linear-gradient(
       135deg,
       rgba(255,255,255,0.95),
-      rgba(240,255,247,0.95)
+      rgba(245,255,240,0.95)
     );
 
   outline: none;
+
   cursor: pointer;
 
   appearance: none;
@@ -406,15 +528,17 @@
   transition: all 0.35s ease;
 
   box-shadow:
-    0 10px 25px rgba(0, 168, 107, 0.05),
+    0 10px 25px rgba(100, 195, 69, 0.06),
     inset 0 1px 0 rgba(255,255,255,0.7);
 }
 
-/* CUSTOM ARROW */
+/* ARROW */
+
 .isuee-select-wrapper::after {
   content: "⌄";
 
   position: absolute;
+
   top: 50%;
   right: 20px;
 
@@ -423,42 +547,49 @@
   font-size: 1.2rem;
   font-weight: 700;
 
-  color: #00a86b;
+  color: #64c345;
 
   pointer-events: none;
 }
 
 /* HOVER */
+
 .isuee-select:hover {
-  border-color: #00b977;
+  border-color: #64c345;
 
   box-shadow:
-    0 15px 30px rgba(0, 168, 107, 0.12);
+    0 15px 30px rgba(100, 195, 69, 0.12);
 }
 
 /* FOCUS */
+
 .isuee-select:focus {
-  border-color: #00b977;
+  border-color: #64c345;
 
   background:
     linear-gradient(
       135deg,
       #ffffff,
-      #effff7
+      #efffe8
     );
 
   box-shadow:
-    0 0 0 4px rgba(0, 168, 107, 0.12),
-    0 15px 35px rgba(0, 168, 107, 0.12);
+    0 0 0 4px rgba(100, 195, 69, 0.12),
+    0 15px 35px rgba(100, 195, 69, 0.12);
 }
 
 .isuee-select option {
   background: #ffffff;
+
   color: #072f23;
+
   padding: 14px;
 }
 
-/* APPLY BUTTON */
+/* =========================
+   APPLY BUTTON
+========================= */
+
 .isuee-apply-btn {
   width: 100%;
   height: 60px;
@@ -466,20 +597,22 @@
   border: none;
   border-radius: 18px;
 
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
 
   cursor: pointer;
-  color: white;
 
-  background: linear-gradient(
-    135deg,
-    #072f23,
-    #00b977
-  );
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2a5f20,
+      #64c345
+    );
 
   box-shadow:
-    0 15px 30px rgba(0, 168, 107, 0.25);
+    0 15px 30px rgba(100, 195, 69, 0.22);
 
   transition: 0.4s ease;
 }
@@ -488,7 +621,10 @@
   transform: translateY(-4px);
 }
 
-/* DOWNLOAD */
+/* =========================
+   DOWNLOAD LIST
+========================= */
+
 .isuee-download-list {
   list-style: none;
 }
@@ -496,10 +632,41 @@
 .isuee-download-list li {
   padding: 16px 0;
 
-  border-bottom: 1px dashed rgba(0, 168, 107, 0.15);
+  border-bottom: 1px dashed rgba(100, 195, 69, 0.18);
 
   color: #0f172a;
+
   line-height: 1.6;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes floatGlow {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-25px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes floatGlowTwo {
+
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  100% {
+    transform: translateY(-30px) scale(1.06);
+  }
 }
 
 /* =========================
