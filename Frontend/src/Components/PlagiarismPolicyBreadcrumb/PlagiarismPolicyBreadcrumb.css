@@ -1,105 +1,123 @@
 /* =========================================================
    PLAGIARISM POLICY BREADCRUMB
-   FULLY RESPONSIVE CSS
+   PREMIUM WHITE + #64C345 GREEN THEME
+   FULL UPDATED RESPONSIVE CSS
 ========================================================= */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-.plagiarismPolicyBreadcrumb {
-  position: relative;
-  width: 100%;
-  min-height: 260px;
+.plagiarismPolicyBreadcrumb{
+  position:relative;
 
-  display: flex;
-  align-items: center;
+  width:100%;
+  min-height:300px;
 
-  overflow: hidden;
+  display:flex;
+  align-items:center;
 
-  padding: 48px 7%;
+  overflow:hidden;
 
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  padding:55px 7%;
 
-  isolation: isolate;
+  background:
+  linear-gradient(
+    135deg,
+    #64c345 0%,
+    #7ad15b 20%,
+    #9be27f 45%,
+    #dff7d2 75%,
+    #ffffff 100%
+  );
+
+  isolation:isolate;
 }
 
 /* =========================================================
    OVERLAY
 ========================================================= */
 
-.plagiarismPolicyBreadcrumbOverlay {
-  position: absolute;
-  inset: 0;
+.plagiarismPolicyBreadcrumbOverlay{
+  position:absolute;
+  inset:0;
 
   background:
-    linear-gradient(
-      90deg,
-      rgba(4, 18, 36, 0.95) 0%,
-      rgba(0, 55, 40, 0.88) 55%,
-      rgba(0, 135, 110, 0.72) 100%
-    );
+  linear-gradient(
+    90deg,
+    rgba(16,38,16,0.38) 0%,
+    rgba(16,38,16,0.22) 45%,
+    rgba(255,255,255,0.06) 100%
+  );
 
-  z-index: -2;
+  z-index:-2;
 }
 
 /* =========================================================
-   GLOW EFFECTS
+   PREMIUM GLOW EFFECTS
 ========================================================= */
 
 .plagiarismPolicyGlowOne,
-.plagiarismPolicyGlowTwo {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(22px);
-  z-index: -1;
+.plagiarismPolicyGlowTwo{
+  position:absolute;
+
+  border-radius:50%;
+
+  filter:blur(35px);
+
+  z-index:-1;
 }
 
-.plagiarismPolicyGlowOne {
-  width: 320px;
-  height: 320px;
+.plagiarismPolicyGlowOne{
+  width:420px;
+  height:420px;
 
-  top: -120px;
-  left: -120px;
+  top:-140px;
+  left:-120px;
 
   background:
-    radial-gradient(
-      circle,
-      rgba(198, 255, 0, 0.18),
-      transparent 72%
-    );
+  radial-gradient(
+    circle,
+    rgba(255,255,255,0.18),
+    transparent 72%
+  );
 
-  animation: glowMove 7s ease-in-out infinite alternate;
+  animation:
+  glowMove 7s ease-in-out infinite alternate;
 }
 
-.plagiarismPolicyGlowTwo {
-  width: 350px;
-  height: 350px;
+.plagiarismPolicyGlowTwo{
+  width:460px;
+  height:460px;
 
-  bottom: -160px;
-  right: -120px;
+  bottom:-180px;
+  right:-150px;
 
   background:
-    radial-gradient(
-      circle,
-      rgba(0, 255, 204, 0.16),
-      transparent 72%
-    );
+  radial-gradient(
+    circle,
+    rgba(100,195,69,0.22),
+    transparent 72%
+  );
 
-  animation: glowMove 8s ease-in-out infinite alternate;
+  animation:
+  glowMove 9s ease-in-out infinite alternate;
 }
 
-@keyframes glowMove {
-  from {
-    transform: translateY(0px) scale(1);
+@keyframes glowMove{
+
+  from{
+    transform:
+    translateY(0px)
+    scale(1);
   }
 
-  to {
-    transform: translateY(16px) scale(1.05);
+  to{
+    transform:
+    translateY(18px)
+    scale(1.08);
   }
 }
 
@@ -107,39 +125,43 @@
    CONTAINER
 ========================================================= */
 
-.plagiarismPolicyContainer {
-  position: relative;
-  z-index: 5;
+.plagiarismPolicyContainer{
+  position:relative;
 
-  width: 100%;
+  z-index:5;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  width:100%;
 
-  gap: 50px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:55px;
 }
 
 /* =========================================================
    LEFT CONTENT
 ========================================================= */
 
-.plagiarismPolicyContent {
-  flex: 1;
-  max-width: 720px;
+.plagiarismPolicyContent{
+  flex:1;
 
-  animation: fadeLeft 1s ease;
+  max-width:760px;
+
+  animation:
+  fadeLeft 1s ease;
 }
 
-@keyframes fadeLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-40px);
+@keyframes fadeLeft{
+
+  from{
+    opacity:0;
+    transform:translateX(-40px);
   }
 
-  to {
-    opacity: 1;
-    transform: translateX(0);
+  to{
+    opacity:1;
+    transform:translateX(0);
   }
 }
 
@@ -147,146 +169,196 @@
    TAG
 ========================================================= */
 
-.plagiarismPolicyTag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.plagiarismPolicyTag{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
 
-  padding: 8px 20px;
+  padding:10px 22px;
 
-  border-radius: 50px;
+  border-radius:50px;
 
-  margin-bottom: 18px;
+  margin-bottom:20px;
 
-  background: rgba(255, 255, 255, 0.08);
+  background:
+  rgba(255,255,255,0.16);
 
-  border: 1px solid rgba(198, 255, 0, 0.25);
+  border:1px solid
+  rgba(255,255,255,0.22);
 
-  backdrop-filter: blur(12px);
+  backdrop-filter:blur(14px);
 
-  color: #d8ff57;
+  color:#ffffff;
 
-  font-size: 0.74rem;
-  font-weight: 700;
+  font-size:0.76rem;
+  font-weight:800;
 
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.10);
 }
 
 /* =========================================================
    TITLE
 ========================================================= */
 
-.plagiarismPolicyContent h1 {
-  font-size: 3rem;
-  font-weight: 800;
+.plagiarismPolicyContent h1{
+  font-size:3.4rem;
+  font-weight:900;
 
-  line-height: 1.1;
+  line-height:1.08;
 
-  color: #ffffff;
+  color:#ffffff;
 
-  margin-bottom: 16px;
-}
+  margin-bottom:18px;
 
-.plagiarismPolicyContent h1 span {
-  color: #d8ff57;
+  letter-spacing:-1.5px;
 
   text-shadow:
-    0 0 18px rgba(216, 255, 87, 0.4);
+  0 4px 20px rgba(0,0,0,0.20),
+  0 0 18px rgba(100,195,69,0.22);
+}
+
+.plagiarismPolicyContent h1 span{
+  color:#ffffff;
+
+  position:relative;
+
+  display:inline-block;
+}
+
+.plagiarismPolicyContent h1 span::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  bottom:-6px;
+
+  width:100%;
+  height:4px;
+
+  border-radius:50px;
+
+  background:
+  linear-gradient(
+    90deg,
+    #ffffff,
+    #dfffd2
+  );
+
+  box-shadow:
+  0 0 12px rgba(255,255,255,0.35);
 }
 
 /* =========================================================
    DESCRIPTION
 ========================================================= */
 
-.plagiarismPolicyContent p {
-  max-width: 650px;
+.plagiarismPolicyContent p{
+  max-width:700px;
 
-  font-size: 0.96rem;
-  font-weight: 400;
+  font-size:1rem;
+  font-weight:500;
 
-  line-height: 1.8;
+  line-height:1.9;
 
-  color: rgba(255, 255, 255, 0.84);
+  color:rgba(255,255,255,0.94);
 
-  margin-bottom: 22px;
+  margin-bottom:24px;
+
+  text-shadow:
+  0 2px 12px rgba(0,0,0,0.12);
 }
 
 /* =========================================================
    BREADCRUMB PATH
 ========================================================= */
 
-.plagiarismPolicyPath {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
+.plagiarismPolicyPath{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
 
-  padding: 12px 22px;
+  padding:12px 22px;
 
-  border-radius: 50px;
+  border-radius:50px;
 
-  background: rgba(255, 255, 255, 0.08);
+  background:
+  rgba(255,255,255,0.14);
 
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border:1px solid
+  rgba(255,255,255,0.22);
 
-  backdrop-filter: blur(12px);
+  backdrop-filter:blur(14px);
 
-  color: #ffffff;
+  color:#ffffff;
 
-  font-size: 0.88rem;
-  font-weight: 600;
+  font-size:0.88rem;
+  font-weight:600;
+
+  box-shadow:
+  0 12px 30px rgba(0,0,0,0.10);
 }
 
-.plagiarismPolicyPath svg {
-  color: #d8ff57;
-  font-size: 0.76rem;
+.plagiarismPolicyPath svg{
+  color:#ffffff;
+
+  font-size:0.76rem;
 }
 
-.plagiarismPolicyPath .active {
-  color: #d8ff57;
+.plagiarismPolicyPath .active{
+  color:#ffffff;
+
+  font-weight:700;
 }
 
 /* =========================================================
-   RIGHT CARD
+   RIGHT GLASS CARD
 ========================================================= */
 
-.plagiarismPolicyCard {
-  position: relative;
+.plagiarismPolicyCard{
+  position:relative;
 
-  width: 340px;
+  width:360px;
 
-  padding: 28px;
+  padding:34px;
 
-  border-radius: 24px;
+  border-radius:30px;
 
-  overflow: hidden;
+  overflow:hidden;
 
   background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.12),
-      rgba(255, 255, 255, 0.05)
-    );
+  linear-gradient(
+    135deg,
+    rgba(255,255,255,0.92),
+    rgba(244,255,240,0.84)
+  );
 
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border:1px solid
+  rgba(255,255,255,0.34);
 
-  backdrop-filter: blur(16px);
+  backdrop-filter:blur(20px);
 
   box-shadow:
-    0 14px 35px rgba(0, 0, 0, 0.25);
+  0 22px 60px rgba(0,0,0,0.12);
 
-  animation: fadeRight 1s ease;
+  animation:
+  fadeRight 1s ease;
 }
 
-@keyframes fadeRight {
-  from {
-    opacity: 0;
-    transform: translateX(40px);
+@keyframes fadeRight{
+
+  from{
+    opacity:0;
+    transform:translateX(40px);
   }
 
-  to {
-    opacity: 1;
-    transform: translateX(0);
+  to{
+    opacity:1;
+    transform:translateX(0);
   }
 }
 
@@ -294,151 +366,158 @@
    CARD GLOW
 ========================================================= */
 
-.plagiarismPolicyCardGlow {
-  position: absolute;
+.plagiarismPolicyCardGlow{
+  position:absolute;
 
-  width: 180px;
-  height: 180px;
+  width:220px;
+  height:220px;
 
-  top: -90px;
-  right: -90px;
+  top:-100px;
+  right:-90px;
 
-  border-radius: 50%;
+  border-radius:50%;
 
   background:
-    radial-gradient(
-      circle,
-      rgba(198, 255, 0, 0.24),
-      transparent 70%
-    );
+  radial-gradient(
+    circle,
+    rgba(100,195,69,0.18),
+    transparent 70%
+  );
 
-  filter: blur(18px);
+  filter:blur(24px);
 }
 
 /* =========================================================
    ICON
 ========================================================= */
 
-.plagiarismPolicyIcon {
-  position: relative;
+.plagiarismPolicyIcon{
+  position:relative;
 
-  width: 65px;
-  height: 65px;
+  width:72px;
+  height:72px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-  border-radius: 18px;
+  border-radius:22px;
 
-  margin-bottom: 18px;
+  margin-bottom:20px;
 
   background:
-    linear-gradient(
-      135deg,
-      rgba(198, 255, 0, 0.18),
-      rgba(0, 255, 204, 0.18)
-    );
+  linear-gradient(
+    135deg,
+    #64c345,
+    #8de46e
+  );
 
-  color: #ffffff;
+  color:#ffffff;
 
-  font-size: 1.45rem;
+  font-size:1.5rem;
 
-  transition: 0.4s ease;
+  transition:0.4s ease;
 
-  z-index: 2;
+  z-index:2;
+
+  box-shadow:
+  0 14px 34px rgba(100,195,69,0.28);
 }
 
-.plagiarismPolicyCard:hover .plagiarismPolicyIcon {
+.plagiarismPolicyCard:hover .plagiarismPolicyIcon{
   transform:
-    rotate(-6deg)
-    scale(1.08);
+  rotate(-6deg)
+  scale(1.08);
 }
 
 /* =========================================================
    CARD CONTENT
 ========================================================= */
 
-.plagiarismPolicyCard h3 {
-  position: relative;
+.plagiarismPolicyCard h3{
+  position:relative;
 
-  font-size: 1.45rem;
-  font-weight: 700;
+  font-size:1.5rem;
+  font-weight:800;
 
-  line-height: 1.3;
+  line-height:1.3;
 
-  color: #ffffff;
+  color:#173117;
 
-  margin-bottom: 12px;
+  margin-bottom:12px;
 
-  z-index: 2;
+  z-index:2;
 }
 
-.plagiarismPolicyCard p {
-  position: relative;
+.plagiarismPolicyCard p{
+  position:relative;
 
-  font-size: 0.9rem;
-  line-height: 1.7;
+  font-size:0.92rem;
+  line-height:1.8;
 
-  color: rgba(255, 255, 255, 0.84);
+  color:#5d7061;
 
-  margin-bottom: 22px;
+  margin-bottom:24px;
 
-  z-index: 2;
+  z-index:2;
 }
 
 /* =========================================================
    BUTTON
 ========================================================= */
 
-.plagiarismPolicyCard button {
-  position: relative;
+.plagiarismPolicyCard button{
+  position:relative;
 
-  border: none;
-  outline: none;
+  border:none;
+  outline:none;
 
-  cursor: pointer;
+  cursor:pointer;
 
-  padding: 12px 22px;
+  padding:13px 24px;
 
-  border-radius: 12px;
+  border-radius:14px;
 
   background:
-    linear-gradient(
-      90deg,
-      #c6ff00,
-      #8de400
-    );
+  linear-gradient(
+    90deg,
+    #64c345,
+    #8de46e
+  );
 
-  color: #07294d;
+  color:#ffffff;
 
-  font-size: 0.84rem;
-  font-weight: 700;
+  font-size:0.84rem;
+  font-weight:700;
 
-  transition: 0.4s ease;
+  transition:0.4s ease;
 
-  z-index: 2;
-}
-
-.plagiarismPolicyCard button:hover {
-  transform: translateY(-3px);
+  z-index:2;
 
   box-shadow:
-    0 10px 24px rgba(198, 255, 0, 0.35);
+  0 12px 28px rgba(100,195,69,0.24);
+}
+
+.plagiarismPolicyCard button:hover{
+  transform:
+  translateY(-4px);
+
+  box-shadow:
+  0 18px 36px rgba(100,195,69,0.34);
 }
 
 /* =========================================================
    LARGE DEVICES
 ========================================================= */
 
-@media (max-width: 1400px) {
+@media(max-width:1400px){
 
-  .plagiarismPolicyContent h1 {
-    font-size: 2.8rem;
+  .plagiarismPolicyContent h1{
+    font-size:3rem;
   }
 
-  .plagiarismPolicyCard {
-    width: 320px;
+  .plagiarismPolicyCard{
+    width:330px;
   }
 }
 
@@ -446,18 +525,18 @@
    LAPTOPS
 ========================================================= */
 
-@media (max-width: 1200px) {
+@media(max-width:1200px){
 
-  .plagiarismPolicyBreadcrumb {
-    padding: 45px 5%;
+  .plagiarismPolicyBreadcrumb{
+    padding:50px 5%;
   }
 
-  .plagiarismPolicyContainer {
-    gap: 35px;
+  .plagiarismPolicyContainer{
+    gap:40px;
   }
 
-  .plagiarismPolicyContent h1 {
-    font-size: 2.5rem;
+  .plagiarismPolicyContent h1{
+    font-size:2.7rem;
   }
 }
 
@@ -465,35 +544,36 @@
    TABLETS
 ========================================================= */
 
-@media (max-width: 992px) {
+@media(max-width:992px){
 
-  .plagiarismPolicyBreadcrumb {
-    min-height: auto;
-    padding: 50px 5%;
+  .plagiarismPolicyBreadcrumb{
+    min-height:auto;
+
+    padding:55px 5%;
   }
 
-  .plagiarismPolicyContainer {
-    flex-direction: column;
-    align-items: flex-start;
+  .plagiarismPolicyContainer{
+    flex-direction:column;
+    align-items:flex-start;
 
-    gap: 32px;
+    gap:34px;
   }
 
-  .plagiarismPolicyContent {
-    max-width: 100%;
+  .plagiarismPolicyContent{
+    max-width:100%;
   }
 
-  .plagiarismPolicyCard {
-    width: 100%;
-    max-width: 520px;
+  .plagiarismPolicyCard{
+    width:100%;
+    max-width:540px;
   }
 
-  .plagiarismPolicyContent h1 {
-    font-size: 2.2rem;
+  .plagiarismPolicyContent h1{
+    font-size:2.3rem;
   }
 
-  .plagiarismPolicyContent p {
-    max-width: 100%;
+  .plagiarismPolicyContent p{
+    max-width:100%;
   }
 }
 
@@ -501,31 +581,32 @@
    SMALL TABLETS
 ========================================================= */
 
-@media (max-width: 768px) {
+@media(max-width:768px){
 
-  .plagiarismPolicyBreadcrumb {
-    padding: 42px 5%;
+  .plagiarismPolicyBreadcrumb{
+    padding:44px 5%;
   }
 
-  .plagiarismPolicyContent h1 {
-    font-size: 1.95rem;
+  .plagiarismPolicyContent h1{
+    font-size:2rem;
   }
 
-  .plagiarismPolicyContent p {
-    font-size: 0.9rem;
-    line-height: 1.7;
+  .plagiarismPolicyContent p{
+    font-size:0.92rem;
+
+    line-height:1.75;
   }
 
-  .plagiarismPolicyCard {
-    padding: 24px;
+  .plagiarismPolicyCard{
+    padding:26px;
   }
 
-  .plagiarismPolicyCard h3 {
-    font-size: 1.3rem;
+  .plagiarismPolicyCard h3{
+    font-size:1.3rem;
   }
 
-  .plagiarismPolicyCard p {
-    font-size: 0.85rem;
+  .plagiarismPolicyCard p{
+    font-size:0.86rem;
   }
 }
 
@@ -533,50 +614,52 @@
    MOBILE DEVICES
 ========================================================= */
 
-@media (max-width: 576px) {
+@media(max-width:576px){
 
-  .plagiarismPolicyBreadcrumb {
-    padding: 38px 4%;
+  .plagiarismPolicyBreadcrumb{
+    padding:40px 4%;
   }
 
-  .plagiarismPolicyContainer {
-    gap: 28px;
+  .plagiarismPolicyContainer{
+    gap:28px;
   }
 
-  .plagiarismPolicyTag {
-    width: 100%;
-    text-align: center;
+  .plagiarismPolicyTag{
+    width:100%;
+
+    text-align:center;
   }
 
-  .plagiarismPolicyContent h1 {
-    font-size: 1.7rem;
+  .plagiarismPolicyContent h1{
+    font-size:1.75rem;
   }
 
-  .plagiarismPolicyContent p {
-    font-size: 0.84rem;
+  .plagiarismPolicyContent p{
+    font-size:0.84rem;
   }
 
-  .plagiarismPolicyPath {
-    width: 100%;
+  .plagiarismPolicyPath{
+    width:100%;
 
-    justify-content: center;
+    justify-content:center;
 
-    flex-wrap: wrap;
+    flex-wrap:wrap;
 
-    gap: 10px;
+    gap:10px;
 
-    padding: 11px 18px;
+    padding:11px 18px;
 
-    font-size: 0.8rem;
+    font-size:0.8rem;
   }
 
-  .plagiarismPolicyCard {
-    width: 100%;
-    padding: 22px;
+  .plagiarismPolicyCard{
+    width:100%;
+
+    padding:22px;
   }
 
-  .plagiarismPolicyCard button {
-    width: 100%;
+  .plagiarismPolicyCard button{
+    width:100%;
   }
 }
 
@@ -584,48 +667,51 @@
    SMALL MOBILE
 ========================================================= */
 
-@media (max-width: 420px) {
+@media(max-width:420px){
 
-  .plagiarismPolicyBreadcrumb {
-    padding: 35px 4%;
+  .plagiarismPolicyBreadcrumb{
+    padding:36px 4%;
   }
 
-  .plagiarismPolicyContent h1 {
-    font-size: 1.45rem;
+  .plagiarismPolicyContent h1{
+    font-size:1.45rem;
   }
 
-  .plagiarismPolicyTag {
-    font-size: 0.64rem;
-    padding: 8px 14px;
+  .plagiarismPolicyTag{
+    font-size:0.64rem;
+
+    padding:8px 14px;
   }
 
-  .plagiarismPolicyContent p {
-    font-size: 0.78rem;
-    line-height: 1.65;
+  .plagiarismPolicyContent p{
+    font-size:0.78rem;
+
+    line-height:1.65;
   }
 
-  .plagiarismPolicyPath {
-    font-size: 0.74rem;
-    padding: 10px 15px;
+  .plagiarismPolicyPath{
+    font-size:0.74rem;
+
+    padding:10px 15px;
   }
 
-  .plagiarismPolicyIcon {
-    width: 58px;
-    height: 58px;
+  .plagiarismPolicyIcon{
+    width:60px;
+    height:60px;
 
-    font-size: 1.25rem;
+    font-size:1.25rem;
   }
 
-  .plagiarismPolicyCard h3 {
-    font-size: 1.08rem;
+  .plagiarismPolicyCard h3{
+    font-size:1.08rem;
   }
 
-  .plagiarismPolicyCard p {
-    font-size: 0.76rem;
+  .plagiarismPolicyCard p{
+    font-size:0.76rem;
   }
 
-  .plagiarismPolicyCard {
-    padding: 20px 18px;
+  .plagiarismPolicyCard{
+    padding:20px 18px;
   }
 }
 
@@ -633,38 +719,39 @@
    EXTRA SMALL DEVICES
 ========================================================= */
 
-@media (max-width: 360px) {
+@media(max-width:360px){
 
-  .plagiarismPolicyContent h1 {
-    font-size: 1.25rem;
+  .plagiarismPolicyContent h1{
+    font-size:1.25rem;
   }
 
-  .plagiarismPolicyContent p {
-    font-size: 0.72rem;
+  .plagiarismPolicyContent p{
+    font-size:0.72rem;
   }
 
-  .plagiarismPolicyTag {
-    font-size: 0.58rem;
+  .plagiarismPolicyTag{
+    font-size:0.58rem;
   }
 
-  .plagiarismPolicyPath {
-    font-size: 0.68rem;
+  .plagiarismPolicyPath{
+    font-size:0.68rem;
   }
 
-  .plagiarismPolicyCard {
-    padding: 18px 16px;
+  .plagiarismPolicyCard{
+    padding:18px 16px;
   }
 
-  .plagiarismPolicyCard h3 {
-    font-size: 1rem;
+  .plagiarismPolicyCard h3{
+    font-size:1rem;
   }
 
-  .plagiarismPolicyCard p {
-    font-size: 0.72rem;
+  .plagiarismPolicyCard p{
+    font-size:0.72rem;
   }
 
-  .plagiarismPolicyCard button {
-    font-size: 0.76rem;
-    padding: 11px 16px;
+  .plagiarismPolicyCard button{
+    font-size:0.76rem;
+
+    padding:11px 16px;
   }
 }
