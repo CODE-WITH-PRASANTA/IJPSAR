@@ -1,0 +1,670 @@
+/* =========================================================
+   PLAGIARISM POLICY BREADCRUMB
+   FULLY RESPONSIVE CSS
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.plagiarismPolicyBreadcrumb {
+  position: relative;
+  width: 100%;
+  min-height: 260px;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  padding: 48px 7%;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  isolation: isolate;
+}
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.plagiarismPolicyBreadcrumbOverlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 18, 36, 0.95) 0%,
+      rgba(0, 55, 40, 0.88) 55%,
+      rgba(0, 135, 110, 0.72) 100%
+    );
+
+  z-index: -2;
+}
+
+/* =========================================================
+   GLOW EFFECTS
+========================================================= */
+
+.plagiarismPolicyGlowOne,
+.plagiarismPolicyGlowTwo {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(22px);
+  z-index: -1;
+}
+
+.plagiarismPolicyGlowOne {
+  width: 320px;
+  height: 320px;
+
+  top: -120px;
+  left: -120px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(198, 255, 0, 0.18),
+      transparent 72%
+    );
+
+  animation: glowMove 7s ease-in-out infinite alternate;
+}
+
+.plagiarismPolicyGlowTwo {
+  width: 350px;
+  height: 350px;
+
+  bottom: -160px;
+  right: -120px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0, 255, 204, 0.16),
+      transparent 72%
+    );
+
+  animation: glowMove 8s ease-in-out infinite alternate;
+}
+
+@keyframes glowMove {
+  from {
+    transform: translateY(0px) scale(1);
+  }
+
+  to {
+    transform: translateY(16px) scale(1.05);
+  }
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.plagiarismPolicyContainer {
+  position: relative;
+  z-index: 5;
+
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 50px;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.plagiarismPolicyContent {
+  flex: 1;
+  max-width: 720px;
+
+  animation: fadeLeft 1s ease;
+}
+
+@keyframes fadeLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =========================================================
+   TAG
+========================================================= */
+
+.plagiarismPolicyTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 20px;
+
+  border-radius: 50px;
+
+  margin-bottom: 18px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(198, 255, 0, 0.25);
+
+  backdrop-filter: blur(12px);
+
+  color: #d8ff57;
+
+  font-size: 0.74rem;
+  font-weight: 700;
+
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.plagiarismPolicyContent h1 {
+  font-size: 3rem;
+  font-weight: 800;
+
+  line-height: 1.1;
+
+  color: #ffffff;
+
+  margin-bottom: 16px;
+}
+
+.plagiarismPolicyContent h1 span {
+  color: #d8ff57;
+
+  text-shadow:
+    0 0 18px rgba(216, 255, 87, 0.4);
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.plagiarismPolicyContent p {
+  max-width: 650px;
+
+  font-size: 0.96rem;
+  font-weight: 400;
+
+  line-height: 1.8;
+
+  color: rgba(255, 255, 255, 0.84);
+
+  margin-bottom: 22px;
+}
+
+/* =========================================================
+   BREADCRUMB PATH
+========================================================= */
+
+.plagiarismPolicyPath {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 22px;
+
+  border-radius: 50px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  backdrop-filter: blur(12px);
+
+  color: #ffffff;
+
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.plagiarismPolicyPath svg {
+  color: #d8ff57;
+  font-size: 0.76rem;
+}
+
+.plagiarismPolicyPath .active {
+  color: #d8ff57;
+}
+
+/* =========================================================
+   RIGHT CARD
+========================================================= */
+
+.plagiarismPolicyCard {
+  position: relative;
+
+  width: 340px;
+
+  padding: 28px;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0.05)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  backdrop-filter: blur(16px);
+
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.25);
+
+  animation: fadeRight 1s ease;
+}
+
+@keyframes fadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =========================================================
+   CARD GLOW
+========================================================= */
+
+.plagiarismPolicyCardGlow {
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  top: -90px;
+  right: -90px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(198, 255, 0, 0.24),
+      transparent 70%
+    );
+
+  filter: blur(18px);
+}
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.plagiarismPolicyIcon {
+  position: relative;
+
+  width: 65px;
+  height: 65px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  margin-bottom: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(198, 255, 0, 0.18),
+      rgba(0, 255, 204, 0.18)
+    );
+
+  color: #ffffff;
+
+  font-size: 1.45rem;
+
+  transition: 0.4s ease;
+
+  z-index: 2;
+}
+
+.plagiarismPolicyCard:hover .plagiarismPolicyIcon {
+  transform:
+    rotate(-6deg)
+    scale(1.08);
+}
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.plagiarismPolicyCard h3 {
+  position: relative;
+
+  font-size: 1.45rem;
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  color: #ffffff;
+
+  margin-bottom: 12px;
+
+  z-index: 2;
+}
+
+.plagiarismPolicyCard p {
+  position: relative;
+
+  font-size: 0.9rem;
+  line-height: 1.7;
+
+  color: rgba(255, 255, 255, 0.84);
+
+  margin-bottom: 22px;
+
+  z-index: 2;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.plagiarismPolicyCard button {
+  position: relative;
+
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+
+  padding: 12px 22px;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #c6ff00,
+      #8de400
+    );
+
+  color: #07294d;
+
+  font-size: 0.84rem;
+  font-weight: 700;
+
+  transition: 0.4s ease;
+
+  z-index: 2;
+}
+
+.plagiarismPolicyCard button:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 10px 24px rgba(198, 255, 0, 0.35);
+}
+
+/* =========================================================
+   LARGE DEVICES
+========================================================= */
+
+@media (max-width: 1400px) {
+
+  .plagiarismPolicyContent h1 {
+    font-size: 2.8rem;
+  }
+
+  .plagiarismPolicyCard {
+    width: 320px;
+  }
+}
+
+/* =========================================================
+   LAPTOPS
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .plagiarismPolicyBreadcrumb {
+    padding: 45px 5%;
+  }
+
+  .plagiarismPolicyContainer {
+    gap: 35px;
+  }
+
+  .plagiarismPolicyContent h1 {
+    font-size: 2.5rem;
+  }
+}
+
+/* =========================================================
+   TABLETS
+========================================================= */
+
+@media (max-width: 992px) {
+
+  .plagiarismPolicyBreadcrumb {
+    min-height: auto;
+    padding: 50px 5%;
+  }
+
+  .plagiarismPolicyContainer {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 32px;
+  }
+
+  .plagiarismPolicyContent {
+    max-width: 100%;
+  }
+
+  .plagiarismPolicyCard {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .plagiarismPolicyContent h1 {
+    font-size: 2.2rem;
+  }
+
+  .plagiarismPolicyContent p {
+    max-width: 100%;
+  }
+}
+
+/* =========================================================
+   SMALL TABLETS
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .plagiarismPolicyBreadcrumb {
+    padding: 42px 5%;
+  }
+
+  .plagiarismPolicyContent h1 {
+    font-size: 1.95rem;
+  }
+
+  .plagiarismPolicyContent p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  .plagiarismPolicyCard {
+    padding: 24px;
+  }
+
+  .plagiarismPolicyCard h3 {
+    font-size: 1.3rem;
+  }
+
+  .plagiarismPolicyCard p {
+    font-size: 0.85rem;
+  }
+}
+
+/* =========================================================
+   MOBILE DEVICES
+========================================================= */
+
+@media (max-width: 576px) {
+
+  .plagiarismPolicyBreadcrumb {
+    padding: 38px 4%;
+  }
+
+  .plagiarismPolicyContainer {
+    gap: 28px;
+  }
+
+  .plagiarismPolicyTag {
+    width: 100%;
+    text-align: center;
+  }
+
+  .plagiarismPolicyContent h1 {
+    font-size: 1.7rem;
+  }
+
+  .plagiarismPolicyContent p {
+    font-size: 0.84rem;
+  }
+
+  .plagiarismPolicyPath {
+    width: 100%;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    padding: 11px 18px;
+
+    font-size: 0.8rem;
+  }
+
+  .plagiarismPolicyCard {
+    width: 100%;
+    padding: 22px;
+  }
+
+  .plagiarismPolicyCard button {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .plagiarismPolicyBreadcrumb {
+    padding: 35px 4%;
+  }
+
+  .plagiarismPolicyContent h1 {
+    font-size: 1.45rem;
+  }
+
+  .plagiarismPolicyTag {
+    font-size: 0.64rem;
+    padding: 8px 14px;
+  }
+
+  .plagiarismPolicyContent p {
+    font-size: 0.78rem;
+    line-height: 1.65;
+  }
+
+  .plagiarismPolicyPath {
+    font-size: 0.74rem;
+    padding: 10px 15px;
+  }
+
+  .plagiarismPolicyIcon {
+    width: 58px;
+    height: 58px;
+
+    font-size: 1.25rem;
+  }
+
+  .plagiarismPolicyCard h3 {
+    font-size: 1.08rem;
+  }
+
+  .plagiarismPolicyCard p {
+    font-size: 0.76rem;
+  }
+
+  .plagiarismPolicyCard {
+    padding: 20px 18px;
+  }
+}
+
+/* =========================================================
+   EXTRA SMALL DEVICES
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .plagiarismPolicyContent h1 {
+    font-size: 1.25rem;
+  }
+
+  .plagiarismPolicyContent p {
+    font-size: 0.72rem;
+  }
+
+  .plagiarismPolicyTag {
+    font-size: 0.58rem;
+  }
+
+  .plagiarismPolicyPath {
+    font-size: 0.68rem;
+  }
+
+  .plagiarismPolicyCard {
+    padding: 18px 16px;
+  }
+
+  .plagiarismPolicyCard h3 {
+    font-size: 1rem;
+  }
+
+  .plagiarismPolicyCard p {
+    font-size: 0.72rem;
+  }
+
+  .plagiarismPolicyCard button {
+    font-size: 0.76rem;
+    padding: 11px 16px;
+  }
+}
