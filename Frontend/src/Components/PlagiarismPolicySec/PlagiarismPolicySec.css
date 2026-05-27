@@ -1,0 +1,826 @@
+/* =========================================================
+   PLAGIARISM POLICY SECTION
+   PREMIUM WHITE + #64C345 GREEN THEME
+   FULLY RESPONSIVE CSS
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+.plagiarismPolicySec{
+  position:relative;
+
+  width:100%;
+
+  overflow:hidden;
+
+  padding:110px 7%;
+
+  background:
+  linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f7fff3 22%,
+    #eef9e8 55%,
+    #e5f7dc 100%
+  );
+}
+
+/* =========================================================
+   PREMIUM GLOW EFFECTS
+========================================================= */
+
+.plagiarismPolicySecGlowOne,
+.plagiarismPolicySecGlowTwo{
+  position:absolute;
+
+  border-radius:50%;
+
+  filter:blur(32px);
+
+  z-index:0;
+}
+
+.plagiarismPolicySecGlowOne{
+  width:420px;
+  height:420px;
+
+  top:-160px;
+  left:-150px;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(100,195,69,0.20),
+    transparent 72%
+  );
+
+  animation:
+  plagiarismGlow 8s ease-in-out infinite alternate;
+}
+
+.plagiarismPolicySecGlowTwo{
+  width:380px;
+  height:380px;
+
+  bottom:-140px;
+  right:-120px;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(100,195,69,0.14),
+    transparent 72%
+  );
+
+  animation:
+  plagiarismGlow 9s ease-in-out infinite alternate;
+}
+
+@keyframes plagiarismGlow{
+
+  from{
+    transform:
+    translateY(0px)
+    scale(1);
+  }
+
+  to{
+    transform:
+    translateY(18px)
+    scale(1.08);
+  }
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.plagiarismPolicySecContainer{
+  position:relative;
+
+  z-index:2;
+}
+
+/* =========================================================
+   TOP SECTION
+========================================================= */
+
+.plagiarismPolicySecTop{
+  max-width:980px;
+
+  margin-bottom:75px;
+
+  animation:
+  plagiarismFadeTop 1s ease;
+}
+
+@keyframes plagiarismFadeTop{
+
+  from{
+    opacity:0;
+    transform:translateY(35px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* =========================================================
+   TAG
+========================================================= */
+
+.plagiarismPolicySecTag{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:10px 22px;
+
+  border-radius:50px;
+
+  margin-bottom:24px;
+
+  background:
+  rgba(100,195,69,0.10);
+
+  border:1px solid
+  rgba(100,195,69,0.18);
+
+  color:#3b7b2b;
+
+  font-size:0.78rem;
+  font-weight:800;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+
+  box-shadow:
+  0 10px 24px rgba(100,195,69,0.10);
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.plagiarismPolicySecTop h2{
+  font-size:3.5rem;
+  font-weight:900;
+
+  line-height:1.12;
+
+  color:#163116;
+
+  margin-bottom:24px;
+
+  letter-spacing:-1px;
+}
+
+.plagiarismPolicySecTop h2 span{
+  color:#64c345;
+
+  position:relative;
+}
+
+.plagiarismPolicySecTop h2 span::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  bottom:-6px;
+
+  width:100%;
+  height:4px;
+
+  border-radius:50px;
+
+  background:
+  linear-gradient(
+    90deg,
+    #64c345,
+    #9df080
+  );
+
+  box-shadow:
+  0 0 14px rgba(100,195,69,0.35);
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.plagiarismPolicySecTop p{
+  font-size:1.05rem;
+
+  line-height:1.95;
+
+  color:#5f7463;
+
+  max-width:920px;
+}
+
+/* =========================================================
+   MAIN GRID
+========================================================= */
+
+.plagiarismPolicySecGrid{
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr;
+
+  gap:40px;
+}
+
+/* =========================================================
+   GLASS BOXES
+========================================================= */
+
+.plagiarismPolicySecLeft,
+.plagiarismPolicySecMisconduct{
+  position:relative;
+
+  overflow:hidden;
+
+  padding:40px;
+
+  border-radius:32px;
+
+  background:
+  linear-gradient(
+    180deg,
+    rgba(255,255,255,0.96),
+    rgba(246,255,242,0.92)
+  );
+
+  border:1px solid
+  rgba(100,195,69,0.12);
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+  0 18px 45px rgba(0,0,0,0.06);
+
+  transition:0.45s ease;
+}
+
+.plagiarismPolicySecLeft:hover,
+.plagiarismPolicySecMisconduct:hover{
+  transform:
+  translateY(-8px);
+
+  box-shadow:
+  0 28px 60px rgba(100,195,69,0.12);
+}
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.plagiarismPolicySecHeading{
+  display:flex;
+  align-items:center;
+
+  gap:18px;
+
+  margin-bottom:35px;
+}
+
+.plagiarismPolicySecHeadingIcon{
+  width:74px;
+  height:74px;
+
+  border-radius:24px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  flex-shrink:0;
+
+  background:
+  linear-gradient(
+    135deg,
+    #3e892d,
+    #64c345
+  );
+
+  color:#ffffff;
+
+  font-size:1.55rem;
+
+  box-shadow:
+  0 14px 30px rgba(100,195,69,0.24);
+}
+
+.plagiarismPolicySecHeading h3{
+  font-size:2rem;
+  font-weight:800;
+
+  color:#163116;
+
+  margin-bottom:8px;
+}
+
+.plagiarismPolicySecHeading p{
+  font-size:0.96rem;
+
+  color:#607164;
+
+  line-height:1.7;
+}
+
+/* =========================================================
+   CARDS GRID
+========================================================= */
+
+.plagiarismPolicySecCards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  gap:24px;
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.plagiarismPolicySecCard{
+  position:relative;
+
+  overflow:hidden;
+
+  padding:30px 24px;
+
+  border-radius:26px;
+
+  background:
+  linear-gradient(
+    180deg,
+    rgba(255,255,255,0.98),
+    rgba(241,255,236,0.94)
+  );
+
+  border:1px solid
+  rgba(100,195,69,0.10);
+
+  text-align:center;
+
+  transition:0.45s ease;
+
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.04);
+}
+
+.plagiarismPolicySecCard:hover{
+  transform:
+  translateY(-10px);
+
+  border-color:
+  rgba(100,195,69,0.35);
+
+  box-shadow:
+  0 22px 44px rgba(100,195,69,0.14);
+}
+
+.plagiarismPolicySecCardGlow{
+  position:absolute;
+
+  width:150px;
+  height:150px;
+
+  top:-70px;
+  right:-70px;
+
+  border-radius:50%;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(100,195,69,0.18),
+    transparent 70%
+  );
+}
+
+/* =========================================================
+   CARD ICON
+========================================================= */
+
+.plagiarismPolicySecCardIcon{
+  width:78px;
+  height:78px;
+
+  margin:auto auto 20px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+  linear-gradient(
+    135deg,
+    #3e892d,
+    #64c345
+  );
+
+  color:#ffffff;
+
+  font-size:1.55rem;
+
+  transition:0.45s ease;
+
+  box-shadow:
+  0 14px 30px rgba(100,195,69,0.22);
+}
+
+.plagiarismPolicySecCard:hover
+.plagiarismPolicySecCardIcon{
+  transform:
+  scale(1.10)
+  rotate(-6deg);
+}
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.plagiarismPolicySecCard h4{
+  font-size:1.22rem;
+  font-weight:700;
+
+  color:#173117;
+
+  margin-bottom:14px;
+}
+
+.plagiarismPolicySecCard p{
+  font-size:0.94rem;
+
+  line-height:1.8;
+
+  color:#5f7163;
+}
+
+/* =========================================================
+   MISCONDUCT CONTENT
+========================================================= */
+
+.plagiarismPolicySecInfo p{
+  font-size:1rem;
+
+  line-height:1.9;
+
+  color:#5a6b5f;
+
+  margin-bottom:28px;
+}
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.plagiarismPolicySecBadges{
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:14px;
+
+  margin-bottom:34px;
+}
+
+.plagiarismPolicySecBadges span{
+  padding:12px 18px;
+
+  border-radius:50px;
+
+  background:
+  rgba(100,195,69,0.08);
+
+  border:1px solid
+  rgba(100,195,69,0.14);
+
+  color:#163116;
+
+  font-size:0.88rem;
+  font-weight:600;
+
+  transition:0.4s ease;
+}
+
+.plagiarismPolicySecBadges span:hover{
+  background:
+  linear-gradient(
+    90deg,
+    #64c345,
+    #8de46e
+  );
+
+  color:#ffffff;
+
+  transform:
+  translateY(-3px);
+}
+
+/* =========================================================
+   ALERT BOX
+========================================================= */
+
+.plagiarismPolicySecAlert{
+  display:flex;
+  align-items:flex-start;
+
+  gap:16px;
+
+  padding:22px;
+
+  border-radius:22px;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,252,235,0.95),
+    rgba(255,255,255,0.96)
+  );
+
+  border:1px solid
+  rgba(255,193,7,0.20);
+
+  box-shadow:
+  0 10px 24px rgba(255,193,7,0.08);
+}
+
+.plagiarismPolicySecAlert svg{
+  flex-shrink:0;
+
+  color:#ff9800;
+
+  font-size:1.3rem;
+
+  margin-top:3px;
+}
+
+.plagiarismPolicySecAlert p{
+  margin:0;
+
+  color:#6c5500;
+
+  font-size:0.92rem;
+
+  line-height:1.8;
+}
+
+/* =========================================================
+   1400px
+========================================================= */
+
+@media(max-width:1400px){
+
+  .plagiarismPolicySecCards{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+/* =========================================================
+   1200px
+========================================================= */
+
+@media(max-width:1200px){
+
+  .plagiarismPolicySec{
+    padding:90px 5%;
+  }
+
+  .plagiarismPolicySecTop h2{
+    font-size:3rem;
+  }
+
+  .plagiarismPolicySecGrid{
+    grid-template-columns:1fr;
+
+    gap:35px;
+  }
+}
+
+/* =========================================================
+   992px
+========================================================= */
+
+@media(max-width:992px){
+
+  .plagiarismPolicySec{
+    padding:80px 5%;
+  }
+
+  .plagiarismPolicySecTop{
+    margin-bottom:55px;
+  }
+
+  .plagiarismPolicySecTop h2{
+    font-size:2.5rem;
+  }
+
+  .plagiarismPolicySecCards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .plagiarismPolicySecHeading h3{
+    font-size:1.7rem;
+  }
+}
+
+/* =========================================================
+   768px
+========================================================= */
+
+@media(max-width:768px){
+
+  .plagiarismPolicySec{
+    padding:75px 5%;
+  }
+
+  .plagiarismPolicySecTop h2{
+    font-size:2rem;
+  }
+
+  .plagiarismPolicySecTop p{
+    font-size:0.94rem;
+  }
+
+  .plagiarismPolicySecCards{
+    grid-template-columns:1fr;
+  }
+
+  .plagiarismPolicySecLeft,
+  .plagiarismPolicySecMisconduct{
+    padding:30px 24px;
+  }
+
+  .plagiarismPolicySecHeading{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .plagiarismPolicySecHeadingIcon{
+    width:64px;
+    height:64px;
+
+    font-size:1.3rem;
+  }
+
+  .plagiarismPolicySecHeading h3{
+    font-size:1.5rem;
+  }
+}
+
+/* =========================================================
+   576px
+========================================================= */
+
+@media(max-width:576px){
+
+  .plagiarismPolicySec{
+    padding:65px 4%;
+  }
+
+  .plagiarismPolicySecTag{
+    font-size:0.68rem;
+
+    letter-spacing:1.5px;
+  }
+
+  .plagiarismPolicySecTop h2{
+    font-size:1.7rem;
+  }
+
+  .plagiarismPolicySecTop p{
+    font-size:0.86rem;
+
+    line-height:1.8;
+  }
+
+  .plagiarismPolicySecLeft,
+  .plagiarismPolicySecMisconduct{
+    padding:26px 20px;
+
+    border-radius:24px;
+  }
+
+  .plagiarismPolicySecCard{
+    padding:26px 20px;
+  }
+
+  .plagiarismPolicySecCard h4{
+    font-size:1.05rem;
+  }
+
+  .plagiarismPolicySecCard p,
+  .plagiarismPolicySecInfo p{
+    font-size:0.84rem;
+  }
+
+  .plagiarismPolicySecBadges span{
+    width:100%;
+
+    text-align:center;
+  }
+
+  .plagiarismPolicySecAlert{
+    flex-direction:column;
+  }
+}
+
+/* =========================================================
+   420px
+========================================================= */
+
+@media(max-width:420px){
+
+  .plagiarismPolicySec{
+    padding:55px 4%;
+  }
+
+  .plagiarismPolicySecTop h2{
+    font-size:1.45rem;
+  }
+
+  .plagiarismPolicySecTop p{
+    font-size:0.8rem;
+  }
+
+  .plagiarismPolicySecHeading h3{
+    font-size:1.25rem;
+  }
+
+  .plagiarismPolicySecHeading p{
+    font-size:0.8rem;
+  }
+
+  .plagiarismPolicySecCardIcon{
+    width:64px;
+    height:64px;
+
+    font-size:1.25rem;
+  }
+
+  .plagiarismPolicySecCard h4{
+    font-size:1rem;
+  }
+
+  .plagiarismPolicySecCard p,
+  .plagiarismPolicySecInfo p,
+  .plagiarismPolicySecAlert p{
+    font-size:0.78rem;
+  }
+
+  .plagiarismPolicySecBadges span{
+    font-size:0.74rem;
+  }
+}
+
+/* =========================================================
+   360px
+========================================================= */
+
+@media(max-width:360px){
+
+  .plagiarismPolicySecTop h2{
+    font-size:1.2rem;
+  }
+
+  .plagiarismPolicySecTop p{
+    font-size:0.74rem;
+  }
+
+  .plagiarismPolicySecLeft,
+  .plagiarismPolicySecMisconduct{
+    padding:22px 16px;
+  }
+
+  .plagiarismPolicySecCard{
+    padding:22px 16px;
+  }
+
+  .plagiarismPolicySecCardIcon{
+    width:58px;
+    height:58px;
+
+    font-size:1.1rem;
+  }
+
+  .plagiarismPolicySecCard h4{
+    font-size:0.94rem;
+  }
+
+  .plagiarismPolicySecCard p,
+  .plagiarismPolicySecInfo p,
+  .plagiarismPolicySecAlert p{
+    font-size:0.72rem;
+  }
+}

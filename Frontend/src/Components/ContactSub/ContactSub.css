@@ -1,0 +1,577 @@
+/* =========================
+   CONTACT SUB - PREMIUM GREEN UI
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.contactsub {
+  width: 100%;
+  padding: 110px 7%;
+
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f8fff5 45%,
+    #efffec 100%
+  );
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* =========================
+   PREMIUM BACKGROUND GLOW
+========================= */
+
+.contactsub::before {
+  content: "";
+
+  position: absolute;
+
+  top: -180px;
+  right: -120px;
+
+  width: 500px;
+  height: 500px;
+
+  background: rgba(100, 195, 69, 0.10);
+
+  border-radius: 50%;
+
+  filter: blur(100px);
+
+  animation: floatGlow 8s ease-in-out infinite;
+}
+
+.contactsub::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: -160px;
+  left: -120px;
+
+  width: 400px;
+  height: 400px;
+
+  background: rgba(100, 195, 69, 0.08);
+
+  border-radius: 50%;
+
+  filter: blur(90px);
+
+  animation: floatGlowTwo 10s ease-in-out infinite alternate;
+}
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.contactsub-container {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+
+  padding: 75px;
+
+  border-radius: 42px;
+
+  background: linear-gradient(
+    135deg,
+    #1b4a14 0%,
+    #2e6e22 40%,
+    #4ca439 75%,
+    #64c345 100%
+  );
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 70px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.14),
+    0 12px 35px rgba(100, 195, 69, 0.22);
+}
+
+/* =========================
+   INNER GLOW
+========================= */
+
+.contactsub-container::before {
+  content: "";
+
+  position: absolute;
+
+  top: -120px;
+  right: -120px;
+
+  width: 420px;
+  height: 420px;
+
+  background: rgba(255, 255, 255, 0.10);
+
+  border-radius: 50%;
+
+  filter: blur(90px);
+}
+
+.contactsub-container::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: -120px;
+  left: -120px;
+
+  width: 320px;
+  height: 320px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  border-radius: 50%;
+
+  filter: blur(70px);
+}
+
+/* =========================
+   LEFT SIDE
+========================= */
+
+.contactsub-left {
+  flex: 1;
+  max-width: 700px;
+
+  position: relative;
+  z-index: 2;
+}
+
+.contactsub-tag {
+  display: inline-block;
+
+  margin-bottom: 24px;
+
+  padding: 10px 22px;
+
+  border-radius: 50px;
+
+  background: rgba(255, 255, 255, 0.10);
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+  backdrop-filter: blur(12px);
+}
+
+.contactsub-title {
+  font-size: 4rem;
+  line-height: 1.08;
+
+  font-weight: 800;
+
+  color: #ffffff;
+
+  margin-bottom: 24px;
+
+  letter-spacing: -2px;
+
+  text-shadow:
+    0 5px 25px rgba(0, 0, 0, 0.15);
+}
+
+.contactsub-title span {
+  color: #eaffdf;
+}
+
+.contactsub-description {
+  font-size: 1.18rem;
+  line-height: 1.9;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  margin-bottom: 35px;
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.contactsub-features {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+.contactsub-feature {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  color: #ffffff;
+
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.contactsub-check {
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.14);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+
+  font-size: 0.9rem;
+
+  backdrop-filter: blur(10px);
+}
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.contactsub-right {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+
+  position: relative;
+  z-index: 2;
+}
+
+.contactsub-card {
+  width: 100%;
+  max-width: 500px;
+
+  padding: 45px 40px;
+
+  border-radius: 34px;
+
+  background: rgba(255, 255, 255, 0.12);
+
+  backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* =========================
+   ICON
+========================= */
+
+.contactsub-icon-box {
+  width: 82px;
+  height: 82px;
+
+  border-radius: 24px;
+
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f1ffe9 100%
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 28px;
+
+  box-shadow:
+    0 14px 35px rgba(255, 255, 255, 0.18);
+}
+
+.contactsub-icon {
+  font-size: 2rem;
+
+  color: #64c345;
+}
+
+/* =========================
+   CARD TEXT
+========================= */
+
+.contactsub-card h3 {
+  font-size: 2rem;
+  font-weight: 800;
+
+  color: #ffffff;
+
+  margin-bottom: 14px;
+}
+
+.contactsub-card p {
+  font-size: 1rem;
+  line-height: 1.8;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  margin-bottom: 28px;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.contactsub-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.contactsub-input {
+  width: 100%;
+  height: 68px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 18px;
+
+  padding: 0 22px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  color: #0d1f1a;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+  transition: 0.35s ease;
+
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.contactsub-input:focus {
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.16);
+}
+
+.contactsub-input::placeholder {
+  color: #6f7b76;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.contactsub-btn {
+  width: 100%;
+  height: 64px;
+
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+
+  border-radius: 18px;
+
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f0ffe8 100%
+  );
+
+  color: #2f7b1f;
+
+  font-size: 1.05rem;
+  font-weight: 800;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  transition: all 0.4s ease;
+
+  box-shadow:
+    0 14px 32px rgba(255, 255, 255, 0.20);
+}
+
+.contactsub-btn:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 20px 42px rgba(255, 255, 255, 0.28);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes floatGlow {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-25px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes floatGlowTwo {
+
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  100% {
+    transform: translateY(-30px) scale(1.05);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1200px) {
+
+  .contactsub-container {
+    flex-direction: column;
+
+    padding: 60px;
+  }
+
+  .contactsub-left,
+  .contactsub-right {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .contactsub-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .contactsub {
+    padding: 90px 5%;
+  }
+
+  .contactsub-title {
+    font-size: 3rem;
+  }
+
+  .contactsub-description {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .contactsub {
+    padding: 75px 5%;
+  }
+
+  .contactsub-container {
+    padding: 45px 28px;
+
+    border-radius: 30px;
+
+    gap: 45px;
+  }
+
+  .contactsub-title {
+    font-size: 2.4rem;
+    line-height: 1.15;
+  }
+
+  .contactsub-description {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .contactsub-card {
+    padding: 36px 24px;
+
+    border-radius: 26px;
+  }
+
+  .contactsub-card h3 {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .contactsub {
+    padding: 65px 4%;
+  }
+
+  .contactsub-container {
+    padding: 38px 20px;
+  }
+
+  .contactsub-tag {
+    font-size: 11px;
+
+    letter-spacing: 1.5px;
+  }
+
+  .contactsub-title {
+    font-size: 2rem;
+  }
+
+  .contactsub-feature {
+    font-size: 0.95rem;
+
+    align-items: flex-start;
+  }
+
+  .contactsub-input,
+  .contactsub-btn {
+    height: 58px;
+
+    font-size: 0.95rem;
+  }
+
+  .contactsub-icon-box {
+    width: 68px;
+    height: 68px;
+  }
+
+  .contactsub-icon {
+    font-size: 1.7rem;
+  }
+}

@@ -8,6 +8,8 @@
   border-top: 3px solid #d8ff3e;
   position: relative;
   z-index: 999;
+
+  overflow: visible;
 }
 
 .topbarWrapper {
@@ -92,29 +94,35 @@
 .topbarLoginButton:hover {
   color: #d8ff3e;
 }
-
 .topbarDropdownMenu {
   position: absolute;
-  top: 38px;
+
+  top: calc(100% + 12px);
   right: 0;
 
-  min-width: 160px;
+  min-width: 170px;
 
   background: #ffffff;
 
-  border-radius: 10px;
+  border-radius: 12px;
 
   overflow: hidden;
 
   opacity: 0;
   visibility: hidden;
+
   transform: translateY(10px);
 
   transition: 0.3s ease;
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
 
+  z-index: 99999;
+}
+.topbarLoginDropdown {
+  position: relative;
+  z-index: 99999;
+}
 .topbarLoginDropdown:hover .topbarDropdownMenu {
   opacity: 1;
   visibility: visible;

@@ -80,7 +80,7 @@ const Topbar = () => {
                 Editor
               </a>
 
-              <a href="/" className="topbarDropdownItem">
+              <a href="/login" className="topbarDropdownItem">
                 Admin
               </a>
 

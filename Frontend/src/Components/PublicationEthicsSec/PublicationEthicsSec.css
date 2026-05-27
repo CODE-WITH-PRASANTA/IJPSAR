@@ -1,0 +1,831 @@
+/* =========================================================
+   PUBLICATION ETHICS SECTION
+   FULLY UPDATED PREMIUM RESPONSIVE CSS
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.publicationEthicsSec {
+  position: relative;
+  width: 100%;
+  padding: 110px 7%;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fbff 0%,
+      #eef9f2 100%
+    );
+}
+
+/* =========================================================
+   BACKGROUND EFFECTS
+========================================================= */
+
+.publicationEthicsSec::before {
+  content: "";
+  position: absolute;
+
+  width: 450px;
+  height: 450px;
+
+  top: -220px;
+  left: -220px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(198, 255, 0, 0.12),
+      transparent 72%
+    );
+
+  z-index: 0;
+}
+
+.publicationEthicsSec::after {
+  content: "";
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  bottom: -240px;
+  right: -220px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0, 255, 204, 0.10),
+      transparent 72%
+    );
+
+  z-index: 0;
+}
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.publicationEthicsSecHeading {
+  position: relative;
+  z-index: 2;
+
+  max-width: 900px;
+
+  margin: 0 auto 70px;
+
+  text-align: center;
+}
+
+.publicationEthicsSecHeading span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 24px;
+
+  border-radius: 50px;
+
+  background:
+    rgba(255, 255, 255, 0.70);
+
+  backdrop-filter: blur(12px);
+
+  border: 1px solid
+    rgba(198, 255, 0, 0.18);
+
+  color: #00a884;
+
+  font-size: 0.88rem;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+  margin-bottom: 22px;
+}
+
+.publicationEthicsSecHeading h2 {
+  font-size: 3.2rem;
+  font-weight: 800;
+
+  line-height: 1.2;
+
+  color: #07294d;
+
+  margin-bottom: 20px;
+}
+
+.publicationEthicsSecHeading h2 span {
+  background:
+    linear-gradient(
+      90deg,
+      #00b894,
+      #c6ff00
+    );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  font-size: inherit;
+}
+
+.publicationEthicsSecHeading p {
+  font-size: 1.05rem;
+
+  line-height: 1.9;
+
+  color: #607286;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.publicationEthicsSecGrid {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 34px;
+}
+
+/* =========================================================
+   PREMIUM GLASS CARD
+========================================================= */
+
+.publicationEthicsSecCard {
+  position: relative;
+
+  padding: 40px 36px;
+
+  border-radius: 32px;
+
+  overflow: hidden;
+
+  min-height: 290px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(244, 255, 240, 0.95),
+      rgba(235, 255, 228, 0.98)
+    );
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid
+    rgba(144, 255, 0, 0.14);
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.06),
+    0 0 30px rgba(198, 255, 0, 0.04);
+
+  transition: all 0.5s ease;
+
+  z-index: 1;
+}
+
+/* =========================================================
+   CARD EFFECTS
+========================================================= */
+
+.publicationEthicsSecCard::before {
+  content: "";
+
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  top: -120px;
+  left: -120px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(198, 255, 0, 0.14),
+      transparent 72%
+    );
+
+  z-index: -1;
+
+  transition: 0.5s ease;
+}
+
+.publicationEthicsSecCard::after {
+  content: "";
+
+  position: absolute;
+
+  width: 280px;
+  height: 280px;
+
+  bottom: -160px;
+  right: -150px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0, 255, 204, 0.12),
+      transparent 72%
+    );
+
+  z-index: -1;
+
+  transition: 0.5s ease;
+}
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.publicationEthicsSecCard:hover {
+  transform:
+    translateY(-12px)
+    scale(1.02);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(7, 41, 77, 0.96),
+      rgba(0, 128, 128, 0.90),
+      rgba(198, 255, 0, 0.10)
+    );
+
+  border-color:
+    rgba(198, 255, 0, 0.30);
+
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.22),
+    0 0 40px rgba(198, 255, 0, 0.08);
+}
+
+.publicationEthicsSecCard:hover::before,
+.publicationEthicsSecCard:hover::after {
+  transform: scale(1.2);
+}
+
+/* =========================================================
+   CARD GLOW
+========================================================= */
+
+.publicationEthicsSecCardGlow {
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  top: -80px;
+  right: -80px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(198, 255, 0, 0.16),
+      transparent 70%
+    );
+
+  filter: blur(18px);
+
+  z-index: -1;
+}
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.publicationEthicsSecIcon {
+  width: 84px;
+  height: 84px;
+
+  border-radius: 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0, 184, 148, 0.12),
+      rgba(198, 255, 0, 0.12)
+    );
+
+  border: 1px solid
+    rgba(0, 184, 148, 0.10);
+
+  backdrop-filter: blur(12px);
+
+  color: #00a884;
+
+  font-size: 2rem;
+
+  margin-bottom: 28px;
+
+  transition: 0.5s ease;
+
+  box-shadow:
+    0 10px 24px rgba(0,0,0,0.08);
+}
+
+.publicationEthicsSecCard:hover
+.publicationEthicsSecIcon {
+  transform:
+    rotate(-8deg)
+    scale(1.08);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(198,255,0,0.20),
+      rgba(0,255,204,0.20)
+    );
+
+  color: #ffffff;
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.publicationEthicsSecContent {
+  position: relative;
+  z-index: 2;
+}
+
+.publicationEthicsSecContent h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  color: #07294d;
+
+  margin-bottom: 18px;
+
+  transition: 0.4s ease;
+}
+
+.publicationEthicsSecContent p {
+  font-size: 1rem;
+
+  line-height: 1.9;
+
+  color: #5f6f81;
+
+  transition: 0.4s ease;
+}
+
+/* HOVER CONTENT */
+
+.publicationEthicsSecCard:hover
+.publicationEthicsSecContent h3 {
+  color: #ffffff;
+}
+
+.publicationEthicsSecCard:hover
+.publicationEthicsSecContent p {
+  color:
+    rgba(255,255,255,0.84);
+}
+
+/* =========================================================
+   BOTTOM LINE
+========================================================= */
+
+.publicationEthicsSecLine {
+  position: absolute;
+
+  left: 36px;
+  bottom: 0;
+
+  width: 0%;
+  height: 4px;
+
+  border-radius: 100px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #c6ff00,
+      #00ffd5
+    );
+
+  transition: 0.5s ease;
+}
+
+.publicationEthicsSecCard:hover
+.publicationEthicsSecLine {
+  width: calc(100% - 72px);
+}
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.publicationEthicsSecPagination {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 14px;
+
+  margin-top: 70px;
+}
+
+.publicationEthicsSecPaginationBtn,
+.publicationEthicsSecPaginationNumber {
+  width: 52px;
+  height: 52px;
+
+  border: none;
+
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  transition: 0.4s ease;
+}
+
+/* BUTTON */
+
+.publicationEthicsSecPaginationBtn {
+  background:
+    linear-gradient(
+      135deg,
+      #07294d,
+      #00b894
+    );
+
+  color: #ffffff;
+}
+
+.publicationEthicsSecPaginationBtn:hover:not(:disabled) {
+  transform: translateY(-4px);
+
+  background:
+    linear-gradient(
+      135deg,
+      #00b894,
+      #c6ff00
+    );
+
+  color: #07294d;
+}
+
+.publicationEthicsSecPaginationBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* NUMBER */
+
+.publicationEthicsSecPaginationNumber {
+  background:
+    rgba(255,255,255,0.80);
+
+  backdrop-filter: blur(10px);
+
+  color: #07294d;
+
+  border: 1px solid
+    rgba(7,41,77,0.08);
+}
+
+.publicationEthicsSecPaginationNumber:hover {
+  transform: translateY(-4px);
+
+  background:
+    rgba(0,184,148,0.10);
+}
+
+.publicationEthicsSecPaginationNumber.active {
+  background:
+    linear-gradient(
+      135deg,
+      #00b894,
+      #c6ff00
+    );
+
+  color: #07294d;
+
+  box-shadow:
+    0 12px 28px rgba(0,184,148,0.22);
+}
+
+/* =========================================================
+   1600px
+========================================================= */
+
+@media (max-width: 1600px) {
+
+  .publicationEthicsSec {
+    padding: 100px 6%;
+  }
+}
+
+/* =========================================================
+   1400px
+========================================================= */
+
+@media (max-width: 1400px) {
+
+  .publicationEthicsSecHeading h2 {
+    font-size: 2.8rem;
+  }
+}
+
+/* =========================================================
+   1200px
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .publicationEthicsSec {
+    padding: 90px 5%;
+  }
+
+  .publicationEthicsSecGrid {
+    gap: 28px;
+  }
+
+  .publicationEthicsSecCard {
+    padding: 34px 30px;
+  }
+
+  .publicationEthicsSecContent h3 {
+    font-size: 1.6rem;
+  }
+}
+
+/* =========================================================
+   992px
+========================================================= */
+
+@media (max-width: 992px) {
+
+  .publicationEthicsSecGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .publicationEthicsSecHeading h2 {
+    font-size: 2.3rem;
+  }
+
+  .publicationEthicsSecHeading p {
+    font-size: 1rem;
+  }
+
+  .publicationEthicsSecCard {
+    min-height: auto;
+  }
+}
+
+/* =========================================================
+   768px
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .publicationEthicsSec {
+    padding: 75px 5%;
+  }
+
+  .publicationEthicsSecHeading {
+    margin-bottom: 50px;
+  }
+
+  .publicationEthicsSecHeading span {
+    font-size: 0.78rem;
+
+    padding: 8px 18px;
+  }
+
+  .publicationEthicsSecHeading h2 {
+    font-size: 2rem;
+  }
+
+  .publicationEthicsSecHeading p {
+    font-size: 0.96rem;
+  }
+
+  .publicationEthicsSecCard {
+    padding: 28px 24px;
+
+    border-radius: 26px;
+  }
+
+  .publicationEthicsSecIcon {
+    width: 72px;
+    height: 72px;
+
+    border-radius: 22px;
+
+    font-size: 1.7rem;
+  }
+
+  .publicationEthicsSecContent h3 {
+    font-size: 1.45rem;
+  }
+
+  .publicationEthicsSecContent p {
+    font-size: 0.95rem;
+  }
+
+  .publicationEthicsSecPaginationBtn,
+  .publicationEthicsSecPaginationNumber {
+    width: 46px;
+    height: 46px;
+
+    border-radius: 14px;
+  }
+}
+
+/* =========================================================
+   576px
+========================================================= */
+
+@media (max-width: 576px) {
+
+  .publicationEthicsSec {
+    padding: 65px 4%;
+  }
+
+  .publicationEthicsSecHeading h2 {
+    font-size: 1.7rem;
+  }
+
+  .publicationEthicsSecHeading p {
+    font-size: 0.90rem;
+  }
+
+  .publicationEthicsSecCard {
+    padding: 24px 20px;
+
+    border-radius: 22px;
+  }
+
+  .publicationEthicsSecIcon {
+    width: 64px;
+    height: 64px;
+
+    border-radius: 18px;
+
+    font-size: 1.5rem;
+  }
+
+  .publicationEthicsSecContent h3 {
+    font-size: 1.22rem;
+  }
+
+  .publicationEthicsSecContent p {
+    font-size: 0.88rem;
+  }
+
+  .publicationEthicsSecPaginationBtn,
+  .publicationEthicsSecPaginationNumber {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+  }
+}
+
+/* =========================================================
+   420px
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .publicationEthicsSec {
+    padding: 55px 4%;
+  }
+
+  .publicationEthicsSecHeading {
+    margin-bottom: 40px;
+  }
+
+  .publicationEthicsSecHeading span {
+    width: 100%;
+
+    font-size: 0.70rem;
+
+    padding: 8px 14px;
+  }
+
+  .publicationEthicsSecHeading h2 {
+    font-size: 1.45rem;
+  }
+
+  .publicationEthicsSecHeading p {
+    font-size: 0.82rem;
+
+    line-height: 1.8;
+  }
+
+  .publicationEthicsSecCard {
+    padding: 22px 18px;
+
+    border-radius: 20px;
+  }
+
+  .publicationEthicsSecIcon {
+    width: 58px;
+    height: 58px;
+
+    border-radius: 18px;
+
+    font-size: 1.3rem;
+  }
+
+  .publicationEthicsSecContent h3 {
+    font-size: 1.08rem;
+  }
+
+  .publicationEthicsSecContent p {
+    font-size: 0.82rem;
+  }
+
+  .publicationEthicsSecPaginationBtn,
+  .publicationEthicsSecPaginationNumber {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 10px;
+
+    font-size: 0.82rem;
+  }
+}
+
+/* =========================================================
+   360px
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .publicationEthicsSec {
+    padding: 50px 3%;
+  }
+
+  .publicationEthicsSecHeading h2 {
+    font-size: 1.22rem;
+  }
+
+  .publicationEthicsSecHeading p {
+    font-size: 0.74rem;
+  }
+
+  .publicationEthicsSecCard {
+    padding: 20px 16px;
+  }
+
+  .publicationEthicsSecIcon {
+    width: 52px;
+    height: 52px;
+
+    font-size: 1.15rem;
+  }
+
+  .publicationEthicsSecContent h3 {
+    font-size: 0.98rem;
+  }
+
+  .publicationEthicsSecContent p {
+    font-size: 0.76rem;
+  }
+}

@@ -1,0 +1,446 @@
+/* =========================
+   SearchArticleHome.css
+   DARK PREMIUM #64C345 THEME
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.searcharticlehome {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  padding: 95px 8%;
+
+  background:
+    radial-gradient(
+      circle at left,
+      rgba(100,195,69,0.22),
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at right,
+      rgba(100,195,69,0.18),
+      transparent 25%
+    ),
+    linear-gradient(
+      135deg,
+      #071407 0%,
+      #0d220d 18%,
+      #163616 38%,
+      #245224 68%,
+      #64c345 100%
+    );
+
+  isolation: isolate;
+}
+
+/* =========================
+   PREMIUM OVERLAY
+========================= */
+
+.searcharticlehome-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      rgba(0,0,0,0.20),
+      rgba(0,0,0,0.10)
+    );
+
+  backdrop-filter: blur(2px);
+
+  z-index: 1;
+}
+
+/* =========================
+   GRID EFFECT
+========================= */
+
+.searcharticlehome::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.04) 1px,
+      transparent 1px
+    );
+
+  background-size: 60px 60px;
+
+  opacity: 0.14;
+
+  animation: gridMove 20s linear infinite;
+
+  z-index: 0;
+}
+
+/* =========================
+   GLOW EFFECTS
+========================= */
+
+.searcharticlehome-glow {
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(130px);
+
+  z-index: 0;
+}
+
+.searcharticlehome-glow1 {
+  width: 340px;
+  height: 340px;
+
+  background: rgba(100,195,69,0.28);
+
+  top: -120px;
+  left: -140px;
+
+  animation: searchGlow 8s ease-in-out infinite;
+}
+
+.searcharticlehome-glow2 {
+  width: 460px;
+  height: 460px;
+
+  background: rgba(255,255,255,0.08);
+
+  right: -180px;
+  bottom: -180px;
+
+  animation: searchGlowTwo 10s ease-in-out infinite alternate;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.searcharticlehome-container {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 1450px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.searcharticlehome-content {
+  width: 100%;
+  max-width: 950px;
+}
+
+/* =========================
+   BREADCRUMB
+========================= */
+
+.searcharticlehome-breadcrumb {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 22px;
+
+  border-radius: 50px;
+
+  background: rgba(255,255,255,0.08);
+
+  border: 1px solid rgba(255,255,255,0.10);
+
+  backdrop-filter: blur(16px);
+
+  margin-bottom: 30px;
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+
+  animation: fadeDown 1s ease;
+}
+
+.searcharticlehome-breadcrumb span {
+  color: rgba(255,255,255,0.82);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: 0.3s ease;
+}
+
+.searcharticlehome-breadcrumb span:hover {
+  color: #dfffd2;
+}
+
+.searcharticlehome-breadcrumb .active {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.searcharticlehome-breadcrumb-icon {
+  color: #d7ffca;
+  font-size: 11px;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.searcharticlehome-title {
+  font-size: 5.2rem;
+  line-height: 1.02;
+  font-weight: 800;
+
+  color: #ffffff;
+
+  margin-bottom: 24px;
+
+  letter-spacing: -2px;
+
+  text-shadow:
+    0 5px 30px rgba(0,0,0,0.28);
+
+  animation: fadeUp 1s ease;
+}
+
+.searcharticlehome-title span {
+  color: #e5ffd9;
+
+  position: relative;
+  z-index: 1;
+}
+
+/* UNDERLINE */
+
+.searcharticlehome-title span::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 10px;
+
+  width: 100%;
+  height: 14px;
+
+  background: rgba(100,195,69,0.26);
+
+  border-radius: 20px;
+
+  z-index: -1;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.searcharticlehome-description {
+  max-width: 760px;
+
+  color: rgba(255,255,255,0.82);
+
+  font-size: 1.08rem;
+  line-height: 1.9;
+
+  margin-bottom: 36px;
+}
+
+/* =========================
+   PREMIUM LINE
+========================= */
+
+.searcharticlehome-line {
+  width: 140px;
+  height: 6px;
+
+  border-radius: 50px;
+
+  background:
+    linear-gradient(
+      to right,
+      #64c345,
+      #efffe8
+    );
+
+  box-shadow:
+    0 0 28px rgba(100,195,69,0.55);
+
+  animation: widthGrow 1.2s ease;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp {
+
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeDown {
+
+  from {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes widthGrow {
+
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 140px;
+  }
+}
+
+@keyframes searchGlow {
+
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  50% {
+    transform: translateY(-20px) scale(1.08);
+  }
+
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+}
+
+@keyframes searchGlowTwo {
+
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+
+  100% {
+    transform: translateY(-25px) scale(1.10);
+  }
+}
+
+@keyframes gridMove {
+
+  0% {
+    transform: translate(0,0);
+  }
+
+  100% {
+    transform: translate(60px,60px);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1200px) {
+
+  .searcharticlehome-title {
+    font-size: 4.2rem;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .searcharticlehome {
+    padding: 80px 6%;
+  }
+
+  .searcharticlehome-title {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .searcharticlehome {
+    padding: 70px 5%;
+  }
+
+  .searcharticlehome-title {
+    font-size: 2.8rem;
+  }
+
+  .searcharticlehome-description {
+    font-size: 1rem;
+  }
+
+  .searcharticlehome-line {
+    width: 90px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .searcharticlehome {
+    padding: 60px 4%;
+  }
+
+  .searcharticlehome-title {
+    font-size: 2.2rem;
+  }
+
+  .searcharticlehome-breadcrumb {
+    padding: 8px 16px;
+    gap: 8px;
+  }
+
+  .searcharticlehome-breadcrumb span {
+    font-size: 12px;
+  }
+
+  .searcharticlehome-description {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .searcharticlehome-line {
+    width: 90px;
+    height: 5px;
+  }
+
+  .searcharticlehome-glow1 {
+    width: 220px;
+    height: 220px;
+  }
+
+  .searcharticlehome-glow2 {
+    width: 260px;
+    height: 260px;
+  }
+}

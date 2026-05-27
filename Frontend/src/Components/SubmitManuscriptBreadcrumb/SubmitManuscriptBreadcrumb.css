@@ -1,0 +1,621 @@
+/* =========================================================
+   SUBMIT MANUSCRIPT BREADCRUMB
+   DARK WHITE + #64C345 PREMIUM UI
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+.submitManuscriptBreadcrumb{
+  width:100%;
+  min-height:280px;
+
+  position:relative;
+
+  display:flex;
+  align-items:center;
+
+  overflow:hidden;
+
+  padding:60px 7%;
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+  /* UPDATED GREEN DARK PREMIUM BACKGROUND */
+
+  background:
+  radial-gradient(
+    circle at top left,
+    rgba(100,195,69,0.20),
+    transparent 24%
+  ),
+  radial-gradient(
+    circle at bottom right,
+    rgba(100,195,69,0.16),
+    transparent 28%
+  ),
+  linear-gradient(
+    135deg,
+    #234d1f 0%,
+    #183c14 18%,
+    #0d2f0d 40%,
+    #021804 58%,
+    #143a12 78%,
+    #4f9440 100%
+  );
+}
+
+/* =========================================================
+   DARK PREMIUM OVERLAY
+========================================================= */
+
+.submitManuscriptBreadcrumbOverlay{
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(0,0,0,0.20),
+    rgba(0,0,0,0.10)
+  );
+
+  z-index:1;
+}
+
+/* =========================================================
+   PREMIUM GLOW EFFECTS
+========================================================= */
+
+.submitManuscriptBreadcrumbGlowOne,
+.submitManuscriptBreadcrumbGlowTwo{
+  position:absolute;
+
+  border-radius:50%;
+
+  z-index:1;
+
+  filter:blur(130px);
+}
+
+.submitManuscriptBreadcrumbGlowOne{
+  width:420px;
+  height:420px;
+
+  top:-160px;
+  left:-140px;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(100,195,69,0.26),
+    transparent 72%
+  );
+
+  animation:
+  submitFloat 8s ease-in-out infinite;
+}
+
+.submitManuscriptBreadcrumbGlowTwo{
+  width:480px;
+  height:480px;
+
+  bottom:-200px;
+  right:-180px;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(190,255,170,0.16),
+    transparent 72%
+  );
+
+  animation:
+  submitFloat 10s ease-in-out infinite;
+}
+
+@keyframes submitFloat{
+
+  0%{
+    transform:translateY(0px) scale(1);
+  }
+
+  50%{
+    transform:translateY(18px) scale(1.06);
+  }
+
+  100%{
+    transform:translateY(0px) scale(1);
+  }
+}
+
+/* =========================================================
+   GRID EFFECT
+========================================================= */
+
+.submitManuscriptBreadcrumb::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background-image:
+  linear-gradient(
+    rgba(255,255,255,0.04) 1px,
+    transparent 1px
+  ),
+  linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 1px,
+    transparent 1px
+  );
+
+  background-size:60px 60px;
+
+  opacity:0.12;
+
+  animation:gridMove 18s linear infinite;
+
+  z-index:0;
+}
+
+@keyframes gridMove{
+
+  0%{
+    transform:translate(0,0);
+  }
+
+  100%{
+    transform:translate(60px,60px);
+  }
+}
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.submitManuscriptBreadcrumbContainer{
+  width:100%;
+  max-width:1550px;
+
+  margin:auto;
+
+  position:relative;
+  z-index:3;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:45px;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.submitManuscriptBreadcrumbLeft{
+  flex:1;
+  max-width:740px;
+}
+
+/* =========================================================
+   TOP TAG
+========================================================= */
+
+.submitManuscriptBreadcrumbTag{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:8px;
+
+  padding:10px 22px;
+
+  border-radius:50px;
+
+  background:
+  rgba(255,255,255,0.10);
+
+  border:
+  1px solid rgba(255,255,255,0.14);
+
+  backdrop-filter:blur(12px);
+
+  color:#ffffff;
+
+  font-size:11px;
+  font-weight:700;
+
+  letter-spacing:1.5px;
+
+  margin-bottom:20px;
+
+  text-transform:uppercase;
+
+  box-shadow:
+  0 10px 24px rgba(0,0,0,0.10);
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.submitManuscriptBreadcrumbLeft h1{
+  font-size:3rem;
+  font-weight:800;
+
+  line-height:1.12;
+
+  color:#ffffff;
+
+  margin-bottom:18px;
+
+  text-shadow:
+  0 6px 20px rgba(0,0,0,0.18);
+}
+
+.submitManuscriptBreadcrumbLeft h1 span{
+  color:#eaffde;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.submitManuscriptBreadcrumbLeft p{
+  font-size:0.98rem;
+
+  line-height:1.9;
+
+  color:
+  rgba(255,255,255,0.86);
+
+  max-width:650px;
+
+  margin-bottom:24px;
+}
+
+/* =========================================================
+   BREADCRUMB PATH
+========================================================= */
+
+.submitManuscriptBreadcrumbPath{
+  display:inline-flex;
+  align-items:center;
+
+  gap:10px;
+
+  flex-wrap:wrap;
+
+  padding:13px 24px;
+
+  border-radius:50px;
+
+  background:
+  rgba(255,255,255,0.10);
+
+  border:
+  1px solid rgba(255,255,255,0.14);
+
+  backdrop-filter:blur(14px);
+
+  box-shadow:
+  0 12px 28px rgba(0,0,0,0.10);
+}
+
+.submitManuscriptBreadcrumbItem{
+  display:flex;
+  align-items:center;
+
+  gap:7px;
+
+  color:#ffffff;
+
+  font-size:0.88rem;
+  font-weight:600;
+
+  transition:0.35s ease;
+}
+
+.submitManuscriptBreadcrumbItem:hover{
+  color:#efffe8;
+}
+
+.submitManuscriptBreadcrumbItem.active{
+  color:#efffe8;
+}
+
+.submitManuscriptBreadcrumbArrow{
+  font-size:0.65rem;
+
+  color:
+  rgba(255,255,255,0.55);
+}
+
+/* =========================================================
+   RIGHT CARD
+========================================================= */
+
+.submitManuscriptBreadcrumbCard{
+  width:100%;
+  max-width:340px;
+
+  padding:30px;
+
+  border-radius:30px;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(12,32,10,0.94),
+    rgba(32,70,24,0.90),
+    rgba(100,195,69,0.82)
+  );
+
+  border:
+  1px solid rgba(255,255,255,0.10);
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+  0 30px 60px rgba(0,0,0,0.18);
+
+  transition:0.45s ease;
+
+  overflow:hidden;
+
+  position:relative;
+}
+
+.submitManuscriptBreadcrumbCard::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.02)
+  );
+}
+
+.submitManuscriptBreadcrumbCard:hover{
+  transform:translateY(-8px);
+
+  box-shadow:
+  0 35px 70px rgba(100,195,69,0.22);
+}
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.submitManuscriptCardIcon{
+  width:60px;
+  height:60px;
+
+  border-radius:20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+  linear-gradient(
+    135deg,
+    #ffffff,
+    #efffe8
+  );
+
+  color:#173f13;
+
+  font-size:1.25rem;
+
+  margin-bottom:18px;
+
+  position:relative;
+  z-index:2;
+
+  box-shadow:
+  0 14px 28px rgba(0,0,0,0.14);
+}
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.submitManuscriptBreadcrumbCard h3{
+  position:relative;
+  z-index:2;
+
+  font-size:1.3rem;
+  font-weight:700;
+
+  line-height:1.4;
+
+  color:#ffffff;
+
+  margin-bottom:14px;
+}
+
+.submitManuscriptBreadcrumbCard p{
+  position:relative;
+  z-index:2;
+
+  font-size:0.87rem;
+
+  line-height:1.8;
+
+  color:
+  rgba(255,255,255,0.84);
+
+  margin-bottom:22px;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.submitManuscriptBreadcrumbCard button{
+  position:relative;
+  z-index:2;
+
+  border:none;
+  outline:none;
+
+  padding:14px 26px;
+
+  border-radius:50px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #ffffff,
+    #efffe8
+  );
+
+  color:#173f13;
+
+  font-size:0.9rem;
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:0.35s ease;
+
+  box-shadow:
+  0 12px 24px rgba(0,0,0,0.14);
+}
+
+.submitManuscriptBreadcrumbCard button:hover{
+  transform:translateY(-3px);
+
+  background:
+  linear-gradient(
+    135deg,
+    #ffffff,
+    #dcffd0
+  );
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1400px){
+
+  .submitManuscriptBreadcrumbLeft h1{
+    font-size:2.6rem;
+  }
+}
+
+@media(max-width:1200px){
+
+  .submitManuscriptBreadcrumb{
+    padding:46px 5%;
+  }
+
+  .submitManuscriptBreadcrumbLeft h1{
+    font-size:2.3rem;
+  }
+}
+
+@media(max-width:992px){
+
+  .submitManuscriptBreadcrumb{
+    min-height:auto;
+  }
+
+  .submitManuscriptBreadcrumbContainer{
+    flex-direction:column;
+
+    align-items:flex-start;
+  }
+
+  .submitManuscriptBreadcrumbCard{
+    max-width:100%;
+  }
+
+  .submitManuscriptBreadcrumbLeft{
+    max-width:100%;
+  }
+
+  .submitManuscriptBreadcrumbLeft h1{
+    font-size:2rem;
+  }
+}
+
+@media(max-width:768px){
+
+  .submitManuscriptBreadcrumb{
+    padding:40px 5%;
+  }
+
+  .submitManuscriptBreadcrumbLeft h1{
+    font-size:1.75rem;
+  }
+
+  .submitManuscriptBreadcrumbLeft p{
+    font-size:0.84rem;
+  }
+
+  .submitManuscriptBreadcrumbCard{
+    padding:24px 22px;
+  }
+}
+
+@media(max-width:576px){
+
+  .submitManuscriptBreadcrumb{
+    padding:34px 4%;
+  }
+
+  .submitManuscriptBreadcrumbTag{
+    font-size:8px;
+
+    padding:7px 14px;
+  }
+
+  .submitManuscriptBreadcrumbLeft h1{
+    font-size:1.45rem;
+  }
+
+  .submitManuscriptBreadcrumbLeft p{
+    font-size:0.78rem;
+  }
+
+  .submitManuscriptBreadcrumbPath{
+    width:100%;
+
+    justify-content:center;
+
+    border-radius:18px;
+  }
+
+  .submitManuscriptBreadcrumbCard button{
+    width:100%;
+  }
+}
+
+@media(max-width:420px){
+
+  .submitManuscriptBreadcrumbLeft h1{
+    font-size:1.2rem;
+  }
+
+  .submitManuscriptBreadcrumbPath{
+    flex-direction:column;
+  }
+
+  .submitManuscriptBreadcrumbArrow{
+    transform:rotate(90deg);
+  }
+}
