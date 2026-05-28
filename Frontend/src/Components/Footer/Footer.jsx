@@ -13,7 +13,7 @@ import {
 import { BsDot } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-import footerLogo from "../../assets/p-2.JPEG"; // IMPORT YOUR LOGO
+import footerLogo from "../../assets/p-2.jpeg"; // IMPORT YOUR LOGO
 import "./Footer.css";
 
 const Footer = () => {

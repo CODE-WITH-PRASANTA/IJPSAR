@@ -1,5 +1,6 @@
 /* =========================================================
-   PREMIUM NEWSLETTER - FULLY RESPONSIVE CSS
+   PREMIUM NEWSLETTER - WHITE + #64C345 GREEN THEME
+   FULLY RESPONSIVE CSS
 ========================================================= */
 
 * {
@@ -18,8 +19,9 @@
   background:
     linear-gradient(
       180deg,
-      #f8fbf9 0%,
-      #ffffff 100%
+      #f7fff3 0%,
+      #ffffff 50%,
+      #eef9e8 100%
     );
 }
 
@@ -47,13 +49,13 @@
   background:
     linear-gradient(
       135deg,
-      #082a57 0%,
-      #0a4f73 45%,
-      #0db7a7 100%
+      #173f13 0%,
+      #2c641f 45%,
+      #64c345 100%
     );
 
   box-shadow:
-    0 25px 60px rgba(0, 182, 155, 0.16);
+    0 25px 60px rgba(100,195,69,0.20);
 
   z-index: 1;
 }
@@ -76,11 +78,13 @@
   background:
     radial-gradient(
       circle,
-      rgba(214, 255, 58, 0.22),
+      rgba(255,255,255,0.18),
       transparent 70%
     );
 
   pointer-events: none;
+
+  filter: blur(30px);
 }
 
 .newsletterGlowTwo {
@@ -97,11 +101,13 @@
   background:
     radial-gradient(
       circle,
-      rgba(255, 255, 255, 0.10),
+      rgba(100,195,69,0.24),
       transparent 70%
     );
 
   pointer-events: none;
+
+  filter: blur(20px);
 }
 
 /* =========================================================
@@ -125,12 +131,12 @@
   border-radius: 50px;
 
   background:
-    rgba(255, 255, 255, 0.12);
+    rgba(255, 255, 255, 0.10);
 
   border: 1px solid
     rgba(255, 255, 255, 0.14);
 
-  color: #d6ff3a;
+  color: #e8ffe1;
 
   font-size: 12px;
   font-weight: 700;
@@ -143,7 +149,7 @@
 }
 
 .newsletterTag svg {
-  color: #d6ff3a;
+  color: #ffffff;
 }
 
 /* =========================================================
@@ -162,7 +168,7 @@
 }
 
 .newsletterLeft h2 span {
-  color: #d6ff3a;
+  color: #e8ffe1;
 }
 
 /* =========================================================
@@ -175,7 +181,7 @@
   line-height: 1.9;
 
   color:
-    rgba(255, 255, 255, 0.78);
+    rgba(255, 255, 255, 0.82);
 
   max-width: 620px;
 
@@ -221,14 +227,14 @@
   transform: translateY(-4px);
 
   background:
-    rgba(214, 255, 58, 0.14);
+    rgba(255,255,255,0.16);
 
   border-color:
-    rgba(214, 255, 58, 0.25);
+    rgba(255,255,255,0.22);
 }
 
 .newsletterFeatureItem svg {
-  color: #d6ff3a;
+  color: #e8ffe1;
 }
 
 .newsletterFeatureItem span {
@@ -309,7 +315,7 @@
 
   background: white;
 
-  color: #08203a;
+  color: #173f13;
 
   font-size: 1rem;
 
@@ -319,7 +325,7 @@
 .newsletterInputWrap input:focus {
   box-shadow:
     0 0 0 4px
-    rgba(214, 255, 58, 0.18);
+    rgba(100,195,69,0.20);
 }
 
 .newsletterInputWrap button {
@@ -344,11 +350,11 @@
   background:
     linear-gradient(
       135deg,
-      #d6ff3a,
-      #00b69b
+      #ffffff,
+      #eaffde
     );
 
-  color: #08203a;
+  color: #173f13;
 
   font-size: 1rem;
   font-weight: 700;
@@ -360,7 +366,7 @@
   transform: translateY(-4px);
 
   box-shadow:
-    0 15px 30px rgba(214, 255, 58, 0.25);
+    0 15px 30px rgba(255,255,255,0.18);
 }
 
 .newsletterFormCard small {

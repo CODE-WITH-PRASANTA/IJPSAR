@@ -1,568 +1,587 @@
 /* =========================================================
    PREMIUM PHARMA HERO SECTION
-   FULLY RESPONSIVE FOR ALL DEVICES
+   GREEN + LIGHT PREMIUM THEME
+   FULLY RESPONSIVE
 ========================================================= */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-.pharmaHero {
-  width: 100%;
-  min-height: 82vh;
-  position: relative;
-  overflow: hidden;
+.pharmaHero{
+  width:100%;
+  min-height:100vh;
 
-  display: flex;
-  align-items: center;
+  position:relative;
+  overflow:hidden;
 
-  padding: 60px 7%;
+  display:flex;
+  align-items:center;
 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  padding:80px 7%;
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
 }
 
 /* =========================================================
-   OVERLAY
+   PREMIUM OVERLAY
 ========================================================= */
 
-.pharmaOverlay {
-  position: absolute;
-  inset: 0;
+.pharmaOverlay{
+  position:absolute;
+  inset:0;
 
   background:
-    linear-gradient(
-      135deg,
-      rgba(0, 30, 10, 0.90),
-      rgba(0, 45, 15, 0.82),
-      rgba(20, 60, 20, 0.72)
-    ),
-    radial-gradient(
-      circle at top right,
-      rgba(220, 255, 0, 0.20),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at bottom left,
-      rgba(70, 255, 100, 0.14),
-      transparent 35%
-    );
+  linear-gradient(
+    135deg,
+    rgba(255,255,255,0.88),
+    rgba(244,255,242,0.72),
+    rgba(100,195,69,0.22)
+  );
 
-  z-index: 1;
+  z-index:1;
+
+  backdrop-filter:blur(2px);
 }
 
 /* =========================================================
-   PREMIUM GLOW EFFECT
+   PREMIUM GLOW EFFECTS
 ========================================================= */
 
-.pharmaHero::before {
-  content: "";
+.pharmaHero::before{
+  content:"";
 
-  position: absolute;
+  position:absolute;
 
-  width: 500px;
-  height: 500px;
+  width:620px;
+  height:620px;
 
-  top: -140px;
-  right: -140px;
+  top:-220px;
+  right:-180px;
 
-  border-radius: 50%;
+  border-radius:50%;
 
-  background: radial-gradient(
+  background:
+  radial-gradient(
     circle,
-    rgba(213, 255, 0, 0.14),
+    rgba(100,195,69,0.28),
     transparent 70%
   );
 
-  z-index: 1;
-
-  pointer-events: none;
+  z-index:1;
 }
 
-.pharmaHero::after {
-  content: "";
+.pharmaHero::after{
+  content:"";
 
-  position: absolute;
+  position:absolute;
 
-  width: 400px;
-  height: 400px;
+  width:450px;
+  height:450px;
 
-  bottom: -100px;
-  left: -100px;
+  bottom:-160px;
+  left:-140px;
 
-  border-radius: 50%;
+  border-radius:50%;
 
-  background: radial-gradient(
+  background:
+  radial-gradient(
     circle,
-    rgba(60, 255, 120, 0.10),
+    rgba(132,230,105,0.20),
     transparent 70%
   );
 
-  z-index: 1;
-
-  pointer-events: none;
+  z-index:1;
 }
 
 /* =========================================================
    MAIN CONTAINER
 ========================================================= */
 
-.pharmaContainer {
-  width: 100%;
+.pharmaContainer{
+  width:100%;
 
-  position: relative;
-  z-index: 2;
+  position:relative;
+  z-index:2;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 
-  gap: 60px;
+  gap:70px;
 }
 
 /* =========================================================
    LEFT SECTION
 ========================================================= */
 
-.pharmaLeft {
-  flex: 1;
-  max-width: 700px;
+.pharmaLeft{
+  flex:1;
+  max-width:720px;
 }
 
 /* =========================================================
    TAG
 ========================================================= */
 
-.pharmaTag {
-  width: fit-content;
+.pharmaTag{
+  width:fit-content;
 
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 
-  padding: 11px 22px;
+  padding:12px 24px;
 
-  margin-bottom: 24px;
+  margin-bottom:28px;
 
-  border-radius: 50px;
+  border-radius:60px;
 
-  background: rgba(255, 255, 255, 0.06);
+  background:rgba(255,255,255,0.68);
 
-  border: 1px solid rgba(220, 255, 0, 0.18);
+  border:1px solid rgba(100,195,69,0.18);
 
-  backdrop-filter: blur(14px);
+  backdrop-filter:blur(16px);
 
-  color: white;
+  color:#111827;
 
-  font-size: 14px;
-  font-weight: 600;
+  font-size:14px;
+  font-weight:700;
 
-  transition: 0.4s ease;
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.06);
+
+  transition:0.4s ease;
 }
 
-.pharmaTag:hover {
-  transform: translateY(-4px);
+.pharmaTag:hover{
+  transform:translateY(-4px);
 
-  background: rgba(213, 255, 0, 0.10);
-
-  border-color: rgba(213, 255, 0, 0.35);
+  background:rgba(100,195,69,0.08);
 }
 
-.tagDot {
-  width: 10px;
-  height: 10px;
+.tagDot{
+  width:10px;
+  height:10px;
 
-  border-radius: 50%;
+  border-radius:50%;
 
-  background: #d8ff3e;
+  background:#64c345;
 
-  box-shadow: 0 0 14px #d8ff3e;
-}
-
-/* =========================================================
-   TITLE WRAP
-========================================================= */
-
-.pharmaTitleWrap {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-
-  margin-bottom: 24px;
-}
-
-/* =========================================================
-   LOGO
-========================================================= */
-
-.pharmaLogo {
-  width: 110px;
-  height: 110px;
-
-  object-fit: contain;
-
-  border-radius: 50%;
-
-  padding: 8px;
-
-  background: rgba(255, 255, 255, 0.08);
-
-  border: 3px solid rgba(220, 255, 0, 0.16);
-
-  backdrop-filter: blur(10px);
-
-  transition: 0.5s ease;
-}
-
-.pharmaLogo:hover {
-  transform: rotate(5deg) scale(1.05);
-
-  box-shadow: 0 0 25px rgba(213, 255, 0, 0.42);
+  box-shadow:0 0 14px #64c345;
 }
 
 /* =========================================================
    TITLE
 ========================================================= */
 
-.pharmaTitle {
-  color: white;
+.pharmaTitleWrap{
+  display:flex;
+  align-items:center;
+  gap:24px;
 
-  font-size: 3.2rem;
-  font-weight: 800;
-
-  line-height: 1.12;
-
-  letter-spacing: -1px;
+  margin-bottom:28px;
 }
 
-.pharmaTitle span {
-  color: #d8ff3e;
+.pharmaLogo{
+  width:120px;
+  height:120px;
+
+  object-fit:contain;
+
+  border-radius:50%;
+
+  padding:10px;
+
+  background:rgba(255,255,255,0.92);
+
+  border:3px solid rgba(100,195,69,0.18);
+
+  box-shadow:
+  0 20px 45px rgba(0,0,0,0.08);
+
+  transition:0.5s ease;
+}
+
+.pharmaLogo:hover{
+  transform:rotate(6deg) scale(1.05);
+
+  box-shadow:
+  0 25px 50px rgba(100,195,69,0.22);
+}
+
+.pharmaTitle{
+  color:#0f172a;
+
+  font-size:3.5rem;
+  font-weight:800;
+
+  line-height:1.08;
+
+  letter-spacing:-1.5px;
+}
+
+.pharmaTitle span{
+  color:#64c345;
 }
 
 /* =========================================================
    DESCRIPTION
 ========================================================= */
 
-.pharmaDescription {
-  color: rgba(255, 255, 255, 0.82);
+.pharmaDescription{
+  color:#4b5563;
 
-  font-size: 1rem;
+  font-size:1.02rem;
 
-  line-height: 1.8;
+  line-height:1.9;
 
-  margin-bottom: 28px;
+  margin-bottom:34px;
 
-  max-width: 650px;
+  max-width:650px;
 }
 
 /* =========================================================
    BUTTONS
 ========================================================= */
 
-.pharmaButtons {
-  display: flex;
-  align-items: center;
-  gap: 18px;
+.pharmaButtons{
+  display:flex;
+  align-items:center;
+  gap:18px;
 
-  flex-wrap: wrap;
+  flex-wrap:wrap;
 
-  margin-bottom: 30px;
+  margin-bottom:34px;
 }
 
 .submitBtn,
-.issueBtn {
-  border: none;
-  outline: none;
+.issueBtn{
+  border:none;
+  outline:none;
 
-  cursor: pointer;
+  cursor:pointer;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
 
-  padding: 15px 28px;
+  padding:16px 32px;
 
-  border-radius: 16px;
+  border-radius:18px;
 
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size:0.95rem;
+  font-weight:700;
 
-  transition: 0.4s ease;
+  transition:0.4s ease;
 }
 
 /* PRIMARY BUTTON */
 
-.submitBtn {
-  background: linear-gradient(
+.submitBtn{
+  background:
+  linear-gradient(
     135deg,
-    #63b600,
-    #d8ff3e
+    #64c345,
+    #8de16f
   );
 
-  color: #143300;
+  color:white;
 
-  box-shadow: 0 10px 28px rgba(180, 255, 0, 0.30);
+  box-shadow:
+  0 16px 35px rgba(100,195,69,0.32);
 }
 
-.submitBtn:hover {
-  transform: translateY(-5px) scale(1.03);
+.submitBtn:hover{
+  transform:translateY(-5px);
 
-  box-shadow: 0 16px 35px rgba(180, 255, 0, 0.50);
+  box-shadow:
+  0 22px 45px rgba(100,195,69,0.40);
 }
 
 /* SECONDARY BUTTON */
 
-.issueBtn {
-  background: rgba(255, 255, 255, 0.06);
+.issueBtn{
+  background:rgba(255,255,255,0.74);
 
-  color: white;
+  color:#111827;
 
-  border: 1px solid rgba(220, 255, 0, 0.16);
+  border:1px solid rgba(100,195,69,0.14);
 
-  backdrop-filter: blur(10px);
+  backdrop-filter:blur(12px);
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.05);
 }
 
-.issueBtn:hover {
-  transform: translateY(-5px);
+.issueBtn:hover{
+  transform:translateY(-5px);
 
-  background: rgba(213, 255, 0, 0.10);
-
-  border-color: rgba(213, 255, 0, 0.35);
+  background:rgba(100,195,69,0.08);
 }
 
 /* =========================================================
    SEARCH BAR
 ========================================================= */
 
-.pharmaSearch {
-  width: 100%;
-  max-width: 650px;
+.pharmaSearch{
+  width:100%;
+  max-width:680px;
 
-  height: 65px;
+  height:72px;
 
-  display: flex;
-  align-items: center;
+  display:flex;
+  align-items:center;
 
-  overflow: hidden;
+  overflow:hidden;
 
-  border-radius: 20px;
+  border-radius:24px;
 
-  background: rgba(255, 255, 255, 0.07);
+  background:rgba(255,255,255,0.74);
 
-  border: 1px solid rgba(220, 255, 0, 0.16);
+  border:1px solid rgba(100,195,69,0.14);
 
-  backdrop-filter: blur(14px);
+  backdrop-filter:blur(18px);
 
-  transition: 0.4s ease;
+  box-shadow:
+  0 18px 40px rgba(0,0,0,0.06);
+
+  transition:0.4s ease;
 }
 
-.pharmaSearch:hover {
-  border-color: rgba(213, 255, 0, 0.35);
+.pharmaSearch:hover{
+  border-color:rgba(100,195,69,0.30);
 }
 
-.pharmaSearch input {
-  flex: 1;
+.pharmaSearch input{
+  flex:1;
 
-  height: 100%;
+  height:100%;
 
-  border: none;
-  outline: none;
+  border:none;
+  outline:none;
 
-  background: transparent;
+  background:transparent;
 
-  padding: 0 22px;
+  padding:0 24px;
 
-  color: white;
+  color:#111827;
 
-  font-size: 0.95rem;
+  font-size:0.96rem;
 }
 
-.pharmaSearch input::placeholder {
-  color: rgba(255, 255, 255, 0.65);
+.pharmaSearch input::placeholder{
+  color:#6b7280;
 }
 
-.pharmaSearch button {
-  width: 72px;
-  height: 84%;
+.pharmaSearch button{
+  width:74px;
+  height:84%;
 
-  margin-right: 5px;
+  margin-right:5px;
 
-  border: none;
+  border:none;
 
-  border-radius: 15px;
+  border-radius:18px;
 
-  cursor: pointer;
+  cursor:pointer;
 
-  background: linear-gradient(
+  background:
+  linear-gradient(
     135deg,
-    #63b600,
-    #d8ff3e
+    #64c345,
+    #8de16f
   );
 
-  color: #173600;
+  color:white;
 
-  font-size: 1.1rem;
+  font-size:1.1rem;
 
-  transition: 0.4s ease;
+  transition:0.4s ease;
 }
 
-.pharmaSearch button:hover {
-  transform: scale(1.05);
+.pharmaSearch button:hover{
+  transform:scale(1.05);
 }
 
 /* =========================================================
    RIGHT SIDE
 ========================================================= */
 
-.pharmaRight {
-  width: 460px;
+.pharmaRight{
+  width:420px;
 
-  display: flex;
-  flex-direction: column;
+  display:flex;
+  flex-direction:column;
 
-  gap: 24px;
+  gap:20px;
 }
 
 /* =========================================================
-   STATS CARD
+   FLOATING CARD (UPPER)
 ========================================================= */
 
-.statsCard {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+.floatingCard{
+  order:1;
 
-  gap: 18px;
+  display:flex;
+  align-items:center;
+  gap:18px;
 
-  padding: 28px;
+  padding:24px;
 
-  border-radius: 28px;
+  border-radius:28px;
 
-  background: rgba(255, 255, 255, 0.06);
+  background:rgba(255,255,255,0.66);
 
-  border: 1px solid rgba(220, 255, 0, 0.14);
+  border:1px solid rgba(100,195,69,0.14);
 
-  backdrop-filter: blur(14px);
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+  0 20px 45px rgba(0,0,0,0.06);
+
+  transition:0.4s ease;
 }
 
-.statBox {
-  padding: 22px;
+.floatingCard:hover{
+  transform:translateY(-5px);
 
-  border-radius: 20px;
-
-  background: rgba(255, 255, 255, 0.05);
-
-  transition: 0.4s ease;
+  background:rgba(100,195,69,0.08);
 }
 
-.statBox:hover {
-  transform: translateY(-6px);
+.floatingIcon{
+  font-size:2.7rem;
 
-  background: rgba(220, 255, 0, 0.10);
+  color:#64c345;
+
+  min-width:50px;
 }
 
-.statBox h2 {
-  color: #d8ff3e;
+.floatingCard h3{
+  color:#111827;
 
-  font-size: 2rem;
-  font-weight: 800;
+  font-size:1.2rem;
 
-  margin-bottom: 8px;
+  margin-bottom:6px;
 }
 
-.statBox p {
-  color: rgba(255, 255, 255, 0.82);
+.floatingCard p{
+  color:#4b5563;
 
-  font-size: 0.85rem;
+  line-height:1.8;
 
-  line-height: 1.5;
-
-  text-transform: uppercase;
-
-  letter-spacing: 1px;
+  font-size:0.92rem;
 }
 
 /* =========================================================
-   FLOATING CARD
+   STATS CARD (LOWER & SMALLER)
 ========================================================= */
 
-.floatingCard {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.statsCard{
+  order:2;
 
-  padding: 22px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
 
-  border-radius: 24px;
+  gap:14px;
 
-  background: rgba(255, 255, 255, 0.06);
+  padding:22px;
 
-  border: 1px solid rgba(220, 255, 0, 0.14);
+  border-radius:30px;
 
-  backdrop-filter: blur(14px);
+  background:rgba(255,255,255,0.62);
 
-  transition: 0.4s ease;
+  border:1px solid rgba(100,195,69,0.14);
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+  0 20px 45px rgba(0,0,0,0.06);
+
+  width:100%;
+  max-width:380px;
 }
 
-.floatingCard:hover {
-  transform: translateY(-5px);
+.statBox{
+  padding:18px;
 
-  background: rgba(220, 255, 0, 0.10);
+  border-radius:20px;
+
+  background:rgba(255,255,255,0.78);
+
+  transition:0.4s ease;
 }
 
-.floatingIcon {
-  font-size: 2.5rem;
+.statBox:hover{
+  transform:translateY(-5px);
 
-  color: #d8ff3e;
-
-  min-width: 45px;
+  background:rgba(100,195,69,0.08);
 }
 
-.floatingCard h3 {
-  color: white;
+.statBox h2{
+  color:#64c345;
 
-  font-size: 1.15rem;
+  font-size:1.7rem;
+  font-weight:800;
 
-  margin-bottom: 6px;
+  margin-bottom:6px;
 }
 
-.floatingCard p {
-  color: rgba(255, 255, 255, 0.75);
+.statBox p{
+  color:#4b5563;
 
-  line-height: 1.7;
+  font-size:0.76rem;
 
-  font-size: 0.92rem;
+  line-height:1.5;
+
+  text-transform:uppercase;
+
+  letter-spacing:1px;
 }
 
 /* =========================================================
-   LARGE SCREEN
+   LARGE LAPTOP
 ========================================================= */
 
-@media (max-width: 1300px) {
-  .pharmaTitle {
-    font-size: 2.9rem;
+@media (max-width:1200px){
+
+  .pharmaTitle{
+    font-size:3rem;
+  }
+
+  .pharmaContainer{
+    gap:50px;
   }
 }
 
 /* =========================================================
-   LAPTOP
+   TABLET LANDSCAPE
 ========================================================= */
 
-@media (max-width: 1100px) {
-  .pharmaContainer {
-    flex-direction: column;
-    align-items: flex-start;
+@media (max-width:1024px){
+
+  .pharmaContainer{
+    flex-direction:column;
+    align-items:flex-start;
   }
 
-  .pharmaRight {
-    width: 100%;
+  .pharmaRight{
+    width:100%;
+    max-width:100%;
   }
 
-  .pharmaTitle {
-    font-size: 2.7rem;
+  .statsCard{
+    max-width:100%;
+  }
+
+  .pharmaTitle{
+    font-size:2.7rem;
   }
 }
 
@@ -570,51 +589,45 @@
    TABLET
 ========================================================= */
 
-@media (max-width: 768px) {
-  .pharmaHero {
-    min-height: auto;
+@media (max-width:768px){
 
-    padding: 60px 5%;
+  .pharmaHero{
+    padding:60px 5%;
   }
 
-  .pharmaContainer {
-    gap: 45px;
+  .pharmaContainer{
+    gap:45px;
   }
 
-  .pharmaTitleWrap {
-    flex-direction: column;
-    align-items: flex-start;
+  .pharmaTitleWrap{
+    flex-direction:column;
+    align-items:flex-start;
   }
 
-  .pharmaLogo {
-    width: 95px;
-    height: 95px;
+  .pharmaLogo{
+    width:100px;
+    height:100px;
   }
 
-  .pharmaTitle {
-    font-size: 2.2rem;
+  .pharmaTitle{
+    font-size:2.2rem;
   }
 
-  .pharmaDescription {
-    font-size: 0.95rem;
+  .pharmaDescription{
+    font-size:0.95rem;
   }
 
-  .pharmaButtons {
-    width: 100%;
+  .pharmaButtons{
+    width:100%;
   }
 
   .submitBtn,
-  .issueBtn {
-    flex: 1;
+  .issueBtn{
+    flex:1;
   }
 
-  .statsCard {
-    grid-template-columns: 1fr;
-  }
-
-  .floatingCard {
-    flex-direction: column;
-    align-items: flex-start;
+  .statsCard{
+    grid-template-columns:1fr 1fr;
   }
 }
 
@@ -622,66 +635,60 @@
    MOBILE
 ========================================================= */
 
-@media (max-width: 576px) {
-  .pharmaHero {
-    padding: 50px 5%;
+@media (max-width:576px){
+
+  .pharmaHero{
+    padding:50px 5%;
   }
 
-  .pharmaTag {
-    font-size: 12px;
+  .pharmaTag{
+    font-size:12px;
 
-    padding: 10px 16px;
+    padding:10px 18px;
   }
 
-  .pharmaTitle {
-    font-size: 1.85rem;
+  .pharmaTitle{
+    font-size:1.9rem;
 
-    line-height: 1.2;
+    line-height:1.2;
   }
 
-  .pharmaDescription {
-    font-size: 0.9rem;
+  .pharmaDescription{
+    font-size:0.9rem;
   }
 
-  .pharmaButtons {
-    flex-direction: column;
+  .pharmaButtons{
+    flex-direction:column;
   }
 
   .submitBtn,
-  .issueBtn {
-    width: 100%;
+  .issueBtn{
+    width:100%;
   }
 
-  .pharmaSearch {
-    height: 58px;
+  .pharmaSearch{
+    height:62px;
   }
 
-  .pharmaSearch input {
-    padding: 0 16px;
+  .pharmaSearch input{
+    padding:0 18px;
 
-    font-size: 0.88rem;
+    font-size:0.88rem;
   }
 
-  .pharmaSearch button {
-    width: 62px;
+  .pharmaSearch button{
+    width:64px;
 
-    font-size: 1rem;
+    font-size:1rem;
   }
 
-  .statsCard {
-    padding: 20px;
+  .statsCard{
+    grid-template-columns:1fr;
   }
 
-  .statBox {
-    padding: 18px;
-  }
-
-  .statBox h2 {
-    font-size: 1.7rem;
-  }
-
-  .floatingCard {
-    padding: 18px;
+  .floatingCard{
+    flex-direction:column;
+    align-items:flex-start;
   }
 }
 
@@ -689,24 +696,33 @@
    SMALL MOBILE
 ========================================================= */
 
-@media (max-width: 380px) {
-  .pharmaTitle {
-    font-size: 1.6rem;
+@media (max-width:380px){
+
+  .pharmaTitle{
+    font-size:1.6rem;
   }
 
-  .pharmaLogo {
-    width: 80px;
-    height: 80px;
+  .pharmaLogo{
+    width:85px;
+    height:85px;
   }
 
-  .pharmaTag {
-    font-size: 11px;
+  .pharmaTag{
+    font-size:11px;
   }
 
   .submitBtn,
-  .issueBtn {
-    padding: 14px 20px;
+  .issueBtn{
+    padding:14px 20px;
 
-    font-size: 0.85rem;
+    font-size:0.85rem;
+  }
+
+  .floatingCard{
+    padding:20px;
+  }
+
+  .statsCard{
+    padding:18px;
   }
 }
