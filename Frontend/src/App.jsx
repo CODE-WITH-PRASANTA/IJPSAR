@@ -23,6 +23,13 @@ import Nomination from "./Pages/Nomination/Nomination";
 
 import FaqSection from "./Pages/FaqSection/FaqSection";
 import LoginForm from "./Components/LoginForm/LoginForm";
+import SubmitFrom from "./Components/SubmitFrom/SubmitFrom";
+import TermCondition from "./Components/TermCondition/TermCondition";
+import ReturnRefund from "./Components/ReturnRefund/ReturnRefund";
+import Privacypolicy from "./Components/Privacypolicy/Privacypolicy";
+import Disclaimer from "./Components/Disclaimer/Disclaimer";
+import FloatingIcons from "./Components/FloatingIcons/FloatingIcons";
+import FloatingForm from "./Components/FloatingForm/FloatingForm";
 
 function App() {
   return (
@@ -56,11 +63,18 @@ function App() {
        <Route path="/faq" element={<FaqSection />} />
        <Route path="/login" element={<LoginForm />} />
 
+       <Route path="/submit-paper" element={<SubmitFrom />} />
+       <Route path="/terms-and-conditions" element={<TermCondition />} />
+       <Route path="/return-refund-policy" element={<ReturnRefund />} />
+       <Route path="/privacy-policy" element={<Privacypolicy />} />
+       <Route path="/disclaimer" element={<Disclaimer />} />
+
       </Routes>
 
      <Footer />
 
-     
+     <FloatingIcons />
+     <FloatingForm />
      
     </Router>
   );
