@@ -33,13 +33,11 @@ import FloatingForm from "./Components/FloatingForm/FloatingForm";
 
 function App() {
   return (
+    <>
     <Router>
-
-      {/* 🔝 Global Top Layout */}
       <Topbar />
-      <Navbar />
-      
 
+      <Navbar />
       {/* 🔄 Routes */}
       <Routes>
 
@@ -77,6 +75,7 @@ function App() {
      <FloatingForm />
      
     </Router>
+    </>
   );
 }
 

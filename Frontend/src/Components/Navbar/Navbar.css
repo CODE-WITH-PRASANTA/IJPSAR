@@ -3,20 +3,17 @@
 ========================================= */
 
 .navbarMainContainer {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
+  background: #ffffff;
 
-  z-index: 999999;
+  position: fixed;
+  top: 45px; /* Adjust according to your topbar height */
+  left: 0;
 
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(14px);
+  z-index: 99998;
 
-  border-bottom: 1px solid rgba(102,198,65,0.15);
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.06);
+  border-bottom: 2px solid rgba(102, 198, 65, 0.18);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
 }
 
 .navbarWrapper {
@@ -294,7 +291,10 @@
 
   color: #111827;
 }
-
+.navbarMobileIcon {
+  position: relative;
+  z-index: 9999999;
+}
 /* =========================================
    CLOSE BUTTON
 ========================================= */
@@ -347,7 +347,9 @@
     width: 70px;
     height: 70px;
   }
-
+ body {
+    padding-top: 80px;
+  }
   /* HAMBURGER */
 
   .navbarMobileIcon {
@@ -494,7 +496,10 @@
     box-shadow:
       0 8px 25px rgba(0, 0, 0, 0.06);
   }
-
+ .navbarMainContainer {
+    top: 0;
+    z-index: 999999;
+  }
   .navbarDropdownContainer:hover .navbarDropdownMenu {
     display: flex;
   }

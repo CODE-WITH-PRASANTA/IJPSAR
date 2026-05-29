@@ -6,10 +6,12 @@
   width: 100%;
   background: #66C641;
   border-top: 3px solid #d8ff3e;
-  position: relative;
-  z-index: 999;
 
-  overflow: visible;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 99999;
 }
 
 .topbarWrapper {
@@ -219,6 +221,13 @@
     right: auto;
     left: 0;
   }
+}
+@media (max-width: 992px) {
+
+  .topbarMainContainer {
+    display: none;
+  }
+
 }
 
 @media (max-width: 500px) {
