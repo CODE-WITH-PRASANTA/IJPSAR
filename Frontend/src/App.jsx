@@ -20,6 +20,7 @@ import CurrentIsuue from "./Pages/CurrentIsuue/CurrentIsuue";
 import Archives from "./Pages/Archives/Archives";
 import SearchArticle from "./Pages/SearchArticle/SearchArticle";
 import Nomination from "./Pages/Nomination/Nomination";
+import TermCondition from "./Pages/TermCondition/TermCondition";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
        <Route path="/archives" element={<Archives/>}/>
        <Route path="/search-articles" element={<SearchArticle/>}/>
        <Route path="/best-paper-award" element={<Nomination/>}/>
+       <Route path="/terms-and-conditions" element={<TermCondition/>}/>
 
       </Routes>
 
