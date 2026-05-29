@@ -1,0 +1,251 @@
+/* =========================================
+   FAQ PAGE
+========================================= */
+
+.faqPage {
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 80px 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(102, 198, 65, 0.08),
+      rgba(102, 198, 65, 0.03)
+    );
+
+  font-family: "Inter", sans-serif;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.faqHeader {
+  max-width: 900px;
+
+  margin: auto;
+  margin-bottom: 60px;
+
+  text-align: center;
+}
+
+.faqTitle {
+  font-size: 52px;
+  font-weight: 800;
+
+  color: #66C641;
+
+  margin-bottom: 18px;
+}
+
+.faqSubtitle {
+  font-size: 18px;
+  line-height: 1.8;
+
+  color: #374151;
+}
+
+/* =========================================
+   GRID
+========================================= */
+
+.faqGrid {
+  max-width: 1500px;
+
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 30px;
+}
+
+/* =========================================
+   COLUMN
+========================================= */
+
+.faqColumn {
+  display: flex;
+  flex-direction: column;
+
+  gap: 24px;
+}
+
+/* =========================================
+   CARD
+========================================= */
+
+.faqCard {
+  background: #ffffff;
+
+  padding: 30px;
+
+  border-radius: 24px;
+
+  border: 2px solid rgba(102, 198, 65, 0.12);
+
+  box-shadow:
+    0 10px 30px rgba(102, 198, 65, 0.08);
+
+  transition: 0.35s ease;
+}
+
+.faqCard:hover {
+  transform: translateY(-5px);
+
+  border-color: #66C641;
+
+  box-shadow:
+    0 18px 40px rgba(102, 198, 65, 0.18);
+}
+
+.faqQuestion {
+  font-size: 22px;
+  font-weight: 700;
+
+  line-height: 1.5;
+
+  color: #111827;
+
+  margin-bottom: 16px;
+}
+
+.faqAnswer {
+  font-size: 16px;
+  line-height: 1.9;
+
+  color: #4b5563;
+}
+
+/* =========================================
+   PAGINATION
+========================================= */
+
+.faqPagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 8px;
+}
+
+.faqPageButton {
+  width: 46px;
+  height: 46px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  color: #111827;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  border: 2px solid rgba(102, 198, 65, 0.12);
+
+  box-shadow:
+    0 6px 18px rgba(102, 198, 65, 0.08);
+}
+
+.faqPageButton:hover {
+  background: #66C641;
+
+  color: #ffffff;
+
+  transform: translateY(-2px);
+}
+
+.faqPageButtonActive {
+  background: #66C641;
+
+  color: #ffffff;
+
+  border-color: #66C641;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+
+  .faqTitle {
+    font-size: 42px;
+  }
+
+  .faqGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .faqPage {
+    padding: 60px 18px;
+  }
+
+  .faqTitle {
+    font-size: 34px;
+  }
+
+  .faqSubtitle {
+    font-size: 16px;
+  }
+
+  .faqCard {
+    padding: 24px;
+  }
+
+  .faqQuestion {
+    font-size: 19px;
+  }
+
+  .faqAnswer {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 500px) {
+
+  .faqTitle {
+    font-size: 28px;
+  }
+
+  .faqCard {
+    padding: 20px;
+
+    border-radius: 18px;
+  }
+
+  .faqQuestion {
+    font-size: 17px;
+  }
+
+  .faqAnswer {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .faqPagination {
+    gap: 8px;
+  }
+
+  .faqPageButton {
+    width: 40px;
+    height: 40px;
+
+    font-size: 14px;
+  }
+}

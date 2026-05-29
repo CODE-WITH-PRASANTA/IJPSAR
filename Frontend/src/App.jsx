@@ -21,6 +21,9 @@ import Archives from "./Pages/Archives/Archives";
 import SearchArticle from "./Pages/SearchArticle/SearchArticle";
 import Nomination from "./Pages/Nomination/Nomination";
 
+import FaqSection from "./Pages/FaqSection/FaqSection";
+import LoginForm from "./Components/LoginForm/LoginForm";
+
 function App() {
   return (
     <Router>
@@ -50,6 +53,8 @@ function App() {
        <Route path="/archives" element={<Archives/>}/>
        <Route path="/search-articles" element={<SearchArticle/>}/>
        <Route path="/best-paper-award" element={<Nomination/>}/>
+       <Route path="/faq" element={<FaqSection />} />
+       <Route path="/login" element={<LoginForm />} />
 
       </Routes>
 

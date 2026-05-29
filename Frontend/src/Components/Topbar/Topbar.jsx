@@ -1,53 +1,104 @@
 import React from "react";
 import "./Topbar.css";
-import { HiOutlineMail } from "react-icons/hi";
 
-/* IMPORT LOGO IMAGE */
-import logo from "../../assets/p-2.jpeg";
+import {
+  HiOutlineMail,
+  HiOutlineUser,
+} from "react-icons/hi";
+
+import {
+  FaGlobe,
+  FaTelegramPlane,
+  FaBars,
+  FaBookOpen,
+} from "react-icons/fa";
 
 const Topbar = () => {
   return (
     <div className="topbarMainContainer">
+
       <div className="topbarWrapper">
 
-        {/* LEFT SIDE */}
+        {/* LEFT SECTION */}
         <div className="topbarLeftSection">
-          <div className="topbarProjectName">
-            IJPASR
+
+          <div className="topbarItem">
+            <FaBookOpen className="topbarIcon" />
+            <span>ISSN: Applied</span>
           </div>
 
           <div className="topbarDivider"></div>
 
-          <div className="topbarEmailContainer">
-            <div className="topbarEmailItem">
-              <HiOutlineMail className="topbarMailIcon" />
-              <span>editor@ijpasr.com</span>
-            </div>
-
-            <div className="topbarEmailItem">
-              <HiOutlineMail className="topbarMailIcon" />
-              <span>editorijpasr@gmail.com</span>
-            </div>
+          <div className="topbarItem">
+            <FaBars className="topbarIcon" />
+            <span>Open Access</span>
           </div>
+
+          <div className="topbarDivider"></div>
+
+          <div className="topbarItem">
+            <FaGlobe className="topbarIcon" />
+            <span>
+              Open Access · Peer-Reviewed · Refereed Journal
+            </span>
+          </div>
+
         </div>
 
-        {/* CENTER LOGO */}
-        <div className="topbarCenterSection">
-          <img
-            src={logo}
-            alt="IJPASR Logo"
-            className="topbarLogo"
-          />
-        </div>
-
-        {/* RIGHT SIDE */}
+        {/* RIGHT SECTION */}
         <div className="topbarRightSection">
+
+          <div className="topbarItem">
+            <HiOutlineMail className="topbarIcon" />
+            <span>editor@ijpasr.com</span>
+          </div>
+
+          <div className="topbarDivider"></div>
+
+          <div className="topbarItem">
+            <HiOutlineMail className="topbarIcon" />
+            <span>editorijpasr@gmail.com</span>
+          </div>
+
+          <div className="topbarDivider"></div>
+
+          {/* LOGIN DROPDOWN */}
+          <div className="topbarLoginDropdown">
+
+            <button className="topbarLoginButton">
+              <HiOutlineUser className="topbarIcon" />
+              Login
+            </button>
+
+            <div className="topbarDropdownMenu">
+
+              <a href="/" className="topbarDropdownItem">
+                Author
+              </a>
+
+              <a href="/" className="topbarDropdownItem">
+                Editor
+              </a>
+
+              <a href="/login" className="topbarDropdownItem">
+                Admin
+              </a>
+
+            </div>
+
+          </div>
+
+          <div className="topbarDivider"></div>
+
           <button className="topbarSubmitButton">
-            Submit Paper
+            <FaTelegramPlane />
+            Submit
           </button>
+
         </div>
 
       </div>
+
     </div>
   );
 };
