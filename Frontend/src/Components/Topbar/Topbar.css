@@ -3,10 +3,11 @@
 ========================================= */
 
 .topbarMainContainer {
+
   width: 100%;
   background: #66C641;
   border-top: 3px solid #d8ff3e;
-  position: relative;
+  position: sticky;
   z-index: 999;
 
   overflow: visible;

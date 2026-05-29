@@ -48,7 +48,7 @@ const sections = [
         location:
           "Baddi University of Emerging Sciences & Technology, India",
       },
-
+ 
       {
         image: editor3,
         name: "Dr. Tulsi Bisht",

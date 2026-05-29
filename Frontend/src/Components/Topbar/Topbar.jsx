@@ -1,5 +1,6 @@
 import React from "react";
 import "./Topbar.css";
+import { useNavigate } from "react-router-dom";
 
 import {
   HiOutlineMail,
@@ -14,6 +15,9 @@ import {
 } from "react-icons/fa";
 
 const Topbar = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="topbarMainContainer">
 
@@ -72,7 +76,7 @@ const Topbar = () => {
 
             <div className="topbarDropdownMenu">
 
-              <a href="/" className="topbarDropdownItem">
+              <a href="/login" className="topbarDropdownItem">
                 Author
               </a>
 
@@ -80,7 +84,7 @@ const Topbar = () => {
                 Editor
               </a>
 
-              <a href="/login" className="topbarDropdownItem">
+              <a href="/" className="topbarDropdownItem">
                 Admin
               </a>
 
@@ -90,7 +94,11 @@ const Topbar = () => {
 
           <div className="topbarDivider"></div>
 
-          <button className="topbarSubmitButton">
+          {/* SUBMIT BUTTON */}
+          <button
+            className="topbarSubmitButton"
+            onClick={() => navigate("/submit-paper")}
+          >
             <FaTelegramPlane />
             Submit
           </button>
