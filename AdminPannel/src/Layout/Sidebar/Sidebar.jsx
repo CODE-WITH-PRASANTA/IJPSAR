@@ -1,92 +1,321 @@
-import React from "react";
+import React, { useState } from "react";
+import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
+
+import logo from "../../assets/p-2.JPEG";
 
 import {
   FaTachometerAlt,
-  FaUserGraduate,
-  FaChalkboardTeacher,
-  FaMoneyBillWave,
-  FaClipboardList,
-  FaCog
+  FaUser,
+  FaUsers,
+  FaShieldAlt,
+  FaChevronDown,
+  FaBell,
+  FaCog,
+  FaSignOutAlt,
+  FaCommentDots,
+  FaNetworkWired,
+  FaUserShield,
+  FaPlus,
+  FaSearch,
+  FaTimes,
 } from "react-icons/fa";
 
-import "./Sidebar.css";
+const Sidebar = () => {
+  const [showProfile, setShowProfile] = useState(false);
+  const [showLogoMenu, setShowLogoMenu] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-const menus = [
-  {
-    title:"Dashboard",
-    icon:<FaTachometerAlt />,
-    path:"/dashboard"
-  },
-  {
-    title:"Students",
-    icon:<FaUserGraduate />,
-    path:"/students"
-  },
-  {
-    title:"Teachers",
-    icon:<FaChalkboardTeacher />,
-    path:"/teachers"
-  },
-  {
-    title:"Fees",
-    icon:<FaMoneyBillWave />,
-    path:"/fees"
-  },
-  {
-    title:"Attendance",
-    icon:<FaClipboardList />,
-    path:"/attendance"
-  },
-  {
-    title:"Settings",
-    icon:<FaCog />,
-    path:"/settings"
-  }
-];
+  const [openMenu, setOpenMenu] = useState("dashboard");
 
-const Sidebar = ({
-  collapsed,
-  mobileSidebar,
-  setMobileSidebar
-}) => {
   return (
-    <aside
-      className={`
-      sidebar
-      ${collapsed ? "sidebarCollapsed" : ""}
-      ${mobileSidebar ? "sidebarMobileOpen" : ""}
-      `}
-    >
+    <>
+    <button
+  className="mobileMenuBtn"
+  onClick={() => setMobileOpen(!mobileOpen)}
+>
+  ☰
+</button>
+     <aside
+  className={`sidebar ${
+    mobileOpen ? "mobileOpen" : ""
+  }`}
+>
+        {/* LOGO SECTION */}
 
-      <div className="sidebarLogo">
-        {collapsed ? "S" : "IJPASR"}
-      </div>
+        <div className="sidebarLogoSection">
 
-      <div className="sidebarMenus">
+          <div
+            className="sidebarLogoWrapper"
+            onClick={() => setShowLogoMenu(!showLogoMenu)}
+          >
+            <div className="sidebarLogoLeft">
+              <img
+                src={logo}
+                alt="Logo"
+                className="sidebarLogo"
+              />
 
-        {menus.map((menu) => (
-          <NavLink
-            key={menu.path}
-            to={menu.path}
-            className="sidebarLink"
+              <span>IJPASR</span>
+            </div>
+
+            <FaChevronDown />
+          </div>
+
+          {showLogoMenu && (
+            <div className="logoPopupCard">
+
+              <NavLink to="/profile">
+                <FaUser />
+                Public Profile
+              </NavLink>
+
+              <NavLink to="/account">
+                <FaCog />
+                Account
+              </NavLink>
+
+              <NavLink to="/network">
+                <FaNetworkWired />
+                Network
+              </NavLink>
+
+              <NavLink to="/authentication">
+                <FaShieldAlt />
+                Authentication
+              </NavLink>
+
+              <NavLink to="/user-management">
+                <FaUserShield />
+                User Management
+              </NavLink>
+
+            </div>
+          )}
+
+          <div className="sidebarActions">
+
+            <button className="addNewBtn">
+              <FaPlus />
+              Add New
+            </button>
+
+            <button className="searchBtn">
+              <FaSearch />
+            </button>
+
+          </div>
+
+        </div>
+
+        {/* MENU */}
+
+        <div className="sidebarMenu">
+
+          <div
+            className="sidebarDropdown"
             onClick={() =>
-              setMobileSidebar(false)
+              setOpenMenu(
+                openMenu === "dashboard"
+                  ? ""
+                  : "dashboard"
+              )
             }
           >
-            <span className="sidebarIcon">
-              {menu.icon}
-            </span>
+            <div className="sidebarDropdownLeft">
+              <FaTachometerAlt />
+              <span>Dashboard</span>
+            </div>
 
-            {!collapsed && (
-              <span>{menu.title}</span>
-            )}
+            <FaChevronDown />
+          </div>
+
+          {openMenu === "dashboard" && (
+            <div className="sidebarSubMenu">
+
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) =>
+                  isActive
+                    ? "activeSubMenu"
+                    : ""
+                }
+              >
+                Dashboard Home
+              </NavLink>
+
+              <NavLink
+                to="/analytics"
+                className={({ isActive }) =>
+                  isActive
+                    ? "activeSubMenu"
+                    : ""
+                }
+              >
+                Analytics
+              </NavLink>
+
+              <NavLink
+                to="/reports"
+                className={({ isActive }) =>
+                  isActive
+                    ? "activeSubMenu"
+                    : ""
+                }
+              >
+                Reports
+              </NavLink>
+
+            </div>
+          )}
+
+          <NavLink
+            to="/users"
+            className={({ isActive }) =>
+              isActive
+                ? "sidebarLink active"
+                : "sidebarLink"
+            }
+          >
+            <FaUsers />
+            <span>Users</span>
           </NavLink>
-        ))}
+
+          <NavLink
+            to="/roles"
+            className={({ isActive }) =>
+              isActive
+                ? "sidebarLink active"
+                : "sidebarLink"
+            }
+          >
+            <FaShieldAlt />
+            <span>Roles</span>
+          </NavLink>
+
+        </div>
+
+        {/* FOOTER */}
+
+        <div className="sidebarBottom">
+
+          <div
+            className="profileCard"
+            onClick={() =>
+              setShowProfile(!showProfile)
+            }
+          >
+            <img
+              src="https://i.pravatar.cc/150"
+              alt="Profile"
+            />
+          </div>
+
+          <div className="bottomActions">
+
+            <button
+              className="bottomIcon"
+              onClick={() =>
+                setShowChat(true)
+              }
+            >
+              <FaCommentDots />
+            </button>
+
+            <button className="bottomIcon">
+              <FaBell />
+            </button>
+
+          </div>
+
+          {showProfile && (
+            <div className="profilePopupCard">
+
+              <div className="profileHeader">
+
+                <img
+                  src="https://i.pravatar.cc/150"
+                  alt=""
+                />
+
+                <div>
+                  <h4>Demo User</h4>
+                  <p>demo@email.com</p>
+                </div>
+
+              </div>
+
+              <NavLink to="/profile">
+                Public Profile
+              </NavLink>
+
+              <NavLink to="/my-profile">
+                My Profile
+              </NavLink>
+
+              <NavLink to="/account">
+                My Account
+              </NavLink>
+
+              <button className="logoutBtn">
+                <FaSignOutAlt />
+                Logout
+              </button>
+
+            </div>
+          )}
+
+        </div>
+
+      </aside>
+
+      {/* CHAT DRAWER */}
+
+      <div
+        className={`chatDrawer ${
+          showChat
+            ? "chatDrawerOpen"
+            : ""
+        }`}
+      >
+
+        <div className="chatDrawerHeader">
+
+          <h3>Messages</h3>
+
+          <button
+            onClick={() =>
+              setShowChat(false)
+            }
+          >
+            <FaTimes />
+          </button>
+
+        </div>
+
+        <div className="chatDrawerBody">
+
+          <div className="messageLeft">
+            Hello 👋
+          </div>
+
+          <div className="messageRight">
+            Welcome Back 🚀
+          </div>
+
+          <div className="messageLeft">
+            New notifications available.
+          </div>
+
+          <div className="messageRight">
+            Everything is working perfectly.
+          </div>
+
+        </div>
 
       </div>
-
-    </aside>
+    </>
   );
 };
 

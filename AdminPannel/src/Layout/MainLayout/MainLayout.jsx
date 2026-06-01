@@ -1,46 +1,41 @@
-import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
-
-import Sidebar from "../Sidebar/Sidebar";
-import Topbar from "../Topbar/Topbar";
-
+import React from "react";
 import "./MainLayout.css";
+import Sidebar from "../Sidebar/Sidebar";
 
 const MainLayout = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [mobileSidebar, setMobileSidebar] = useState(false);
-
   return (
     <div className="mainLayout">
 
-      <Sidebar
-        collapsed={collapsed}
-        mobileSidebar={mobileSidebar}
-        setMobileSidebar={setMobileSidebar}
-      />
+      <Sidebar />
 
-      {mobileSidebar && (
-        <div
-          className="mainLayoutOverlay"
-          onClick={() => setMobileSidebar(false)}
-        />
-      )}
+      <div className="mainLayoutContent">
 
-      <div
-        className={`mainLayoutContent ${
-          collapsed ? "mainLayoutContentCollapsed" : ""
-        }`}
-      >
-        <Topbar
-          collapsed={collapsed}
-          setCollapsed={setCollapsed}
-          mobileSidebar={mobileSidebar}
-          setMobileSidebar={setMobileSidebar}
-        />
+        <div className="mainLayoutPageContent">
 
-        <div className="mainLayoutPage">
-          <Outlet />
+          <div className="dashboardCard">
+            <h2>Welcome to Dashboard</h2>
+            <p>
+              Sidebar remains fixed and only sidebar has scrollbar.
+            </p>
+          </div>
+
+          <div className="dashboardCard">
+            <h2>Statistics</h2>
+            <p>Add your dashboard widgets here.</p>
+          </div>
+
+          <div className="dashboardCard">
+            <h2>Reports</h2>
+            <p>Manage reports and analytics.</p>
+          </div>
+
+          <div className="dashboardCard">
+            <h2>Students</h2>
+            <p>Student information and records.</p>
+          </div>
+
         </div>
+
       </div>
 
     </div>
