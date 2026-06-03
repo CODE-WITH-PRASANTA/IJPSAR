@@ -1,0 +1,172 @@
+/* ==========================================
+   GLOBAL RESET
+========================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100vh;
+
+  background: #07090f;
+  color: #ffffff;
+
+  font-family: "Inter", sans-serif;
+
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   GLOBAL BACKGROUND
+========================================== */
+
+body {
+  background: #07090f !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================
+   ALL TEXT
+========================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+label,
+small,
+strong,
+td,
+th,
+li,
+a {
+  color: #ffffff;
+}
+
+/* ==========================================
+   LINKS
+========================================== */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==========================================
+   INPUTS
+========================================== */
+
+input,
+textarea,
+select {
+  background: #10141d;
+  border: 1px solid #1a2233;
+  color: #ffffff;
+
+  outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+button {
+  font-family: inherit;
+}
+
+/* ==========================================
+   CARDS
+========================================== */
+
+.card,
+.dashboardCard,
+.formCard,
+.contentCard {
+  background: #10141d;
+  border: 1px solid #1a2233;
+  color: #ffffff;
+}
+
+/* ==========================================
+   TABLES
+========================================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th {
+  background: #10141d;
+  color: #ffffff;
+}
+
+table td {
+  color: #d1d5db;
+}
+
+table th,
+table td {
+  border: 1px solid #1a2233;
+  padding: 12px;
+}
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #07090f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2d3748;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* ==========================================
+   REACT SELECT / MODAL / DROPDOWN SUPPORT
+========================================== */
+
+.modal,
+.dropdown-menu,
+.popup,
+.dialog {
+  background: #10141d;
+  color: #ffffff;
+}
+
+/* ==========================================
+   REMOVE WHITE BACKGROUNDS
+========================================== */
+
+div,
+section,
+main,
+article {
+  background-color: transparent;
+}

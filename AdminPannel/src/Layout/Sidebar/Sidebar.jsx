@@ -19,8 +19,13 @@ import {
   FaPlus,
   FaSearch,
   FaTimes,
+  FaUserTie,
+  FaClipboardList,
+  FaBookOpen,
+  FaStar,
+  FaAddressBook,
+  FaBook
 } from "react-icons/fa";
-
 const Sidebar = () => {
   const [showProfile, setShowProfile] = useState(false);
   const [showLogoMenu, setShowLogoMenu] = useState(false);
@@ -64,31 +69,31 @@ const Sidebar = () => {
           </div>
 
           {showLogoMenu && (
-            <div className="logoPopupCard">
+           <div className="logoPopupCard">
 
               <NavLink to="/profile">
                 <FaUser />
-                Public Profile
-              </NavLink>
-
-              <NavLink to="/account">
-                <FaCog />
-                Account
-              </NavLink>
-
-              <NavLink to="/network">
-                <FaNetworkWired />
-                Network
+                Profile Center
               </NavLink>
 
               <NavLink to="/authentication">
                 <FaShieldAlt />
-                Authentication
+                Authentication & Security
+              </NavLink>
+
+              <NavLink to="/network">
+                <FaNetworkWired />
+                Editorial Network
               </NavLink>
 
               <NavLink to="/user-management">
-                <FaUserShield />
-                User Management
+                 <FaUserShield />
+                     User Management
+              </NavLink>
+
+              <NavLink to="/logout">
+                <FaSignOutAlt />
+                Sign Out
               </NavLink>
 
             </div>
@@ -111,90 +116,117 @@ const Sidebar = () => {
 
         {/* MENU */}
 
-        <div className="sidebarMenu">
+       <div className="sidebarMenu">
+            {/* Dashboard */}
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                isActive
+                  ? "sidebarLink active"
+                  : "sidebarLink"
+              }
+            >
+            <FaTachometerAlt />
+          <span>Executive Dashboard</span>
+            </NavLink>
 
-          <div
-            className="sidebarDropdown"
-            onClick={() =>
-              setOpenMenu(
-                openMenu === "dashboard"
-                  ? ""
-                  : "dashboard"
-              )
-            }
-          >
-            <div className="sidebarDropdownLeft">
-              <FaTachometerAlt />
-              <span>Dashboard</span>
+            {/* Editor Management */}
+            <div
+              className="sidebarDropdown"
+              onClick={() =>
+                setOpenMenu(
+                  openMenu === "editor"
+                    ? ""
+                    : "editor"
+                )
+              }
+            >
+              <div className="sidebarDropdownLeft">
+              <FaUserTie />
+          <span>Editorial Management</span>
+              </div>
+
+              <FaChevronDown />
             </div>
 
-            <FaChevronDown />
-          </div>
+            {openMenu === "editor" && (
+              <div className="sidebarSubMenu">
+                <NavLink to="/new-editor">
+                  New Editor
+                </NavLink>
 
-          {openMenu === "dashboard" && (
-            <div className="sidebarSubMenu">
+                <NavLink to="/manage-editor">
+                  Manage Editor
+                </NavLink>
+              </div>
+            )}
 
+            {/* Cold Lead Management */}
+            <NavLink
+              to="/cold-lead-management"
+              className={({ isActive }) =>
+                isActive
+                  ? "sidebarLink active"
+                  : "sidebarLink"
+              }
+            >
+            <FaClipboardList />
+          <span>Lead Management Hub</span>
+            </NavLink>
+
+            {/* Index & Abstracting Management */}
+            <NavLink
+              to="/index-abstracting-management"
+              className={({ isActive }) =>
+                isActive
+                  ? "sidebarLink active"
+                  : "sidebarLink"
+              }
+            >
+            <FaBookOpen />
+          <span>Indexing & Abstracting</span>
+            </NavLink>
+
+            {/* Publication Management */}
               <NavLink
-                to="/dashboard"
+                to="/publication-management"
                 className={({ isActive }) =>
                   isActive
-                    ? "activeSubMenu"
-                    : ""
+                    ? "sidebarLink active"
+                    : "sidebarLink"
                 }
               >
-                Dashboard Home
+                <FaBook />
+                <span>Publication Management</span>
               </NavLink>
 
-              <NavLink
-                to="/analytics"
-                className={({ isActive }) =>
-                  isActive
-                    ? "activeSubMenu"
-                    : ""
-                }
-              >
-                Analytics
-              </NavLink>
+            {/* Testimonial Management */}
+            <NavLink
+              to="/testimonial-management"
+              className={({ isActive }) =>
+                isActive
+                  ? "sidebarLink active"
+                  : "sidebarLink"
+              }
+            >
+              <FaStar />
+          <span>Author Testimonials</span>
+            </NavLink>
 
-              <NavLink
-                to="/reports"
-                className={({ isActive }) =>
-                  isActive
-                    ? "activeSubMenu"
-                    : ""
-                }
-              >
-                Reports
-              </NavLink>
+            {/* Contact Management */}
+            <NavLink
+              to="/contact-management"
+              className={({ isActive }) =>
+                isActive
+                  ? "sidebarLink active"
+                  : "sidebarLink"
+              }
+            >
+            <FaAddressBook />
+          <span>Contact & Support Center</span>
+            </NavLink>
 
-            </div>
-          )}
-
-          <NavLink
-            to="/users"
-            className={({ isActive }) =>
-              isActive
-                ? "sidebarLink active"
-                : "sidebarLink"
-            }
-          >
-            <FaUsers />
-            <span>Users</span>
-          </NavLink>
-
-          <NavLink
-            to="/roles"
-            className={({ isActive }) =>
-              isActive
-                ? "sidebarLink active"
-                : "sidebarLink"
-            }
-          >
-            <FaShieldAlt />
-            <span>Roles</span>
-          </NavLink>
-
-        </div>
+      </div>
 
         {/* FOOTER */}
 
