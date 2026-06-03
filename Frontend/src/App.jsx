@@ -22,15 +22,23 @@ import SearchArticle from "./Pages/SearchArticle/SearchArticle";
 import Nomination from "./Pages/Nomination/Nomination";
 import TermCondition from "./Pages/TermCondition/TermCondition";
 
+import FaqSection from "./Pages/FaqSection/FaqSection";
+import LoginForm from "./Components/LoginForm/LoginForm";
+import SubmitFrom from "./Components/SubmitFrom/SubmitFrom";
+
+import ReturnRefund from "./Components/ReturnRefund/ReturnRefund";
+import Privacypolicy from "./Components/Privacypolicy/Privacypolicy";
+import Disclaimer from "./Components/Disclaimer/Disclaimer";
+import FloatingIcons from "./Components/FloatingIcons/FloatingIcons";
+import FloatingForm from "./Components/FloatingForm/FloatingForm";
+
 function App() {
   return (
+    <>
     <Router>
-
-      {/* 🔝 Global Top Layout */}
       <Topbar />
-      <Navbar />
-      
 
+      <Navbar />
       {/* 🔄 Routes */}
       <Routes>
 
@@ -52,14 +60,24 @@ function App() {
        <Route path="/search-articles" element={<SearchArticle/>}/>
        <Route path="/best-paper-award" element={<Nomination/>}/>
        <Route path="/terms-and-conditions" element={<TermCondition/>}/>
+       <Route path="/faq" element={<FaqSection />} />
+       <Route path="/login" element={<LoginForm />} />
+
+       <Route path="/submit-paper" element={<SubmitFrom />} />
+       
+       <Route path="/return-refund-policy" element={<ReturnRefund />} />
+       <Route path="/privacy-policy" element={<Privacypolicy />} />
+       <Route path="/disclaimer" element={<Disclaimer />} />
 
       </Routes>
 
      <Footer />
 
-     
+     <FloatingIcons />
+     <FloatingForm />
      
     </Router>
+    </>
   );
 }
 

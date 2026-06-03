@@ -1,0 +1,398 @@
+/* =======================================================
+   FLOATING FORM OVERLAY
+======================================================= */
+
+.floatingFormWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+  box-sizing: border-box;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  z-index: 999999;
+
+  animation: floatingFormFadeIn 0.5s ease;
+}
+
+/* =======================================================
+   MAIN CARD
+======================================================= */
+
+.floatingFormCard {
+  width: 100%;
+  max-width: 450px;
+
+  background: #ffffff;
+
+  border-radius: 30px;
+
+  overflow: hidden;
+
+  position: relative;
+
+  border: 3px solid #9bc53d;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.25),
+    0 10px 25px rgba(155, 197, 61, 0.15);
+
+  animation: floatingFormPopup 0.5s ease;
+}
+
+/* =======================================================
+   HEADER
+======================================================= */
+
+.floatingFormHeader {
+  background: linear-gradient(
+    135deg,
+    #9bc53d 0%,
+    #c6d92d 50%,
+    #f4c430 100%
+  );
+
+  padding: 35px 25px 30px;
+
+  text-align: center;
+
+  position: relative;
+}
+
+/* =======================================================
+   LOGO BOX
+======================================================= */
+
+.floatingFormLogoBox {
+  width: 120px;
+  height: 120px;
+
+  margin: auto;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  padding: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 4px rgba(255, 255, 255, 0.7);
+
+  transition: transform 2s linear;
+}
+
+/* LOGO ROTATION */
+
+.floatingFormCard:hover .floatingFormLogoBox {
+  transform: rotate(360deg);
+}
+
+.floatingFormLogo {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  border-radius: 50%;
+}
+
+/* =======================================================
+   TITLE
+======================================================= */
+
+.floatingFormHeading {
+  margin-top: 20px;
+
+  font-size: 36px;
+  font-weight: 700;
+
+  color: #114b25;
+
+  letter-spacing: 1px;
+}
+
+.floatingFormSubHeading {
+  margin-top: 10px;
+
+  font-size: 13px;
+  line-height: 1.7;
+
+  color: #1f2937;
+
+  font-weight: 500;
+}
+
+/* =======================================================
+   FORM
+======================================================= */
+
+.floatingFormForm {
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+
+  background: #ffffff;
+}
+
+/* =======================================================
+   INPUTS
+======================================================= */
+
+.floatingFormInput,
+.floatingFormTextarea {
+  width: 100%;
+
+  padding: 15px 18px;
+
+  border-radius: 16px;
+
+  border: 2px solid #dbe9aa;
+
+  background: #fbfdf5;
+
+  outline: none;
+
+  font-size: 15px;
+
+  color: #1f2937;
+
+  transition: all 0.3s ease;
+
+  box-sizing: border-box;
+}
+
+.floatingFormInput::placeholder,
+.floatingFormTextarea::placeholder {
+  color: #7b7b7b;
+}
+
+.floatingFormInput:focus,
+.floatingFormTextarea:focus {
+  border-color: #9bc53d;
+
+  background: #ffffff;
+
+  box-shadow: 0 0 14px rgba(155, 197, 61, 0.25);
+}
+
+/* TEXTAREA */
+
+.floatingFormTextarea {
+  min-height: 130px;
+
+  resize: none;
+}
+
+/* =======================================================
+   BUTTON
+======================================================= */
+
+.floatingFormSubmitBtn {
+  width: 100%;
+
+  padding: 16px;
+
+  border: none;
+
+  border-radius: 18px;
+
+  background: linear-gradient(
+    135deg,
+    #114b25 0%,
+    #2d7d2f 50%,
+    #8ebf2f 100%
+  );
+
+  color: #ffffff;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+
+  cursor: pointer;
+
+  transition: all 0.4s ease;
+
+  box-shadow: 0 12px 25px rgba(17, 75, 37, 0.25);
+}
+
+.floatingFormSubmitBtn:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 18px 35px rgba(17, 75, 37, 0.35);
+}
+
+/* =======================================================
+   CLOSE BUTTON
+======================================================= */
+
+.floatingFormCloseBtn {
+  position: absolute;
+
+  top: 15px;
+  right: 15px;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  color: #114b25;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 100;
+
+  transition: all 0.3s ease;
+
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+}
+
+.floatingFormCloseBtn:hover {
+  transform: rotate(90deg) scale(1.05);
+
+  background: #f5f5f5;
+}
+
+/* =======================================================
+   ANIMATIONS
+======================================================= */
+
+@keyframes floatingFormFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes floatingFormPopup {
+  from {
+    opacity: 0;
+
+    transform: scale(0.75) translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* =======================================================
+   TABLET RESPONSIVE
+======================================================= */
+
+@media (max-width: 768px) {
+  .floatingFormCard {
+    max-width: 100%;
+  }
+
+  .floatingFormHeader {
+    padding: 28px 20px;
+  }
+
+  .floatingFormHeading {
+    font-size: 30px;
+  }
+
+  .floatingFormLogoBox {
+    width: 95px;
+    height: 95px;
+  }
+
+  .floatingFormForm {
+    padding: 24px;
+  }
+}
+
+/* =======================================================
+   MOBILE RESPONSIVE
+======================================================= */
+
+@media (max-width: 480px) {
+  .floatingFormWrapper {
+    padding: 12px;
+  }
+
+  .floatingFormCard {
+    border-radius: 24px;
+  }
+
+  .floatingFormHeader {
+    padding: 24px 18px;
+  }
+
+  .floatingFormHeading {
+    font-size: 24px;
+  }
+
+  .floatingFormSubHeading {
+    font-size: 12px;
+  }
+
+  .floatingFormLogoBox {
+    width: 80px;
+    height: 80px;
+  }
+
+  .floatingFormForm {
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .floatingFormInput,
+  .floatingFormTextarea {
+    padding: 13px 14px;
+
+    font-size: 14px;
+  }
+
+  .floatingFormSubmitBtn {
+    padding: 14px;
+
+    font-size: 15px;
+  }
+
+  .floatingFormCloseBtn {
+    width: 35px;
+    height: 35px;
+
+    font-size: 20px;
+  }
+}

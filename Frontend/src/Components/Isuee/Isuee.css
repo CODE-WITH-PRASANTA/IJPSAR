@@ -1,768 +1,701 @@
-/* =========================
-   ISUEE - PREMIUM WHITE & #64C345 UI
-========================= */
+/* =====================================================
+PREMIUM ISSUE SECTION
+COMPACT • MODERN • PROFESSIONAL
+===================================================== */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-.isuee {
-  position: relative;
-  width: 100%;
+.isuee{
+position:relative;
+width:100%;
+padding:80px 5%;
+overflow:hidden;
 
-  padding: 90px 7%;
-
-  overflow: hidden;
-
-  background:
-    linear-gradient(
-      135deg,
-      #ffffff 0%,
-      #f8fff5 40%,
-      #eefbe8 100%
-    );
+background:
+linear-gradient(
+135deg,
+#ffffff 0%,
+#f8fff5 45%,
+#eefbe8 100%
+);
 }
 
-/* =========================
-   PREMIUM BACKGROUND EFFECTS
-========================= */
+/* =====================================================
+BACKGROUND GLOW
+===================================================== */
 
-.isuee::before {
-  content: "";
+.isuee::before{
+content:"";
+position:absolute;
+top:-150px;
+left:-150px;
 
-  position: absolute;
+width:350px;
+height:350px;
 
-  top: -150px;
-  left: -120px;
+border-radius:50%;
 
-  width: 420px;
-  height: 420px;
+background:rgba(100,195,69,.10);
 
-  border-radius: 50%;
+filter:blur(120px);
 
-  background: rgba(100, 195, 69, 0.12);
-
-  filter: blur(120px);
-
-  animation: floatGlow 8s ease-in-out infinite;
-
-  z-index: 0;
+animation:isueeFloat 8s ease-in-out infinite;
 }
 
-.isuee::after {
-  content: "";
+.isuee::after{
+content:"";
+position:absolute;
+bottom:-150px;
+right:-150px;
 
-  position: absolute;
+width:400px;
+height:400px;
 
-  right: -140px;
-  bottom: -180px;
+border-radius:50%;
 
-  width: 460px;
-  height: 460px;
+background:rgba(100,195,69,.08);
 
-  border-radius: 50%;
+filter:blur(130px);
 
-  background: rgba(100, 195, 69, 0.10);
-
-  filter: blur(130px);
-
-  animation: floatGlowTwo 10s ease-in-out infinite alternate;
-
-  z-index: 0;
+animation:isueeFloatTwo 10s ease-in-out infinite;
 }
 
-/* =========================
-   GLOW EFFECTS
-========================= */
-
-.isuee-bg-glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  z-index: 0;
+.isuee-bg-glow{
+position:absolute;
+border-radius:50%;
+filter:blur(120px);
+z-index:0;
 }
 
-.isuee-glow1 {
-  width: 320px;
-  height: 320px;
-
-  background: rgba(100, 195, 69, 0.14);
-
-  top: -80px;
-  left: -80px;
+.isuee-glow1{
+width:250px;
+height:250px;
+background:rgba(100,195,69,.12);
+top:-80px;
+left:-80px;
 }
 
-.isuee-glow2 {
-  width: 350px;
-  height: 350px;
-
-  background: rgba(100, 195, 69, 0.12);
-
-  bottom: -120px;
-  right: -120px;
+.isuee-glow2{
+width:280px;
+height:280px;
+background:rgba(100,195,69,.10);
+bottom:-80px;
+right:-80px;
 }
 
-/* =========================
-   CONTAINER
-========================= */
+/* =====================================================
+CONTAINER
+===================================================== */
 
-.isuee-container {
-  position: relative;
-  z-index: 2;
+.isuee-container{
+position:relative;
+z-index:2;
 
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-
-  gap: 35px;
-  align-items: start;
+display:grid;
+grid-template-columns:2.2fr .9fr;
+gap:30px;
+align-items:start;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* =====================================================
+HEADER
+===================================================== */
 
-.isuee-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-bottom: 45px;
-  gap: 20px;
+.isuee-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+margin-bottom:35px;
 }
 
-.isuee-subtitle {
-  color: #64c345;
-
-  font-size: 14px;
-  letter-spacing: 3px;
-  font-weight: 700;
-
-  margin-bottom: 14px;
-
-  display: inline-block;
+.isuee-subtitle{
+display:inline-block;
+font-size:13px;
+font-weight:700;
+letter-spacing:3px;
+color:#64c345;
+margin-bottom:10px;
 }
 
-.isuee-title {
-  font-size: 4rem;
-  color: #081c15;
-
-  line-height: 1.08;
-  font-weight: 800;
+.isuee-title{
+font-size:3.3rem;
+font-weight:800;
+line-height:1.1;
+color:#081c15;
 }
 
-.isuee-title span {
-  color: #64c345;
+.isuee-title span{
+color:#64c345;
 }
 
-/* =========================
-   ARCHIVE BUTTON
-========================= */
+/* =====================================================
+ARCHIVE BUTTON
+===================================================== */
 
-.isuee-archive-btn {
-  border: none;
+.isuee-archive-btn{
+border:none;
 
-  background: rgba(255, 255, 255, 0.88);
+padding:14px 22px;
 
-  padding: 18px 30px;
+border-radius:16px;
 
-  border-radius: 20px;
+font-size:.9rem;
+font-weight:700;
 
-  font-size: 1rem;
-  font-weight: 700;
+cursor:pointer;
 
-  color: #123524;
+display:flex;
+align-items:center;
+gap:10px;
 
-  cursor: pointer;
+background:#fff;
 
-  display: flex;
-  align-items: center;
-  gap: 12px;
+color:#123524;
 
-  border: 1px solid rgba(100, 195, 69, 0.14);
+border:1px solid rgba(100,195,69,.12);
 
-  backdrop-filter: blur(14px);
+box-shadow:
+0 8px 20px rgba(0,0,0,.05);
 
-  box-shadow:
-    0 12px 35px rgba(0, 0, 0, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-
-  transition: 0.4s ease;
+transition:.35s;
 }
 
-.isuee-archive-btn:hover {
-  transform: translateY(-5px);
+.isuee-archive-btn:hover{
+transform:translateY(-3px);
 
-  background:
-    linear-gradient(
-      135deg,
-      #64c345,
-      #4ea932
-    );
+background:
+linear-gradient(
+135deg,
+#64c345,
+#4ea932
+);
 
-  color: #ffffff;
-
-  box-shadow:
-    0 18px 35px rgba(100, 195, 69, 0.28);
+color:#fff;
 }
 
-/* =========================
-   GRID
-========================= */
+/* =====================================================
+GRID
+===================================================== */
 
-.isuee-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 28px;
+.isuee-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
 }
 
-/* =========================
-   CARD
-========================= */
+/* =====================================================
+CARD
+===================================================== */
 
-.isuee-card {
-  background: rgba(255, 255, 255, 0.88);
+.isuee-card{
+position:relative;
+overflow:hidden;
 
-  border-radius: 30px;
+background:#fff;
 
-  padding: 30px;
+border-radius:20px;
 
-  border: 1px solid rgba(100, 195, 69, 0.10);
+padding:20px;
 
-  backdrop-filter: blur(16px);
+border:1px solid rgba(100,195,69,.12);
 
-  transition: 0.45s ease;
+display:flex;
+flex-direction:column;
 
-  box-shadow:
-    0 15px 40px rgba(0, 0, 0, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+min-height:430px;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,.05);
+
+transition:.35s ease;
 }
 
-.isuee-card:hover {
-  transform: translateY(-8px);
+.isuee-card::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
 
-  box-shadow:
-    0 28px 55px rgba(100, 195, 69, 0.16);
+width:100%;
+height:4px;
+
+background:
+linear-gradient(
+90deg,
+#64c345,
+#92e66d
+);
 }
 
-/* =========================
-   TOP
-========================= */
+.isuee-card:hover{
+transform:translateY(-6px);
 
-.isuee-card-top {
-  display: flex;
-  justify-content: space-between;
-
-  gap: 12px;
-
-  margin-bottom: 18px;
-
-  flex-wrap: wrap;
+box-shadow:
+0 18px 40px rgba(100,195,69,.15);
 }
 
-.isuee-category {
-  background: rgba(100, 195, 69, 0.10);
+/* =====================================================
+CARD TOP
+===================================================== */
 
-  color: #4f9f35;
+.isuee-card-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
 
-  padding: 10px 16px;
-
-  border-radius: 30px;
-
-  font-size: 13px;
-  font-weight: 700;
+gap:10px;
+margin-bottom:12px;
 }
 
-.isuee-date {
-  display: flex;
-  align-items: center;
+.isuee-category{
+padding:6px 12px;
 
-  gap: 8px;
+font-size:11px;
+font-weight:700;
 
-  color: #667085;
+border-radius:25px;
 
-  font-size: 14px;
+background:rgba(100,195,69,.10);
+
+color:#4f9f35;
+
+transition:.3s;
 }
 
-.isuee-volume {
-  display: flex;
-  align-items: center;
-
-  gap: 8px;
-
-  color: #6b7280;
-
-  margin-bottom: 18px;
-
-  font-size: 14px;
+.isuee-card:hover .isuee-category{
+background:#64c345;
+color:#fff;
 }
 
-.isuee-card-title {
-  font-size: 1.5rem;
+.isuee-date{
+display:flex;
+align-items:center;
+gap:6px;
 
-  line-height: 1.4;
-
-  color: #071b14;
-
-  margin-bottom: 18px;
-
-  font-weight: 800;
+font-size:13px;
+color:#667085;
 }
 
-.isuee-authors {
-  display: flex;
-  align-items: flex-start;
+.isuee-volume{
+display:flex;
+align-items:center;
+gap:8px;
 
-  gap: 10px;
+font-size:13px;
 
-  color: #64748b;
+color:#64748b;
 
-  margin-bottom: 22px;
-
-  line-height: 1.6;
+margin-bottom:14px;
 }
 
-/* =========================
-   DOI BOX
-========================= */
+/* =====================================================
+TITLE
+===================================================== */
 
-.isuee-doi {
-  background: rgba(100, 195, 69, 0.05);
+.isuee-card-title{
+font-size:1rem;
+font-weight:700;
 
-  border-radius: 20px;
+line-height:1.55;
 
-  padding: 16px;
+color:#081c15;
 
-  margin-bottom: 25px;
+margin-bottom:14px;
 
-  border: 1px dashed rgba(100, 195, 69, 0.22);
+min-height:95px;
+
+display:-webkit-box;
+-webkit-line-clamp:3;
+-webkit-box-orient:vertical;
+overflow:hidden;
 }
 
-.isuee-doi span {
-  font-size: 14px;
-  font-weight: 700;
+/* =====================================================
+AUTHORS
+===================================================== */
 
-  color: #1a412c;
+.isuee-authors{
+display:flex;
+align-items:flex-start;
+
+gap:8px;
+
+font-size:14px;
+line-height:1.5;
+
+color:#64748b;
+
+margin-bottom:14px;
+
+min-height:55px;
 }
 
-.isuee-doi p {
-  margin-top: 8px;
+/* =====================================================
+DOI
+===================================================== */
 
-  color: #0f172a;
+.isuee-doi{
+background:#f9fcf8;
 
-  line-height: 1.6;
+border-radius:14px;
 
-  word-break: break-word;
+padding:12px;
+
+border:1px dashed rgba(100,195,69,.20);
+
+margin-bottom:18px;
+
+min-height:80px;
 }
 
-/* =========================
-   CARD BOTTOM
-========================= */
-
-.isuee-card-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  gap: 15px;
+.isuee-doi span{
+font-size:13px;
+font-weight:700;
+color:#1a412c;
 }
 
-/* PDF BUTTON */
-
-.isuee-pdf-btn {
-  border: none;
-
-  background:
-    linear-gradient(
-      135deg,
-      #264d20,
-      #64c345
-    );
-
-  color: #ffffff;
-
-  padding: 14px 22px;
-
-  border-radius: 16px;
-
-  font-weight: 700;
-
-  display: flex;
-  align-items: center;
-
-  gap: 10px;
-
-  cursor: pointer;
-
-  transition: 0.4s ease;
-
-  box-shadow:
-    0 14px 28px rgba(100, 195, 69, 0.22);
+.isuee-doi p{
+font-size:13px;
+line-height:1.5;
+margin-top:4px;
+word-break:break-word;
 }
 
-.isuee-pdf-btn:hover {
-  transform: scale(1.04);
+/* =====================================================
+CARD BUTTONS
+===================================================== */
+
+.isuee-card-bottom{
+margin-top:auto;
+
+display:flex;
+gap:10px;
 }
 
-/* READ BUTTON */
+.isuee-pdf-btn{
+flex:1;
 
-.isuee-read-btn {
-  border: none;
-  background: transparent;
+height:44px;
 
-  color: #4f9f35;
+border:none;
 
-  font-weight: 700;
-  font-size: 1rem;
+border-radius:12px;
 
-  cursor: pointer;
+font-size:.9rem;
+font-weight:700;
 
-  display: flex;
-  align-items: center;
+cursor:pointer;
 
-  gap: 10px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+
+color:#fff;
+
+background:
+linear-gradient(
+135deg,
+#2a5f20,
+#64c345
+);
+
+transition:.3s;
 }
 
-/* =========================
-   SIDEBAR
-========================= */
-
-.isuee-sidebar {
-  display: flex;
-  flex-direction: column;
-
-  gap: 30px;
+.isuee-pdf-btn:hover{
+transform:translateY(-2px);
 }
 
-.isuee-sidebar-card {
-  background: rgba(255, 255, 255, 0.92);
+.isuee-read-btn{
+flex:1;
 
-  padding: 30px;
+height:44px;
 
-  border-radius: 30px;
+border-radius:12px;
 
-  border: 1px solid rgba(100, 195, 69, 0.10);
+border:1px solid rgba(100,195,69,.18);
 
-  backdrop-filter: blur(12px);
+background:#fff;
 
-  box-shadow:
-    0 15px 35px rgba(0, 0, 0, 0.05);
+font-size:.9rem;
+font-weight:700;
+
+cursor:pointer;
+
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+
+color:#4f9f35;
+
+transition:.3s;
 }
 
-.isuee-sidebar-card h3 {
-  font-size: 1.1rem;
+.isuee-read-btn:hover
 
-  margin-bottom: 25px;
+/* =====================================================
+SIDEBAR
+===================================================== */
 
-  text-transform: uppercase;
-  letter-spacing: 2px;
-
-  color: #4f9f35;
+.isuee-sidebar{
+display:flex;
+flex-direction:column;
+gap:20px;
 }
 
-/* =========================
-   DETAILS
-========================= */
+.isuee-sidebar-card{
+background:#fff;
 
-.isuee-detail-row {
-  display: flex;
-  justify-content: space-between;
+padding:24px;
 
-  padding: 16px 0;
+border-radius:20px;
 
-  border-bottom: 1px dashed rgba(100, 195, 69, 0.18);
+border:1px solid rgba(100,195,69,.10);
+
+box-shadow:
+0 8px 20px rgba(0,0,0,.05);
 }
 
-.isuee-detail-row span {
-  font-weight: 700;
+.isuee-sidebar-card h3{
+font-size:1rem;
 
-  color: #081c15;
+letter-spacing:1px;
+text-transform:uppercase;
+
+margin-bottom:20px;
+
+color:#4f9f35;
 }
 
-.isuee-detail-row p {
-  color: #475569;
+/* =====================================================
+DETAILS
+===================================================== */
+
+.isuee-detail-row{
+display:flex;
+justify-content:space-between;
+
+padding:12px 0;
+
+border-bottom:1px dashed rgba(100,195,69,.18);
 }
 
-/* =========================
-   PREMIUM SELECT
-========================= */
-
-.isuee-select-wrapper {
-  position: relative;
-
-  margin-bottom: 20px;
+.isuee-detail-row span{
+font-weight:700;
+color:#081c15;
 }
 
-.isuee-select {
-  width: 100%;
-  height: 62px;
-
-  border-radius: 18px;
-
-  border: 1px solid rgba(100, 195, 69, 0.18);
-
-  padding: 0 22px;
-
-  font-size: 1rem;
-  font-weight: 600;
-
-  color: #072f23;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,0.95),
-      rgba(245,255,240,0.95)
-    );
-
-  outline: none;
-
-  cursor: pointer;
-
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  transition: all 0.35s ease;
-
-  box-shadow:
-    0 10px 25px rgba(100, 195, 69, 0.06),
-    inset 0 1px 0 rgba(255,255,255,0.7);
+.isuee-detail-row p{
+color:#475569;
 }
 
-/* ARROW */
+/* =====================================================
+FILTER
+===================================================== */
 
-.isuee-select-wrapper::after {
-  content: "⌄";
-
-  position: absolute;
-
-  top: 50%;
-  right: 20px;
-
-  transform: translateY(-50%);
-
-  font-size: 1.2rem;
-  font-weight: 700;
-
-  color: #64c345;
-
-  pointer-events: none;
+.isuee-select-wrapper{
+position:relative;
+margin-bottom:16px;
 }
 
-/* HOVER */
+.isuee-select{
+width:100%;
+height:52px;
 
-.isuee-select:hover {
-  border-color: #64c345;
+padding:0 16px;
 
-  box-shadow:
-    0 15px 30px rgba(100, 195, 69, 0.12);
+border-radius:14px;
+
+border:1px solid rgba(100,195,69,.18);
+
+outline:none;
+
+font-size:14px;
+font-weight:600;
+
+background:#fff;
+
+cursor:pointer;
+
+appearance:none;
 }
 
-/* FOCUS */
+.isuee-select-wrapper::after{
+content:"⌄";
 
-.isuee-select:focus {
-  border-color: #64c345;
+position:absolute;
+top:50%;
+right:16px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #ffffff,
-      #efffe8
-    );
+transform:translateY(-50%);
 
-  box-shadow:
-    0 0 0 4px rgba(100, 195, 69, 0.12),
-    0 15px 35px rgba(100, 195, 69, 0.12);
+font-size:18px;
+
+pointer-events:none;
+
+color:#64c345;
 }
 
-.isuee-select option {
-  background: #ffffff;
+.isuee-apply-btn{
+width:100%;
 
-  color: #072f23;
+height:52px;
 
-  padding: 14px;
+border:none;
+
+border-radius:14px;
+
+font-size:.95rem;
+font-weight:700;
+
+cursor:pointer;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+color:#fff;
+
+background:
+linear-gradient(
+135deg,
+#2a5f20,
+#64c345
+);
+
+box-shadow:
+0 10px 20px rgba(100,195,69,.25);
+
+transition:.3s;
 }
 
-/* =========================
-   APPLY BUTTON
-========================= */
-
-.isuee-apply-btn {
-  width: 100%;
-  height: 60px;
-
-  border: none;
-  border-radius: 18px;
-
-  font-size: 1.05rem;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  color: #ffffff;
-
-  background:
-    linear-gradient(
-      135deg,
-      #2a5f20,
-      #64c345
-    );
-
-  box-shadow:
-    0 15px 30px rgba(100, 195, 69, 0.22);
-
-  transition: 0.4s ease;
+.isuee-apply-btn:hover{
+transform:translateY(-2px);
 }
 
-.isuee-apply-btn:hover {
-  transform: translateY(-4px);
+/* =====================================================
+DOWNLOAD LIST
+===================================================== */
+
+.isuee-download-list{
+list-style:none;
 }
 
-/* =========================
-   DOWNLOAD LIST
-========================= */
+.isuee-download-list li{
+padding:12px 0;
 
-.isuee-download-list {
-  list-style: none;
+font-size:14px;
+line-height:1.5;
+
+border-bottom:1px dashed rgba(100,195,69,.18);
 }
 
-.isuee-download-list li {
-  padding: 16px 0;
+/* =====================================================
+ANIMATION
+===================================================== */
 
-  border-bottom: 1px dashed rgba(100, 195, 69, 0.18);
-
-  color: #0f172a;
-
-  line-height: 1.6;
+@keyframes isueeFloat{
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-20px);
+}
 }
 
-/* =========================
-   ANIMATIONS
-========================= */
-
-@keyframes floatGlow {
-
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-25px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
+@keyframes isueeFloatTwo{
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-30px);
+}
 }
 
-@keyframes floatGlowTwo {
+/* =====================================================
+RESPONSIVE
+===================================================== */
 
-  0% {
-    transform: translateY(0px) scale(1);
-  }
+@media(max-width:1300px){
 
-  100% {
-    transform: translateY(-30px) scale(1.06);
-  }
+.isuee-grid{
+grid-template-columns:repeat(2,1fr);
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 1400px) {
-
-  .isuee-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
-@media (max-width: 1100px) {
+@media(max-width:1100px){
 
-  .isuee-container {
-    grid-template-columns: 1fr;
-  }
-
-  .isuee-sidebar {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
+.isuee-container{
+grid-template-columns:1fr;
 }
 
-@media (max-width: 768px) {
-
-  .isuee {
-    padding: 60px 5%;
-  }
-
-  .isuee-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .isuee-title {
-    font-size: 2.8rem;
-  }
-
-  .isuee-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .isuee-sidebar {
-    grid-template-columns: 1fr;
-  }
-
-  .isuee-card-title {
-    font-size: 1.3rem;
-  }
-
-  .isuee-card-bottom {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .isuee-pdf-btn,
-  .isuee-read-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .isuee-select {
-    height: 58px;
-    font-size: 0.95rem;
-  }
+.isuee-sidebar{
+display:grid;
+grid-template-columns:repeat(3,1fr);
 }
 
-@media (max-width: 480px) {
+}
 
-  .isuee {
-    padding: 50px 4%;
-  }
+@media(max-width:768px){
 
-  .isuee-title {
-    font-size: 2rem;
-  }
+.isuee{
+padding:60px 5%;
+}
 
-  .isuee-card,
-  .isuee-sidebar-card {
-    padding: 22px;
-    border-radius: 22px;
-  }
+.isuee-title{
+font-size:2.5rem;
+}
 
-  .isuee-card-title {
-    font-size: 1.15rem;
-  }
+.isuee-header{
+flex-direction:column;
+align-items:flex-start;
+}
 
-  .isuee-archive-btn {
-    width: 100%;
-    justify-content: center;
-  }
+.isuee-grid{
+grid-template-columns:1fr;
+}
 
-  .isuee-select {
-    height: 54px;
-    font-size: 0.9rem;
-  }
+.isuee-sidebar{
+grid-template-columns:1fr;
+}
+
+.isuee-card{
+min-height:auto;
+}
+
+.isuee-card-bottom{
+flex-direction:column;
+}
+
+.isuee-pdf-btn,
+.isuee-read-btn{
+width:100%;
+}
+
+}
+
+@media(max-width:480px){
+
+.isuee-title{
+font-size:2rem;
+}
+
+.isuee-card,
+.isuee-sidebar-card{
+padding:18px;
+}
+
+.isuee-archive-btn{
+width:100%;
+justify-content:center;
+}
+
 }

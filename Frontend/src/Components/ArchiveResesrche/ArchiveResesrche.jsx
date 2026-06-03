@@ -8,6 +8,7 @@ import {
   FaLayerGroup,
   FaFileAlt,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const archiveData = [
   {
@@ -178,10 +179,20 @@ const ArchiveResesrche = () => {
                 data-label="Browse"
               >
 
-                <button className="archiveresearch-btn">
-                  Browse
-                  <FaArrowRight />
-                </button>
+  <div
+  className="archiveresearch-btn-box"
+  data-label="Browse"
+>
+  <button
+    className="archiveresearch-btn"
+    onClick={() =>
+      window.location.href = "/current-issue"
+    }
+  >
+    Browse
+    <FaArrowRight />
+  </button>
+</div>
 
               </div>
 

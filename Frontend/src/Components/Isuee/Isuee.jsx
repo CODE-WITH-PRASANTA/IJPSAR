@@ -11,6 +11,7 @@ import {
   FaFilePdf,
   FaFolderOpen,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const articleData = [
   {
@@ -141,10 +142,13 @@ const Isuee = () => {
                     PDF
                   </button>
 
-                  <button className="isuee-read-btn">
-                    Read Article
-                    <FaArrowRight />
-                  </button>
+                 <Link
+  to="/sample-article"
+  className="isuee-read-btn"
+>
+  Read Article
+  <FaArrowRight />
+</Link>
 
                 </div>
 

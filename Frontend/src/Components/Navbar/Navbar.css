@@ -6,28 +6,53 @@
   width: 100%;
   background: #ffffff;
 
-  position: sticky;
-  top: 0;
-  z-index: 9999;
+  position: fixed;
+  top: 45px; /* Adjust according to your topbar height */
+  left: 0;
 
-  border-bottom: 1px solid rgba(99, 182, 0, 0.12);
+  z-index: 99998;
 
-  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.04);
+  border-bottom: 2px solid rgba(102, 198, 65, 0.18);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
 }
 
 .navbarWrapper {
-  max-width: 1450px;
+  max-width: 1500px;
   margin: auto;
 
-  height: 90px;
+  height: 110px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 40px;
+  padding: 0 35px;
 
-  position: relative;
+  gap: 40px;
+}
+
+/* =========================================
+   LOGO
+========================================= */
+
+.navbarLogoContainer {
+  display: flex;
+  align-items: center;
+
+  flex-shrink: 0;
+}
+
+.navbarLogo {
+  width: 100px;
+  height: 100px;
+
+  object-fit: contain;
+
+  transition: 0.3s ease;
+}
+
+.navbarLogo:hover {
+  transform: scale(1.03);
 }
 
 /* =========================================
@@ -37,7 +62,11 @@
 .navbarMenuContainer {
   display: flex;
   align-items: center;
-  gap: 55px;
+  justify-content: flex-end;
+
+  gap: 48px;
+
+  flex: 1;
 }
 
 .navbarMenuItem {
@@ -49,14 +78,14 @@
 
   text-decoration: none;
 
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
 
   color: #1f2937;
 
   cursor: pointer;
 
-  transition: 0.35s ease;
+  transition: 0.3s ease;
 }
 
 /* =========================================
@@ -67,28 +96,23 @@
   content: "";
 
   position: absolute;
-  bottom: -12px;
+  bottom: -10px;
   left: 50%;
 
   width: 0%;
   height: 3px;
 
-  background: linear-gradient(
-    90deg,
-    #d8ff3e,
-    #63b600
-  );
+  background: #66c641;
 
   border-radius: 50px;
 
   transform: translateX(-50%);
 
-  transition: 0.35s ease;
+  transition: 0.3s ease;
 }
 
 .navbarMenuItem:hover {
-  color: #63b600;
-  transform: translateY(-2px);
+  color: #66c641;
 }
 
 .navbarMenuItem:hover::after {
@@ -102,8 +126,8 @@
 .navbarDropdownContainer {
   position: relative;
 
-  padding: 32px 0;
-  margin: -32px 0;
+  padding: 28px 0;
+  margin: -28px 0;
 }
 
 .navbarDropdownContainer:hover .navbarDropdownMenu {
@@ -119,48 +143,50 @@
 
 .navbarDropdownMenu {
   position: absolute;
-  top: 90px;
+  top: 85px;
   left: 0;
 
   background: #ffffff;
 
-  border-radius: 24px;
+  border-radius: 20px;
 
-  padding: 30px;
+  padding: 24px;
 
-  border: 1px solid rgba(99, 182, 0, 0.1);
+  border: 1px solid rgba(102, 198, 65, 0.12);
 
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.08);
+    0 18px 45px rgba(0, 0, 0, 0.08);
 
   opacity: 0;
   visibility: hidden;
 
-  transform: translateY(20px);
+  transform: translateY(18px);
 
   pointer-events: none;
 
-  transition: 0.35s ease;
+  transition: 0.3s ease;
 }
 
-/* SMALL DROPDOWN */
+/* SMALL */
 
 .navbarSmallDropdown {
-  width: 310px;
+  width: 280px;
 
   display: flex;
   flex-direction: column;
-  gap: 14px;
+
+  gap: 10px;
 }
 
-/* LARGE DROPDOWN */
+/* LARGE */
 
 .navbarLargeDropdown {
-  width: 720px;
+  width: 500px;
 
   display: flex;
   justify-content: space-between;
-  gap: 60px;
+
+  gap: 35px;
 }
 
 /* =========================================
@@ -172,7 +198,8 @@
 
   display: flex;
   flex-direction: column;
-  gap: 18px;
+
+  gap: 12px;
 }
 
 /* =========================================
@@ -182,17 +209,17 @@
 .navbarDropdownTitle {
   position: relative;
 
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 800;
 
   text-transform: uppercase;
   letter-spacing: 2px;
 
-  color: #63b600;
+  color: #66c641;
 
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 
-  padding-bottom: 12px;
+  padding-bottom: 10px;
 }
 
 .navbarDropdownTitle::after {
@@ -202,68 +229,41 @@
   bottom: 0;
   left: 0;
 
-  width: 45px;
+  width: 42px;
   height: 3px;
 
   border-radius: 50px;
 
-  background: linear-gradient(
-    90deg,
-    #d8ff3e,
-    #63b600
-  );
+  background: #66c641;
 }
-
+.navbarMobileLoginButton {
+  display: none;
+}
 /* =========================================
    DROPDOWN ITEMS
 ========================================= */
 
 .navbarDropdownItem {
-  position: relative;
-
   text-decoration: none;
 
   color: #374151;
 
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 600;
 
-  padding: 12px 16px;
+  padding: 10px 14px;
 
-  border-radius: 14px;
+  border-radius: 12px;
 
-  overflow: hidden;
-
-  transition: 0.35s ease;
-}
-
-.navbarDropdownItem::before {
-  content: "";
-
-  position: absolute;
-  top: 0;
-  left: -100%;
-
-  width: 100%;
-  height: 100%;
-
-  background: linear-gradient(
-    90deg,
-    rgba(220, 255, 62, 0.18),
-    rgba(99, 182, 0, 0.12)
-  );
-
-  transition: 0.4s ease;
-}
-
-.navbarDropdownItem:hover::before {
-  left: 0;
+  transition: 0.3s ease;
 }
 
 .navbarDropdownItem:hover {
-  color: #63b600;
+  background: rgba(102, 198, 65, 0.1);
 
-  transform: translateX(5px);
+  color: #66c641;
+
+  transform: translateX(4px);
 }
 
 /* =========================================
@@ -271,7 +271,8 @@
 ========================================= */
 
 .navbarArrowIcon {
-  font-size: 11px;
+  font-size: 10px;
+
   transition: 0.3s ease;
 }
 
@@ -286,16 +287,18 @@
 .navbarMobileIcon {
   display: none;
 
-  font-size: 24px;
+  font-size: 22px;
+
   cursor: pointer;
 
   color: #111827;
-
-  /* z-index: 99999; */
 }
-
+.navbarMobileIcon {
+  position: relative;
+  z-index: 9999999;
+}
 /* =========================================
-   MOBILE CLOSE ICON
+   CLOSE BUTTON
 ========================================= */
 
 .navbarCloseButton {
@@ -303,54 +306,104 @@
 }
 
 /* =========================================
-   RESPONSIVE TABLET
+   TABLET
 ========================================= */
 
 @media (max-width: 1100px) {
 
-  .navbarMenuContainer {
-    gap: 35px;
+  .navbarLogo {
+    width: 95px;
+    height: 95px;
   }
 
-  .navbarLargeDropdown {
-    width: 580px;
+  .navbarMenuContainer {
+    gap: 30px;
   }
 
   .navbarMenuItem {
-    font-size: 16px;
+    font-size: 15px;
+  }
+/* ==========================
+   MOBILE LOGIN BUTTON
+========================== */
+
+.navbarMobileLoginButton {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 50px;
+
+  margin-top: auto;
+
+  background: #66c641;
+  color: #ffffff;
+
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+
+  border-radius: 12px;
+
+  transition: 0.3s ease;
+}
+
+.navbarMobileLoginButton:hover {
+  background: #57b737;
+  color: #ffffff;
+}
+  .navbarLargeDropdown {
+    width: 450px;
   }
 }
 
 /* =========================================
-   MOBILE VIEW
+   MOBILE
 ========================================= */
 
 @media (max-width: 992px) {
 
+  /* NAVBAR */
+
   .navbarWrapper {
     height: 80px;
-    padding: 0 20px;
+
+    padding: 0 16px;
   }
 
-  /* HAMBURGER ICON */
+  /* LOGO */
+
+  .navbarLogo {
+    width: 70px;
+    height: 70px;
+  }
+ body {
+    padding-top: 80px;
+  }
+  /* HAMBURGER */
 
   .navbarMobileIcon {
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    width: 45px;
-    height: 45px;
+    width: 44px;
+    height: 44px;
 
     border-radius: 12px;
 
-    background: rgba(220, 255, 62, 0.15);
+    background: rgba(102, 198, 65, 0.14);
 
-    transition: 0.3s ease;
-  }
+    color: #111827;
 
-  .navbarMobileIcon:hover {
-    background: rgba(220, 255, 62, 0.3);
+    font-size: 20px;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
   }
 
   /* MOBILE MENU */
@@ -361,35 +414,36 @@
     top: 0;
     left: -100%;
 
-    width: 320px;
-    max-width: 85%;
+    width: 280px;
+    max-width: 82%;
 
     height: 100vh;
 
     background: #ffffff;
 
+    display: flex;
     flex-direction: column;
+
     align-items: flex-start;
+    justify-content: flex-start;
 
-    gap: 28px;
+    gap: 22px;
 
-    padding: 90px 25px 40px;
+    padding: 90px 22px 40px;
 
     overflow-y: auto;
 
-    transition:
-      left 0.45s ease,
-      opacity 0.35s ease;
-
-    z-index: 99999;
+    transition: 0.4s ease;
 
     opacity: 0;
 
+    z-index: 999999;
+
     box-shadow:
-      10px 0 40px rgba(0, 0, 0, 0.12);
+      12px 0 40px rgba(0, 0, 0, 0.14);
   }
 
-  /* SMOOTH OPEN */
+  /* ACTIVE MENU */
 
   .navbarMenuActive {
     left: 0;
@@ -407,31 +461,41 @@
     position: absolute;
 
     top: 20px;
-    left: 20px;
+    right: 20px;
 
     width: 42px;
     height: 42px;
 
     border-radius: 12px;
 
-    background: rgba(220, 255, 62, 0.18);
+    background: rgba(102, 198, 65, 0.14);
 
-    color: #111;
+    color: #111827;
 
-    font-size: 20px;
+    font-size: 18px;
 
     cursor: pointer;
-
-    transition: 0.3s ease;
   }
 
-  .navbarCloseButton:hover {
-    background: #d8ff3e;
+  /* MENU ITEMS */
 
-    transform: rotate(90deg);
+  .navbarMenuItem {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 17px;
+
+    padding: 4px 0;
   }
 
-  /* MOBILE DROPDOWN */
+  .navbarMenuItem::after {
+    display: none;
+  }
+
+  /* DROPDOWN */
 
   .navbarDropdownContainer {
     width: 100%;
@@ -443,10 +507,12 @@
   .navbarDropdownMenu {
     position: relative;
 
-    top: 15px;
+    top: 12px;
     left: 0;
 
     width: 100%;
+
+    display: none;
 
     opacity: 1;
     visibility: visible;
@@ -455,27 +521,44 @@
 
     pointer-events: auto;
 
-    display: none;
+    border-radius: 16px;
 
-    padding: 20px;
-
-    border-radius: 18px;
+    padding: 16px;
 
     box-shadow:
-      0 10px 30px rgba(0, 0, 0, 0.06);
+      0 8px 25px rgba(0, 0, 0, 0.06);
   }
-
+ .navbarMainContainer {
+    top: 0;
+    z-index: 999999;
+  }
   .navbarDropdownContainer:hover .navbarDropdownMenu {
     display: flex;
   }
 
+  .navbarSmallDropdown,
   .navbarLargeDropdown {
+    width: 100%;
+
     flex-direction: column;
-    gap: 25px;
+
+    gap: 18px;
   }
 
-  .navbarMenuItem {
-    font-size: 18px;
+  /* DROPDOWN ITEMS */
+
+  .navbarDropdownItem {
+    width: 100%;
+
+    font-size: 14px;
+
+    padding: 10px 12px;
+  }
+
+  /* DROPDOWN TITLE */
+
+  .navbarDropdownTitle {
+    font-size: 12px;
   }
 }
 
@@ -487,34 +570,33 @@
 
   .navbarWrapper {
     height: 75px;
-    padding: 0 15px;
+
+    padding: 0 14px;
+  }
+
+  .navbarLogo {
+    width: 60px;
+    height: 60px;
   }
 
   .navbarMenuContainer {
-    width: 280px;
+    width: 260px;
 
     padding: 85px 18px 35px;
   }
 
   .navbarMenuItem {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .navbarDropdownItem {
-    font-size: 14px;
-
-    padding: 10px 14px;
-  }
-
-  .navbarDropdownTitle {
     font-size: 13px;
   }
 
-  .navbarLargeDropdown {
-    width: 100%;
-  }
+  .navbarMobileIcon {
+    width: 40px;
+    height: 40px;
 
-  .navbarSmallDropdown {
-    width: 100%;
+    font-size: 18px;
   }
 }

@@ -1,26 +1,3 @@
-/* =========================================
-   GLOBAL WEBSITE COLORS
-========================================= */
-
-:root {
-
-    /* MAIN COLORS */
-    --primaryColor: #d8ff3e;
-    --secondaryColor: #63b600;
-
-    /* LIGHT GLOW */
-    --lightGreenBg: rgba(220, 255, 0, 0.14);
-
-    /* WEBSITE COLORS */
-    --darkBlue: #021b3a;
-    --whiteColor: #ffffff;
-    --textLight: #c7d2e3;
-    --textGray: #9fb1ca;
-
-    /* HOVER */
-    --hoverGreen: #d8ff3e;
-    --hoverDarkGreen: #63b600;
-
-    /* SHADOW */
-    --greenShadow: 0 0 20px rgba(216, 255, 62, 0.25);
+body {
+  padding-top: 155px;
 }

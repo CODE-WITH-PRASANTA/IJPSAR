@@ -11,6 +11,7 @@ import {
   FaArrowRight,
   FaFilePdf,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const articleData = [
   {
@@ -237,13 +238,13 @@ const AuthorArchive = () => {
 
                 </button>
 
-                <button className="authorarchive-read">
-
-                  Read Article
-
-                  <FaArrowRight />
-
-                </button>
+               <Link
+  to="/sample-article"
+  className="authorarchive-read"
+>
+  Read Article
+  <FaArrowRight />
+</Link>
 
               </div>
 

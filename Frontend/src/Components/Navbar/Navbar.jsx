@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   FaChevronDown,
   FaBars,
@@ -9,7 +10,11 @@ import { Link } from "react-router-dom";
 
 import "./Navbar.css";
 
+/* LOGO */
+import logo from "../../assets/p-2.JPEG";
+
 const Navbar = () => {
+
   const [mobileMenu, setMobileMenu] = useState(false);
 
   const closeMobileMenu = () => {
@@ -21,7 +26,20 @@ const Navbar = () => {
 
       <div className="navbarWrapper">
 
-        {/* MOBILE MENU */}
+        {/* LEFT LOGO */}
+        <div className="navbarLogoContainer">
+
+          <Link to="/">
+            <img
+              src={logo}
+              alt="IJPASR Logo"
+              className="navbarLogo"
+            />
+          </Link>
+
+        </div>
+
+        {/* MENU */}
         <div
           className={`navbarMenuContainer ${
             mobileMenu ? "navbarMenuActive" : ""
@@ -58,7 +76,6 @@ const Navbar = () => {
               <Link
                 to="/about-ijpasr"
                 className="navbarDropdownItem"
-                onClick={closeMobileMenu}
               >
                 About IJPASR
               </Link>
@@ -66,7 +83,6 @@ const Navbar = () => {
               <Link
                 to="/editorial-board"
                 className="navbarDropdownItem"
-                onClick={closeMobileMenu}
               >
                 Editorial Board
               </Link>
@@ -74,33 +90,29 @@ const Navbar = () => {
               <Link
                 to="/indexing-abstracting"
                 className="navbarDropdownItem"
-                onClick={closeMobileMenu}
               >
-              Indexing & Abstracting
+                Indexing & Abstracting
               </Link>
 
               <Link
                 to="/publication-ethics"
                 className="navbarDropdownItem"
-                onClick={closeMobileMenu}
               >
-               Publication Ethics
+                Publication Ethics
               </Link>
 
               <Link
                 to="/peer-review-process"
                 className="navbarDropdownItem"
-                onClick={closeMobileMenu}
               >
                 Peer Review Process
               </Link>
 
-               <Link
+              <Link
                 to="/plagiarism-policy"
                 className="navbarDropdownItem"
-                onClick={closeMobileMenu}
               >
-               Plagiarism Policy
+                Plagiarism Policy
               </Link>
 
             </div>
@@ -127,7 +139,6 @@ const Navbar = () => {
                 <Link
                   to="/current-issue"
                   className="navbarDropdownItem"
-                  onClick={closeMobileMenu}
                 >
                   Current Issue
                 </Link>
@@ -135,7 +146,6 @@ const Navbar = () => {
                 <Link
                   to="/archives"
                   className="navbarDropdownItem"
-                  onClick={closeMobileMenu}
                 >
                   Archives
                 </Link>
@@ -143,17 +153,8 @@ const Navbar = () => {
                 <Link
                   to="/search-articles"
                   className="navbarDropdownItem"
-                  onClick={closeMobileMenu}
                 >
                   Search Articles
-                </Link>
-
-                <Link
-                  to="/best-paper-award"
-                  className="navbarDropdownItem"
-                  onClick={closeMobileMenu}
-                >
-                  Best Paper Award
                 </Link>
 
               </div>
@@ -168,7 +169,6 @@ const Navbar = () => {
                 <Link
                   to="/submit-manuscript"
                   className="navbarDropdownItem"
-                  onClick={closeMobileMenu}
                 >
                   Submit Manuscript
                 </Link>
@@ -176,17 +176,8 @@ const Navbar = () => {
                 <Link
                   to="/author-guidelines"
                   className="navbarDropdownItem"
-                  onClick={closeMobileMenu}
                 >
                   Author Guidelines
-                </Link>
-
-                <Link
-                  to="/sample-article"
-                  className="navbarDropdownItem"
-                  onClick={closeMobileMenu}
-                >
-                  Sample Article
                 </Link>
 
               </div>
@@ -194,6 +185,15 @@ const Navbar = () => {
             </div>
 
           </div>
+
+          {/* FAQ */}
+          <Link
+            to="/faq"
+            className="navbarMenuItem"
+            onClick={closeMobileMenu}
+          >
+            FAQ
+          </Link>
 
           {/* AUTHORS */}
           <Link
@@ -212,10 +212,19 @@ const Navbar = () => {
           >
             Contact
           </Link>
+          {/* MOBILE LOGIN BUTTON */}
+
+<Link
+  to="/login"
+  className="navbarMobileLoginButton"
+  onClick={closeMobileMenu}
+>
+  Login
+</Link>
 
         </div>
 
-        {/* MOBILE HAMBURGER */}
+        {/* MOBILE MENU ICON */}
         <div
           className="navbarMobileIcon"
           onClick={() => setMobileMenu(true)}
