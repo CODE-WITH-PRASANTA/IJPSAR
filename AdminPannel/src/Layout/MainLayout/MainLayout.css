@@ -1,39 +1,120 @@
 .mainLayout {
   display: flex;
   min-height: 100vh;
-  background: #f5f7fb;
+  background: #07090f;
+}
+
+/* Content Area */
+
+.mainLayoutContent {
+  flex: 1;
+  margin-left: 280px;
+  background: #07090f;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+/* Dashboard Grid */
+
+.mainLayoutPageContent {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(350px,1fr));
+  gap: 24px;
+}
+
+/* Cards */
+
+.dashboardCard {
+  background: #10141d;
+  border: 1px solid #1c2333;
+
+  border-radius: 18px;
+
+  padding: 25px;
+
+  color: #ffffff;
+
+  transition: all .3s ease;
+}
+
+.dashboardCard:hover {
+  transform: translateY(-4px);
+  border-color: #2563eb;
+}
+
+.dashboardCard h2 {
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+
+.dashboardCard p {
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+/* Responsive */
+.mainLayout {
+  display: flex;
+  min-height: 100vh;
+  background: #07090f;
 }
 
 .mainLayoutContent {
   flex: 1;
   margin-left: 280px;
-  transition: all .35s ease;
+  min-height: 100vh;
+  background: #07090f;
+  padding: 24px;
+  transition: all 0.3s ease;
 }
 
-.mainLayoutContentCollapsed {
-  margin-left: 85px;
+/* Tablet */
+.mainLayoutContent{
+  flex:1;
+  margin-left:280px;
+  padding:24px;
+  background:#07090f;
+  min-height:100vh;
+  transition:.3s;
+}
+.mainLayout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: #07090f;
 }
 
-.mainLayoutPage {
-  padding: 90px 25px 25px;
+.mainLayoutContent {
+  flex: 1;
+  margin-left: 280px;
+
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 24px;
+  background: #07090f;
 }
 
-.mainLayoutOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.4);
-  z-index: 999;
+.mainLayoutPageContent {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
 }
 
-@media(max-width:992px){
+@media (max-width: 992px) {
+  .mainLayoutContent {
+    margin-left: 85px;
+  }
+}
 
-  .mainLayoutContent,
-  .mainLayoutContentCollapsed{
-    margin-left:0;
+@media (max-width: 768px) {
+  .mainLayoutContent {
+    margin-left: 0;
+    padding: 15px;
   }
 
-  .mainLayoutPage{
-    padding:85px 15px 15px;
+  .mainLayoutPageContent {
+    grid-template-columns: 1fr;
   }
-
 }

@@ -212,6 +212,15 @@ const Navbar = () => {
           >
             Contact
           </Link>
+          {/* MOBILE LOGIN BUTTON */}
+
+<Link
+  to="/login"
+  className="navbarMobileLoginButton"
+  onClick={closeMobileMenu}
+>
+  Login
+</Link>
 
         </div>
 

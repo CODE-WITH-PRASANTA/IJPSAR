@@ -236,7 +236,9 @@
 
   background: #66c641;
 }
-
+.navbarMobileLoginButton {
+  display: none;
+}
 /* =========================================
    DROPDOWN ITEMS
 ========================================= */
@@ -321,7 +323,37 @@
   .navbarMenuItem {
     font-size: 15px;
   }
+/* ==========================
+   MOBILE LOGIN BUTTON
+========================== */
 
+.navbarMobileLoginButton {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 50px;
+
+  margin-top: auto;
+
+  background: #66c641;
+  color: #ffffff;
+
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+
+  border-radius: 12px;
+
+  transition: 0.3s ease;
+}
+
+.navbarMobileLoginButton:hover {
+  background: #57b737;
+  color: #ffffff;
+}
   .navbarLargeDropdown {
     width: 450px;
   }

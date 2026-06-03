@@ -1,70 +1,646 @@
-.sidebar{
-position:fixed;
-left:0;
-top:0;
-width:280px;
-height:100vh;
-background:#111827;
-color:white;
-transition:.35s;
-z-index:1000;
-overflow-y:auto;
+/* ===========================
+   SIDEBAR
+=========================== */
+
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  background: #07090f;
+  border-right: 1px solid #1a2233;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  z-index: 1000;
 }
 
-.sidebarCollapsed{
-width:85px;
+/* ===========================
+   LOGO SECTION
+=========================== */
+
+.sidebarLogoSection {
+  padding: 18px;
+  border-bottom: 1px solid #1a2233;
+  position: relative;
 }
 
-.sidebarLogo{
-height:75px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-font-weight:700;
-border-bottom:1px solid rgba(255,255,255,.1);
+.sidebarLogoWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: #ffffff;
+  cursor: pointer;
 }
 
-.sidebarMenus{
-padding:20px 10px;
+.sidebarLogoLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
-.sidebarLink{
-height:55px;
-display:flex;
-align-items:center;
-gap:15px;
-color:#d1d5db;
-text-decoration:none;
-padding:0 16px;
-border-radius:12px;
-margin-bottom:10px;
-transition:.3s;
+.sidebarLogoLeft span {
+  font-size: 24px;
+  font-weight: 700;
 }
 
-.sidebarLink:hover{
-background:#4f46e5;
-color:white;
+.sidebarLogo {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  object-fit: cover;
 }
 
-.sidebarIcon{
-font-size:18px;
-min-width:22px;
+/* ===========================
+   ACTION BUTTONS
+=========================== */
+
+.sidebarActions {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
 }
 
-@media(max-width:992px){
+.addNewBtn {
+  flex: 1;
+  height: 48px;
 
-.sidebar{
-left:-100%;
-width:280px;
+  border: none;
+  border-radius: 12px;
+
+  background: #171d29;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.sidebarMobileOpen{
-left:0;
+.addNewBtn:hover {
+  background: #20283a;
 }
 
-.sidebarCollapsed{
-width:280px;
+.searchBtn {
+  width: 48px;
+  height: 48px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #171d29;
+  color: white;
+
+  cursor: pointer;
+  transition: 0.3s;
 }
 
+.searchBtn:hover {
+  background: #20283a;
+}
+
+/* ===========================
+   MENU
+=========================== */
+
+.sidebarMenu {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 15px;
+}
+
+.sidebarMenu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebarMenu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebarMenu::-webkit-scrollbar-thumb {
+  background: #2d3748;
+  border-radius: 20px;
+}
+
+.sidebarMenu::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+.sidebarDropdown {
+  padding: 14px 16px;
+
+  background: #10141d;
+  border: 1px solid #1a2233;
+
+  border-radius: 12px;
+  margin-bottom: 10px;
+
+  color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebarDropdown:hover {
+  background: #171d29;
+}
+
+.sidebarDropdown div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ===========================
+   SUBMENU
+=========================== */
+
+.sidebarSubMenu {
+  margin-bottom: 12px;
+  overflow: hidden;
+
+  animation: dropdownOpen 0.3s ease;
+}
+
+.sidebarSubMenu a {
+  display: block;
+
+  padding: 12px 20px;
+
+  color: #94a3b8;
+  text-decoration: none;
+
+  border-radius: 10px;
+
+  transition: 0.3s;
+}
+
+.sidebarSubMenu a:hover {
+  background: #171d29;
+  color: white;
+}
+
+.sidebarSubMenu a.active {
+  background: #2563eb;
+  color: white;
+}
+
+/* ===========================
+   LINKS
+=========================== */
+
+.sidebarLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  color: white;
+  text-decoration: none;
+
+  border-radius: 12px;
+  margin-bottom: 8px;
+
+  transition: 0.3s;
+}
+
+.sidebarLink:hover {
+  background: #171d29;
+}
+
+.sidebarLink.active {
+  background: #2563eb;
+}
+
+/* ===========================
+   LOGO POPUP
+=========================== */
+
+.logoPopupCard {
+  position: absolute;
+  top: 75px;
+  left: 18px;
+
+  width: 250px;
+
+  background: #10141d;
+  border: 1px solid #1a2233;
+
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+
+  animation: popup 0.25s ease;
+}
+
+.logoPopupCard a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  color: white;
+  text-decoration: none;
+
+  transition: 0.3s;
+}
+
+.logoPopupCard a:hover {
+  background: #171d29;
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
+.sidebarBottom {
+  padding: 15px;
+  border-top: 1px solid #1a2233;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: relative;
+}
+
+.profileCard img {
+  width: 50px;
+  height: 50px;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  cursor: pointer;
+}
+
+.bottomActions {
+  display: flex;
+  gap: 10px;
+}
+
+.bottomIcon {
+  width: 44px;
+  height: 44px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #171d29;
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.bottomIcon:hover {
+  background: #2563eb;
+}
+
+/* ===========================
+   PROFILE POPUP
+=========================== */
+
+.profilePopupCard {
+  position: absolute;
+  bottom: 85px;
+  left: 15px;
+
+  width: 280px;
+
+  background: #10141d;
+  border: 1px solid #1a2233;
+
+  border-radius: 18px;
+
+  padding: 16px;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+
+  animation: popup 0.25s ease;
+}
+
+.profileHeader {
+  display: flex;
+  gap: 12px;
+
+  margin-bottom: 16px;
+}
+
+.profileHeader img {
+  width: 55px;
+  height: 55px;
+
+  border-radius: 50%;
+}
+
+.profileHeader h4 {
+  color: white;
+  margin-bottom: 4px;
+}
+
+.profileHeader p {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.profilePopupCard a {
+  display: block;
+
+  padding: 12px;
+
+  color: white;
+  text-decoration: none;
+
+  border-radius: 10px;
+
+  transition: 0.3s;
+}
+
+.profilePopupCard a:hover {
+  background: #171d29;
+}
+
+.logoutBtn {
+  width: 100%;
+  height: 46px;
+
+  margin-top: 12px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #ef4444;
+  color: white;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===========================
+   CHAT DRAWER
+=========================== */
+
+.chatDrawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+
+  width: 400px;
+  height: 100vh;
+
+  background: #0d1117;
+
+  border-left: 1px solid #1a2233;
+
+  transition: all 0.35s ease;
+
+  z-index: 9999;
+}
+
+.chatDrawerOpen {
+  right: 0;
+}
+
+.chatDrawerHeader {
+  height: 70px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 20px;
+
+  border-bottom: 1px solid #1a2233;
+
+  color: white;
+}
+
+.chatDrawerHeader button {
+  border: none;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.chatDrawerBody {
+  padding: 20px;
+}
+
+.messageLeft,
+.messageRight {
+  padding: 12px 15px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  max-width: 80%;
+}
+
+.messageLeft {
+  background: #1a2332;
+  color: white;
+}
+
+.messageRight {
+  background: #2563eb;
+  color: white;
+  margin-left: auto;
+}
+
+/* ===========================
+   ANIMATIONS
+=========================== */
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dropdownOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+/* ==========================================
+   TABLET
+========================================== */
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 992px) {
+
+  .sidebar {
+    width: 85px;
+  }
+
+  .sidebarLogoLeft span,
+  .sidebarDropdownLeft span,
+  .sidebarLink span,
+  .addNewBtn span,
+  .sidebarSubMenu {
+    display: none;
+  }
+
+  .sidebarLogoWrapper {
+    justify-content: center;
+  }
+
+  .sidebarLogo {
+    width: 42px;
+    height: 42px;
+  }
+
+  .sidebarActions {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .addNewBtn,
+  .searchBtn {
+    width: 100%;
+    height: 44px;
+    padding: 0;
+  }
+
+  .sidebarDropdown,
+  .sidebarLink {
+    justify-content: center;
+    padding: 14px;
+  }
+
+  .sidebarDropdown svg:last-child {
+    display: none;
+  }
+
+  .bottomActions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .bottomIcon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .profilePopupCard,
+  .logoPopupCard {
+    left: 95px;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+/* ==========================================
+   MOBILE
+========================================== */
+
+.mobileMenuBtn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  .mobileMenuBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    top: 15px;
+    left: 15px;
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #2563eb;
+    color: #fff;
+
+    z-index: 10001;
+    cursor: pointer;
+  }
+
+  .sidebar {
+    width: 280px;
+
+    transform: translateX(-100%);
+    transition: transform 0.35s ease;
+
+    z-index: 10000;
+  }
+
+  .sidebar.mobileOpen {
+    transform: translateX(0);
+  }
+
+  .sidebarLogoLeft span,
+  .sidebarDropdownLeft span,
+  .sidebarLink span,
+  .addNewBtn span {
+    display: block;
+  }
+
+  .sidebarSubMenu {
+    display: block;
+  }
+
+  .sidebarActions {
+    flex-direction: row;
+    padding: 15px;
+  }
+
+  .bottomActions {
+    flex-direction: row;
+  }
+
+  .profilePopupCard,
+  .logoPopupCard {
+    left: 15px;
+  }
+
+  .chatDrawer {
+    width: 100%;
+  }
 }
