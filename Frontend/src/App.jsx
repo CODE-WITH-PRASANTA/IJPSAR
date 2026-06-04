@@ -31,6 +31,7 @@ import Privacypolicy from "./Components/Privacypolicy/Privacypolicy";
 import Disclaimer from "./Components/Disclaimer/Disclaimer";
 import FloatingIcons from "./Components/FloatingIcons/FloatingIcons";
 import FloatingForm from "./Components/FloatingForm/FloatingForm";
+import PreeReview from "./Pages/PreeReview/PreeReview";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
        <Route path="/return-refund-policy" element={<ReturnRefund />} />
        <Route path="/privacy-policy" element={<Privacypolicy />} />
        <Route path="/disclaimer" element={<Disclaimer />} />
+       <Route path="/peer-review" element={<PreeReview/>}/>
 
       </Routes>
 
