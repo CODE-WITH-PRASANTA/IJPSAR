@@ -1,0 +1,330 @@
+.nu_container {
+  padding: 24px;
+  background: #000000; /* Pure black background */
+  min-height: 100vh;
+  color: #ffffff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* HEADER */
+.nu_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.nu_header h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.nu_addBtn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8); /* Sharper, deeper premium blue */
+  border: none;
+  padding: 10px 16px;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.nu_addBtn:hover {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  transform: translateY(-1px);
+}
+
+/* FILTER BAR */
+.nu_filterBar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.nu_filterBar input,
+.nu_filterBar select {
+  padding: 10px 14px;
+  background: #0a0a0a; /* Premium deep charcoal */
+  border: 1px solid #1f1f1f; /* Subdued subtle border */
+  color: #fff;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.nu_filterBar input:focus,
+.nu_filterBar select:focus {
+  border-color: #3b82f6;
+}
+
+/* TABLE */
+.nu_tableCard {
+  background: #0a0a0a; /* Deep charcoal container */
+  border: 1px solid #1f1f1f;
+  border-radius: 14px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 14px;
+  border-bottom: 1px solid #161616; /* Faded divider lines */
+  text-align: left;
+}
+
+th {
+  color: #6b7280; /* Muted gray for table headers */
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+/* USER */
+.nu_user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nu_avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #1f1f1f; /* Slate/Black avatar disc */
+  border: 1px solid #2e2e2e;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.nu_name {
+  font-weight: 600;
+}
+
+.nu_email {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* BADGE */
+.nu_badge {
+  padding: 6px 10px;
+  background: #141414;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #e5e7eb;
+}
+
+/* STATUS COLOURS */
+.nu_status {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.nu_status.active {
+  color: #4ade80; /* Vibrant neon-accent emerald */
+}
+
+.nu_status.block {
+  color: #f87171; /* Vibrant neon-accent red */
+}
+
+.nu_status.inactive {
+  color: #fbbf24; /* Vibrant neon-accent amber */
+}
+
+/* VIEW ACTIVITY BUTTON */
+.nu_signBtn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #059669, #10b981);
+  transition: .2s ease;
+}
+
+.nu_signBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+/* ==========================
+   PREMIUM MODAL OVERLAY & POP
+========================== */
+.nu_modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85); /* Darker backdrop mask */
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn .25s ease;
+}
+
+.nu_modal {
+  width: 550px;
+  max-width: 95%;
+  background: #0f0f0f; /* Pitch-tinted modal canvas */
+  border: 1px solid #222222;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+  animation: modalPop .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nu_modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.nu_modalHeader h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.nu_closeBtn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #1f1f1f;
+  color: #9ca3af;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.nu_closeBtn:hover {
+  background: #2e2e2e;
+  color: #fff;
+}
+
+.nu_form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.nu_inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nu_inputGroup label {
+  color: #9ca3af;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Inputs design */
+.nu_inputGroup input,
+.nu_inputGroup select {
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid #222222;
+  background: #050505 !important; /* Pure black input fields */
+  color: white !important;
+  outline: none;
+  transition: .2s ease;
+  box-sizing: border-box;
+}
+
+/* CRITICAL: Overrides the browser forced white/light blue autocomplete style */
+.nu_inputGroup input:-webkit-autofill,
+.nu_inputGroup input:-webkit-autofill:hover, 
+.nu_inputGroup input:-webkit-autofill:focus {
+  border: 1px solid #3b82f6;
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 1000px #050505 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.nu_inputGroup input:focus,
+.nu_inputGroup select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, .15);
+}
+
+.nu_modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.nu_cancelBtn {
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: 1px solid #222222;
+  cursor: pointer;
+  background: #141414;
+  color: #d1d5db;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.nu_cancelBtn:hover {
+  background: #1f1f1f;
+  color: #fff;
+}
+
+.nu_saveBtn {
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transition: .2s;
+}
+
+.nu_saveBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* ANIMATIONS */
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

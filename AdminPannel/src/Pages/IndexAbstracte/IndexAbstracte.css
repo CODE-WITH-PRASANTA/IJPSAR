@@ -1,0 +1,426 @@
+/* ==========================================
+   INDEX ABSTRACTE ADMIN PANEL
+========================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.indexAbstracte {
+  width: 100%;
+  min-height: 100vh;
+  padding: 30px;
+  background: #0a0a0a;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden; /* Prevents whole-page breaks */
+}
+
+.indexAbstracte__wrapper {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 30px;
+  align-items: flex-start;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Helper class for long content strings */
+.indexAbstracte__textTruncate {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================
+   LEFT FORM CARD
+========================================== */
+
+.indexAbstracte__formCard {
+  background: #111111;
+  border-radius: 24px;
+  padding: 30px;
+  border: 1px solid #222;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  position: sticky;
+  top: 20px;
+  z-index: 10;
+}
+
+.indexAbstracte__heading {
+  margin-bottom: 25px;
+}
+
+.indexAbstracte__heading h2 {
+  font-size: 26px;
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.indexAbstracte__heading p {
+  color: #a1a1aa;
+  font-size: 14px;
+}
+
+.indexAbstracte__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.indexAbstracte__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.indexAbstracte__field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #d4d4d8;
+}
+
+.indexAbstracte__field input,
+.indexAbstracte__field select {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  padding: 0 16px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+.indexAbstracte__field input:focus,
+.indexAbstracte__field select:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
+}
+
+/* ==========================================
+   IMAGE UPLOAD
+========================================== */
+
+.indexAbstracte__upload {
+  border: 2px dashed #333;
+  border-radius: 18px;
+  padding: 20px;
+  text-align: center;
+  background: #181818;
+  transition: 0.3s;
+  position: relative;
+}
+
+.indexAbstracte__upload:hover {
+  border-color: #666;
+}
+
+.indexAbstracte__upload input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.indexAbstracte__upload img {
+  width: 120px;
+  height: 120px;
+  margin-top: 15px;
+  border-radius: 15px;
+  object-fit: cover;
+  border: 3px solid #333;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==========================================
+   FORM ACTION BUTTONS
+========================================== */
+
+.indexAbstracte__formActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.indexAbstracte__saveBtn {
+  width: 100%;
+  height: 55px;
+  border: 1px solid #333;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2a2a2a, #111111);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.35s;
+}
+
+.indexAbstracte__saveBtn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #3a3a3a, #181818);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+}
+
+.indexAbstracte__cancelBtn {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #3a1515;
+  border-radius: 14px;
+  background: transparent;
+  color: #f87171;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.indexAbstracte__cancelBtn:hover {
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* ==========================================
+   TABLE CARD
+========================================== */
+
+.indexAbstracte__tableCard {
+  background: #111111;
+  border-radius: 24px;
+  padding: 25px;
+  border: 1px solid #222;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+  min-width: 0; /* Prevents dynamic components from growing beyond wrapper */
+}
+
+.indexAbstracte__tableTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 15px;
+}
+
+.indexAbstracte__tableTop h2 {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.indexAbstracte__tableTop input {
+  width: 280px;
+  height: 50px;
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  padding: 0 16px;
+  background: #1a1a1a;
+  color: white;
+  outline: none;
+}
+
+.indexAbstracte__tableTop input:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
+}
+
+/* ==========================================
+   TABLE HORIZONTAL SCROLL MANAGEMENT
+========================================== */
+
+.indexAbstracte__tableWrapper {
+  width: 100%;
+  overflow-x: auto; /* Activates horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling for mobile */
+  border-radius: 14px;
+  border: 1px solid #222;
+}
+
+.indexAbstracte__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px; /* Guarantees layout structural retention during shifts */
+}
+
+.indexAbstracte__table thead {
+  background: #181818;
+}
+
+.indexAbstracte__table th {
+  padding: 18px;
+  text-align: left;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.indexAbstracte__table td {
+  padding: 18px;
+  border-bottom: 1px solid #222;
+  color: #d4d4d8;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.indexAbstracte__table tbody tr {
+  transition: 0.3s;
+}
+
+.indexAbstracte__table tbody tr:hover {
+  background: #1a1a1a;
+}
+
+.indexAbstracte__table td img {
+  width: 65px;
+  height: 65px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 2px solid #333;
+}
+
+/* ==========================================
+   STATUS TAGS
+========================================== */
+
+.indexAbstracte__active {
+  background: rgba(34,197,94,0.15);
+  color: #4ade80;
+  padding: 8px 15px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.indexAbstracte__inactive {
+  background: rgba(239,68,68,0.15);
+  color: #f87171;
+  padding: 8px 15px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.indexAbstracte__actionsContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.indexAbstracte__editBtn,
+.indexAbstracte__deleteBtn {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.indexAbstracte__editBtn {
+  background: #2a2a2a;
+  color: white;
+}
+
+.indexAbstracte__editBtn:hover {
+  background: #3a3a3a;
+  transform: translateY(-2px);
+}
+
+.indexAbstracte__deleteBtn {
+  background: #3a1515;
+  color: #f87171;
+}
+
+.indexAbstracte__deleteBtn:hover {
+  background: #5a1d1d;
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   CUSTOM WRAPPER SCROLLBAR STYLE
+========================================== */
+
+.indexAbstracte__tableWrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.indexAbstracte__tableWrapper::-webkit-scrollbar-track {
+  background: #111;
+}
+
+.indexAbstracte__tableWrapper::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 10px;
+}
+
+.indexAbstracte__tableWrapper::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* ==========================================
+   RESPONSIVE MEDIA QUERIES
+========================================== */
+
+@media (max-width: 1200px) {
+  .indexAbstracte__wrapper {
+    grid-template-columns: 1fr; /* Form sits on top of Table */
+  }
+
+  .indexAbstracte__formCard {
+    position: relative;
+    top: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .indexAbstracte {
+    padding: 15px;
+  }
+
+  .indexAbstracte__formCard,
+  .indexAbstracte__tableCard {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .indexAbstracte__tableTop {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .indexAbstracte__tableTop input {
+    width: 100%;
+  }
+
+  .indexAbstracte__heading h2,
+  .indexAbstracte__tableTop h2 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .indexAbstracte__heading h2,
+  .indexAbstracte__tableTop h2 {
+    font-size: 20px;
+  }
+
+  .indexAbstracte__table td, 
+  .indexAbstracte__table th {
+    padding: 12px;
+  }
+}

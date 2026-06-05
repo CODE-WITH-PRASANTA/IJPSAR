@@ -1,0 +1,376 @@
+
+.ts_wrap {
+  min-height: 100vh;
+  padding: 24px;
+  background: #000000; /* Deep pure black background */
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.ts_wrap *, .ts_wrap *::before, .ts_wrap *::after {
+  box-sizing: inherit;
+}
+
+/* CONTAINER LAYOUT SPLIT */
+.ts_layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* PANELS */
+.ts_formCard,
+.ts_tableCard {
+  background: #0a0a0a; /* Sleek off-black cards */
+  border-radius: 20px;
+  border: 1px solid #1f1f1f; /* Clean subtle dark border */
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.ts_formCard {
+  width: 440px;
+  flex-shrink: 0;
+}
+
+.ts_tableCard {
+  flex-grow: 1;
+  width: calc(100% - 464px);
+  overflow: hidden;
+}
+
+/* HEADERS */
+.ts_header,
+.ts_tableHeader {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* AVATAR UPLOAD LAYOUT STYLES */
+.ts_uploadSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: #121212; /* Darker interior area for depth */
+  border: 1px dashed #2e2e2e;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.ts_imagePreviewContainer {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #1a1a1a;
+  border: 2px solid #2e2e2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ts_uploadedImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ts_uploadPlaceholder {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff; /* Shifted to white for high contrast accent */
+}
+
+.ts_uploadBtnLabel {
+  background: #262626;
+  color: #ffffff;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.ts_uploadBtnLabel:hover {
+  background: #333333;
+}
+
+.ts_hiddenFileInput {
+  display: none;
+}
+
+.ts_removeImgBtn {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.ts_removeImgBtn:hover {
+  text-decoration: underline;
+}
+
+/* LABELS AND INPUT ALIGNMENTS */
+.ts_grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ts_fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ts_text_area_group {
+  margin-top: 16px;
+}
+
+.ts_inputLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #888888; /* Balanced neutral gray label */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts_grid input,
+.ts_grid select,
+.ts_formCard textarea {
+  width: 100%;
+  background: #121212;
+  border: 1px solid #262626;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.ts_grid input:focus,
+.ts_grid select:focus,
+.ts_formCard textarea:focus {
+  border-color: #ffffff; /* Sharp crisp white focus state */
+}
+
+.ts_formCard textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* ACTION BUTTONS */
+.ts_actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.ts_saveBtn {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: #ffffff; /* Premium white CTA save button */
+  color: #000000; /* Dark text for contrast */
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.ts_cancelBtn {
+  padding: 14px 20px;
+  border: 1px solid #262626;
+  border-radius: 12px;
+  background: #121212;
+  color: #a3a3a3;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.ts_cancelBtn:hover {
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+.ts_saveBtn:hover {
+  opacity: 0.9;
+}
+
+/* RESPONSIVE SCROLL-CONTAINER FOR DATA TABLE */
+.ts_tableContainer {
+  overflow-x: auto;
+  background: #121212;
+  border-radius: 12px;
+  border: 1px solid #262626;
+}
+
+.ts_tableCard table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 750px;
+}
+
+.ts_tableCard th {
+  padding: 16px;
+  text-align: left;
+  color: #888888;
+  font-weight: 600;
+  background: #0e0e0e;
+  border-bottom: 1px solid #262626;
+}
+
+.ts_tableCard td {
+  padding: 16px;
+  color: #ffffff;
+  border-bottom: 1px solid #262626;
+  vertical-align: middle;
+}
+
+.ts_tableCard tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.ts_tableCard tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03); /* Subtle white overlay on hover */
+}
+
+.ts_boldName {
+  font-weight: 600;
+}
+
+/* TABLE AVATAR LAYOUT WITH IMAGE OR INITIAL SUPPORT */
+.ts_avatarWrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ts_tableImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ts_initial {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #404040, #1a1a1a); /* Minimal monochrome gradient */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* STATUS CHIPS */
+.ts_status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ts_status.Active {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+.ts_status.Inactive {
+  background: rgba(250, 204, 21, 0.15);
+  color: #facc15;
+}
+
+.ts_status.Blocked {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+/* TABLE DUAL ACTION BUTTON LAYOUTS */
+.ts_tableActionBtns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ts_edit,
+.ts_delete {
+  border: none;
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 13px;
+  transition: opacity 0.2s;
+}
+
+.ts_edit {
+  background: #262626; /* Dark gray for subtle edit action */
+  border: 1px solid #404040;
+}
+
+.ts_delete {
+  background: #7f1d1d; /* Slightly deeper red to blend elegantly with black */
+}
+
+.ts_edit:hover,
+.ts_delete:hover {
+  opacity: 0.85;
+}
+
+/* STAR RATINGS */
+.ts_rating {
+  color: #facc15;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+.ts_rating_muted {
+  color: #404040;
+}
+
+.ts_noData {
+  text-align: center;
+  color: #888888 !important;
+  padding: 32px !important;
+}
+
+/* RESPONSIVE LAYOUT BREAKPOINTS */
+@media (max-width: 1150px) {
+  .ts_layout {
+    flex-direction: column;
+  }
+  
+  .ts_formCard,
+  .ts_tableCard {
+    width: 100%;
+  }
+}
+
+```

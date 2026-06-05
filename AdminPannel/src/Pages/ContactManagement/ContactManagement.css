@@ -1,0 +1,319 @@
+.contactManagement {
+  min-height: 100vh;
+  padding: 30px;
+  background: #050505;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ================= HEADER ================= */
+
+.contactManagement__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.contactManagement__header h2 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #ffffff;
+}
+
+.contactManagement__header p {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* ================= BUTTON ================= */
+
+.contactManagement__addBtn {
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+  color: #ffffff;
+  border: none;
+  padding: 13px 22px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+}
+
+.contactManagement__addBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* ================= CARD ================= */
+
+.contactManagement__card {
+  background: #0d0d0d;
+  border: 1px solid #232323;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* ================= TABLE ================= */
+
+.contactManagement__tableWrapper {
+  overflow-x: auto;
+}
+
+.contactManagement__table {
+  width: 100%;
+  min-width: 1100px;
+  border-collapse: collapse;
+}
+
+.contactManagement__table th {
+  background: #121212;
+  color: #ffffff;
+  padding: 20px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1px solid #232323;
+}
+
+.contactManagement__table td {
+  padding: 18px 20px;
+  color: #e5e7eb;
+  border-bottom: 1px solid #232323;
+}
+
+.contactManagement__table tbody tr {
+  transition: 0.3s;
+}
+
+.contactManagement__table tbody tr:hover {
+  background: #181818;
+}
+
+/* ================= EMAIL / WEBSITE ================= */
+
+.contactManagement__email,
+.contactManagement__website {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #d1d5db;
+}
+
+.contactManagement__email svg,
+.contactManagement__website svg {
+  color: #60a5fa;
+}
+
+/* ================= STATUS ================= */
+
+.contactManagement__status {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  padding: 7px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.contactManagement__status.inactive {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+/* ================= ACTIONS ================= */
+
+.contactManagement__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.contactManagement__editBtn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.contactManagement__editBtn:hover {
+  transform: translateY(-2px);
+  background: #1d4ed8;
+}
+
+.contactManagement__deleteBtn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  background: #ef4444;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.contactManagement__deleteBtn:hover {
+  transform: translateY(-2px);
+  background: #dc2626;
+}
+
+/* ================= MODAL ================= */
+
+.contactManagement__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 20px;
+}
+
+.contactManagement__modal {
+  width: 100%;
+  max-width: 700px;
+  background: #0d0d0d;
+  border: 1px solid #232323;
+  border-radius: 24px;
+  padding: 28px;
+  box-sizing: border-box;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+}
+
+.contactManagement__modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.contactManagement__modalHeader h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.contactManagement__close {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* ================= FORM ================= */
+
+.contactManagement__field {
+  margin-bottom: 18px;
+}
+
+.contactManagement__field label {
+  display: block;
+  margin-bottom: 8px;
+  color: #d1d5db;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.contactManagement__field input,
+.contactManagement__field select {
+  width: 100%;
+  height: 54px;
+  background: #111111;
+  border: 1px solid #232323;
+  color: white;
+  border-radius: 14px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+.contactManagement__field input:focus,
+.contactManagement__field select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+/* ================= SAVE ================= */
+
+.contactManagement__saveBtn {
+  width: 100%;
+  height: 54px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.contactManagement__saveBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* ================= SCROLLBAR ================= */
+
+.contactManagement__tableWrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.contactManagement__tableWrapper::-webkit-scrollbar-track {
+  background: #111111;
+}
+
+.contactManagement__tableWrapper::-webkit-scrollbar-thumb {
+  background: #2563eb;
+  border-radius: 20px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .contactManagement {
+    padding: 15px;
+  }
+
+  .contactManagement__header {
+    gap: 15px;
+  }
+
+  .contactManagement__addBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .contactManagement__table {
+    min-width: 900px;
+  }
+
+  .contactManagement__modal {
+    padding: 20px;
+  }
+}
