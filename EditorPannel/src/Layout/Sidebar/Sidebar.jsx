@@ -1,30 +1,18 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
+import logo from "../../assets/p-2.jpeg";
 
 import {
   FaTachometerAlt,
-  FaThLarge,
   FaFileAlt,
-  FaUserShield,
   FaBell,
   FaLayerGroup,
   FaBook,
   FaChevronDown,
   FaChevronRight,
-  FaUsers,
-  FaShoppingCart,
-  FaCog,
-  FaEnvelope,
-  FaChartBar,
-  FaCalendarAlt,
   FaComments,
-  FaEnvelopeOpen,
-  FaCalendarCheck,
-  FaStore,
   FaUser,
   FaDollarSign,
-  FaQuestionCircle,
-  FaPhoneAlt,
   FaTimes,
 } from "react-icons/fa";
 
@@ -85,23 +73,28 @@ const Sidebar = ({
 
         {/* Logo */}
 
-        <div className="sidebarLogo">
-
-          <div className="sidebarLogoIcon">
-            V
-          </div>
 
           {!sidebarCollapsed && (
-            <div className="sidebarLogoText">
-              <h2>Velzon</h2>
-              <p>Admin Panel</p>
-            </div>
+           <div className="sidebarLogo">
+                <img
+                  src={logo}
+                  alt="IJPSAR Logo"
+                  className="sidebarLogoImage"
+                />
+
+                {!sidebarCollapsed && (
+                  <div className="sidebarLogoText">
+                    <h2>IJPSAR</h2>
+                    <p>Editor Panel</p>
+                  </div>
+                )}
+              </div>
           )}
 
-        </div>
 
-        <div className="sidebarMenu">
+       <div className="sidebarMenu">
 
+          {/* Dashboard */}
           <div className="sidebarItem active">
             <div className="sidebarItemLeft">
               <FaTachometerAlt />
@@ -111,73 +104,20 @@ const Sidebar = ({
             </div>
           </div>
 
-          {/* Apps */}
-
+          {/* Paper Management */}
           <div
             className="sidebarItem"
-            onClick={() =>
-              toggleMenu("apps")
-            }
-          >
-            <div className="sidebarItemLeft">
-              <FaThLarge />
-              {!sidebarCollapsed && (
-                <span>Apps</span>
-              )}
-            </div>
-
-            {!sidebarCollapsed &&
-              (openMenu === "apps" ? (
-                <FaChevronDown />
-              ) : (
-                <FaChevronRight />
-              ))}
-          </div>
-
-          {!sidebarCollapsed &&
-            openMenu === "apps" && (
-              <div className="sidebarDropdown">
-
-                <div className="sidebarSubItem">
-                  <FaComments />
-                  <span>Chat App</span>
-                </div>
-
-                <div className="sidebarSubItem">
-                  <FaEnvelopeOpen />
-                  <span>Email</span>
-                </div>
-
-                <div className="sidebarSubItem">
-                  <FaCalendarCheck />
-                  <span>Calendar</span>
-                </div>
-
-                <div className="sidebarSubItem">
-                  <FaStore />
-                  <span>Ecommerce</span>
-                </div>
-
-              </div>
-            )}
-
-          {/* Pages */}
-
-          <div
-            className="sidebarItem"
-            onClick={() =>
-              toggleMenu("pages")
-            }
+            onClick={() => toggleMenu("paper")}
           >
             <div className="sidebarItemLeft">
               <FaFileAlt />
               {!sidebarCollapsed && (
-                <span>Pages</span>
+                <span>Paper Management</span>
               )}
             </div>
 
             {!sidebarCollapsed &&
-              (openMenu === "pages" ? (
+              (openMenu === "paper" ? (
                 <FaChevronDown />
               ) : (
                 <FaChevronRight />
@@ -185,124 +125,63 @@ const Sidebar = ({
           </div>
 
           {!sidebarCollapsed &&
-            openMenu === "pages" && (
+            openMenu === "paper" && (
               <div className="sidebarDropdown">
 
                 <div className="sidebarSubItem">
-                  <FaUser />
-                  <span>Profile</span>
+                  <FaFileAlt />
+                  <span>Submit Research Paper</span>
                 </div>
 
                 <div className="sidebarSubItem">
-                  <FaDollarSign />
-                  <span>Pricing</span>
+                  <FaBook />
+                  <span>Preview Research Paper</span>
                 </div>
 
                 <div className="sidebarSubItem">
-                  <FaQuestionCircle />
-                  <span>FAQ</span>
-                </div>
-
-                <div className="sidebarSubItem">
-                  <FaPhoneAlt />
-                  <span>Contact</span>
+                  <FaLayerGroup />
+                  <span>Publication</span>
                 </div>
 
               </div>
             )}
 
+          {/* Profile Management */}
           <div className="sidebarItem">
             <div className="sidebarItemLeft">
-              <FaUsers />
+              <FaUser />
               {!sidebarCollapsed && (
-                <span>Users</span>
+                <span>Profile Management</span>
               )}
             </div>
           </div>
 
-          <div className="sidebarItem">
-            <div className="sidebarItemLeft">
-              <FaShoppingCart />
-              {!sidebarCollapsed && (
-                <span>Ecommerce</span>
-              )}
-            </div>
-          </div>
-
-          <div className="sidebarItem">
-            <div className="sidebarItemLeft">
-              <FaChartBar />
-              {!sidebarCollapsed && (
-                <span>Analytics</span>
-              )}
-            </div>
-          </div>
-
-          <div className="sidebarItem">
-            <div className="sidebarItemLeft">
-              <FaCalendarAlt />
-              {!sidebarCollapsed && (
-                <span>Calendar</span>
-              )}
-            </div>
-          </div>
-
-          <div className="sidebarItem">
-            <div className="sidebarItemLeft">
-              <FaUserShield />
-              {!sidebarCollapsed && (
-                <span>
-                  Authentication
-                </span>
-              )}
-            </div>
-          </div>
-
+          {/* Ticket Raise */}
           <div className="sidebarItem">
             <div className="sidebarItemLeft">
               <FaBell />
               {!sidebarCollapsed && (
-                <span>
-                  Notifications
-                </span>
+                <span>Raise Ticket</span>
               )}
             </div>
           </div>
 
+          {/* Chat */}
           <div className="sidebarItem">
             <div className="sidebarItemLeft">
-              <FaEnvelope />
+              <FaComments />
               {!sidebarCollapsed && (
-                <span>Messages</span>
+                <span>Chat</span>
               )}
             </div>
           </div>
 
+          {/* Payment Information */}
           <div className="sidebarItem">
             <div className="sidebarItemLeft">
-              <FaLayerGroup />
+              <FaDollarSign />
               {!sidebarCollapsed && (
-                <span>Components</span>
-              )}
-            </div>
-          </div>
-
-          <div className="sidebarItem">
-            <div className="sidebarItemLeft">
-              <FaCog />
-              {!sidebarCollapsed && (
-                <span>Settings</span>
-              )}
-            </div>
-          </div>
-
-          <div className="sidebarItem">
-            <div className="sidebarItemLeft">
-              <FaBook />
-              {!sidebarCollapsed && (
-                <span>
-                  Documentation
-                </span>
+                <span>Payment Information</span>
               )}
             </div>
           </div>
