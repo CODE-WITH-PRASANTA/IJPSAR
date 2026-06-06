@@ -1,0 +1,176 @@
+.Overview {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  
+}
+
+.Overview_Header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.Overview_HeaderLeft h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.Overview_HeaderLeft p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.Overview_HeaderRight {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.Overview_ActionBtn,
+.Overview_IconBtn {
+  height: 42px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.Overview_IconBtn {
+  width: 42px;
+  justify-content: center;
+  padding: 0;
+}
+
+.Overview_DropdownWrapper {
+  position: relative;
+}
+
+.Overview_Dropdown {
+  position: absolute;
+  top: 52px;
+  right: 0;
+  width: 160px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+  overflow: hidden;
+  z-index: 100;
+  animation: OverviewFade .2s ease;
+}
+
+.Overview_DropdownItem {
+  padding: 14px 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.Overview_DropdownItem:hover {
+  background: #f9fafb;
+}
+
+.Overview_DropdownItem.active {
+  font-weight: 600;
+}
+
+.Overview_Cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.Overview_Card {
+  background: #f8f8fb;
+  border-radius: 18px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.Overview_CardTop {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #374151;
+  font-weight: 600;
+}
+
+.Overview_CardBody {
+  background: #fff;
+  margin: 0 2px 2px;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+.Overview_CardBody h3 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #111827;
+}
+
+.Overview_CardChange {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.Overview_CardChange.positive {
+  color: #16a34a;
+}
+
+.Overview_CardChange.negative {
+  color: #dc2626;
+}
+
+.Overview_CardChange span {
+  color: #6b7280;
+}
+
+@keyframes OverviewFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1200px) {
+  .Overview_Cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .Overview_Header {
+    flex-direction: column;
+  }
+
+  .Overview_HeaderRight {
+    flex-wrap: wrap;
+  }
+
+  .Overview_Cards {
+    grid-template-columns: 1fr;
+  }
+
+  .Overview_CardBody h3 {
+    font-size: 34px;
+  }
+}

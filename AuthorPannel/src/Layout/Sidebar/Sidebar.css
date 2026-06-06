@@ -1,0 +1,576 @@
+/* ==========================
+   SIDEBAR
+========================== */
+
+.Sidebar {
+  width: 310px;
+  min-width: 310px;
+  height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #edf0f7;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 9999;
+  transition: all 0.35s ease;
+}
+
+.Sidebar_Scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.Sidebar_Scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.Sidebar_Scroll::-webkit-scrollbar-thumb {
+  background: #cfd6e4;
+  border-radius: 30px;
+}
+
+.Sidebar_Scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ==========================
+   HEADER
+========================== */
+
+.Sidebar_Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.Sidebar_Logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.Sidebar_LogoIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(
+    135deg,
+    #6c63ff,
+    #4f46e5
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.Sidebar_Logo h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.Sidebar_NotificationBtn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #f4f6fb;
+  border-radius: 12px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  color: #374151;
+  transition: 0.3s;
+}
+
+.Sidebar_NotificationBtn:hover {
+  background: #eceff7;
+}
+
+.Sidebar_Close {
+  display: none;
+}
+
+/* ==========================
+   NOTIFICATION
+========================== */
+
+.Sidebar_NotificationPopup {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 330px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  overflow: hidden;
+  z-index: 999;
+}
+
+.Sidebar_NotificationHeader {
+  padding: 18px;
+  font-size: 17px;
+  font-weight: 700;
+  border-bottom: 1px solid #edf0f7;
+}
+
+.Sidebar_NotificationList {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.Sidebar_NotificationList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.Sidebar_NotificationList::-webkit-scrollbar-thumb {
+  background: #cfd6e4;
+}
+
+.Sidebar_NotificationItem {
+  padding: 16px 18px;
+  border-bottom: 1px solid #f2f4f8;
+}
+
+.Sidebar_NotificationItem h4 {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.Sidebar_NotificationItem p {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ==========================
+   SEARCH
+========================== */
+
+.Sidebar_Search {
+  height: 48px;
+  border: 1px solid #edf0f7;
+  border-radius: 14px;
+  padding: 0 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: #fafbfe;
+  margin-bottom: 24px;
+}
+
+.Sidebar_Search svg {
+  color: #6b7280;
+}
+
+.Sidebar_Search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.Sidebar_Search span {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* ==========================
+   MENU
+========================== */
+
+.Sidebar_Menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.Sidebar_MenuItem {
+  height: 48px;
+  border-radius: 14px;
+  padding: 0 16px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  text-decoration: none;
+  color: #4b5563;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.Sidebar_MenuItem:hover {
+  background: #f4f6fb;
+}
+
+.Sidebar_MenuItem.active {
+  background: #eef2ff;
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+.Sidebar_Badge {
+  margin-left: auto;
+  background: #eef2ff;
+  color: #4f46e5;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.Sidebar_ProjectHeader {
+  margin-top: 18px;
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ==========================
+   PROJECT DOTS
+========================== */
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.pink {
+  background: #ec4899;
+}
+
+.green {
+  background: #22c55e;
+}
+
+.blue {
+  background: #3b82f6;
+}
+
+.purple {
+  background: #8b5cf6;
+}
+
+/* ==========================
+   FOOTER
+========================== */
+
+.Sidebar_Footer {
+  margin-top: 25px;
+}
+
+.Sidebar_Card {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 18px;
+  background: #f8fafc;
+}
+
+.Sidebar_Card h4 {
+  font-size: 15px;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+.Sidebar_Card p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #6b7280;
+  margin-bottom: 14px;
+}
+
+.Sidebar_Card button {
+  width: 100%;
+  height: 42px;
+  border: none;
+  border-radius: 12px;
+  background: #4f46e5;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ==========================
+   PROFILE
+========================== */
+
+.Sidebar_Profile {
+  height: 80px;
+  border-top: 1px solid #edf0f7;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.Sidebar_Profile img {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.Sidebar_Profile h4 {
+  font-size: 14px;
+  color: #111827;
+}
+
+.Sidebar_Profile p {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.Sidebar_Profile svg:last-child {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+/* =========================
+   HEADER ACTIONS
+========================= */
+
+.Sidebar_HeaderActions {
+  position: relative;
+}
+
+/* =========================
+   NOTIFICATION POPUP
+========================= */
+
+.Sidebar_NotificationPopup {
+  position: absolute;
+  top: 60px;
+  right: 0;
+
+  width: 280px; /* fit inside sidebar */
+
+  background: #ffffff;
+  border-radius: 16px;
+
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+
+  overflow: hidden;
+  z-index: 9999;
+
+  animation: SidebarPopupAnimation .25s ease;
+}
+
+.Sidebar_NotificationHeader {
+  padding: 18px;
+  font-size: 16px;
+  font-weight: 700;
+  border-bottom: 1px solid #edf0f7;
+}
+
+.Sidebar_NotificationList {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.Sidebar_NotificationList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.Sidebar_NotificationList::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 20px;
+}
+
+@keyframes SidebarPopupAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.Sidebar_NotificationItem {
+  padding: 18px;
+  border-bottom: 1px solid #edf0f7;
+}
+
+.Sidebar_NotificationItem h4 {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.Sidebar_NotificationItem p {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.Sidebar_Profile {
+  position: relative;
+}
+
+.Sidebar_ProfileInfo {
+  flex: 1;
+}
+
+.Sidebar_ProfileButton {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* =========================
+   PROFILE POPUP
+========================= */
+
+.Sidebar_ProfilePopup {
+  position: absolute;
+  bottom: 80px;
+  left: 10px;
+  width: 260px;
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,.15);
+  z-index: 99999;
+}
+
+.Sidebar_ProfilePopupUser {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  border-bottom: 1px solid #edf0f7;
+}
+
+.Sidebar_ProfilePopupUser img {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+}
+
+.Sidebar_ProfilePopupItem {
+  padding: 15px 18px;
+  cursor: pointer;
+  transition: .25s;
+  border-bottom: 1px solid #edf0f7;
+}
+
+.Sidebar_ProfilePopupItem:hover {
+  background: #f8fafc;
+}
+
+.Sidebar_ProfilePopupItem.danger {
+  color: #ef4444;
+}
+
+/* =========================
+   IMPORTANT FIX
+========================= */
+
+.Sidebar {
+  overflow: visible;
+}
+
+.Sidebar_Scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: visible;
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+.Sidebar_Overlay {
+  display: none;
+}
+
+@media (max-width: 991px) {
+
+  .Sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 310px;
+    height: 100vh;
+    z-index: 9999;
+    transition: left .35s ease;
+  }
+
+  .Sidebar.show {
+    left: 0;
+  }
+
+  .Sidebar_Overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 9998;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+  }
+
+  .Sidebar_Overlay.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .Sidebar_Close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .Sidebar {
+    width: 290px;
+    min-width: 290px;
+  }
+
+  .Sidebar_NotificationPopup {
+    width: 280px;
+  }
+}

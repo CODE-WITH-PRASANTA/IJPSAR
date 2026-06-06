@@ -1,0 +1,299 @@
+.latestOrders {
+  width: 100%;
+  padding-top: 20px;
+  background: #f5f6fa;
+  min-height: 100vh;
+}
+
+.ordersCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Header */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 22px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.cardHeader h3 {
+  color: #111827;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Menu */
+.menuWrapper {
+  position: relative;
+}
+
+.menuBtn {
+  background: transparent;
+  border: none;
+  color: #555;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.menuBtn:hover {
+  color: #7c3aed;
+  transform: rotate(90deg);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  width: 190px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  animation: fadeDown 0.3s ease;
+  z-index: 100;
+}
+
+.dropdownMenu button {
+  width: 100%;
+  border: none;
+  background: white;
+  padding: 14px 18px;
+  text-align: left;
+  color: #333;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.dropdownMenu button:hover {
+  background: #7c3aed;
+  color: white;
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Table */
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+.tableWrapper::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 20px;
+}
+
+table {
+  width: 100%;
+  min-width: 950px;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f8fafc;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+th,
+td {
+  padding: 18px;
+  text-align: left;
+}
+
+th {
+  color: #6b7280;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+th:hover {
+  color: #7c3aed;
+}
+
+tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: 0.3s ease;
+}
+
+tbody tr:hover {
+  background: rgba(124, 58, 237, 0.05);
+}
+
+td {
+  color: #111827;
+  font-size: 14px;
+}
+
+/* Status */
+.status {
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.paid {
+  background: rgba(99, 102, 241, 0.12);
+  color: #4f46e5;
+}
+
+.pending {
+  background: rgba(255, 193, 7, 0.12);
+  color: #f59e0b;
+}
+
+.fulfilled {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+}
+
+.cancelled {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px;
+  border-top: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.itemsPerPage {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #374151;
+}
+
+.itemsPerPage select {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 2px solid #7c3aed;
+  background: white;
+  color: #333;
+  outline: none;
+  cursor: pointer;
+}
+
+.pageControls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #374151;
+}
+
+.pageControls button {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(
+    135deg,
+    #8b5cf6,
+    #7c3aed
+  );
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pageControls button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
+}
+
+.pageControls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .pagination {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .latestOrders {
+    padding: 12px;
+  }
+
+  .cardHeader {
+    padding: 14px;
+  }
+
+  .cardHeader h3 {
+    font-size: 17px;
+  }
+
+  th,
+  td {
+    padding: 14px;
+    font-size: 13px;
+  }
+
+  .dropdownMenu {
+    width: 170px;
+  }
+
+  .itemsPerPage,
+  .pageControls {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardHeader {
+    padding: 12px;
+  }
+
+  .cardHeader h3 {
+    font-size: 15px;
+  }
+
+  .pagination {
+    padding: 15px;
+  }
+
+  .pageControls button {
+    width: 34px;
+    height: 34px;
+  }
+}

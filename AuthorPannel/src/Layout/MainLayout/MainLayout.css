@@ -1,0 +1,109 @@
+.MainLayout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: #f8f9fb;
+}
+
+/* Main Content */
+.MainLayout_Content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+.MainLayout_Content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.MainLayout_Content::-webkit-scrollbar-thumb {
+  background: #bfc5d2;
+  border-radius: 20px;
+}
+
+.MainLayout_Content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.MainLayout_PageContent {
+  min-height: 100%;
+}
+
+/* Mobile Header */
+
+.MainLayout_MobileHeader {
+  display: none;
+  align-items: center;
+  gap: 15px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.MainLayout_MobileHeader h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.MainLayout_MenuBtn {
+  width: 42px;
+  height: 42px;
+  border: none;
+  background: #f3f4f6;
+  border-radius: 12px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+  transition: 0.3s;
+}
+
+.MainLayout_MenuBtn:hover {
+  background: #e9edf5;
+}
+
+/* Tablet */
+
+@media (max-width: 991px) {
+
+  .MainLayout_Content {
+    padding: 18px;
+  }
+
+  .MainLayout_MobileHeader {
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 576px) {
+
+  .MainLayout_Content {
+    padding: 12px;
+  }
+
+  .MainLayout_MobileHeader {
+    padding: 12px;
+  }
+
+  .MainLayout_MobileHeader h2 {
+    font-size: 20px;
+  }
+
+  .MainLayout_MenuBtn {
+    width: 40px;
+    height: 40px;
+  }
+}

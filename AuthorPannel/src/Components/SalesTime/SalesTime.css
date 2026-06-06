@@ -1,0 +1,102 @@
+.SalesTime {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  overflow: hidden;
+ margin-top: 20px;
+}
+
+.SalesTime_Header {
+  height: 60px;
+  padding: 0 20px;
+  background: #f7f8fc;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.SalesTime_Title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.SalesTime_MenuBtn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.SalesTime_Summary {
+  padding: 30px;
+}
+
+.SalesTime_Summary h2 {
+  font-size: 56px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.SalesTime_Growth {
+  color: #16a34a;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.SalesTime_Chart {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 10px;
+}
+
+.SalesTime_Tooltip {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.12);
+  min-width: 220px;
+}
+
+.SalesTime_Tooltip h4 {
+  margin-bottom: 14px;
+  font-size: 15px;
+}
+
+.SalesTime_TooltipRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.SalesTime_BlueDot,
+.SalesTime_LightDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.SalesTime_BlueDot {
+  background: #3B5BDB;
+}
+
+.SalesTime_LightDot {
+  background: #80A8FF;
+}
+
+@media (max-width: 768px) {
+  .SalesTime_Summary h2 {
+    font-size: 40px;
+  }
+
+  .SalesTime {
+    border-radius: 14px;
+  }
+}
