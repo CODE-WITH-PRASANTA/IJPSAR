@@ -26,6 +26,8 @@ import {
   FaAddressBook,
   FaBook
 } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
+
 const Sidebar = () => {
   const [showProfile, setShowProfile] = useState(false);
   const [showLogoMenu, setShowLogoMenu] = useState(false);
@@ -212,7 +214,17 @@ const Sidebar = () => {
               <FaStar />
           <span>Author Testimonials</span>
             </NavLink>
-
+              <NavLink
+                  to="/calendar-management"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "sidebarLink active"
+                      : "sidebarLink"
+                  }
+                >
+                  <FaCalendarAlt />
+                  <span>Calendar Management</span>
+                </NavLink> 
             {/* Contact Management */}
             <NavLink
               to="/contact-management"

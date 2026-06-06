@@ -138,10 +138,7 @@
   font-size: 16px;
 }
 
-.sidebarItem span {
-  font-size: 14px;
-  font-weight: 500;
-}
+
 
 /* Dropdown */
 
@@ -180,12 +177,12 @@
 }
 
 .sidebarSubItem svg {
-  font-size: 13px;
+  font-size: 15px;
   min-width: 15px;
 }
 
 .sidebarSubItem span {
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .sidebarSubItem:hover {
@@ -240,9 +237,7 @@
     height: 75px;
   }
 
-  .sidebarItem span {
-    font-size: 13px;
-  }
+ 
 }
 
 /* Small Mobile */
