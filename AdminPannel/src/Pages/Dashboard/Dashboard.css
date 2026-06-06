@@ -1,0 +1,23 @@
+/* Container managing the stacked dashboard layout blocks */
+.mainDashboardContainer {
+  width: 100%;
+  min-height: 100vh;
+  background: #05070f; /* Match your premium deep dark theme color background */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Explicit space control between the stats block and Highlights layout */
+}
+
+/* Adjust the sections wrapper if necessary */
+.dashboardLowerSection {
+  width: 100%;
+}
+
+/* Responsive Overrides to maintain compactness across all viewport dimensions */
+@media (max-width: 768px) {
+  .mainDashboardContainer {
+    padding: 20px;
+    gap: 16px;
+  }
+}

@@ -1,0 +1,223 @@
+/* ===========================
+   BASE RESET & DARK THEME VARIABLES
+=========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-main: #05070f;
+  --bg-card: #0c101f;
+  --border-card: #1e293b;
+  --border-hover: #334155;
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+}
+
+.dashboardHome {
+  width: 100%;
+  padding: 40px;
+  background: var(--bg-main);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ===========================
+   HEADER 
+=========================== */
+.dashboardHomeHeader {
+  margin-bottom: 35px;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.dashboardHomeHeader h2 {
+  color: var(--text-main);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.dashboardHomeHeader p {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+/* ===========================
+   GRID
+=========================== */
+.dashboardHomeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* ===========================
+   PREMIUM CARD LAYER & DESIGN
+=========================== */
+.dashboardCard {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 26px;
+  cursor: pointer;
+  
+  /* Initial state for stagger load transition */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.4s ease, 
+              box-shadow 0.4s ease;
+}
+
+.dashboardCard:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-hover);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.dashboardCardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dashboardCardTitle {
+  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.dashboardCardIcon {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dashboardCardBottom {
+  margin-top: 32px;
+}
+
+.dashboardCardBottom h3 {
+  color: var(--text-main);
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  letter-spacing: -0.5px;
+}
+
+.currencyIconPrefix {
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.dashboardCardGrowth {
+  font-size: 13px;
+  font-weight: 600;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+/* Ambient Backdrop Glows */
+.dashboardCardGlow {
+  position: absolute;
+  right: -50px;
+  bottom: -50px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  opacity: 0.04;
+  filter: blur(20px);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.dashboardCard:hover .dashboardCardGlow {
+  transform: scale(1.4);
+  opacity: 0.14;
+}
+
+.dashboardCard:hover .dashboardCardIcon {
+  transform: scale(1.08) rotate(4deg);
+}
+
+/* ===========================
+   THEME PALETTES (GLOWS & ICONS)
+=========================== */
+.dashboardCard-blue .dashboardCardIcon { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
+.dashboardCard-blue .dashboardCardGlow { background: #3b82f6; }
+
+.dashboardCard-orange .dashboardCardIcon { background: rgba(249, 115, 22, 0.12); color: #f97316; }
+.dashboardCard-orange .dashboardCardGlow { background: #f97316; }
+
+.dashboardCard-red .dashboardCardIcon { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+.dashboardCard-red .dashboardCardGlow { background: #ef4444; }
+
+.dashboardCard-green .dashboardCardIcon { background: rgba(16, 185, 129, 0.12); color: #10b981; }
+.dashboardCard-green .dashboardCardGlow { background: #10b981; }
+
+.dashboardCard-purple .dashboardCardIcon { background: rgba(168, 85, 247, 0.12); color: #a855f7; }
+.dashboardCard-purple .dashboardCardGlow { background: #a855f7; }
+
+.dashboardCard-cyan .dashboardCardIcon { background: rgba(6, 182, 212, 0.12); color: #06b6d4; }
+.dashboardCard-cyan .dashboardCardGlow { background: #06b6d4; }
+
+/* ===========================
+   KEYFRAMES FOR FADE/RISE LOAD ANIMATION
+=========================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+=========================== */
+@media (max-width: 1100px) {
+  .dashboardHomeGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboardHome {
+    padding: 24px;
+  }
+
+  .dashboardHomeGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dashboardHomeHeader h2 {
+    font-size: 26px;
+  }
+
+  .dashboardCardBottom h3 {
+    font-size: 32px;
+  }
+}

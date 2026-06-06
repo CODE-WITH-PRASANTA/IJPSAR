@@ -1,48 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Testimonial.css";
+import API, { BASE_URL } from "../../api/axios";
 
 const Testimonial = () => {
-  const [list, setList] = useState([
-    {
-      id: 1,
-      image: "",
-      initial: "R",
-      name: "Prof. Ravinesh Mishra",
-      designation: "Dean R&D",
-      organization: "Baddi University",
-      country: "India",
-      rating: 5,
-      status: "Active",
-      order: "1",
-      feedback: "Excellent platform for researchers.",
-    },
-    {
-      id: 2,
-      image: "",
-      initial: "S",
-      name: "Sreemoy",
-      designation: "Associate Prof.",
-      organization: "IIT Bombay",
-      country: "India",
-      rating: 5,
-      status: "Active",
-      order: "2",
-      feedback: "Very user-friendly system.",
-    },
-    {
-      id: 3,
-      image: "",
-      initial: "M",
-      name: "Rashid",
-      designation: "Associate Prof.",
-      organization: "Stanford University",
-      country: "USA",
-      rating: 5,
-      status: "Active",
-      order: "3",
-      feedback: "Great analytical interface tools.",
-    },
-  ]);
+  const [list, setList] = useState([]);
 
   const initialFormState = {
     name: "",
@@ -60,6 +21,20 @@ const Testimonial = () => {
   const [editingId, setEditingId] = useState(null);
   const fileInputRef = useRef(null);
 
+  // Load testimonials from API on component mount
+  useEffect(() => {
+    loadTestimonials();
+  }, []);
+
+  const loadTestimonials = async () => {
+    try {
+      const response = await API.get("/testimonials");
+      setList(response.data);
+    } catch (error) {
+      console.error("Load Error:", error);
+    }
+  };
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -67,91 +42,116 @@ const Testimonial = () => {
   // Process Avatar Image Upload File to base64 Data String
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setForm({ ...form, image: reader.result });
-      };
-      reader.readAsDataURL(file);
+
+    if (!file) return;
+
+    // 2 MB limit
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Image size must be less than 2 MB");
+      e.target.value = "";
+      return;
     }
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setForm((prev) => ({
+        ...prev,
+        image: reader.result,
+      }));
+    };
+
+    reader.readAsDataURL(file);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    // 1. Frontend validation rules
     if (!form.name.trim()) {
       alert("Please fill out the Researcher Name.");
+      return;
+    }
+
+    if (!form.feedback.trim()) {
+      alert("Please fill out the Feedback Message.");
       return;
     }
 
     // Auto-generate character fallback if no custom profile image was selected
     const computedInitial = form.name.trim().charAt(0).toUpperCase() || "A";
 
-    if (editingId) {
-      // Update Record Mode
-      setList(
-        list.map((item) =>
-          item.id === editingId
-            ? {
-                ...item,
-                name: form.name.trim(),
-                designation: form.designation.trim() || "—",
-                organization: form.organization.trim() || "—",
-                country: form.country.trim() || "—",
-                image: form.image,
-                initial: computedInitial,
-                rating: Number(form.rating) || 5,
-                status: form.status,
-                order: form.order.trim(),
-                feedback: form.feedback.trim(),
-              }
-            : item
-        )
-      );
-      setEditingId(null);
-    } else {
-      // Create Record Mode
-      const newItem = {
-        id: Date.now(),
-        image: form.image,
-        initial: computedInitial,
-        name: form.name.trim(),
-        designation: form.designation.trim() || "—",
-        organization: form.organization.trim() || "—",
-        country: form.country.trim() || "—",
-        rating: Number(form.rating) || 5,
-        status: form.status || "Active",
-        order: form.order.trim(),
-        feedback: form.feedback.trim(),
-      };
-      setList([...list, newItem]);
-    }
+    // 2. Build explicit schema structured data payload
+    const payload = {
+      name: form.name.trim(),
+      designation: form.designation.trim() || "—",
+      organization: form.organization.trim() || "—",
+      country: form.country.trim() || "—",
+      image: form.image,
+      initial: computedInitial,
+      rating: Number(form.rating) || 5,
+      status: form.status,
+      order: form.order.trim() ? Number(form.order) : 0, // Fallback safely to a number type
+      feedback: form.feedback.trim(),
+    };
 
-    // Clear and clean input form cards
-    setForm(initialFormState);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    try {
+      if (editingId) {
+        // Update Record Mode
+        await API.put(`/testimonials/${editingId}`, payload);
+        setEditingId(null);
+      } else {
+        // Create Record Mode
+        await API.post("/testimonials", payload);
+      }
+
+      // Refresh list from DB
+      await loadTestimonials();
+
+      // Clear and clean input form cards
+      setForm(initialFormState);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    } catch (error) {
+      console.error("Save Error:", error);
+
+      if (error.response) {
+        alert(
+          error.response.data?.message ||
+          `Server Error (${error.response.status}): Check your backend body-parser configuration limits for processing base64 image data strings.`
+        );
+      } else {
+        alert("Unable to connect to server");
+      }
+    }
   };
 
   const handleEdit = (item) => {
-    setEditingId(item.id);
+    setEditingId(item._id);
     setForm({
-      name: item.name,
-      designation: item.designation === "—" ? "" : item.designation,
-      organization: item.organization === "—" ? "" : item.organization,
-      country: item.country === "—" ? "" : item.country,
+      name: item.name || "",
+      designation: item.designation === "—" ? "" : item.designation || "",
+      organization: item.organization === "—" ? "" : item.organization || "",
+      country: item.country === "—" ? "" : item.country || "",
       image: item.image || "",
-      rating: item.rating,
+      rating: item.rating || 5,
       feedback: item.feedback || "",
-      status: item.status,
-      order: item.order || "",
+      status: item.status || "Active",
+      order: item.order !== undefined && item.order !== null ? String(item.order) : "",
     });
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this feedback entry?")) {
-      setList(list.filter((item) => item.id !== id));
-      if (editingId === id) {
-        setEditingId(null);
-        setForm(initialFormState);
-        if (fileInputRef.current) fileInputRef.current.value = "";
+      try {
+        await API.delete(`/testimonials/${id}`);
+        
+        await loadTestimonials();
+
+        if (editingId === id) {
+          setEditingId(null);
+          setForm(initialFormState);
+          if (fileInputRef.current) fileInputRef.current.value = "";
+        }
+      } catch (error) {
+        console.error("Delete Error:", error);
       }
     }
   };
@@ -319,7 +319,7 @@ const Testimonial = () => {
                 {list.length > 0 ? (
                   list.map((item, index) => {
                     return (
-                      <tr key={item.id}>
+                      <tr key={item._id}>
                         <td>{index + 1}</td>
 
                         <td>
@@ -343,7 +343,7 @@ const Testimonial = () => {
                         </td>
 
                         <td>
-                          <span className={`ts_status ${item.status.replace(/\s+/g, "")}`}>
+                          <span className={`ts_status ${item.status ? item.status.replace(/\s+/g, "") : "Active"}`}>
                             {item.status}
                           </span>
                         </td>
@@ -358,7 +358,7 @@ const Testimonial = () => {
                             </button>
                             <button
                               className="ts_delete"
-                              onClick={() => handleDelete(item.id)}
+                              onClick={() => handleDelete(item._id)}
                             >
                               Delete
                             </button>

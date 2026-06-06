@@ -1,82 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./IndexingCards.css";
+import API from "../../api/axios";
 
-const indexingData = [
-  {
-    name: "Scopus",
-    img: "https://picsum.photos/300/180?random=1",
-  },
-  {
-    name: "Web of Science",
-    img: "https://picsum.photos/300/180?random=2",
-  },
-  {
-    name: "PubMed",
-    img: "https://picsum.photos/300/180?random=3",
-  },
-  {
-    name: "PubMed Central",
-    img: "https://picsum.photos/300/180?random=4",
-  },
-  {
-    name: "DOAJ",
-    img: "https://picsum.photos/300/180?random=5",
-  },
-  {
-    name: "CrossRef",
-    img: "https://picsum.photos/300/180?random=6",
-  },
-  {
-    name: "Google Scholar",
-    img: "https://picsum.photos/300/180?random=7",
-  },
-  {
-    name: "EBSCO",
-    img: "https://picsum.photos/300/180?random=8",
-  },
-  {
-    name: "ProQuest",
-    img: "https://picsum.photos/300/180?random=9",
-  },
-  {
-    name: "Index Copernicus",
-    img: "https://picsum.photos/300/180?random=10",
-  },
-  {
-    name: "J-Gate",
-    img: "https://picsum.photos/300/180?random=11",
-  },
-  {
-    name: "Scilit",
-    img: "https://picsum.photos/300/180?random=12",
-  },
-  {
-    name: "ResearchGate",
-    img: "https://picsum.photos/300/180?random=13",
-  },
-  {
-    name: "OpenAIRE",
-    img: "https://picsum.photos/300/180?random=14",
-  },
-  {
-    name: "BASE",
-    img: "https://picsum.photos/300/180?random=15",
-  },
-  {
-    name: "CORE",
-    img: "https://picsum.photos/300/180?random=16",
-  },
-  {
-    name: "Dimensions",
-    img: "https://picsum.photos/300/180?random=17",
-  },
-  {
-    name: "Lens.org",
-    img: "https://picsum.photos/300/180?random=18",
-  },
-];
+const BASE_URL = "http://localhost:5000";
 
 const IndexingCards = () => {
+  const [indexingData, setIndexingData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchIndexingData();
+  }, []);
+
+  const fetchIndexingData = async () => {
+    try {
+      const res = await API.get("/index/all");
+
+      console.log("API Response:", res.data);
+
+      const data = Array.isArray(res.data)
+        ? res.data
+        : res.data.data || [];
+
+      setIndexingData(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getImageUrl = (image) => {
+    if (!image) return "";
+
+    if (
+      image.startsWith("http://") ||
+      image.startsWith("https://")
+    ) {
+      return image;
+    }
+
+    return `${BASE_URL}/${image.replace(/^\/+/, "")}`;
+  };
+
   return (
     <section className="indexingCards">
       <div className="indexingCardsContainer">
@@ -96,27 +62,36 @@ const IndexingCards = () => {
           </p>
         </div>
 
-        <div className="indexingCardsGrid">
-          {indexingData.map((item, index) => (
-            <div
-              className="indexingCardItem"
-              key={index}
-            >
-              <div className="indexingCardGlow"></div>
+        {loading ? (
+          <div className="loadingBox">
+            Loading Indexing Platforms...
+          </div>
+        ) : (
+          <div className="indexingCardsGrid">
+            {indexingData.map((item) => (
+              <div
+                className="indexingCardItem"
+                key={item._id}
+              >
+                <div className="indexingCardGlow"></div>
 
-              <div className="indexingCardImgBox">
-                <img
-                  src={item.img}
-                  alt={item.name}
-                  loading="lazy"
-                />
+                <div className="indexingCardImgBox">
+                  <img
+                    src={getImageUrl(item.image)}
+                    alt={item.title}
+                    loading="lazy"
+                  />
+                </div>
+
+                <h3>{item.title}</h3>
+
+                <span>
+                  {item.subtitle}
+                </span>
               </div>
-
-              <h3>{item.name}</h3>
-              <span>Indexed Platform</span>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

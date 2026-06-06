@@ -1,0 +1,424 @@
+/* ===========================
+   HIGHLIGHTS GENERAL LAYOUT
+=========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.highlightsWrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(340px, 1.2fr);
+  gap: 24px;
+  padding: 24px;
+  background: #05070f;
+  align-items: start;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ===========================
+   LEFT HERO CARD DESIGN
+=========================== */
+.highlightsHeroCard {
+  background: linear-gradient(180deg, #0c101f 0%, #05070f 100%);
+  border: 1px solid #1e293b;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 40px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.highlightsHeroCard:hover {
+  border-color: #334155;
+  transform: translateY(-4px);
+}
+
+.highlightsHeroCard::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.07), transparent 70%);
+  top: -250px;
+  left: -200px;
+  pointer-events: none;
+}
+
+.highlightsHeroCard::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.05), transparent 70%);
+  bottom: -250px;
+  right: -200px;
+  pointer-events: none;
+}
+
+.highlightsIllustration {
+  position: relative;
+  margin-bottom: 24px;
+  z-index: 2;
+}
+
+.highlightsCircle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0f172a, #1e3a8a);
+  border: 1px solid #2e4166;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 52px;
+  color: #ffffff;
+  animation: floatAnimation 4s ease-in-out infinite;
+}
+
+.highlightsFloatingCard {
+  position: absolute;
+  width: 74px;
+  height: 74px;
+  background: rgba(99, 102, 241, 0.12);
+  border-radius: 18px;
+  top: -15px;
+  right: -30px;
+  transform: rotate(25deg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.highlightsHeroTitle {
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 14px;
+  z-index: 2;
+  letter-spacing: -0.5px;
+}
+
+.highlightsHeroDescription {
+  max-width: 640px;
+  color: #94a3b8;
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  z-index: 2;
+}
+
+.highlightsCreateBtn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.highlightsCreateBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.12);
+}
+
+/* ===========================
+   RIGHT SIDE PANEL
+=========================== */
+.highlightsSidebar {
+  background: #0c101f;
+  border: 1px solid #1e293b;
+  border-radius: 20px;
+  overflow: visible; /* Allows dropdown menu shadow rendering overlays cleanly */
+  height: fit-content;
+  transition: border-color 0.4s ease;
+}
+
+.highlightsSidebar:hover {
+  border-color: #334155;
+}
+
+.highlightsHeader {
+  padding: 20px 24px;
+  border-bottom: 1px solid #1e293b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.highlightsHeader h3 {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* ===========================
+   INTERACTIVE DROPDOWN LAYER
+=========================== */
+.dropdownContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.highlightsMenuBtn {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.25s, color 0.25s;
+}
+
+.highlightsMenuBtn:hover, 
+.highlightsMenuBtn.active {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+.highlightsDropdownMenu {
+  position: absolute;
+  right: 0;
+  top: 110%;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 6px;
+  width: 160px;
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.highlightsDropdownMenu button {
+  background: transparent;
+  border: none;
+  padding: 10px 12px;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: #94a3b8;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.highlightsDropdownMenu button:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.highlightsDropdownMenu button.deleteAction {
+  color: #ef4444;
+}
+
+.highlightsDropdownMenu button.deleteAction:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
+
+/* ===========================
+   SALES SUMMARY & BAR GRAPH
+=========================== */
+.highlightsSalesSection {
+  padding: 24px;
+}
+
+.highlightsSalesLabel {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.highlightsSalesRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.highlightsSalesRow h2 {
+  color: #ffffff;
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.highlightsBadge {
+  background: rgba(34, 197, 94, 0.12);
+  color: #10b981;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.highlightsProgress {
+  display: flex;
+  gap: 6px;
+  margin-top: 24px;
+}
+
+.highlightsProgressGreen,
+.highlightsProgressRed,
+.highlightsProgressPurple {
+  height: 8px;
+  border-radius: 4px;
+}
+
+.highlightsProgressGreen { width: 58%; background: #10b981; }
+.highlightsProgressRed { width: 24%; background: #ef4444; }
+.highlightsProgressPurple { width: 18%; background: #8b5cf6; }
+
+.highlightsLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.highlightsLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legendDot.green { background: #10b981; }
+.legendDot.red { background: #ef4444; }
+.legendDot.purple { background: #8b5cf6; }
+
+.highlightsDivider {
+  height: 1px;
+  background: #1e293b;
+  margin: 0 24px;
+}
+
+/* ===========================
+   SOCIAL AND CHANNELS LIST LIST
+=========================== */
+.highlightsList {
+  padding: 12px 24px 20px;
+}
+
+.highlightsListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.highlightsListItem:last-child {
+  border-bottom: none;
+}
+
+.highlightsLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.highlightsIcon {
+  font-size: 20px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+}
+
+/* Custom Brands Coloring */
+.brand-fb { color: #1877f2; }
+.brand-insta { color: #e1306c; }
+.brand-google { color: #ea4335; }
+
+.highlightsRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.highlightsRight strong {
+  color: #ffffff;
+  min-width: 55px;
+  text-align: right;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.trendUp,
+.trendDown {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.trendUp { color: #10b981; }
+.trendDown { color: #ef4444; }
+
+/* ===========================
+   KEYFRAME ANIMATIONS
+=========================== */
+@keyframes floatAnimation {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ===========================
+   RESPONSIVE DESIGN SYSTEM
+=========================== */
+@media (max-width: 1100px) {
+  .highlightsWrapper {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .highlightsWrapper {
+    padding: 16px;
+  }
+  .highlightsHeroCard {
+    padding: 35px 20px;
+  }
+  .highlightsHeroTitle {
+    font-size: 28px;
+  }
+  .highlightsHeroDescription {
+    font-size: 15px;
+  }
+  .highlightsSalesRow h2 {
+    font-size: 36px;
+  }
+}

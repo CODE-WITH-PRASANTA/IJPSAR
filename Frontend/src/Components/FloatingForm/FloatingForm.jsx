@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import API from "../../api/axios";
 import "./FloatingForm.css";
 import logo from "../../assets/p-2.JPEG";
 
@@ -12,6 +13,7 @@ const FloatingForm = () => {
     message: "",
   });
 
+  // ================= HANDLE INPUT =================
   const handleFloatingFormChange = (e) => {
     setFloatingFormData({
       ...floatingFormData,
@@ -19,17 +21,36 @@ const FloatingForm = () => {
     });
   };
 
-  const handleFloatingFormSubmit = (e) => {
+  // ================= SUBMIT =================
+  const handleFloatingFormSubmit = async (e) => {
     e.preventDefault();
 
-    alert("Lead Submitted Successfully!");
+    try {
+      // ✅ FIX: use API instead of axios
+      const response = await API.post(
+        "/floatingform/create",
+        floatingFormData
+      );
 
-    setFloatingFormData({
-      name: "",
-      address: "",
-      phone: "",
-      message: "",
-    });
+      if (response.data.success) {
+        alert("Lead Submitted Successfully!");
+
+        setFloatingFormData({
+          name: "",
+          address: "",
+          phone: "",
+          message: "",
+        });
+      } else {
+        alert("Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Submit Error:", error);
+
+      alert(
+        error?.response?.data?.message || "Failed to submit lead"
+      );
+    }
   };
 
   return (
@@ -37,8 +58,8 @@ const FloatingForm = () => {
       {floatingFormOpen && (
         <div className="floatingFormWrapper">
           <div className="floatingFormCard">
-            {/* CLOSE BUTTON */}
 
+            {/* CLOSE BUTTON */}
             <button
               className="floatingFormCloseBtn"
               onClick={() => setFloatingFormOpen(false)}
@@ -47,7 +68,6 @@ const FloatingForm = () => {
             </button>
 
             {/* HEADER */}
-
             <div className="floatingFormHeader">
               <div className="floatingFormLogoBox">
                 <img
@@ -57,16 +77,14 @@ const FloatingForm = () => {
                 />
               </div>
 
-              <h2 className="floatingFormHeading">IJPASR </h2>
+              <h2 className="floatingFormHeading">IJPASR</h2>
 
               <p className="floatingFormSubHeading">
-                International Journal of Pharmaceutical and Allied Science
-                Research
+                International Journal of Pharmaceutical and Allied Science Research
               </p>
             </div>
 
             {/* FORM */}
-
             <form
               className="floatingFormForm"
               onSubmit={handleFloatingFormSubmit}
@@ -109,12 +127,13 @@ const FloatingForm = () => {
                 onChange={handleFloatingFormChange}
                 className="floatingFormTextarea"
                 required
-              ></textarea>
+              />
 
               <button type="submit" className="floatingFormSubmitBtn">
                 Submit Lead
               </button>
             </form>
+
           </div>
         </div>
       )}
