@@ -1,0 +1,163 @@
+.PublishPapper- {
+  padding: 25px;
+  background: #f4f6fb;
+  min-height: 100vh;
+}
+
+.PublishPapper-Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.PublishPapper-Header h1 {
+  font-size: 34px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.PublishPapper-Breadcrumb {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #64748b;
+}
+
+.PublishPapper-Card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.PublishPapper-ReviewStatus {
+  font-size: 24px;
+  color: #334155;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.PublishPapper-TopBar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  gap: 20px;
+}
+
+.PublishPapper-Select {
+  width: 90px;
+  height: 45px;
+  border-radius: 10px;
+}
+
+.PublishPapper-Search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 350px;
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  border-radius: 10px;
+}
+
+.PublishPapper-Search input {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.PublishPapper-TableWrapper {
+  overflow-x: auto;
+}
+
+.PublishPapper-Table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.PublishPapper-Table th {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  padding: 16px;
+  text-align: left;
+}
+
+.PublishPapper-Table td {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.PublishPapper-Table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.PublishPapper-Table tbody tr:hover {
+  background: #eef4ff;
+}
+
+.PublishPapper-Status {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.PublishPapper-ViewBtn {
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.PublishPapper-Pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.PublishPapper-Pagination button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.PublishPapper-Pagination button:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .PublishPapper-Header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .PublishPapper-TopBar {
+    flex-direction: column;
+  }
+
+  .PublishPapper-Search {
+    width: 100%;
+  }
+
+  .PublishPapper-Header h1 {
+    font-size: 24px;
+  }
+
+  .PublishPapper-ReviewStatus {
+    font-size: 18px;
+  }
+}
