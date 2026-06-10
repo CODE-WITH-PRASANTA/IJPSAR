@@ -1,0 +1,236 @@
+.Transaction {
+  padding: 20px;
+  background: #f4f7fc;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* HEADER */
+
+.TransactionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #dcdcdc;
+  padding-bottom: 15px;
+}
+
+.TransactionHeader h1 {
+  font-size: 2rem;
+  color: #1e3a5f;
+  font-weight: 700;
+}
+
+.TransactionBreadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #555;
+  font-size: 14px;
+}
+
+/* CARD */
+
+.TransactionCard {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* CONTROLS */
+
+.TransactionControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.TransactionRecords {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.TransactionRecords select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.TransactionSearch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.TransactionSearch label {
+  font-weight: 600;
+}
+
+.TransactionSearch input {
+  width: 240px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* TABLE */
+
+.TransactionTableWrapper {
+  overflow-x: auto;
+}
+
+.TransactionTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px;
+}
+
+.TransactionTable thead {
+  background: linear-gradient(135deg, #1e3a5f, #315b89);
+}
+
+.TransactionTable thead th {
+  color: white;
+  padding: 14px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.TransactionTable tbody tr {
+  transition: 0.3s;
+}
+
+.TransactionTable tbody tr:nth-child(even) {
+  background: #f8fbff;
+}
+
+.TransactionTable tbody tr:hover {
+  background: #e9f2ff;
+}
+
+.TransactionTable td {
+  padding: 14px;
+  border: 1px solid #e5e5e5;
+  color: #333;
+}
+
+/* FOOTER */
+
+.TransactionFooter {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.TransactionFooter p {
+  color: #555;
+  font-weight: 500;
+}
+
+.TransactionPagination {
+  display: flex;
+  align-items: center;
+}
+
+.TransactionPagination button {
+  border: 1px solid #d5d5d5;
+  background: white;
+  padding: 10px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.TransactionActivePage {
+  background: #3d7fd1 !important;
+  color: white;
+  border-color: #3d7fd1 !important;
+}
+
+/* SETTINGS BUTTON */
+
+.TransactionSettingBtn {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  width: 55px;
+  height: 55px;
+  border: none;
+  background: #4b4b4b;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 992px) {
+  .TransactionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .TransactionControls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .TransactionSearch input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .TransactionFooter {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .TransactionHeader h1 {
+    font-size: 1.6rem;
+  }
+
+  .TransactionSettingBtn {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Transaction {
+    padding: 12px;
+  }
+
+  .TransactionHeader h1 {
+    font-size: 1.4rem;
+  }
+
+  .TransactionSearch {
+    width: 100%;
+  }
+
+  .TransactionSearch input {
+    width: 100%;
+  }
+
+  .TransactionPagination {
+    width: 100%;
+    overflow-x: auto;
+  }
+}

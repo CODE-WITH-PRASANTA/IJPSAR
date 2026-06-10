@@ -6,6 +6,11 @@ import {
   Navigate,
 } from "react-router-dom";
 import MainLayout from "./Layout/MainLayout/MainLayout";
+import PublishPapper from "./Components/PublishPapper/PublishPapper";
+import ReedemPoints from "./Pages/ReedemPoints/ReedemPoints";
+import Transaction from "./Pages/Transaction/Transaction";
+import Password from "./Pages/Password/Password";
+
 
 
 const AppRoutes = () => {
@@ -15,6 +20,13 @@ const AppRoutes = () => {
 
         {/* Layout Wrapper */}
         <Route path="/" element={<MainLayout />}>
+        <Route path="/published-papers" element={<PublishPapper />} /> 
+         <Route path="/redeem-points" element={<ReedemPoints />} />
+         <Route path="/transaction-history" element={<Transaction />} />
+         <Route path="/password" element={<Password/>}/>
+         
+        
+
 
           
         </Route>
