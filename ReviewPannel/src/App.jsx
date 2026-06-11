@@ -3,7 +3,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Navigate,
+
 } from "react-router-dom";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 import PublishPapper from "./Components/PublishPapper/PublishPapper";
@@ -23,7 +23,7 @@ const AppRoutes = () => {
         <Route path="/published-papers" element={<PublishPapper />} /> 
          <Route path="/redeem-points" element={<ReedemPoints />} />
          <Route path="/transaction-history" element={<Transaction />} />
-         <Route path="/password" element={<Password/>}/>
+         <Route path="/change-password" element={<Password/>}/>
          
         
 
