@@ -6,6 +6,7 @@ const testimonialRoutes = require("./routes/testimonial.routes");
 const indexRoutes = require("./routes/index.routes");
 const floatingformRoutes=require("./routes/floatingform.routes");
 const contactRoutes = require("./routes/contact.routes");
+const submitformRoutes=require("./routes/submitform.routes");
 const path = require("path");
 
 dotenv.config();
@@ -34,6 +35,7 @@ app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/index", indexRoutes);
 app.use("/api/floatingform", floatingformRoutes);
 app.use("/api/contacts", contactRoutes);
+app.use("/api/submitform",submitformRoutes);
 app.get("/", (req, res) => {
   res.send("Backend Server Running Successfully");
 });
