@@ -3,7 +3,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Navigate,
+
 } from "react-router-dom";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 import UnpublishdPaper from "./Components/UnpublishdPaper/UnpublishdPaper"
@@ -25,7 +25,7 @@ const AppRoutes = () => {
         <Route path="/unpublished-papers" element={<UnpublishdPaper/>}/>
          <Route path="/redeem-points" element={<ReedemPoints />} />
          <Route path="/transaction-history" element={<Transaction />} />
-         <Route path="/password" element={<Password/>}/>
+         <Route path="/change-password" element={<Password/>}/>
          
         
 

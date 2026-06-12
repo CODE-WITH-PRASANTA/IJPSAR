@@ -10,7 +10,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 110px 7%;
+  padding: 50px 7%;
   background: #ffffff;
 }
 
@@ -87,9 +87,9 @@
 /* TITLE */
 
 .ijwelcome-title {
-  font-size: 5rem;
+  font-size: 4rem;
   line-height: 1.05;
-  font-weight: 800;
+  font-weight: 600;
   margin-bottom: 28px;
   letter-spacing: -2px;
   color: #0b1f13;
