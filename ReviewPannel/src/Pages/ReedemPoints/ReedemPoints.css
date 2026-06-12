@@ -1,0 +1,187 @@
+.ReedemPoints- {
+  min-height: 100vh;
+  padding: 25px;
+  background: linear-gradient(
+    135deg,
+    #eef2ff 0%,
+    #f8fafc 50%,
+    #ffffff 100%
+  );
+}
+
+/* Header */
+
+.ReedemPoints-Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #dbe2ea;
+}
+
+.ReedemPoints-Title {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ReedemPoints-Breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #64748b;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.ReedemPoints-BreadcrumbArrow {
+  font-size: 12px;
+}
+
+/* Card */
+
+.ReedemPoints-Card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.ReedemPoints-Card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(#2563eb, #7c3aed);
+}
+
+/* Settings */
+
+.ReedemPoints-SettingsBtn {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  width: 55px;
+  height: 55px;
+  border: none;
+  background: #4b5563;
+  color: white;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px 0 0 12px;
+  transition: 0.3s;
+}
+
+.ReedemPoints-SettingsBtn:hover {
+  background: #374151;
+}
+
+/* Content */
+
+.ReedemPoints-Content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.ReedemPoints-InfoBox {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  padding: 20px;
+  border-radius: 14px;
+}
+
+.ReedemPoints-GiftIcon {
+  font-size: 35px;
+  color: #2563eb;
+}
+
+.ReedemPoints-InfoBox h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.ReedemPoints-WarningBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  background: linear-gradient(135deg, #fff1f2, #ffe4e6);
+  border-left: 6px solid #ef4444;
+  padding: 22px;
+  border-radius: 14px;
+}
+
+.ReedemPoints-WarningIcon {
+  font-size: 28px;
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+.ReedemPoints-WarningBox p {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.8;
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.ReedemPoints-WarningBox strong {
+  color: #b91c1c;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .ReedemPoints- {
+    padding: 15px;
+  }
+
+  .ReedemPoints-Header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ReedemPoints-Title {
+    font-size: 28px;
+  }
+
+  .ReedemPoints-Card {
+    padding: 20px;
+  }
+
+  .ReedemPoints-SettingsBtn {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+
+  .ReedemPoints-InfoBox {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ReedemPoints-InfoBox h3 {
+    font-size: 18px;
+  }
+
+  .ReedemPoints-WarningBox p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+}
