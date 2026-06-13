@@ -1,4 +1,3 @@
-// IJwelcomes.jsx
 
 import React from "react";
 import "./IJwelcomes.css";

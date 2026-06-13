@@ -11,7 +11,7 @@
   position: relative;
   overflow: hidden;
 
-  padding: 110px 7%;
+  padding: 50px 7%;
 
   background:
     linear-gradient(
@@ -83,9 +83,9 @@
   max-width: 1000px;
   margin: auto;
 
-  font-size: 4.5rem;
+  font-size: 4rem;
   line-height: 1.08;
-  font-weight: 800;
+  font-weight: 600;
 
   color: #10211a;
 
