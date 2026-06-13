@@ -241,6 +241,48 @@ EMPTY
   padding: 50px;
 }
 
+
+
+.editorDocumentTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.editorDocumentTable th,
+.editorDocumentTable td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.docStatus {
+  padding: 6px 12px;
+  background: #e0f2fe;
+  color: #0369a1;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.viewDocBtn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 6px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.deleteDocBtn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 /* ==========================
 RESPONSIVE
 ========================== */

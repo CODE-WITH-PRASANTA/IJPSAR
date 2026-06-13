@@ -134,7 +134,6 @@ const ALL_COUNTRIES = [
   { code: "VN", name: "Vietnam", dial: "+84" },
 ];
 
-
 const SubmitFrom = () => {
   const [openSections, setOpenSections] = useState({
     paperDetails: true,
@@ -191,14 +190,13 @@ const SubmitFrom = () => {
     setAuthors(updatedAuthors);
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  console.log("Submit clicked");
-  console.log("Selected file:", uploadedFile);
+    console.log("Submit clicked");
+    console.log("Selected file:", uploadedFile);
 
-  try {
-    
+    try {
       const data = new FormData();
 
       data.append("paperTitle", formData.paperTitle);
@@ -243,46 +241,46 @@ const SubmitFrom = () => {
         alert("Paper Submitted Successfully");
 
         setFormData({
-  paperTitle: "",
-  abstract: "",
-  mobileCountryCode: "",
-  researchArea: "",
-  authorCategory: "",
-  address1: "",
-  address2: "",
-  city: "",
-  state: "",
-  country: "",
-  pincode: "",
-  referralCode: "",
-  editorMessage: "",
-});
+          paperTitle: "",
+          abstract: "",
+          mobileCountryCode: "",
+          researchArea: "",
+          authorCategory: "",
+          address1: "",
+          address2: "",
+          city: "",
+          state: "",
+          country: "",
+          pincode: "",
+          referralCode: "",
+          editorMessage: "",
+        });
 
-setAuthors([
-  {
-    fullName: "",
-    designation: "",
-    organization: "",
-    contactNumber: "",
-    email: "",
-  },
-]);
+        setAuthors([
+          {
+            fullName: "",
+            designation: "",
+            organization: "",
+            contactNumber: "",
+            email: "",
+          },
+        ]);
 
-setKeywords([]);
-setUploadedFile(null);
-setEditorText("");
+        setKeywords([]);
+        setUploadedFile(null);
+        setEditorText("");
       }
     } catch (error) {
-  console.error("FULL ERROR:", error);
-  console.log("STATUS:", error.response?.status);
-  console.log("DATA:", error.response?.data);
+      console.error("FULL ERROR:", error);
+      console.log("STATUS:", error.response?.status);
+      console.log("DATA:", error.response?.data);
 
-  alert(
-    error?.response?.data?.message ||
-    JSON.stringify(error?.response?.data) ||
-    "Submission Failed"
-  );
-}
+      alert(
+        error?.response?.data?.message ||
+          JSON.stringify(error?.response?.data) ||
+          "Submission Failed",
+      );
+    }
   };
 
   const toggleSection = (section) => {
@@ -303,28 +301,28 @@ setEditorText("");
     setKeywords(keywords.filter((_, index) => index !== indexToRemove));
   };
 
- const handleFileChange = (e) => {
-  const file = e.target.files[0];
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
 
-  if (!file) return;
+    if (!file) return;
 
-  const allowed = ["pdf", "doc", "docx"];
-  const ext = file.name.split(".").pop().toLowerCase();
+    const allowed = ["pdf", "doc", "docx"];
+    const ext = file.name.split(".").pop().toLowerCase();
 
-  if (!allowed.includes(ext)) {
-    alert("Only PDF, DOC and DOCX files are allowed");
-    e.target.value = "";
-    return;
-  }
+    if (!allowed.includes(ext)) {
+      alert("Only PDF, DOC and DOCX files are allowed");
+      e.target.value = "";
+      return;
+    }
 
-  if (file.size > 20 * 1024 * 1024) {
-    alert("Maximum file size is 20 MB");
-    e.target.value = "";
-    return;
-  }
+    if (file.size > 20 * 1024 * 1024) {
+      alert("Maximum file size is 20 MB");
+      e.target.value = "";
+      return;
+    }
 
-  setUploadedFile(file);
-};
+    setUploadedFile(file);
+  };
 
   return (
     <div className="admin-dashboard-container">
@@ -663,60 +661,76 @@ setEditorText("");
                             <div className="wrapper-prepend-icon">
                               <Briefcase size={16} />
                             </div>
-                           <input
-  type="text"
-  value={authors[index]?.designation || ""}
-  onChange={(e) =>
-    handleAuthorChange(index, "designation", e.target.value)
-  }
-  placeholder={`Author ${index + 1} - Designation`}
-  className="iconic-pure-input"
-/>
+                            <input
+                              type="text"
+                              value={authors[index]?.designation || ""}
+                              onChange={(e) =>
+                                handleAuthorChange(
+                                  index,
+                                  "designation",
+                                  e.target.value,
+                                )
+                              }
+                              placeholder={`Author ${index + 1} - Designation`}
+                              className="iconic-pure-input"
+                            />
                           </div>
 
                           <div className="iconic-input-wrapper-box">
                             <div className="wrapper-prepend-icon">
                               <GraduationCap size={16} />
                             </div>
-                          <input
-  type="text"
-  value={authors[index]?.organization || ""}
-  onChange={(e) =>
-    handleAuthorChange(index, "organization", e.target.value)
-  }
-  placeholder={`Author ${index + 1} - University/Organization`}
-  className="iconic-pure-input"
-/>
+                            <input
+                              type="text"
+                              value={authors[index]?.organization || ""}
+                              onChange={(e) =>
+                                handleAuthorChange(
+                                  index,
+                                  "organization",
+                                  e.target.value,
+                                )
+                              }
+                              placeholder={`Author ${index + 1} - University/Organization`}
+                              className="iconic-pure-input"
+                            />
                           </div>
 
                           <div className="iconic-input-wrapper-box">
                             <div className="wrapper-prepend-icon">
                               <Phone size={16} />
                             </div>
-                          <input
-  type="tel"
-  value={authors[index]?.contactNumber || ""}
-  onChange={(e) =>
-    handleAuthorChange(index, "contactNumber", e.target.value)
-  }
-  placeholder={`Author ${index + 1} - Contact Number`}
-  className="iconic-pure-input"
-/>
+                            <input
+                              type="tel"
+                              value={authors[index]?.contactNumber || ""}
+                              onChange={(e) =>
+                                handleAuthorChange(
+                                  index,
+                                  "contactNumber",
+                                  e.target.value,
+                                )
+                              }
+                              placeholder={`Author ${index + 1} - Contact Number`}
+                              className="iconic-pure-input"
+                            />
                           </div>
 
                           <div className="iconic-input-wrapper-box full-width-span-matrix">
                             <div className="wrapper-prepend-icon">
                               <Mail size={16} />
                             </div>
-                          <input
-  type="email"
-  value={authors[index]?.email || ""}
-  onChange={(e) =>
-    handleAuthorChange(index, "email", e.target.value)
-  }
-  placeholder={`Author ${index + 1} - Official Email Address`}
-  className="iconic-pure-input"
-/>
+                            <input
+                              type="email"
+                              value={authors[index]?.email || ""}
+                              onChange={(e) =>
+                                handleAuthorChange(
+                                  index,
+                                  "email",
+                                  e.target.value,
+                                )
+                              }
+                              placeholder={`Author ${index + 1} - Official Email Address`}
+                              className="iconic-pure-input"
+                            />
                           </div>
                         </div>
                       </div>
@@ -753,25 +767,25 @@ setEditorText("");
                   <div className="form-field-grid-row split-two-equal-columns">
                     <div className="input-field-group">
                       <label className="field-label-text">Address Line 1</label>
-                     <input
-  type="text"
-  name="address1"
-  value={formData.address1}
-  onChange={handleChange}
-  placeholder="Street address, P.O. box"
-  className="premium-input-box"
-/>
+                      <input
+                        type="text"
+                        name="address1"
+                        value={formData.address1}
+                        onChange={handleChange}
+                        placeholder="Street address, P.O. box"
+                        className="premium-input-box"
+                      />
                     </div>
                     <div className="input-field-group">
                       <label className="field-label-text">Address Line 2</label>
-                     <input
-  type="text"
-  name="address2"
-  value={formData.address2}
-  onChange={handleChange}
-  placeholder="Apartment, suite, unit, building"
-  className="premium-input-box"
-/>
+                      <input
+                        type="text"
+                        name="address2"
+                        value={formData.address2}
+                        onChange={handleChange}
+                        placeholder="Apartment, suite, unit, building"
+                        className="premium-input-box"
+                      />
                     </div>
                   </div>
 
@@ -779,59 +793,57 @@ setEditorText("");
                     <div className="input-field-group">
                       <label className="field-label-text">City</label>
                       <input
-  type="text"
-  name="city"
-  value={formData.city}
-  onChange={handleChange}
-  placeholder="e.g., Bhubaneswar"
-  className="premium-input-box"
-/>
+                        type="text"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                        placeholder="e.g., Bhubaneswar"
+                        className="premium-input-box"
+                      />
                     </div>
                     <div className="input-field-group">
                       <label className="field-label-text">State</label>
-                     <input
-  type="text"
-  name="state"
-  value={formData.state}
-  onChange={handleChange}
-  placeholder="e.g., Odisha"
-  className="premium-input-box"
-/>
+                      <input
+                        type="text"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleChange}
+                        placeholder="e.g., Odisha"
+                        className="premium-input-box"
+                      />
                     </div>
                   </div>
 
                   <div className="form-field-grid-row split-two-equal-columns">
                     <div className="input-field-group">
                       <label className="field-label-text">Country</label>
-                     <select
-  name="country"
-  value={formData.country}
-  onChange={handleChange}
-  className="premium-select-dropdown"
->
-  <option value="">
-    (Select Country Name)
-  </option>
+                      <select
+                        name="country"
+                        value={formData.country}
+                        onChange={handleChange}
+                        className="premium-select-dropdown"
+                      >
+                        <option value="">(Select Country Name)</option>
 
-  {ALL_COUNTRIES.map((c) => (
-    <option key={`country-${c.code}`} value={c.name}>
-      {c.name}
-    </option>
-  ))}
-</select>
+                        {ALL_COUNTRIES.map((c) => (
+                          <option key={`country-${c.code}`} value={c.name}>
+                            {c.name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className="input-field-group">
                       <label className="field-label-text">
                         Pincode / Postal Code
                       </label>
-                    <input
-  type="text"
-  name="referralCode"
-  value={formData.referralCode}
-  onChange={handleChange}
-  placeholder="Enter referral code"
-  className="premium-input-box"
-/>
+                      <input
+                        type="text"
+                        name="referralCode"
+                        value={formData.referralCode}
+                        onChange={handleChange}
+                        placeholder="Enter referral code"
+                        className="premium-input-box"
+                      />
                     </div>
                   </div>
                 </div>
@@ -867,14 +879,14 @@ setEditorText("");
                       <label className="field-label-text">
                         Referral Code (if you have)
                       </label>
-                  <input
-  type="text"
-  name="referralCode"
-  value={formData.referralCode}
-  onChange={handleChange}
-  placeholder="Enter referral code"
-  className="premium-input-box"
-/>
+                      <input
+                        type="text"
+                        name="referralCode"
+                        value={formData.referralCode}
+                        onChange={handleChange}
+                        placeholder="Enter referral code"
+                        className="premium-input-box"
+                      />
                     </div>
                   </div>
 
@@ -884,12 +896,12 @@ setEditorText("");
                         Special Message for Editor
                       </label>
                       <textarea
-  name="editorMessage"
-  value={formData.editorMessage}
-  onChange={handleChange}
-  placeholder="Type any specific remarks or notes for the editorial team..."
-  className="premium-input-box text-area-fixed-height"
-/>
+                        name="editorMessage"
+                        value={formData.editorMessage}
+                        onChange={handleChange}
+                        placeholder="Type any specific remarks or notes for the editorial team..."
+                        className="premium-input-box text-area-fixed-height"
+                      />
                     </div>
                   </div>
 

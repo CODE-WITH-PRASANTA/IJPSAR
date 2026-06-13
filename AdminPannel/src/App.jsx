@@ -14,6 +14,7 @@ import LeadManagementHub from "./Pages/LeadManagementHub/LeadManagementHub";
 import ContactManagement from "./Pages/ContactManagement/ContactManagement";
 import IndexAbstracte from "./Pages/IndexAbstracte/IndexAbstracte";
 import PublicationManagement from "./Pages/PublicationManagement/PublicationManagement";
+import IncDocPublicationManagement from "./Component/IncDocPublicationManagement/IncDocPublicationManagement";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/contact-management" element={<ContactManagement/>}/>
           <Route path="/index-abstracting-management" element={<IndexAbstracte/>}/>
           <Route path="/publication-management" element={<PublicationManagement/>}/>
+          <Route path="/inc-publication-management" element={<IncDocPublicationManagement/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
