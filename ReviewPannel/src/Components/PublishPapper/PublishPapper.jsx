@@ -173,16 +173,7 @@ const PublishPapper = () => {
 
   return (
     <div className="PublishPapper-">
-      <div className="PublishPapper-Header">
-        <h1>Published Papers Recommandaded By You</h1>
-
-        <div className="PublishPapper-Breadcrumb">
-          <FaHome />
-          <span>Home</span>
-          <span>&gt;</span>
-          <span>Referred Published</span>
-        </div>
-      </div>
+     
 
       <div className="PublishPapper-Card">
         <div className="PublishPapper-ReviewStatus">
