@@ -13,6 +13,8 @@ const ensureDir = (dir) => {
 /* ================= ROUTE → FOLDER MAP ================= */
 const routeFolderMap = {
    "/index": "uploads/index",
+   "/submitform": "uploads/submitform",
+   
 };
 
 
@@ -98,7 +100,9 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
+  limits: {
+    fileSize: 100 * 1024 * 1024, // 100 MB
+  },
 });
 
 /* ================= FILE PROCESSOR ================= */
@@ -141,17 +145,24 @@ const convertToWebp = async (req, res, next) => {
     }
 
     /* MULTIPLE FILES */
-    if (req.files) {
-      for (const field in req.files) {
-        req.body[field] = [];
+  if (req.files) {
+  for (const field in req.files) {
+    const uploadedFiles = [];
 
-        for (const file of req.files[field]) {
-          const pathSaved = await processFile(file, uploadPath);
-          file.path = pathSaved;
-          req.body[field].push(pathSaved);
-        }
-      }
+    for (const file of req.files[field]) {
+      const pathSaved = await processFile(file, uploadPath);
+      file.path = pathSaved;
+      uploadedFiles.push(pathSaved);
     }
+
+    // Single file
+    if (uploadedFiles.length === 1) {
+      req.body[field] = uploadedFiles[0];
+    } else {
+      req.body[field] = uploadedFiles;
+    }
+  }
+}
 
     next();
   } catch (err) {

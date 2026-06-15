@@ -2,17 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./NewUser.css";
 import { FaPlus } from "react-icons/fa";
-
-const initialUsers = [
-  { id: 1, name: "ggf", email: "ggf@dd.com", role: "Editor", status: "Active" },
-  { id: 2, name: "PP", email: "okok@koko.kok", role: "Author", status: "Active" },
-  { id: 3, name: "asdasd", email: "asdasdad@gmail.com", role: "Author", status: "Active" },
-  { id: 4, name: "adil", email: "adil@gmail.com", role: "Editor", status: "Active" },
-  { id: 5, name: "sdfsd", email: "test@gmail.com", role: "Author", status: "Block" },
-];
+import API from "../../api/axios";
+import { useEffect } from "react";
 
 const NewUser = () => {
-  const [users, setUsers] = useState(initialUsers);
+  const [users, setUsers] = useState([]);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -34,6 +28,20 @@ const NewUser = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const fetchUsers = async () => {
+    try {
+      const res = await API.get("/editor/all");
+
+      setUsers(res.data.data || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   // FILTER LOGIC
   const filteredUsers = users.filter((u) => {
     const matchSearch =
@@ -46,45 +54,53 @@ const NewUser = () => {
     return matchSearch && matchRole && matchStatus;
   });
 
-  const handleAddUser = () => {
-    if (
-      !form.name ||
-      !form.email ||
-      !form.role ||
-      form.role === "" ||
-      !form.password ||
-      !form.confirmPassword
-    ) {
-      alert("Please fill all required fields");
-      return;
+  const handleAddUser = async () => {
+    try {
+      if (
+        !form.name ||
+        !form.email ||
+        !form.role ||
+        !form.password ||
+        !form.confirmPassword
+      ) {
+        alert("Please fill all required fields");
+        return;
+      }
+
+      if (form.password !== form.confirmPassword) {
+        alert("Passwords do not match");
+        return;
+      }
+
+      const res = await API.post("/editor/create", {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        password: form.password,
+        role: form.role,
+      });
+
+      if (res.data.success) {
+        alert("User Created Successfully");
+
+        fetchUsers();
+
+        setForm({
+          name: "",
+          email: "",
+          role: "",
+          phone: "",
+          password: "",
+          confirmPassword: "",
+        });
+
+        setOpen(false);
+      }
+    } catch (error) {
+      console.error(error);
+
+      alert(error?.response?.data?.message || "Failed to create user");
     }
-
-    if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
-
-    const newUser = {
-      id: users.length + 1,
-      name: form.name,
-      email: form.email,
-      role: form.role,
-      status: "Active",
-    };
-
-    setUsers([...users, newUser]);
-
-    // Reset Form
-    setForm({
-      name: "",
-      email: "",
-      role: "",
-      phone: "",
-      password: "",
-      confirmPassword: "",
-    });
-
-    setOpen(false);
   };
 
   return (
@@ -132,56 +148,126 @@ const NewUser = () => {
         <table>
           <thead>
             <tr>
+              <th>User ID</th>
               <th>User</th>
               <th>Role</th>
               <th>Status</th>
               <th>Joined</th>
-              <th>Last Sign In</th>
+              <th>Profile</th>
+              <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
             {filteredUsers.map((u) => (
-              <tr key={u.id}>
+              <tr key={u._id}>
+                {/* User ID */}
+                <td>
+                  <span className="nu_userId">{u.userId}</span>
+                </td>
+
+                {/* User */}
                 <td>
                   <div className="nu_user">
                     <div className="nu_avatar">
-                      {u.name.charAt(0).toUpperCase()}
+                      {u.name?.charAt(0).toUpperCase()}
                     </div>
+
                     <div>
                       <p className="nu_name">{u.name}</p>
+
                       <span className="nu_email">{u.email}</span>
                     </div>
                   </div>
                 </td>
+
+                {/* Role */}
                 <td>
-                  <span className="nu_badge">{u.role}</span>
+                  <span className={`nu_badge ${u.role?.toLowerCase()}`}>
+                    {u.role}
+                  </span>
                 </td>
+
+                {/* Status */}
                 <td>
-                  <span className={`nu_status ${u.status.toLowerCase()}`}>
+                  <span
+                    className={`nu_status ${u.status
+                      ?.toLowerCase()
+                      .replace(" ", "")}`}
+                  >
                     {u.status}
                   </span>
                 </td>
-                <td>June 4, 2026</td>
-              <td>
-  <button
-    className="nu_signBtn"
-    onClick={() =>
-      navigate("/newsprofile", {
-        state: {
-          user: u,
-        },
-      })
-    }
-  >
-    View Activity
-  </button>
-</td>
+
+                {/* Created Date */}
+                <td>
+                  {u.createdAt
+                    ? new Date(u.createdAt).toLocaleDateString()
+                    : "-"}
+                </td>
+
+                {/* Profile */}
+                <td>
+                  <button
+                    className="nu_signBtn"
+                    onClick={() =>
+                      navigate("/newsprofile", {
+                        state: {
+                          user: u,
+                        },
+                      })
+                    }
+                  >
+                    View Profile
+                  </button>
+                </td>
+
+                {/* Block / Activate */}
+                <td>
+                  {u.status === "Active" ? (
+                    <button
+                      className="nu_blockBtn"
+                      onClick={async () => {
+                        try {
+                          await API.put(`/editor/block/${u._id}`);
+
+                          fetchUsers();
+                        } catch (error) {
+                          console.error(error);
+                        }
+                      }}
+                    >
+                      Block
+                    </button>
+                  ) : (
+                    <button
+                      className="nu_activeBtn"
+                      onClick={async () => {
+                        try {
+                          await API.put(`/editor/activate/${u._id}`);
+
+                          fetchUsers();
+                        } catch (error) {
+                          console.error(error);
+                        }
+                      }}
+                    >
+                      Activate
+                    </button>
+                  )}
+                </td>
               </tr>
             ))}
+
             {filteredUsers.length === 0 && (
               <tr>
-                <td colSpan="5" style={{ textAlign: "center", color: "#9aa4b2" }}>
+                <td
+                  colSpan="7"
+                  style={{
+                    textAlign: "center",
+                    color: "#9aa4b2",
+                  }}
+                >
                   No users found.
                 </td>
               </tr>

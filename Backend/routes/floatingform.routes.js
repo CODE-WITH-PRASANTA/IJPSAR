@@ -9,16 +9,16 @@ const {
   deleteLead,
 } = require("../controllers/floatingform.controller");
 
-// CREATE
+// ================= CREATE LEAD =================
 router.post("/create", createLead);
 
-// GET ALL
+// ================= GET ALL LEADS =================
 router.get("/", getAllLeads);
 
-// GET SINGLE
+// ================= GET SINGLE LEAD =================
 router.get("/:id", getLeadById);
 
-// DELETE
+// ================= DELETE LEAD =================
 router.delete("/:id", deleteLead);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 .nu_container {
   padding: 24px;
-  background: #000000; /* Pure black background */
+  background: #000000;
+  /* Pure black background */
   min-height: 100vh;
   color: #ffffff;
   font-family: "Segoe UI", sans-serif;
@@ -21,7 +22,8 @@
 }
 
 .nu_addBtn {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8); /* Sharper, deeper premium blue */
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  /* Sharper, deeper premium blue */
   border: none;
   padding: 10px 16px;
   color: white;
@@ -49,8 +51,10 @@
 .nu_filterBar input,
 .nu_filterBar select {
   padding: 10px 14px;
-  background: #0a0a0a; /* Premium deep charcoal */
-  border: 1px solid #1f1f1f; /* Subdued subtle border */
+  background: #0a0a0a;
+  /* Premium deep charcoal */
+  border: 1px solid #1f1f1f;
+  /* Subdued subtle border */
   color: #fff;
   border-radius: 10px;
   outline: none;
@@ -64,7 +68,8 @@
 
 /* TABLE */
 .nu_tableCard {
-  background: #0a0a0a; /* Deep charcoal container */
+  background: #0a0a0a;
+  /* Deep charcoal container */
   border: 1px solid #1f1f1f;
   border-radius: 14px;
   padding: 16px;
@@ -76,14 +81,17 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
   padding: 14px;
-  border-bottom: 1px solid #161616; /* Faded divider lines */
+  border-bottom: 1px solid #161616;
+  /* Faded divider lines */
   text-align: left;
 }
 
 th {
-  color: #6b7280; /* Muted gray for table headers */
+  color: #6b7280;
+  /* Muted gray for table headers */
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -101,7 +109,8 @@ th {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: #1f1f1f; /* Slate/Black avatar disc */
+  background: #1f1f1f;
+  /* Slate/Black avatar disc */
   border: 1px solid #2e2e2e;
   color: #fff;
   display: flex;
@@ -136,15 +145,18 @@ th {
 }
 
 .nu_status.active {
-  color: #4ade80; /* Vibrant neon-accent emerald */
+  color: #4ade80;
+  /* Vibrant neon-accent emerald */
 }
 
 .nu_status.block {
-  color: #f87171; /* Vibrant neon-accent red */
+  color: #f87171;
+  /* Vibrant neon-accent red */
 }
 
 .nu_status.inactive {
-  color: #fbbf24; /* Vibrant neon-accent amber */
+  color: #fbbf24;
+  /* Vibrant neon-accent amber */
 }
 
 /* VIEW ACTIVITY BUTTON */
@@ -171,7 +183,8 @@ th {
 .nu_modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85); /* Darker backdrop mask */
+  background: rgba(0, 0, 0, 0.85);
+  /* Darker backdrop mask */
   backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
@@ -183,7 +196,8 @@ th {
 .nu_modal {
   width: 550px;
   max-width: 95%;
-  background: #0f0f0f; /* Pitch-tinted modal canvas */
+  background: #0f0f0f;
+  /* Pitch-tinted modal canvas */
   border: 1px solid #222222;
   border-radius: 18px;
   padding: 24px;
@@ -250,7 +264,8 @@ th {
   padding: 0 16px;
   border-radius: 12px;
   border: 1px solid #222222;
-  background: #050505 !important; /* Pure black input fields */
+  background: #050505 !important;
+  /* Pure black input fields */
   color: white !important;
   outline: none;
   transition: .2s ease;
@@ -259,7 +274,7 @@ th {
 
 /* CRITICAL: Overrides the browser forced white/light blue autocomplete style */
 .nu_inputGroup input:-webkit-autofill,
-.nu_inputGroup input:-webkit-autofill:hover, 
+.nu_inputGroup input:-webkit-autofill:hover,
 .nu_inputGroup input:-webkit-autofill:focus {
   border: 1px solid #3b82f6;
   -webkit-text-fill-color: #ffffff !important;
@@ -312,12 +327,64 @@ th {
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
+.nu_userId {
+  font-weight: 600;
+  color: #6366f1;
+}
+
+.nu_blockBtn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nu_activeBtn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nu_blockBtn:hover {
+  background: #b91c1c;
+}
+
+.nu_activeBtn:hover {
+  background: #15803d;
+}
+
+.nu_badge.editor {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.nu_badge.author {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.nu_badge.reviewer {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.nu_badge.admin {
+  background: #f3e8ff;
+  color: #7e22ce;
+}
+
 /* ANIMATIONS */
 @keyframes modalPop {
   from {
     opacity: 0;
     transform: scale(.96);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -325,6 +392,11 @@ th {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

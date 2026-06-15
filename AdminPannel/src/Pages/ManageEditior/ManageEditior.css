@@ -360,6 +360,35 @@
   color: #d4d4d4;
 }
 
+
+.blockBtn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.activateBtn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.blockBtn:hover {
+  background: #b91c1c;
+}
+
+.activateBtn:hover {
+  background: #15803d;
+}
+
+
+
 @media (max-width: 768px) {
   .manageEditorHeader {
     flex-direction: column;
