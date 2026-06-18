@@ -330,6 +330,38 @@
   color: #4ade80 !important;
 }
 
+
+
+
+
+
+
+.sidebarItem,
+.sidebarSubItem {
+  text-decoration: none;
+  color: inherit;
+}
+
+.sidebarItem.active,
+.sidebarSubItem.active {
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+  color: #fff;
+  border-radius: 12px;
+}
+
+.sidebarSubItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+}
+
+
+
 /* =========================
    MOBILE
 ========================= */

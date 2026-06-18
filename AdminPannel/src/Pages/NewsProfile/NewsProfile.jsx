@@ -59,17 +59,19 @@ const NewsProfile = () => {
     }
   };
 
-  const handleDeletePaper = async (paperId) => {
-    const confirmDelete = window.confirm("Delete this paper?");
+  const handleUnassignPaper = async (paperId) => {
+    const confirmUnassign = window.confirm(
+      "Remove this paper from this editor?",
+    );
 
-    if (!confirmDelete) return;
+    if (!confirmUnassign) return;
 
     try {
-      await API.delete(`/submitform/delete/${paperId}`);
+      await API.delete(`/editor/remove-paper/${user._id}/${paperId}`);
 
-      setDocuments((prev) => prev.filter((doc) => doc._id !== paperId));
+      await fetchDocuments();
 
-      alert("Paper Deleted Successfully");
+      alert("Paper Unassigned Successfully");
     } catch (error) {
       console.error(error);
     }
@@ -186,9 +188,9 @@ const NewsProfile = () => {
                   : "-"}
               </div>
 
-              <div className="newsProfile__label">Mongo ID:</div>
 
               <div className="newsProfile__label">Assigned Papers:</div>
+              <div className="newsProfile__label"> ID:</div>
 
               <div className="newsProfile__value">{documents.length}</div>
 
@@ -256,7 +258,9 @@ const NewsProfile = () => {
                     <td>{doc.paperId}</td>
 
                     <td>{doc.paperTitle}</td>
+
                     <td>{doc.researchArea || "-"}</td>
+
                     <td>
                       <span className="docStatus">{doc.status}</span>
                     </td>
@@ -273,9 +277,9 @@ const NewsProfile = () => {
 
                       <button
                         className="deleteDocBtn"
-                        onClick={() => handleDeletePaper(doc._id)}
+                        onClick={() => handleUnassignPaper(doc._id)}
                       >
-                        Delete
+                        Unassign
                       </button>
                     </td>
                   </tr>

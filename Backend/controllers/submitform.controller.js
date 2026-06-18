@@ -4,7 +4,7 @@ const SubmitForm = require("../models/submitform.model");
 
 exports.createSubmission = async (req, res) => {
   try {
-    console.log("BODY =>", req.body);
+
 
     const authors = JSON.parse(req.body.authors || "[]");
     const keywords = JSON.parse(req.body.keywords || "[]");
@@ -207,17 +207,15 @@ exports.updateSubmission = async (req, res)=> {
 
 exports.deleteSubmission = async (req, res) => {
   try {
-    console.log(
-      "DELETE PAPER ID =>",
-      req.params.id
-    );
+   
 
     const deleted =
       await SubmitForm.findByIdAndDelete(
         req.params.id
       );
 
-    console.log("DELETED =>", deleted);
+    
+      
 
     return res.status(200).json({
       success: true,
@@ -253,12 +251,24 @@ exports.assignEditor = async (req, res) => {
         }
       );
 
-    res.status(200).json({
+    await Editor.findByIdAndUpdate(
+      editorId,
+      {
+        $addToSet: {
+          assignedPapers: {
+            paperId: paper._id,
+            assignedAt: new Date(),
+          },
+        },
+      }
+    );
+
+    return res.status(200).json({
       success: true,
       data: paper,
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
