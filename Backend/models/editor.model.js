@@ -36,6 +36,21 @@ const UserSchema = new mongoose.Schema(
       enum: ["Active", "Block"],
       default: "Active",
     },
+
+    // Assigned Documents
+    assignedPapers: [
+      {
+        paperId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "SubmitForm",
+        },
+
+        assignedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

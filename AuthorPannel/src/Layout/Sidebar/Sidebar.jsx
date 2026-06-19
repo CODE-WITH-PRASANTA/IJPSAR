@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
-
 import {
   FiGrid,
   FiCalendar,
@@ -10,10 +9,13 @@ import {
   FiSend,
   FiBell,
   FiX,
-  FiSearch
+  FiSearch,       // ← Add comma here
   FiChevronDown,
   FiMoreVertical,
-  FiX,
+  FiUsers,
+  FiFileText,
+  FiSettings,
+  FiMoreHorizontal,
 } from "react-icons/fi";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
@@ -245,7 +247,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               <button>Learn more →</button>
             </div>
           </div>
-        </div>
+    
 
         {/* Profile */}
 
@@ -263,7 +265,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               <button className="Sidebar_LogoutBtn">
                 Logout
               </button>
-            </div>
+       </div>
         <div className="Sidebar_Profile">
           <img src="https://i.pravatar.cc/100" alt="" />
 

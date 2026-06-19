@@ -34,17 +34,17 @@ const ManageEditior = () => {
     }
   };
 
- const fetchPapers = async () => {
-  try {
-    const res = await API.get("/submitform/unassigned");
+  const fetchPapers = async () => {
+    try {
+      const res = await API.get("/submitform/unassigned");
 
-    console.log("PAPERS =>", res.data); // add this
+      // console.log("PAPERS =>", res.data); // add this
 
-    setPapers(res.data.data || []);
-  } catch (error) {
-    console.error(error);
-  }
-};
+      setPapers(res.data.data || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     fetchEditors();
@@ -113,12 +113,13 @@ const ManageEditior = () => {
 
   const assignPaperToEditor = async (paperId, editor) => {
     try {
-      await API.put(`/submitform/assign-editor/${paperId}`, {
+      await API.post("/editor/assign-paper", {
         editorId: editor._id,
-        editorName: editor.name,
+        paperId,
       });
 
-      await fetchPapers();
+      fetchEditors();
+      fetchPapers();
 
       alert("Paper Assigned Successfully");
     } catch (error) {
@@ -292,14 +293,7 @@ const ManageEditior = () => {
                       </select>
                     </td>
 
-                    <td>
-                      {
-                        papers.filter(
-                          (paper) =>
-                            String(paper.editorId) === String(editor._id),
-                        ).length
-                      }
-                    </td>
+                    <td>{editor.assignedPapers?.length || 0}</td>
 
                     <td>
                       <div className="tableActionsInline">

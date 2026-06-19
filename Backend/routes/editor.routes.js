@@ -11,7 +11,15 @@ const {
   deleteEditor,
   blockEditor,
   activateEditor,
+
+  // NEW
+  assignPaperToEditor,
+  getAssignedPapers,
+  removeAssignedPaper,
+  deleteAssignedPaper,
 } = require("../controllers/editor.controller");
+
+/* ================= AUTH ================= */
 
 router.post(
   "/create",
@@ -23,6 +31,8 @@ router.post(
   loginEditor
 );
 
+/* ================= GET ================= */
+
 router.get(
   "/all",
   getAllEditors
@@ -33,10 +43,14 @@ router.get(
   getSingleEditor
 );
 
+/* ================= UPDATE ================= */
+
 router.put(
   "/update/:id",
   updateEditor
 );
+
+/* ================= STATUS ================= */
 
 router.put(
   "/block/:id",
@@ -47,6 +61,44 @@ router.put(
   "/activate/:id",
   activateEditor
 );
+
+/* ================= PAPER MANAGEMENT ================= */
+
+/**
+ * Assign Paper To Editor
+ */
+router.post(
+  "/assign-paper",
+  assignPaperToEditor
+);
+
+/**
+ * Get All Papers Assigned To Editor
+ */
+router.get(
+  "/assigned-papers/:id",
+  getAssignedPapers
+);
+
+/**
+ * Remove Paper From Editor Only
+ */
+router.delete(
+  "/remove-paper/:editorId/:paperId",
+  removeAssignedPaper
+);
+
+/**
+ * Delete Paper From Entire System
+ * Removes from Editor collection
+ * Removes from SubmitForm collection
+ */
+router.delete(
+  "/delete-paper/:paperId",
+  deleteAssignedPaper
+);
+
+/* ================= DELETE EDITOR ================= */
 
 router.delete(
   "/delete/:id",

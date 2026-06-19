@@ -1,0 +1,186 @@
+.editorLogin {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #0f172a,
+    #1e293b,
+    #2563eb
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.editorLoginOverlay {
+  width: 100%;
+  max-width: 1200px;
+
+  display: flex;
+  overflow: hidden;
+
+  border-radius: 25px;
+
+  background: rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(15px);
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* LEFT SIDE */
+
+.editorLoginLeft {
+  flex: 1;
+  color: white;
+  padding: 60px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.editorLoginLeft h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.editorLoginLeft > p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.editorLoginInfo {
+  margin-top: 60px;
+}
+
+.editorLoginInfo h3 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.editorLoginInfo p {
+  line-height: 1.7;
+  opacity: 0.85;
+}
+
+/* RIGHT SIDE */
+
+.editorLoginCard {
+  width: 450px;
+  background: white;
+
+  padding: 50px;
+}
+
+.loginLogo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.loginLogo h2 {
+  font-size: 32px;
+  color: #111827;
+}
+
+.loginLogo p {
+  color: #6b7280;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+
+  font-weight: 600;
+  color: #374151;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 14px 15px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+
+  outline: none;
+  font-size: 15px;
+
+  transition: 0.3s;
+}
+
+.formGroup input:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(37,99,235,0.15);
+}
+
+.loginBtn {
+  width: 100%;
+  padding: 15px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #2563eb;
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.loginBtn:hover {
+  transform: translateY(-2px);
+
+  background: #1d4ed8;
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+  .editorLoginOverlay {
+    flex-direction: column;
+  }
+
+  .editorLoginLeft {
+    padding: 40px 30px;
+    text-align: center;
+  }
+
+  .editorLoginCard {
+    width: 100%;
+    padding: 30px;
+  }
+
+  .editorLoginLeft h1 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 500px) {
+  .editorLoginCard {
+    padding: 25px;
+  }
+
+  .editorLoginLeft {
+    padding: 25px;
+  }
+
+  .editorLoginLeft h1 {
+    font-size: 26px;
+  }
+
+  .loginLogo h2 {
+    font-size: 26px;
+  }
+}
