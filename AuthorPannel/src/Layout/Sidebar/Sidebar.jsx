@@ -4,337 +4,149 @@ import "./Sidebar.css";
 
 import {
   FiGrid,
-  FiCalendar,
-  FiCheckSquare,
-  FiUsers,
-  FiSettings,
   FiFileText,
-  FiHelpCircle,
-  FiSearch,
-  FiBell,
-  FiMoreHorizontal,
-  FiSend,
-  FiChevronDown,
+  FiFolder,
+  FiClock,
+  FiBookOpen,
   FiMoreVertical,
-  FiX
+  FiBell,
+  FiMessageSquare,
+  FiLogOut,
+  FiX,
 } from "react-icons/fi";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
-  const [showNotifications, setShowNotifications] =
-  useState(false);
-
-const [showProfileMenu, setShowProfileMenu] =
-  useState(false);
-
-  const notifications = [
-    {
-      title: "Project Horizon Updated",
-      text: "3 new tasks were added to your board."
-    },
-    {
-      title: "New Comment",
-      text: "Alex commented on Landing Page redesign."
-    },
-    {
-      title: "Invitation",
-      text: "You were invited to Design Team."
-    },
-    {
-      title: "Access Request",
-      text: "Michael requested dashboard access."
-    },
-    {
-      title: "Task Completed",
-      text: "UI Design task completed."
-    }
-  ];
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   return (
     <>
       <div
-        className={`Sidebar_Overlay ${
-          sidebarOpen ? "show" : ""
-        }`}
+        className={`Sidebar_Overlay ${sidebarOpen ? "show" : ""}`}
         onClick={() => setSidebarOpen(false)}
       />
 
-      <aside
-        className={`Sidebar ${
-          sidebarOpen ? "show" : ""
-        }`}
-      >
-        <div className="Sidebar_Scroll">
+      <aside className={`Sidebar ${sidebarOpen ? "show" : ""}`}>
+        <div className="Sidebar_Content">
 
           {/* Header */}
-
           <div className="Sidebar_Header">
             <div className="Sidebar_Logo">
-              <div className="Sidebar_LogoIcon">
-                ⊙
-              </div>
-              <h2>IJPSAR</h2>
+              <div className="Sidebar_LogoIcon">⊙</div>
+              <h2>IJPASR</h2>
             </div>
-
-            <div className="Sidebar_HeaderActions">
-
-  <button
-    className="Sidebar_NotificationBtn"
-    onClick={() => {
-      setShowNotifications(!showNotifications);
-      setShowProfileMenu(false);
-    }}
-  >
-    <FiBell />
-  </button>
-
-  {showNotifications && (
-    <div className="Sidebar_NotificationPopup">
-
-      <div className="Sidebar_NotificationHeader">
-        Notifications
-      </div>
-
-      <div className="Sidebar_NotificationList">
-
-        {notifications.map((item, index) => (
-          <div
-            key={index}
-            className="Sidebar_NotificationItem"
-          >
-            <h4>{item.title}</h4>
-            <p>{item.text}</p>
-          </div>
-        ))}
-
-      </div>
-
-    </div>
-  )}
-
-</div>
 
             <button
               className="Sidebar_Close"
-              onClick={() =>
-                setSidebarOpen(false)
-              }
+              onClick={() => setSidebarOpen(false)}
             >
               <FiX />
             </button>
-
-           
-          </div>
-
-          {/* Search */}
-
-          <div className="Sidebar_Search">
-            <FiSearch />
-            <input
-              placeholder="Search anything"
-            />
-            <span>⌘K</span>
           </div>
 
           {/* Menu */}
-
           <div className="Sidebar_Menu">
-
             <NavLink
               to="/dashboard"
-              className="Sidebar_MenuItem"
+              className={({ isActive }) =>
+                isActive
+                  ? "Sidebar_MenuItem active"
+                  : "Sidebar_MenuItem"
+              }
             >
               <FiGrid />
-              Dashboard
+              <span>Dashboard</span>
             </NavLink>
 
             <NavLink
-              to="/calendar"
-              className="Sidebar_MenuItem active"
-            >
-              <FiCalendar />
-              Calendar
-            </NavLink>
-
-            <NavLink
-              to="/tasks"
-              className="Sidebar_MenuItem"
-            >
-              <FiCheckSquare />
-              Tasks
-              <span className="Sidebar_Badge">
-                14
-              </span>
-            </NavLink>
-
-            <NavLink
-              to="/users"
-              className="Sidebar_MenuItem"
-            >
-              <FiUsers />
-              Users
-            </NavLink>
-
-            <NavLink
-              to="/audit-logs"
-              className="Sidebar_MenuItem"
+              to="/submit-paper"
+              className={({ isActive }) =>
+                isActive
+                  ? "Sidebar_MenuItem active"
+                  : "Sidebar_MenuItem"
+              }
             >
               <FiFileText />
-              Audit logs
+              <span>Submit Paper</span>
             </NavLink>
 
             <NavLink
-              to="/settings"
-              className="Sidebar_MenuItem"
+              to="/paper-management"
+              className={({ isActive }) =>
+                isActive
+                  ? "Sidebar_MenuItem active"
+                  : "Sidebar_MenuItem"
+              }
             >
-              <FiSettings />
-              Settings
+              <FiFolder />
+              <span>Paper Management</span>
             </NavLink>
 
-            <div className="Sidebar_ProjectHeader">
-              <span>Active projects</span>
-              <FiChevronDown />
-            </div>
+            <NavLink
+              to="/transaction-history"
+              className={({ isActive }) =>
+                isActive
+                  ? "Sidebar_MenuItem active"
+                  : "Sidebar_MenuItem"
+              }
+            >
+              <FiClock />
+              <span>Transaction History</span>
+            </NavLink>
 
-            <div className="Sidebar_MenuItem">
-              <span className="dot pink" />
-              BuilderKit
-            </div>
-
-            <div className="Sidebar_MenuItem">
-              <span className="dot green" />
-              Spark
-              <span className="Sidebar_Badge">
-                22
-              </span>
-            </div>
-
-            <div className="Sidebar_MenuItem">
-              <span className="dot blue" />
-              Horizon
-              <span className="Sidebar_Badge">
-                4
-              </span>
-            </div>
-
-            <div className="Sidebar_MenuItem">
-              <span className="dot purple" />
-              Nova
-            </div>
-
-            <div className="Sidebar_MenuItem">
-              <FiMoreHorizontal />
-              More
-            </div>
-
-          </div>
-
-          {/* Footer */}
-
-          <div className="Sidebar_Footer">
-
-            <div className="Sidebar_MenuItem">
-              <FiFileText />
-              Documentation
-            </div>
-
-            <div className="Sidebar_MenuItem">
-              <FiHelpCircle />
-              Support
-            </div>
-
-            <div className="Sidebar_MenuItem">
-              <FiSend />
-              Feedback
-            </div>
-
-            <div className="Sidebar_Card">
-              <h4>
-                Horizon - Angular Admin
-                Template
-              </h4>
-
-              <p>
-                Explore more features and
-                components on the BuilderKit
-                website.
-              </p>
-
-              <button>
-                Learn more →
-              </button>
-            </div>
-
+            <NavLink
+              to="/published-papers"
+              className={({ isActive }) =>
+                isActive
+                  ? "Sidebar_MenuItem active"
+                  : "Sidebar_MenuItem"
+              }
+            >
+              <FiBookOpen />
+              <span>Published Papers</span>
+            </NavLink>
           </div>
         </div>
 
-        {/* Profile */}
+        {/* Profile Section */}
+        <div className="Sidebar_Profile">
+          <img
+            src="https://i.pravatar.cc/150?img=12"
+            alt="Profile"
+          />
 
-       <div className="Sidebar_Profile">
+          <div className="Sidebar_ProfileInfo">
+            <h4>PRWEB-001</h4>
+            <p>Journal Administrator</p>
+          </div>
 
-  <img
-    src="https://i.pravatar.cc/100"
-    alt=""
-  />
+          <button
+            className="Sidebar_ProfileButton"
+            onClick={() =>
+              setShowProfileMenu(!showProfileMenu)
+            }
+          >
+            <FiMoreVertical />
+          </button>
 
-  <div className="Sidebar_ProfileInfo">
-    <h4>John Builder</h4>
-    <p>john@example.com</p>
-  </div>
+          {showProfileMenu && (
+            <div className="Sidebar_ProfilePopup">
+              <div className="Sidebar_ProfilePopupItem">
+                <FiBell />
+                Notifications
+              </div>
 
-  <button
-    className="Sidebar_ProfileButton"
-    onClick={() => {
-      setShowProfileMenu(!showProfileMenu);
-      setShowNotifications(false);
-    }}
-  >
-    <FiMoreVertical />
-  </button>
+              <div className="Sidebar_ProfilePopupItem">
+                <FiMessageSquare />
+                Messages
+              </div>
 
-  {showProfileMenu && (
-    <div className="Sidebar_ProfilePopup">
-
-      <div className="Sidebar_ProfilePopupUser">
-        <img
-          src="https://i.pravatar.cc/100"
-          alt=""
-        />
-
-        <div>
-          <h4>John Builder</h4>
-          <p>john@example.com</p>
+              <div className="Sidebar_ProfilePopupItem danger">
+                <FiLogOut />
+                Logout
+              </div>
+            </div>
+          )}
         </div>
-      </div>
-
-      <div className="Sidebar_ProfilePopupItem">
-        ✨ Upgrade To Pro
-      </div>
-
-      <div className="Sidebar_ProfilePopupItem">
-        👤 Account
-      </div>
-
-      <div className="Sidebar_ProfilePopupItem">
-        🔔 Notifications
-      </div>
-
-      <div className="Sidebar_ProfilePopupItem">
-        🎨 Color Scheme
-      </div>
-
-      <div className="Sidebar_ProfilePopupItem">
-        ⚙ Appearance
-      </div>
-
-      <div className="Sidebar_ProfilePopupItem danger">
-        ↩ Sign Out
-      </div>
-
-    </div>
-  )}
-
-</div>
-
       </aside>
     </>
   );

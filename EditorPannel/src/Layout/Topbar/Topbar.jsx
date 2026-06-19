@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Topbar.css";
+import { useNavigate } from "react-router-dom";
 
 import {
   FaBars,
@@ -16,36 +17,36 @@ const Topbar = ({
   setSidebarCollapsed,
   setMobileSidebar,
 }) => {
-  const [profileOpen, setProfileOpen] =
-    useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+  localStorage.removeItem("editorToken");
+  localStorage.removeItem("editorData");
+
+  navigate("/editor-login", {
+    replace: true,
+  });
+
+  window.location.reload();
+};
 
   return (
     <header className="topbar">
-
       <div className="topbarLeft">
-
         {/* Desktop Menu */}
         <button
           className="topbarMenuBtn desktopBtn"
-          onClick={() =>
-            setSidebarCollapsed(
-              !sidebarCollapsed
-            )
-          }
+          onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
         >
-          {sidebarCollapsed ? (
-            <FaArrowRight />
-          ) : (
-            <FaBars />
-          )}
+          {sidebarCollapsed ? <FaArrowRight /> : <FaBars />}
         </button>
 
         {/* Mobile Menu */}
         <button
           className="topbarMenuBtn mobileBtn"
-          onClick={() =>
-            setMobileSidebar(true)
-          }
+          onClick={() => setMobileSidebar(true)}
         >
           <FaBars />
         </button>
@@ -53,37 +54,22 @@ const Topbar = ({
         <div className="topbarSearch">
           <FaSearch />
 
-          <input
-            type="text"
-            placeholder="Search..."
-          />
+          <input type="text" placeholder="Search..." />
         </div>
-
       </div>
 
       <div className="topbarRight">
-
         <div className="topbarNotification">
-
           <FaBell />
 
-          <span className="notificationBadge">
-            3
-          </span>
-
+          <span className="notificationBadge">3</span>
         </div>
 
         <div
           className="topbarProfile"
-          onClick={() =>
-            setProfileOpen(!profileOpen)
-          }
+          onClick={() => setProfileOpen(!profileOpen)}
         >
-
-          <img
-            src="https://i.pravatar.cc/150"
-            alt="profile"
-          />
+          <img src="https://i.pravatar.cc/150" alt="profile" />
 
           <div className="profileInfo">
             <h4>Ann Adame</h4>
@@ -92,7 +78,6 @@ const Topbar = ({
 
           {profileOpen && (
             <div className="profileDropdown">
-
               <button>
                 <FaUserCircle />
                 Profile
@@ -103,18 +88,14 @@ const Topbar = ({
                 Settings
               </button>
 
-              <button>
+              <button onClick={handleLogout}>
                 <FaSignOutAlt />
                 Logout
               </button>
-
             </div>
           )}
-
         </div>
-
       </div>
-
     </header>
   );
 };

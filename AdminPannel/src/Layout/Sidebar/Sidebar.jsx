@@ -24,7 +24,7 @@ import {
   FaBookOpen,
   FaStar,
   FaAddressBook,
-  FaBook
+  FaBook,
 } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
 
@@ -38,31 +38,22 @@ const Sidebar = () => {
 
   return (
     <>
-    <button
-  className="mobileMenuBtn"
-  onClick={() => setMobileOpen(!mobileOpen)}
->
-  ☰
-</button>
-     <aside
-  className={`sidebar ${
-    mobileOpen ? "mobileOpen" : ""
-  }`}
->
+      <button
+        className="mobileMenuBtn"
+        onClick={() => setMobileOpen(!mobileOpen)}
+      >
+        ☰
+      </button>
+      <aside className={`sidebar ${mobileOpen ? "mobileOpen" : ""}`}>
         {/* LOGO SECTION */}
 
         <div className="sidebarLogoSection">
-
           <div
             className="sidebarLogoWrapper"
             onClick={() => setShowLogoMenu(!showLogoMenu)}
           >
             <div className="sidebarLogoLeft">
-              <img
-                src={logo}
-                alt="Logo"
-                className="sidebarLogo"
-              />
+              <img src={logo} alt="Logo" className="sidebarLogo" />
 
               <span>IJPASR</span>
             </div>
@@ -71,8 +62,7 @@ const Sidebar = () => {
           </div>
 
           {showLogoMenu && (
-           <div className="logoPopupCard">
-
+            <div className="logoPopupCard">
               <NavLink to="/profile">
                 <FaUser />
                 Profile Center
@@ -89,20 +79,18 @@ const Sidebar = () => {
               </NavLink>
 
               <NavLink to="/user-management">
-                 <FaUserShield />
-                     User Management
+                <FaUserShield />
+                User Management
               </NavLink>
 
               <NavLink to="/logout">
                 <FaSignOutAlt />
                 Sign Out
               </NavLink>
-
             </div>
           )}
 
           <div className="sidebarActions">
-
             <button className="addNewBtn">
               <FaPlus />
               Add New
@@ -111,253 +99,183 @@ const Sidebar = () => {
             <button className="searchBtn">
               <FaSearch />
             </button>
-
           </div>
-
         </div>
 
         {/* MENU */}
 
-       <div className="sidebarMenu">
-            {/* Dashboard */}
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) =>
-                isActive
-                  ? "sidebarLink active"
-                  : "sidebarLink"
-              }
-            >
+        <div className="sidebarMenu">
+          {/* Dashboard */}
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              isActive ? "sidebarLink active" : "sidebarLink"
+            }
+          >
             <FaTachometerAlt />
-          <span>Executive Dashboard</span>
-            </NavLink>
+            <span>Executive Dashboard</span>
+          </NavLink>
 
-            {/* Editor Management */}
-            <div
-              className="sidebarDropdown"
-              onClick={() =>
-                setOpenMenu(
-                  openMenu === "editor"
-                    ? ""
-                    : "editor"
-                )
-              }
-            >
-              <div className="sidebarDropdownLeft">
+          {/* Editor Management */}
+          <div
+            className="sidebarDropdown"
+            onClick={() => setOpenMenu(openMenu === "editor" ? "" : "editor")}
+          >
+            <div className="sidebarDropdownLeft">
               <FaUserTie />
-          <span>Editorial Management</span>
-              </div>
-
-              <FaChevronDown />
+              <span>Editorial Management</span>
             </div>
 
-            {openMenu === "editor" && (
-              <div className="sidebarSubMenu">
-                <NavLink to="/new-editor">
-                  New Editor
-                </NavLink>
+            <FaChevronDown />
+          </div>
 
-                <NavLink to="/manage-editor">
-                  Manage Editor
-                </NavLink>
-              </div>
-            )}
+          {openMenu === "editor" && (
+            <div className="sidebarSubMenu">
+              <NavLink to="/new-editor">New Editor</NavLink>
 
-            {/* Cold Lead Management */}
-            <NavLink
-              to="/cold-lead-management"
-              className={({ isActive }) =>
-                isActive
-                  ? "sidebarLink active"
-                  : "sidebarLink"
-              }
-            >
+              <NavLink to="/manage-editor">Manage Editor</NavLink>
+            </div>
+          )}
+
+          {/* Cold Lead Management */}
+          <NavLink
+            to="/cold-lead-management"
+            className={({ isActive }) =>
+              isActive ? "sidebarLink active" : "sidebarLink"
+            }
+          >
             <FaClipboardList />
-          <span>Lead Management Hub</span>
-            </NavLink>
+            <span>Lead Management Hub</span>
+          </NavLink>
 
-            {/* Index & Abstracting Management */}
-            <NavLink
-              to="/index-abstracting-management"
-              className={({ isActive }) =>
-                isActive
-                  ? "sidebarLink active"
-                  : "sidebarLink"
-              }
-            >
+          {/* Index & Abstracting Management */}
+          <NavLink
+            to="/index-abstracting-management"
+            className={({ isActive }) =>
+              isActive ? "sidebarLink active" : "sidebarLink"
+            }
+          >
             <FaBookOpen />
-          <span>Indexing & Abstracting</span>
-            </NavLink>
+            <span>Indexing & Abstracting</span>
+          </NavLink>
 
-            {/* Publication Management */}
-              <NavLink
-                to="/publication-management"
-                className={({ isActive }) =>
-                  isActive
-                    ? "sidebarLink active"
-                    : "sidebarLink"
-                }
-              >
-                <FaBook />
-                <span>Publication Management</span>
-              </NavLink>
+          {/* Publication Management */}
+          <NavLink
+            to="/publication-management"
+            className={({ isActive }) =>
+              isActive ? "sidebarLink active" : "sidebarLink"
+            }
+          >
+            <FaBook />
+            <span>Publication Management</span>
+          </NavLink>
+          <NavLink
+            to="/inc-publication-management"
+            className={({ isActive }) =>
+              isActive ? "sidebarLink active" : "sidebarLink"
+            }
+          >
+            <FaBook />
+            <span>Inc-DocPublication Management</span>
+          </NavLink>
 
-            {/* Testimonial Management */}
-            <NavLink
-              to="/testimonial-management"
-              className={({ isActive }) =>
-                isActive
-                  ? "sidebarLink active"
-                  : "sidebarLink"
-              }
-            >
-              <FaStar />
-          <span>Author Testimonials</span>
-            </NavLink>
-              <NavLink
-                  to="/calendar-management"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "sidebarLink active"
-                      : "sidebarLink"
-                  }
-                >
-                  <FaCalendarAlt />
-                  <span>Calendar Management</span>
-                </NavLink> 
-            {/* Contact Management */}
-            <NavLink
-              to="/contact-management"
-              className={({ isActive }) =>
-                isActive
-                  ? "sidebarLink active"
-                  : "sidebarLink"
-              }
-            >
+          {/* Testimonial Management */}
+          <NavLink
+            to="/testimonial-management"
+            className={({ isActive }) =>
+              isActive ? "sidebarLink active" : "sidebarLink"
+            }
+          >
+            <FaStar />
+            <span>Author Testimonials</span>
+          </NavLink>
+          <NavLink
+            to="/calendar-management"
+            className={({ isActive }) =>
+              isActive ? "sidebarLink active" : "sidebarLink"
+            }
+          >
+            <FaCalendarAlt />
+            <span>Calendar Management</span>
+          </NavLink>
+          {/* Contact Management */}
+          <NavLink
+            to="/contact-management"
+            className={({ isActive }) =>
+              isActive ? "sidebarLink active" : "sidebarLink"
+            }
+          >
             <FaAddressBook />
-          <span>Contact & Support Center</span>
-            </NavLink>
-
-      </div>
+            <span>Contact & Support Center</span>
+          </NavLink>
+        </div>
 
         {/* FOOTER */}
 
         <div className="sidebarBottom">
-
           <div
             className="profileCard"
-            onClick={() =>
-              setShowProfile(!showProfile)
-            }
+            onClick={() => setShowProfile(!showProfile)}
           >
-            <img
-              src="https://i.pravatar.cc/150"
-              alt="Profile"
-            />
+            <img src="https://i.pravatar.cc/150" alt="Profile" />
           </div>
 
           <div className="bottomActions">
-
-            <button
-              className="bottomIcon"
-              onClick={() =>
-                setShowChat(true)
-              }
-            >
+            <button className="bottomIcon" onClick={() => setShowChat(true)}>
               <FaCommentDots />
             </button>
 
             <button className="bottomIcon">
               <FaBell />
             </button>
-
           </div>
 
           {showProfile && (
             <div className="profilePopupCard">
-
               <div className="profileHeader">
-
-                <img
-                  src="https://i.pravatar.cc/150"
-                  alt=""
-                />
+                <img src="https://i.pravatar.cc/150" alt="" />
 
                 <div>
                   <h4>Demo User</h4>
                   <p>demo@email.com</p>
                 </div>
-
               </div>
 
-              <NavLink to="/profile">
-                Public Profile
-              </NavLink>
+              <NavLink to="/profile">Public Profile</NavLink>
 
-              <NavLink to="/my-profile">
-                My Profile
-              </NavLink>
+              <NavLink to="/my-profile">My Profile</NavLink>
 
-              <NavLink to="/account">
-                My Account
-              </NavLink>
+              <NavLink to="/account">My Account</NavLink>
 
               <button className="logoutBtn">
                 <FaSignOutAlt />
                 Logout
               </button>
-
             </div>
           )}
-
         </div>
-
       </aside>
 
       {/* CHAT DRAWER */}
 
-      <div
-        className={`chatDrawer ${
-          showChat
-            ? "chatDrawerOpen"
-            : ""
-        }`}
-      >
-
+      <div className={`chatDrawer ${showChat ? "chatDrawerOpen" : ""}`}>
         <div className="chatDrawerHeader">
-
           <h3>Messages</h3>
 
-          <button
-            onClick={() =>
-              setShowChat(false)
-            }
-          >
+          <button onClick={() => setShowChat(false)}>
             <FaTimes />
           </button>
-
         </div>
 
         <div className="chatDrawerBody">
+          <div className="messageLeft">Hello 👋</div>
 
-          <div className="messageLeft">
-            Hello 👋
-          </div>
+          <div className="messageRight">Welcome Back 🚀</div>
 
-          <div className="messageRight">
-            Welcome Back 🚀
-          </div>
+          <div className="messageLeft">New notifications available.</div>
 
-          <div className="messageLeft">
-            New notifications available.
-          </div>
-
-          <div className="messageRight">
-            Everything is working perfectly.
-          </div>
-
+          <div className="messageRight">Everything is working perfectly.</div>
         </div>
-
       </div>
     </>
   );

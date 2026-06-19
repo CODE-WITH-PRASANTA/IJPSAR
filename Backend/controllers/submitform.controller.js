@@ -4,21 +4,30 @@ const SubmitForm = require("../models/submitform.model");
 
 exports.createSubmission = async (req, res) => {
   try {
-    console.log("BODY =>", req.body);
+
 
     const authors = JSON.parse(req.body.authors || "[]");
     const keywords = JSON.parse(req.body.keywords || "[]");
 
+    const count = await SubmitForm.countDocuments();
+
+    const paperId = `PAPER-${new Date().getFullYear()}-${String(
+      count + 1
+    ).padStart(4, "0")}`;
+
     const submission = await SubmitForm.create({
+      paperId,
+
       paperTitle: req.body.paperTitle,
+
       abstract: req.body.abstract,
 
       keywords,
 
       mobileCountryCode: req.body.mobileCountryCode,
+
       researchArea: req.body.researchArea,
 
-      // Saved by convertToWebp middleware
       paperFile: req.body.paperFile,
 
       authorCategory: req.body.authorCategory,
@@ -39,6 +48,8 @@ exports.createSubmission = async (req, res) => {
       referralCode: req.body.referralCode,
 
       specialMessage: req.body.editorMessage,
+
+      status: "Submitted",
     });
 
     return res.status(201).json({
@@ -47,13 +58,11 @@ exports.createSubmission = async (req, res) => {
       data: submission,
     });
   } catch (error) {
-    console.error("===== CREATE SUBMISSION ERROR =====");
     console.error(error);
 
     return res.status(500).json({
       success: false,
       message: error.message,
-      stack: error.stack,
     });
   }
 };
@@ -78,6 +87,7 @@ exports.getAllSubmissions = async (req, res) => {
       success: true,
       total,
       page,
+      pages: Math.ceil(total / limit),
       data,
     });
   } catch (error) {
@@ -90,7 +100,7 @@ exports.getAllSubmissions = async (req, res) => {
   }
 };
 
-/* ================= GET SINGLE SUBMISSION ================= */
+/* ================= GET SINGLE ================= */
 
 exports.getSingleSubmission = async (req, res) => {
   try {
@@ -108,8 +118,6 @@ exports.getSingleSubmission = async (req, res) => {
       data,
     });
   } catch (error) {
-    console.error(error);
-
     return res.status(500).json({
       success: false,
       message: error.message,
@@ -117,16 +125,63 @@ exports.getSingleSubmission = async (req, res) => {
   }
 };
 
-/* ================= UPDATE SUBMISSION ================= */
 
-exports.updateSubmission = async (req, res) => {
+
+exports.getEditorPapers = async (
+  req,
+  res
+) => {
+  try {
+    const papers =
+      await SubmitForm.find({
+        editorId: req.params.editorId,
+      }).sort({
+        createdAt: -1,
+      });
+
+    res.status(200).json({
+      success: true,
+      data: papers,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.getUnassignedPapers = async (req, res) => {
+  try {
+    const papers = await SubmitForm.find({
+      $or: [
+        { editorId: null },
+        { editorId: { $exists: false } },
+      ],
+      status: {
+        $nin: ["Published", "Rejected"],
+      },
+    }).sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      data: papers,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+/* ================= UPDATE ================= */
+
+exports.updateSubmission = async (req, res)=> {
   try {
     const updated = await SubmitForm.findByIdAndUpdate(
       req.params.id,
       req.body,
-      {
-        new: true,
-      }
+      { new: true }
     );
 
     if (!updated) {
@@ -141,6 +196,32 @@ exports.updateSubmission = async (req, res) => {
       data: updated,
     });
   } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/* ================= DELETE ================= */
+
+exports.deleteSubmission = async (req, res) => {
+  try {
+   
+
+    const deleted =
+      await SubmitForm.findByIdAndDelete(
+        req.params.id
+      );
+
+    
+      
+
+    return res.status(200).json({
+      success: true,
+      message: "Deleted Successfully",
+    });
+  } catch (error) {
     console.error(error);
 
     return res.status(500).json({
@@ -150,28 +231,208 @@ exports.updateSubmission = async (req, res) => {
   }
 };
 
-/* ================= DELETE SUBMISSION ================= */
+/* ================= ASSIGN EDITOR ================= */
 
-exports.deleteSubmission = async (req, res) => {
+exports.assignEditor = async (req, res) => {
   try {
-    const deleted = await SubmitForm.findByIdAndDelete(
-      req.params.id
-    );
+    const { editorId, editorName } = req.body;
 
-    if (!deleted) {
-      return res.status(404).json({
-        success: false,
-        message: "Submission not found",
-      });
-    }
+    const paper =
+      await SubmitForm.findByIdAndUpdate(
+        req.params.id,
+        {
+          editorId,
+          editorName,
+          editorAssignedAt: new Date(),
+          status: "Editor Assigned",
+        },
+        {
+          new: true,
+        }
+      );
+
+    await Editor.findByIdAndUpdate(
+      editorId,
+      {
+        $addToSet: {
+          assignedPapers: {
+            paperId: paper._id,
+            assignedAt: new Date(),
+          },
+        },
+      }
+    );
 
     return res.status(200).json({
       success: true,
-      message: "Deleted Successfully",
+      data: paper,
     });
   } catch (error) {
-    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
+/* ================= START EDITING ================= */
+
+exports.startEditing = async (req, res) => {
+  try {
+    const data = await SubmitForm.findByIdAndUpdate(
+      req.params.id,
+      {
+        status: "Editing",
+      },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Editing Started",
+      data,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/* ================= ASSIGN REVIEWER ================= */
+
+exports.assignReviewer = async (
+  req,
+  res
+) => {
+  try {
+    const {
+      reviewerId,
+      reviewerName,
+    } = req.body;
+
+    const paper =
+      await SubmitForm.findByIdAndUpdate(
+        req.params.id,
+        {
+          reviewerId,
+          reviewerName,
+          reviewerAssignedAt:
+            new Date(),
+          status:
+            "Reviewer Assigned",
+        },
+        {
+          new: true,
+        }
+      );
+
+    res.status(200).json({
+      success: true,
+      data: paper,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/* ================= SEND TO REVIEW ================= */
+
+exports.sendToReview = async (req, res) => {
+  try {
+    const data = await SubmitForm.findByIdAndUpdate(
+      req.params.id,
+      {
+        status: "Review Pending",
+      },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Sent To Reviewer",
+      data,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/* ================= ACCEPT PAPER ================= */
+
+exports.acceptPaper = async (req, res) => {
+  try {
+    const data = await SubmitForm.findByIdAndUpdate(
+      req.params.id,
+      {
+        status: "Accepted",
+      },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Paper Accepted",
+      data,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/* ================= REJECT PAPER ================= */
+
+exports.rejectPaper = async (req, res) => {
+  try {
+    const data = await SubmitForm.findByIdAndUpdate(
+      req.params.id,
+      {
+        status: "Rejected",
+      },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Paper Rejected",
+      data,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/* ================= PUBLISH PAPER ================= */
+
+exports.publishPaper = async (req, res) => {
+  try {
+    const data = await SubmitForm.findByIdAndUpdate(
+      req.params.id,
+      {
+        status: "Published",
+      },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Paper Published",
+      data,
+    });
+  } catch (error) {
     return res.status(500).json({
       success: false,
       message: error.message,
@@ -188,9 +449,7 @@ exports.changeStatus = async (req, res) => {
       {
         status: req.body.status,
       },
-      {
-        new: true,
-      }
+      { new: true }
     );
 
     if (!data) {
@@ -205,8 +464,6 @@ exports.changeStatus = async (req, res) => {
       data,
     });
   } catch (error) {
-    console.error(error);
-
     return res.status(500).json({
       success: false,
       message: error.message,

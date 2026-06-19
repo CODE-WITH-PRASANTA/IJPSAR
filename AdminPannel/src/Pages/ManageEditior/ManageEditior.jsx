@@ -12,88 +12,62 @@ import {
 } from "react-icons/fa";
 
 import "./ManageEditior.css";
+import API from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const ManageEditior = () => {
   const [view, setView] = useState("table");
   const [search, setSearch] = useState("");
   const [activeMenu, setActiveMenu] = useState(null);
+  const [editors, setEditors] = useState([]);
+  const [papers, setPapers] = useState([]);
+  const navigate = useNavigate();
   const menuRef = useRef(null);
 
-  // Sample static data array
-  const [editors, setEditors] = useState([
-    {
-      id: 1,
-      name: "ggf",
-      role: "Editor",
-      email: "ggf@dd.com",
-      phone: "+91 9668563648",
-      status: "Active",
-      joined: "June 4, 2026",
-      image: "https://i.pravatar.cc/300?img=12",
-    },
-    {
-      id: 2,
-      name: "PP",
-      role: "Author",
-      email: "okok@koko.kok",
-      phone: "+91 9876543210",
-      status: "Active",
-      joined: "June 4, 2026",
-      image: "https://i.pravatar.cc/300?img=32",
-    },
-    {
-      id: 3,
-      name: "asdasd",
-      role: "Author",
-      email: "asdasdad@gmail.com",
-      phone: "+91 9123456789",
-      status: "Active",
-      joined: "June 4, 2026",
-      image: "https://i.pravatar.cc/300?img=53",
-    },
-    {
-      id: 4,
-      name: "adil",
-      role: "Editor",
-      email: "adil@gmail.com",
-      phone: "+91 9988776655",
-      status: "Active",
-      joined: "June 4, 2026",
-      image: "https://i.pravatar.cc/300?img=18",
-    },
-    {
-      id: 5,
-      name: "sdfsd",
-      role: "Author",
-      email: "test@gmail.com",
-      phone: "+91 9090909090",
-      status: "Block",
-      joined: "June 4, 2026",
-      image: "https://i.pravatar.cc/300?img=60",
-    },
-  ]);
+  const fetchEditors = async () => {
+    try {
+      const res = await API.get("/editor/all");
 
-  // Close dropdown menu when clicking completely outside cards area
+      setEditors(res.data.data || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchPapers = async () => {
+    try {
+      const res = await API.get("/submitform/unassigned");
+
+      // console.log("PAPERS =>", res.data); // add this
+
+      setPapers(res.data.data || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setActiveMenu(null);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    fetchEditors();
+    fetchPapers();
   }, []);
 
   // Filter functionality
-  const filteredEditors = editors.filter((item) =>
-    item.name.toLowerCase().includes(search.toLowerCase()) ||
-    item.email.toLowerCase().includes(search.toLowerCase())
+  const filteredEditors = editors.filter(
+    (item) =>
+      item.name.toLowerCase().includes(search.toLowerCase()) ||
+      item.email.toLowerCase().includes(search.toLowerCase()),
   );
 
   // Action Menu Handlers
   const handleView = (editor, e) => {
-    e.stopPropagation(); // Stops event bubbling issues
-    alert(`Viewing Details for: ${editor.name}`);
+    e.stopPropagation();
+
+    navigate("/newsprofile", {
+      state: {
+        user: editor,
+      },
+    });
+
     setActiveMenu(null);
   };
 
@@ -103,13 +77,54 @@ const ManageEditior = () => {
     setActiveMenu(null);
   };
 
-  const handleDelete = (id, name, e) => {
+  const handleDelete = async (id, name, e) => {
     e.stopPropagation();
-    const confirmed = window.confirm(`Are you sure you want to delete ${name}?`);
-    if (confirmed) {
-      setEditors(editors.filter((editor) => editor.id !== id));
+
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${name}?`,
+    );
+
+    if (!confirmed) return;
+
+    try {
+      await API.delete(`/editor/delete/${id}`);
+
+      fetchEditors();
+    } catch (error) {
+      console.error(error);
     }
+
     setActiveMenu(null);
+  };
+
+  const handleToggleStatus = async (editor) => {
+    try {
+      if (editor.status === "Active") {
+        await API.put(`/editor/block/${editor._id}`);
+      } else {
+        await API.put(`/editor/activate/${editor._id}`);
+      }
+
+      fetchEditors();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const assignPaperToEditor = async (paperId, editor) => {
+    try {
+      await API.post("/editor/assign-paper", {
+        editorId: editor._id,
+        paperId,
+      });
+
+      fetchEditors();
+      fetchPapers();
+
+      alert("Paper Assigned Successfully");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -152,9 +167,11 @@ const ManageEditior = () => {
         {view === "card" ? (
           <div className="manageEditorCards" ref={menuRef}>
             {filteredEditors.map((editor) => (
-              <div className="manageEditorCard" key={editor.id}>
+              <div className="manageEditorCard" key={editor._id}>
                 <div className="manageEditorTop">
-                  <span className={`statusBadge ${editor.status.toLowerCase()}`}>
+                  <span
+                    className={`statusBadge ${editor.status.toLowerCase()}`}
+                  >
                     {editor.status}
                   </span>
 
@@ -163,7 +180,9 @@ const ManageEditior = () => {
                       className="menuBtn"
                       onClick={(e) => {
                         e.stopPropagation();
-                        setActiveMenu(activeMenu === editor.id ? null : editor.id);
+                        setActiveMenu(
+                          activeMenu === editor.id ? null : editor.id,
+                        );
                       }}
                     >
                       <FaEllipsisV />
@@ -177,9 +196,11 @@ const ManageEditior = () => {
                         <button onClick={(e) => handleEdit(editor, e)}>
                           <FaEdit /> Edit
                         </button>
-                        <button 
-                          className="deleteAction" 
-                          onClick={(e) => handleDelete(editor.id, editor.name, e)}
+                        <button
+                          className="deleteAction"
+                          onClick={(e) =>
+                            handleDelete(editor.id, editor.name, e)
+                          }
                         >
                           <FaTrash /> Delete
                         </button>
@@ -188,13 +209,20 @@ const ManageEditior = () => {
                   </div>
                 </div>
 
-                <img src={editor.image} alt={editor.name} className="editorAvatar" />
+                <div className="editorAvatar">
+                  {editor.name?.charAt(0).toUpperCase()}
+                </div>
                 <h3>{editor.name}</h3>
+                <p className="editorId">{editor.userId}</p>
                 <span className="roleText">{editor.role}</span>
 
                 <div className="editorInfo">
-                  <p><FaEnvelope /> {editor.email}</p>
-                  <p><FaPhone /> {editor.phone}</p>
+                  <p>
+                    <FaEnvelope /> {editor.email}
+                  </p>
+                  <p>
+                    <FaPhone /> {editor.phone}
+                  </p>
                 </div>
               </div>
             ))}
@@ -208,18 +236,26 @@ const ManageEditior = () => {
                   <th>Role</th>
                   <th>Status</th>
                   <th>Joined</th>
+                  <th>Assigned Papers</th>
+                  <th>Total Assigned</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredEditors.map((editor) => (
-                  <tr key={editor.id}>
+                  <tr key={editor._id}>
                     <td>
                       <div className="tableUser">
-                        <img src={editor.image} alt={editor.name} />
+                        <div className="editorAvatar">
+                          {editor.name?.charAt(0).toUpperCase()}
+                        </div>
+
                         <div className="tableUserMeta">
                           <span className="tableUserName">{editor.name}</span>
+
                           <span className="tableUserEmail">{editor.email}</span>
+
+                          <span className="tableUserId">{editor.userId}</span>
                         </div>
                       </div>
                     </td>
@@ -227,21 +263,67 @@ const ManageEditior = () => {
                       <span className="tableRoleBadge">{editor.role}</span>
                     </td>
                     <td>
-                      <span className={`statusText ${editor.status.toLowerCase()}`}>
+                      <span
+                        className={`statusText ${editor.status.toLowerCase()}`}
+                      >
                         {editor.status}
                       </span>
                     </td>
-                    <td className="tableDateText">{editor.joined}</td>
+                    <td className="tableDateText">
+                      {editor.createdAt
+                        ? new Date(editor.createdAt).toLocaleDateString()
+                        : "-"}
+                    </td>
+                    <td>
+                      <select
+                        className="assignPaperSelect"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+
+                          assignPaperToEditor(e.target.value, editor);
+                        }}
+                      >
+                        <option value="">Assign Paper</option>
+
+                        {papers.map((paper) => (
+                          <option key={paper._id} value={paper._id}>
+                            {paper.paperId} - {paper.paperTitle}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+
+                    <td>{editor.assignedPapers?.length || 0}</td>
+
                     <td>
                       <div className="tableActionsInline">
-                        <button className="tableActionBtn view" title="View" onClick={(e) => handleView(editor, e)}>
+                        <button
+                          className="tableActionBtn view"
+                          title="View"
+                          onClick={(e) => handleView(editor, e)}
+                        >
                           <FaEye />
                         </button>
-                        <button className="tableActionBtn edit" title="Edit" onClick={(e) => handleEdit(editor, e)}>
-                          <FaEdit />
-                        </button>
-                        <button className="tableActionBtn delete" title="Delete" onClick={(e) => handleDelete(editor.id, editor.name, e)}>
+
+                        <button
+                          className="tableActionBtn delete"
+                          title="Delete"
+                          onClick={(e) =>
+                            handleDelete(editor._id, editor.name, e)
+                          }
+                        >
                           <FaTrash />
+                        </button>
+
+                        <button
+                          className={
+                            editor.status === "Active"
+                              ? "blockBtn"
+                              : "activateBtn"
+                          }
+                          onClick={() => handleToggleStatus(editor)}
+                        >
+                          {editor.status === "Active" ? "Block" : "Activate"}
                         </button>
                       </div>
                     </td>
