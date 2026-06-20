@@ -6,6 +6,8 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import Tasks from "./Pages/Tasks/Tasks";
 import CalendarPage from "./Pages/CalendarPage/CalendarPage";
 import SubmitFrom from "./Components/SubmitFrom/SubmitFrom";
+import Papermanagement from "./Components/Papermanagement/Papermanagement";
+import Publishpaper from "./Components/Publishpaper/Publishpaper";
 
 const App = () => {
   return (
@@ -23,6 +25,8 @@ const App = () => {
           <Route path="/submit-paper" element={<SubmitFrom />} />
 
           <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/paper-management" element={<Papermanagement />} />
+          <Route path="/published-papers" element={<Publishpaper />} />
         </Route>
       </Routes>
     </BrowserRouter>

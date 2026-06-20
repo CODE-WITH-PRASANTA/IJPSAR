@@ -1,0 +1,281 @@
+/* =========================
+   SECTION
+========================= */
+
+.paper-management-section {
+  width: 100%;
+  min-height: 100vh;
+  padding: 70px 20px;
+  background: #f8fafc;
+}
+
+.paper-management-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.paper-management-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.paper-management-header h2 {
+  font-size: 2.5rem;
+  color: #0f172a;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.paper-management-header p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.paper-management-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 30px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.paper-management-card {
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  transition: all 0.35s ease;
+}
+
+.paper-management-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+}
+
+/* =========================
+   IMAGE
+========================= */
+
+.paper-management-image-box {
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+}
+
+.paper-management-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.4s;
+}
+
+.paper-management-card:hover .paper-management-image-box img {
+  transform: scale(1.08);
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.paper-management-content {
+  padding: 25px;
+}
+
+.paper-management-content h3 {
+  font-size: 1.4rem;
+  color: #0f172a;
+  margin-bottom: 20px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+/* =========================
+   META
+========================= */
+
+.paper-management-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.paper-management-meta div {
+  flex: 1;
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.paper-management-meta span {
+  font-size: 0.85rem;
+  color: #64748b;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.paper-management-meta p {
+  color: #0f172a;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* =========================
+   FEEDBACK
+========================= */
+
+.paper-management-feedback {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 14px 16px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.paper-management-feedback span {
+  color: #475569;
+}
+
+.paper-management-feedback strong {
+  color: #2563eb;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.paper-management-description {
+  color: #64748b;
+  line-height: 1.7;
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 78px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.paper-management-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.paper-management-btn:hover {
+  transform: translateY(-2px);
+}
+/* =========================
+   PAGINATION
+========================= */
+
+.paper-pagination {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .paper-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    margin-top: 35px;
+  }
+
+  .paper-pagination button {
+    border: none;
+    background: #2563eb;
+    color: #fff;
+
+    padding: 10px 18px;
+    border-radius: 8px;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .paper-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .paper-pagination span {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+}
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 992px) {
+  .paper-management-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .paper-management-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .paper-management-header h2 {
+    font-size: 2rem;
+  }
+
+  .paper-management-image-box {
+    height: 220px;
+  }
+
+  .paper-management-content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .paper-management-section {
+    padding: 50px 15px;
+  }
+
+  .paper-management-meta {
+    flex-direction: column;
+  }
+
+  .paper-management-feedback {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .paper-management-content h3 {
+    font-size: 1.2rem;
+  }
+}
