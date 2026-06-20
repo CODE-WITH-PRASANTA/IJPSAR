@@ -1,151 +1,133 @@
 import React from "react";
-import "./SalesTime.css";
-
+import { BsThreeDots } from "react-icons/bs";
 import {
   ResponsiveContainer,
-  AreaChart,
-  Area,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
+  CartesianGrid,
   Tooltip,
 } from "recharts";
-
-import {
-  FiDollarSign,
-  FiMoreVertical,
-} from "react-icons/fi";
+import "./SalesTime.css";
 
 const SalesTime = () => {
-  const salesData = [
-    { date: "07 May", thisMonth: 3100, lastMonth: 1900 },
-    { date: "08 May", thisMonth: 3200, lastMonth: 2000 },
-    { date: "09 May", thisMonth: 2800, lastMonth: 2300 },
-    { date: "10 May", thisMonth: 2500, lastMonth: 1600 },
-    { date: "11 May", thisMonth: 2500, lastMonth: 2300 },
-    { date: "12 May", thisMonth: 2700, lastMonth: 2400 },
-    { date: "13 May", thisMonth: 2900, lastMonth: 1900 },
-    { date: "14 May", thisMonth: 2900, lastMonth: 2400 },
-    { date: "15 May", thisMonth: 3600, lastMonth: 2000 },
-    { date: "16 May", thisMonth: 3900, lastMonth: 1500 },
-    { date: "17 May", thisMonth: 3800, lastMonth: 1400 },
-    { date: "18 May", thisMonth: 3400, lastMonth: 1400 },
-    { date: "19 May", thisMonth: 3600, lastMonth: 1400 },
-    { date: "20 May", thisMonth: 3350, lastMonth: 1000 },
-    { date: "21 May", thisMonth: 3350, lastMonth: 1600 },
-    { date: "22 May", thisMonth: 3100, lastMonth: 1600 },
-    { date: "23 May", thisMonth: 3500, lastMonth: 1800 },
-    { date: "24 May", thisMonth: 3650, lastMonth: 1900 },
-    { date: "25 May", thisMonth: 3500, lastMonth: 1650 },
-    { date: "26 May", thisMonth: 2900, lastMonth: 1700 },
-    { date: "27 May", thisMonth: 4200, lastMonth: 1750 },
-    { date: "28 May", thisMonth: 3700, lastMonth: 1800 },
-    { date: "29 May", thisMonth: 3600, lastMonth: 1700 },
-    { date: "30 May", thisMonth: 4100, lastMonth: 1700 },
-    { date: "31 May", thisMonth: 4500, lastMonth: 1200 },
-    { date: "01 Jun", thisMonth: 4300, lastMonth: 1500 },
-    { date: "02 Jun", thisMonth: 4400, lastMonth: 1000 },
-    { date: "03 Jun", thisMonth: 4900, lastMonth: 1500 },
-    { date: "04 Jun", thisMonth: 4884, lastMonth: 2021 },
+  const chartData = [
+    { month: "Jan", saving: 13, expense: 33, income: 45 },
+    { month: "Feb", saving: 21, expense: 42, income: 52 },
+    { month: "Mar", saving: 28, expense: 26, income: 39 },
+    { month: "Apr", saving: 20, expense: 20, income: 24 },
+    { month: "May", saving: 13, expense: 31, income: 33 },
+    { month: "Jun", saving: 18, expense: 38, income: 26 },
+    { month: "Jul", saving: 29, expense: 28, income: 44 },
+    { month: "Aug", saving: 15, expense: 47, income: 55 },
+    { month: "Sep", saving: 24, expense: 44, income: 45 },
+    { month: "Oct", saving: 31, expense: 56, income: 48 },
+    { month: "Nov", saving: 9, expense: 17, income: 35 },
+    { month: "Dec", saving: 27, expense: 46, income: 60 },
   ];
-
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (!active || !payload) return null;
-
-    return (
-      <div className="SalesTime_Tooltip">
-        <h4>{label}, 2026</h4>
-
-        <div className="SalesTime_TooltipRow">
-          <span className="SalesTime_BlueDot" />
-          <span>This month:</span>
-          <strong>
-            $
-            {payload[0]?.value?.toLocaleString()}
-            .00
-          </strong>
-        </div>
-
-        <div className="SalesTime_TooltipRow">
-          <span className="SalesTime_LightDot" />
-          <span>Last month:</span>
-          <strong>
-            $
-            {payload[1]?.value?.toLocaleString()}
-            .00
-          </strong>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div className="SalesTime">
+      <div className="SalesTime-card">
+        <div className="SalesTime-header">
+          <div className="SalesTime-heading">
+            <h2 className="SalesTime-title">SWIFT Revenue</h2>
+            <p className="SalesTime-subtitle">
+              Your data last update 1 hours ago.
+            </p>
+          </div>
 
-      <div className="SalesTime_Header">
-
-        <div className="SalesTime_Title">
-          <FiDollarSign />
-          <span>Sales over time</span>
+          <button className="SalesTime-menuBtn">
+            <BsThreeDots />
+          </button>
         </div>
 
-        <button className="SalesTime_MenuBtn">
-          <FiMoreVertical />
-        </button>
+        <div className="SalesTime-chart">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={chartData}
+              margin={{
+                top: 20,
+                right: 20,
+                left: 0,
+                bottom: 10,
+              }}
+            >
+              <CartesianGrid
+                vertical={false}
+                stroke="#E8EDF3"
+                strokeDasharray="0"
+              />
 
-      </div>
+              <XAxis
+                dataKey="month"
+                axisLine={false}
+                tickLine={false}
+                tick={{
+                  fill: "#5E6A7D",
+                  fontSize: 14,
+                }}
+              />
 
-      <div className="SalesTime_Summary">
+              <YAxis
+                domain={[0, 70]}
+                ticks={[0, 10, 20, 30, 40, 50, 60, 70]}
+                axisLine={false}
+                tickLine={false}
+                tick={{
+                  fill: "#5E6A7D",
+                  fontSize: 14,
+                }}
+              />
 
-        <h2>$45,332.00</h2>
+              <Tooltip />
 
-        <div className="SalesTime_Growth">
-          ↑ +4.7% since last month
+              <Line
+                type="monotone"
+                dataKey="saving"
+                stroke="#178B52"
+                strokeWidth={3}
+                dot={false}
+              />
+
+              <Line
+                type="monotone"
+                dataKey="expense"
+                stroke="#EF3E4A"
+                strokeWidth={3}
+                strokeDasharray="8 8"
+                dot={false}
+              />
+
+              <Line
+                type="monotone"
+                dataKey="income"
+                stroke="#1DA7A1"
+                strokeWidth={3}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
 
+        <div className="SalesTime-legend">
+          <div className="SalesTime-legendItem">
+            <span className="SalesTime-saving"></span>
+            <span>Saving</span>
+          </div>
+
+          <div className="SalesTime-legendItem">
+            <span className="SalesTime-expense"></span>
+            <span>Expense</span>
+          </div>
+
+          <div className="SalesTime-legendItem">
+            <span className="SalesTime-income"></span>
+            <span>Income</span>
+          </div>
+        </div>
       </div>
-
-      <div className="SalesTime_Chart">
-
-        <ResponsiveContainer
-          width="100%"
-          height={250}
-        >
-          <AreaChart data={salesData}>
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-            />
-
-            <YAxis hide />
-
-            <Tooltip
-              content={<CustomTooltip />}
-            />
-
-            <Area
-              type="monotone"
-              dataKey="lastMonth"
-              stroke="#80A8FF"
-              strokeWidth={3}
-              strokeDasharray="4 4"
-              fill="#DDE7FF"
-              fillOpacity={0.4}
-            />
-
-            <Area
-              type="monotone"
-              dataKey="thisMonth"
-              stroke="#3B5BDB"
-              strokeWidth={3}
-              fill="#3B5BDB"
-              fillOpacity={0.12}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-
-      </div>
-
     </div>
   );
 };

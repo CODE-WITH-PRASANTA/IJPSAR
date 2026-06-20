@@ -5,17 +5,16 @@ import {
   FiDownload,
   FiSliders,
   FiCalendar,
-  FiUsers,
-  FiTruck,
-  FiCreditCard,
-  FiActivity,
   FiCheck,
+  FiFileText,
+  FiClock,
+  FiCreditCard,
+  FiCheckCircle,
 } from "react-icons/fi";
 
 const Overview = () => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedPeriod, setSelectedPeriod] =
-    useState("30 days");
+  const [selectedPeriod, setSelectedPeriod] = useState("30 days");
 
   const dropdownRef = useRef(null);
 
@@ -50,51 +49,48 @@ const Overview = () => {
 
   const cards = [
     {
-      title: "New Customers",
-      value: "1,404",
-      change: "+12.4%",
+      title: "Total Submissions",
+      value: "1,248",
+      change: "+12.8%",
       positive: true,
-      icon: <FiUsers />,
+      icon: <FiFileText />,
     },
     {
-      title: "Total Orders",
-      value: "1,200",
-      change: "-8.7%",
-      positive: false,
-      icon: <FiTruck />,
+      title: "Pending Papers",
+      value: "186",
+      change: "+12.8%",
+      positive: true,
+      icon: <FiClock />,
     },
     {
-      title: "Total Revenue",
-      value: "15,680",
-      change: "+5.6%",
+      title: "Pending Payments",
+      value: "94",
+      change: "+12.8%",
       positive: true,
       icon: <FiCreditCard />,
     },
     {
-      title: "Avg. Order Value",
-      value: "122",
-      change: "+3.2%",
+      title: "Published Papers",
+      value: "832",
+      change: "+12.8%",
       positive: true,
-      icon: <FiActivity />,
+      icon: <FiCheckCircle />,
     },
   ];
 
   return (
     <div className="Overview">
-
       <div className="Overview_Header">
-
         <div className="Overview_HeaderLeft">
-          <h2>Overview for this month</h2>
+          <h2>Dashboard Overview</h2>
 
           <p>
-            Welcome back, here is what's
-            happening with your store.
+            Monitor publications, payments,
+            submissions & revenue.
           </p>
         </div>
 
         <div className="Overview_HeaderRight">
-
           <button className="Overview_ActionBtn">
             <FiDownload />
             Export
@@ -120,7 +116,6 @@ const Overview = () => {
 
             {showDropdown && (
               <div className="Overview_Dropdown">
-
                 {periods.map((item) => (
                   <div
                     key={item}
@@ -137,28 +132,26 @@ const Overview = () => {
                     {selectedPeriod === item && (
                       <FiCheck />
                     )}
-
                     {item}
                   </div>
                 ))}
-
               </div>
             )}
           </div>
-
         </div>
-
       </div>
 
       <div className="Overview_Cards">
-
         {cards.map((card, index) => (
           <div
             key={index}
             className="Overview_Card"
           >
             <div className="Overview_CardTop">
-              {card.icon}
+              <div className="Overview_CardIcon">
+                {card.icon}
+              </div>
+
               <span>{card.title}</span>
             </div>
 
@@ -172,7 +165,7 @@ const Overview = () => {
                     : "negative"
                 }`}
               >
-                {card.positive ? "↑" : "↓"}
+                ↑
 
                 <span>
                   {card.change} since last month
@@ -181,9 +174,7 @@ const Overview = () => {
             </div>
           </div>
         ))}
-
       </div>
-
     </div>
   );
 };
