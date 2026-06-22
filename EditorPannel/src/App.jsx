@@ -9,6 +9,7 @@ import EditorLogin from "./Pages/Login/EditorLogin";
 
 import MainLayout from "./Layout/Mainlayout/Mainlayout";
 import PaperManagement from "./Components/PaperManagement/PaperManagement";
+import EditorDashboard from "./Components/EditorDashboard/EditorDashboard";
 // import EditorDashboard from "./Pages/EditorDashboard/EditorDashboard";
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
             element={<PaperManagement />}
           />
 
-          
+         
 
           {/* Add all protected routes here */}
           {/* <Route path="/editor-profile" element={<EditorProfile />} /> */}
