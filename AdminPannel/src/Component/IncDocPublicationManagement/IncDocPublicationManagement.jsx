@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import API from "../../api/Axios";
+import API from "../../api/axios";
 import "./IncDocPublicationManagement.css";
 
 const IncDocPublicationManagement = () => {
