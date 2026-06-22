@@ -1,234 +1,290 @@
-.topbarNotification {
-  position: relative;
-  cursor: pointer;
-  font-size: 18px;
+.Topbar {
+  width: 100%;
+  height: 80px;
+
+  background: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 25px;
+
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
+/* LEFT */
 
-/* notification count */
-.notificationBadge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
+.Topbar_Left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
 
-  width: 16px;
-  height: 16px;
+.Topbar_MenuBtn {
+  width: 48px;
+  height: 48px;
 
-  background: #ff4d5e;
-  color: white;
+  border: none;
+  border-radius: 12px;
 
-  border-radius: 50%;
+  background: #f8fafc;
 
-  font-size: 10px;
+  cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  font-size: 18px;
+
+  transition: 0.3s;
 }
 
+.Topbar_MenuBtn:hover {
+  background: #eef2ff;
+}
 
+.Topbar_SearchBox {
+  width: 360px;
+  height: 48px;
 
-/* MAIN POPUP */
-.notificationBox {
-
-  position: absolute;
-
-  top: 35px;
-
-  right: -20px;
-
-  width: 390px;
-
-  background: #fff;
+  background: #f8fafc;
 
   border-radius: 12px;
 
-  padding: 12px;
+  display: flex;
+  align-items: center;
 
-  box-shadow: 
-  0px 8px 25px rgba(0,0,0,0.15);
+  padding: 0 18px;
 
-  z-index: 9999;
-
+  gap: 12px;
 }
 
-
-
-/* header */
-
-.notificationHeader {
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  padding: 5px 10px 15px;
-
+.Topbar_SearchIcon {
+  color: #64748b;
 }
 
+.Topbar_SearchBox input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
 
-.notificationHeader h2 {
-
-  margin:0;
-
-  font-size:22px;
-
-  color:#555;
-
-  font-weight:700;
-
+  font-size: 15px;
+  color: #1e293b;
 }
 
-
-
-.notificationHeader button {
-
-  border:none;
-
-  background:none;
-
-  font-size:28px;
-
-  color:#777;
-
-  cursor:pointer;
-
+.Topbar_SearchBox input::placeholder {
+  color: #94a3b8;
 }
 
+/* RIGHT */
 
-
-
-/* notification cards */
-
-.notificationItem {
-
-
-  border:1px solid #dfe6e8;
-
-  border-left:3px solid #087d87;
-
-  border-radius:10px;
-
-
-  padding:14px;
-
-
-  margin-bottom:10px;
-
-
-  background:white;
-
+.Topbar_Right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
 }
 
+/* NOTIFICATION */
 
-
-/* text */
-
-.notificationText {
-
-  color:#444;
-
-  font-size:15px;
-
-  line-height:22px;
-
+.Topbar_NotificationWrapper {
+  position: relative;
 }
 
+.Topbar_NotificationBtn {
+  width: 48px;
+  height: 48px;
 
+  border: none;
+  background: transparent;
 
-/* bottom */
+  position: relative;
 
-.notificationBottom {
+  cursor: pointer;
 
-
- display:flex;
-
- justify-content:space-between;
-
- align-items:center;
-
- margin-top:10px;
-
-
+  font-size: 22px;
+  color: #111827;
 }
 
+.Topbar_Badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
 
+  width: 24px;
+  height: 24px;
 
-.notificationBottom span {
+  border-radius: 50%;
 
+  background: #ef4444;
+  color: white;
 
- background:#e8f2f3;
+  font-size: 12px;
+  font-weight: 700;
 
- color:#087d87;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-
- padding:5px 12px;
-
-
- border-radius:8px;
-
-
- font-size:12px;
-
-
- font-weight:600;
-
-
+  border: 2px solid white;
 }
 
+.Topbar_NotificationDropdown {
+  position: absolute;
+  right: 0;
+  top: 60px;
 
+  width: 300px;
 
-.notificationBottom button {
+  background: white;
 
+  border-radius: 16px;
 
- border:none;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 
- background:none;
+  overflow: hidden;
 
-
- color:#ff6372;
-
-
- cursor:pointer;
-
- font-size:15px;
-
+  animation: dropdown 0.25s ease;
 }
 
+.Topbar_NotificationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
+  padding: 15px 18px;
 
-/* meeting */
-
-.join{
-
- color:#00a651;
-
- font-weight:bold;
-
+  border-bottom: 1px solid #f1f5f9;
 }
 
-
-.decline{
-
- color:#ff4d5d;
-
- font-weight:bold;
-
+.Topbar_NotificationHeader h4 {
+  margin: 0;
 }
 
-
-
-
-@media(max-width:768px){
-
-.notificationBox{
-
- width:320px;
-
- right:-120px;
-
+.Topbar_NotificationHeader svg {
+  cursor: pointer;
 }
 
+.Topbar_NotificationItem {
+  padding: 15px 18px;
+
+  border-bottom: 1px solid #f8fafc;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.Topbar_NotificationItem:hover {
+  background: #f8fafc;
+}
+
+.Topbar_NotificationItem h5 {
+  margin: 0;
+  color: #111827;
+}
+
+.Topbar_NotificationItem p {
+  margin-top: 5px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+/* PROFILE */
+
+.Topbar_Profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.Topbar_ProfileImage {
+  width: 52px;
+  height: 52px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 3px solid #f3f4f6;
+}
+
+.Topbar_ProfileInfo h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #111827;
+}
+
+.Topbar_ProfileInfo p {
+  margin-top: 3px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* ANIMATION */
+
+@keyframes dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* TABLET */
+
+@media (max-width: 992px) {
+  .Topbar_SearchBox {
+    width: 260px;
+  }
+
+  .Topbar_ProfileInfo {
+    display: none;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .Topbar {
+    padding: 0 15px;
+  }
+
+  .Topbar_SearchBox {
+    width: 180px;
+  }
+
+  .Topbar_NotificationDropdown {
+    width: 260px;
+    right: -50px;
+  }
+}
+
+/* SMALL MOBILE */
+
+@media (max-width: 480px) {
+  .Topbar_SearchBox {
+    width: 120px;
+  }
+
+  .Topbar_MenuBtn,
+  .Topbar_NotificationBtn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .Topbar_ProfileImage {
+    width: 45px;
+    height: 45px;
+  }
 }
