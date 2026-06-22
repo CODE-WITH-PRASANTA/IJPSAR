@@ -376,6 +376,7 @@ const SubmitFrom = () => {
             <h1 className="panel-main-heading">Paper Submission Portal</h1>
           </div> */}
           <h1 className="panel-main-heading">Paper Submission Portal</h1>
+          
 
           {paperId && (
             <div
@@ -390,6 +391,30 @@ const SubmitFrom = () => {
               <strong>Paper ID:</strong> {paperId}
             </div>
           )}
+{/* <div className="paper-number-container">
+  <label className="paper-number-label">
+    Paper No
+  </label>
+
+  <input
+    type="text"
+    value="IJPSAR045"
+    readOnly
+    className="paper-number-input"
+  />
+</div>  */}
+<div className="paper-number-row">
+  <label className="paper-number-row-label">
+    Paper No :
+  </label>
+
+  <input
+    type="text"
+    value="IJPSAR045"
+    readOnly
+    className="paper-number-row-input"
+  />
+</div>
 
           <form className="structured-accordion-form" onSubmit={handleSubmit}>
             {/* SECTION 1: Paper / Manuscript Details */}
@@ -964,35 +989,6 @@ const SubmitFrom = () => {
                     </div>
                   </div>
 
-                  <div className="input-field-group secure-captcha-container-row">
-                    <label className="field-label-text-inline-captcha">
-                      Solve the Math Verification:
-                      <strong>
-                        {" "}
-                        {captcha.num1} + {captcha.num2} =
-                      </strong>
-                    </label>
-
-                    <input
-                      type="number"
-                      value={captchaAnswer}
-                      onChange={(e) => setCaptchaAnswer(e.target.value)}
-                      placeholder="Answer"
-                      className="premium-input-box captcha-small-input-box"
-                    />
-
-                    <button
-                      type="button"
-                      onClick={generateCaptcha}
-                      style={{
-                        marginLeft: "10px",
-                        padding: "6px 12px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Refresh
-                    </button>
-                  </div>
 
                   <div className="terms-agreement-disclosure-callout">
                     <p>
