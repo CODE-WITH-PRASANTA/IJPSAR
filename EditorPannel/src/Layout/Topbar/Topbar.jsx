@@ -8,9 +8,13 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
-import profileImg from "../../assets/hero.png"; // change image
+import profileImg from "../../assets/hero.png";
 
-const Topbar = () => {
+const Topbar = ({
+  sidebarCollapsed,
+  setSidebarCollapsed,
+  setMobileSidebar,
+}) => {
   const [showNotifications, setShowNotifications] = useState(false);
 
   const notifications = [
@@ -31,14 +35,26 @@ const Topbar = () => {
     },
   ];
 
+  const handleSidebarToggle = () => {
+    if (window.innerWidth <= 768) {
+      setMobileSidebar(true);
+    } else {
+      setSidebarCollapsed(!sidebarCollapsed);
+    }
+  };
+
   return (
-    <div className="Topbar">
-
+    <div
+  className={`Topbar ${
+    sidebarCollapsed ? "TopbarCollapsed" : ""
+  }`}
+>
       {/* LEFT */}
-
       <div className="Topbar_Left">
-
-        <button className="Topbar_MenuBtn">
+        <button
+          className="Topbar_MenuBtn"
+          onClick={handleSidebarToggle}
+        >
           <FaBars />
         </button>
 
@@ -50,21 +66,15 @@ const Topbar = () => {
             placeholder="Search..."
           />
         </div>
-
       </div>
 
       {/* RIGHT */}
-
       <div className="Topbar_Right">
-
         <div className="Topbar_NotificationWrapper">
-
           <button
             className="Topbar_NotificationBtn"
             onClick={() =>
-              setShowNotifications(
-                !showNotifications
-              )
+              setShowNotifications(!showNotifications)
             }
           >
             <FaBell />
@@ -76,17 +86,15 @@ const Topbar = () => {
 
           {showNotifications && (
             <div className="Topbar_NotificationDropdown">
-
               <div className="Topbar_NotificationHeader">
-
                 <h4>Notifications</h4>
 
                 <FaTimes
+                  className="Topbar_CloseNotification"
                   onClick={() =>
                     setShowNotifications(false)
                   }
                 />
-
               </div>
 
               {notifications.map((item) => (
@@ -98,13 +106,11 @@ const Topbar = () => {
                   <p>{item.time}</p>
                 </div>
               ))}
-
             </div>
           )}
         </div>
 
         <div className="Topbar_Profile">
-
           <img
             src={profileImg}
             alt="Admin"
@@ -115,11 +121,8 @@ const Topbar = () => {
             <h4>Ann Adame</h4>
             <p>Admin</p>
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 };
