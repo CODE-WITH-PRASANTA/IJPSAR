@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./UnpublishdPaper.css";
-import { FaSearch, FaEye, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import {
+  FaSearch,
+  FaEye,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
 
 const UnpublishdPaper = () => {
   const papersData = [
     {
       regId: "ijrar236154",
-      title: "CONCURRENT PROCESS ANALYTICAL METHOD DEVELOPMENT AND VALIDATION",
+      title:
+        "CONCURRENT PROCESS ANALYTICAL METHOD DEVELOPMENT AND VALIDATION",
       author: "Jyotsana Upadhyay",
       institute: "GIS IPS, DEHRADUN",
       status: "Paper Published Successfully",
@@ -15,7 +21,8 @@ const UnpublishdPaper = () => {
     },
     {
       regId: "ijrar239143",
-      title: "FORMULATION AND EVALUATION OF BIOADHESIVE MICROSPHERE",
+      title:
+        "FORMULATION AND EVALUATION OF BIOADHESIVE MICROSPHERE",
       author: "Deepankar Akoliya",
       institute: "GIS IPS, DEHRADUN",
       status: "Paper Published Successfully",
@@ -24,7 +31,8 @@ const UnpublishdPaper = () => {
     },
     {
       regId: "ijrar239156",
-      title: "FORMULATION AND CHARACTERIZATION OF NANOFORMULATION",
+      title:
+        "FORMULATION AND CHARACTERIZATION OF NANOFORMULATION",
       author: "Rohit Mehra",
       institute: "GIS IPS, DEHRADUN",
       status: "Paper Published Successfully",
@@ -94,10 +102,31 @@ const UnpublishdPaper = () => {
       paperId: "IJRAR21D1315",
       payment: "Received 1",
     },
+    {
+      regId: "ijrar239164",
+      title:
+        "ADVANCED RESEARCH IN PHARMACEUTICAL SCIENCES AND DRUG DEVELOPMENT",
+      author: "Rahul Das",
+      institute: "GIS IPS",
+      status: "Paper Published Successfully",
+      paperId: "IJRAR21D1316",
+      payment: "Received 1",
+    },
+    {
+      regId: "ijrar239165",
+      title:
+        "RECENT TRENDS IN MEDICINAL CHEMISTRY AND NANOTECHNOLOGY",
+      author: "Amit Roy",
+      institute: "GIS IPS",
+      status: "Paper Published Successfully",
+      paperId: "IJRAR21D1317",
+      payment: "Received 1",
+    },
   ];
 
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [expanded, setExpanded] = useState({});
 
   const rowsPerPage = 10;
 
@@ -108,33 +137,50 @@ const UnpublishdPaper = () => {
       item.regId.toLowerCase().includes(search.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
 
-  const startIndex = (currentPage - 1) * rowsPerPage;
+  const totalPages = Math.ceil(
+    filteredData.length / rowsPerPage
+  );
+
+  const indexOfLast = currentPage * rowsPerPage;
+  const indexOfFirst = indexOfLast - rowsPerPage;
 
   const currentData = filteredData.slice(
-    startIndex,
-    startIndex + rowsPerPage
+    indexOfFirst,
+    indexOfLast
   );
+
+  const toggleReadMore = (id) => {
+    setExpanded((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   return (
     <div className="unpublishdpaper">
-
       <div className="unpublishdpaper-card">
 
         <div className="unpublishdpaper-header">
           <h2>
-            Review Status Abbrivation : 0 - Not Reviewed | 1 - Accepted |
-            PA-Partially Accepted | R-Rejected
+            Review Status Abbrivation : 0 - Not Reviewed |
+            1 - Accepted | PA - Partially Accepted |
+            R - Rejected
           </h2>
 
           <div className="unpublishdpaper-search">
             <FaSearch />
+
             <input
               type="text"
               placeholder="Search paper..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) =>
+                setSearch(e.target.value)
+              }
             />
           </div>
         </div>
@@ -148,18 +194,43 @@ const UnpublishdPaper = () => {
                 <th>Authors</th>
                 <th>Institute</th>
                 <th>Review Status</th>
-                <th>Paper id</th>
+                <th>Paper ID</th>
                 <th>Payment Details</th>
-                <th>View Published Paper</th>
+                <th>View Paper</th>
               </tr>
             </thead>
 
             <tbody>
-              {currentData.map((paper, index) => (
-                <tr key={index}>
+              {currentData.map((paper) => (
+                <tr key={paper.regId}>
                   <td>{paper.regId}</td>
-                  <td>{paper.title}</td>
+
+                  <td className="title-column">
+                    {expanded[paper.regId]
+                      ? paper.title
+                      : paper.title.length > 35
+                      ? paper.title.substring(0, 35) +
+                        "..."
+                      : paper.title}
+
+                    {paper.title.length > 35 && (
+                      <button
+                        className="read-more-btn"
+                        onClick={() =>
+                          toggleReadMore(
+                            paper.regId
+                          )
+                        }
+                      >
+                        {expanded[paper.regId]
+                          ? "Read Less"
+                          : "Read More"}
+                      </button>
+                    )}
+                  </td>
+
                   <td>{paper.author}</td>
+
                   <td>{paper.institute}</td>
 
                   <td>
@@ -181,38 +252,58 @@ const UnpublishdPaper = () => {
                 </tr>
               ))}
             </tbody>
-
           </table>
         </div>
 
-        <div className="unpublishdpaper-pagination">
+        {totalPages > 1 && (
+          <div className="unpublishdpaper-pagination">
 
-          <button
-            onClick={() =>
-              setCurrentPage((prev) => Math.max(prev - 1, 1))
-            }
-          >
-            <FaChevronLeft />
-          </button>
+            <button
+              disabled={currentPage === 1}
+              onClick={() =>
+                setCurrentPage(
+                  currentPage - 1
+                )
+              }
+            >
+              <FaChevronLeft />
+            </button>
 
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
+            {Array.from(
+              { length: totalPages },
+              (_, i) => i + 1
+            ).map((number) => (
+              <button
+                key={number}
+                className={
+                  currentPage === number
+                    ? "active-page"
+                    : ""
+                }
+                onClick={() =>
+                  setCurrentPage(number)
+                }
+              >
+                {number}
+              </button>
+            ))}
 
-          <button
-            onClick={() =>
-              setCurrentPage((prev) =>
-                Math.min(prev + 1, totalPages)
-              )
-            }
-          >
-            <FaChevronRight />
-          </button>
+            <button
+              disabled={
+                currentPage === totalPages
+              }
+              onClick={() =>
+                setCurrentPage(
+                  currentPage + 1
+                )
+              }
+            >
+              <FaChevronRight />
+            </button>
 
-        </div>
-
+          </div>
+        )}
       </div>
-
     </div>
   );
 };

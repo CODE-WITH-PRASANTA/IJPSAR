@@ -12,6 +12,8 @@ import ReedemPoints from "./Pages/ReedemPoints/ReedemPoints";
 import Transaction from "./Pages/Transaction/Transaction";
 import Password from "./Pages/Password/Password";
 import CalendarPage from "../../AuthorPannel/src/Pages/CalendarPage/CalendarPage";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+
 
 
 
@@ -27,6 +29,9 @@ const AppRoutes = () => {
          <Route path="/redeem-points" element={<ReedemPoints />} />
          <Route path="/transaction-history" element={<Transaction />} />
          <Route path="/change-password" element={<Password/>}/>
+         
+         <Route path="/dashboard" element={<Dashboard/>}/>
+         
         
 
           

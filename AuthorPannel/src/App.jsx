@@ -25,12 +25,9 @@ const App = () => {
           <Route path="/submit-paper" element={<SubmitFrom />} />
 
           <Route path="/calendar" element={<CalendarPage />} />
-<<<<<<< HEAD
           <Route path="/paper-management" element={<Papermanagement />} />
           <Route path="/published-papers" element={<Publishpaper />} />
-=======
           
->>>>>>> 9ae0883215aeffdeeb7a65300a22249432560df2
         </Route>
       </Routes>
     </BrowserRouter>
