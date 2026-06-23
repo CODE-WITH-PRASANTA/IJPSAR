@@ -1,0 +1,655 @@
+/* =========================
+   EditorDashboard.css
+========================= */
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+.EditorDashboard {
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+  color: #444;
+}
+
+/* =========================
+   TOP GRID
+========================= */
+
+.EditorDashboard-topGrid {
+  display: grid;
+  grid-template-columns: 2fr 0.8fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.EditorDashboard-projectStatusCard,
+.EditorDashboard-incomeCard,
+.EditorDashboard-teamCard,
+.EditorDashboard-hoursCard,
+.EditorDashboard-taskCard,
+.EditorDashboard-meetingCard,
+.EditorDashboard-activityCard,
+.EditorDashboard-chatCard,
+.EditorDashboard-tableCard,
+.EditorDashboard-filesCard,
+.EditorDashboard-milestoneCard {
+  background: #fff;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+}
+
+.EditorDashboard-projectStatusCard h2,
+.EditorDashboard-incomeCard h2,
+.EditorDashboard-meetingCard h2,
+.EditorDashboard-activityCard h2,
+.EditorDashboard-filesCard h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+/* =========================
+   STATUS CARDS
+========================= */
+
+.EditorDashboard-statusCards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.EditorDashboard-statusCard {
+  height: 190px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: white;
+  text-align: center;
+}
+
+.EditorDashboard-statusCard svg {
+  font-size: 26px;
+}
+
+.EditorDashboard-statusCard span {
+  font-size: 18px;
+}
+
+.EditorDashboard-statusCard h3 {
+  font-size: 46px;
+}
+
+.EditorDashboard-statusCard.blue {
+  background: #56c3d5;
+}
+
+.EditorDashboard-statusCard.dark {
+  background: #4a453f;
+}
+
+.EditorDashboard-statusCard.yellow {
+  background: #e9c53f;
+}
+
+.EditorDashboard-statusCard.white {
+  background: white;
+  border: 1px dashed #dcdcdc;
+  color: #00285d;
+}
+
+.EditorDashboard-rating {
+  margin-top: 25px;
+  font-size: 28px;
+}
+
+.EditorDashboard-rating strong {
+  color: #00285d;
+}
+
+.EditorDashboard-progressBox {
+  margin-top: 25px;
+  background: #f2f2f2;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.EditorDashboard-progressHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.EditorDashboard-progressBar {
+  height: 12px;
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.EditorDashboard-progressFill {
+  width: 85%;
+  height: 100%;
+  background: #8f8678;
+}
+
+/* =========================
+   TEAM SECTION
+========================= */
+
+.EditorDashboard-teamWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.EditorDashboard-teamUsers {
+  display: flex;
+  margin-top: 15px;
+}
+
+.EditorDashboard-teamUsers div {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  margin-left: -8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+}
+
+.EditorDashboard-teamUsers div:nth-child(1) {
+  background: #ff653e;
+}
+
+.EditorDashboard-teamUsers div:nth-child(2) {
+  background: #4b463f;
+}
+
+.EditorDashboard-teamUsers div:nth-child(3) {
+  background: #e8c03f;
+  color: #000;
+}
+
+.EditorDashboard-teamUsers div:nth-child(4) {
+  background: #928878;
+}
+
+.EditorDashboard-hoursCard h3,
+.EditorDashboard-taskCard h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.EditorDashboard-hoursCard span {
+  color: #56c3d5;
+}
+
+.EditorDashboard-taskCard span {
+  color: #9ec32e;
+}
+
+.EditorDashboard-circleChart {
+  width: 90px;
+  height: 90px;
+  margin: auto;
+  border-radius: 50%;
+  border: 8px solid #56c3d5;
+  border-top-color: #eaeaea;
+}
+
+.EditorDashboard-circleChart.green {
+  border-color: #9ec32e;
+  border-top-color: #eaeaea;
+}
+
+/* =========================
+   INCOME CARD
+========================= */
+
+.EditorDashboard-dateRange {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.EditorDashboard-incomeBoxes {
+  display: flex;
+  gap: 15px;
+}
+
+.EditorDashboard-incomeBoxes div {
+  flex: 1;
+  border: 1px dashed #ddd;
+  border-radius: 14px;
+  padding: 15px;
+  text-align: center;
+}
+
+.EditorDashboard-incomeBoxes span {
+  font-size: 26px;
+  font-weight: 700;
+  color: #00285d;
+}
+
+.EditorDashboard-incomeBoxes p {
+  margin-top: 8px;
+}
+
+.EditorDashboard-lineGraph {
+  height: 240px;
+  position: relative;
+  margin: 30px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.EditorDashboard-line1,
+.EditorDashboard-line2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.EditorDashboard-line1 {
+  border-bottom: 4px solid #e5bf2e;
+  border-radius: 50%;
+}
+
+.EditorDashboard-line2 {
+  border-top: 4px solid #9fc72f;
+  border-radius: 50%;
+}
+
+.EditorDashboard-incomeText {
+  line-height: 1.8;
+  color: #00285d;
+}
+
+/* =========================
+   MIDDLE GRID
+========================= */
+
+.EditorDashboard-middleGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 1.5fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* =========================
+   MEETING CARD
+========================= */
+
+.EditorDashboard-meetingItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px dashed #ddd;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.EditorDashboard-meetingIcons {
+  display: flex;
+  gap: 10px;
+  color: #27a6e5;
+  font-size: 22px;
+}
+
+.EditorDashboard-meetingContent {
+  flex: 1;
+}
+
+.EditorDashboard-meetingContent h4 {
+  margin-bottom: 5px;
+}
+
+/* =========================
+   ACTIVITY CARD
+========================= */
+
+.EditorDashboard-chartPlaceholder {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  height: 240px;
+  margin-bottom: 20px;
+}
+
+.EditorDashboard-chartPlaceholder div {
+  width: 45px;
+  background: #ccecf4;
+  border-radius: 8px 8px 0 0;
+}
+
+.EditorDashboard-chartPlaceholder div:nth-child(1) {
+  height: 170px;
+}
+
+.EditorDashboard-chartPlaceholder div:nth-child(2) {
+  height: 220px;
+}
+
+.EditorDashboard-chartPlaceholder div:nth-child(3) {
+  height: 190px;
+}
+
+.EditorDashboard-chartPlaceholder div:nth-child(4) {
+  height: 140px;
+}
+
+.EditorDashboard-chartPlaceholder div:nth-child(5) {
+  height: 90px;
+}
+
+/* =========================
+   CHAT CARD
+========================= */
+
+.EditorDashboard-chatHeader {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.EditorDashboard-chatAvatar {
+  width: 55px;
+  height: 55px;
+  background: #56c3d5;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.EditorDashboard-chatHeader span {
+  color: #8bb300;
+}
+
+.EditorDashboard-chatBody {
+  margin: 25px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.EditorDashboard-message {
+  max-width: 70%;
+  padding: 14px;
+  border-radius: 14px;
+}
+
+.EditorDashboard-message.right {
+  background: #8f8678;
+  color: white;
+  align-self: flex-end;
+}
+
+.EditorDashboard-message.left {
+  background: #f4f4f4;
+}
+
+.EditorDashboard-chatInput {
+  display: flex;
+  gap: 10px;
+}
+
+.EditorDashboard-chatInput input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.EditorDashboard-chatInput button {
+  border: none;
+  background: #56c3d5;
+  color: white;
+  width: 50px;
+  border-radius: 10px;
+}
+
+/* =========================
+   BOTTOM GRID
+========================= */
+
+.EditorDashboard-bottomGrid {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 20px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.EditorDashboard-tableHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.EditorDashboard-tableHeader select,
+.EditorDashboard-tableHeader input {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  margin: 0 10px;
+}
+
+.EditorDashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.EditorDashboard-table th,
+.EditorDashboard-table td {
+  padding: 18px 12px;
+  border-bottom: 1px solid #ececec;
+  text-align: left;
+}
+
+.EditorDashboard-table th {
+  color: #333;
+}
+
+.EditorDashboard-table td p {
+  color: #999;
+  font-size: 14px;
+}
+
+.EditorDashboard-teamSmall {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #56c3d5;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.EditorDashboard-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.EditorDashboard-paginationBtns {
+  display: flex;
+  gap: 10px;
+}
+
+.EditorDashboard-paginationBtns button {
+  border: 1px solid #ddd;
+  background: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.EditorDashboard-paginationBtns .active {
+  background: #56c3d5;
+  color: white;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.EditorDashboard-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.EditorDashboard-fileItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px dashed #ddd;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.EditorDashboard-fileItem svg {
+  font-size: 28px;
+  color: #f0c22e;
+}
+
+.EditorDashboard-fileItem div {
+  flex: 1;
+}
+
+.EditorDashboard-viewMoreBtn {
+  width: 100%;
+  background: #56c3d5;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.EditorDashboard-milestoneCard {
+  text-align: center;
+}
+
+.EditorDashboard-milestoneCard h2 {
+  font-size: 36px;
+}
+
+.EditorDashboard-milestoneCard h3 {
+  font-size: 42px;
+  color: #56c3d5;
+  margin: 15px 0;
+}
+
+.EditorDashboard-milestoneCard p {
+  margin-bottom: 20px;
+}
+
+.EditorDashboard-milestoneCard button {
+  background: #56c3d5;
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+/* =========================
+   SCROLL BUTTON
+========================= */
+
+.EditorDashboard-scrollTop {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 55px;
+  height: 55px;
+  border: none;
+  border-radius: 50%;
+  background: white;
+  color: #56c3d5;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1200px) {
+  .EditorDashboard-topGrid,
+  .EditorDashboard-middleGrid,
+  .EditorDashboard-bottomGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .EditorDashboard-statusCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+  .EditorDashboard {
+    padding: 12px;
+  }
+
+  .EditorDashboard-statusCards {
+    grid-template-columns: 1fr;
+  }
+
+  .EditorDashboard-tableCard {
+    overflow-x: auto;
+  }
+
+  .EditorDashboard-table {
+    min-width: 900px;
+  }
+
+  .EditorDashboard-pagination {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .EditorDashboard-tableHeader {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .EditorDashboard-chatInput {
+    flex-direction: column;
+  }
+
+  .EditorDashboard-message {
+    max-width: 100%;
+  }
+
+  .EditorDashboard-incomeBoxes {
+    flex-direction: column;
+  }
+
+  .EditorDashboard-rating {
+    font-size: 22px;
+  }
+}

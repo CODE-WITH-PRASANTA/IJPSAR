@@ -1,234 +1,389 @@
-.topbarNotification {
-  position: relative;
-  cursor: pointer;
-  font-size: 18px;
+/* ===================================
+   TOPBAR
+=================================== */
+.Topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  left: 280px;
+
+  height: 80px;
+
+  background: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 24px;
+
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+
+  z-index: 1000;
+
+  transition: all 0.3s ease;
+}
+.TopbarCollapsed {
+  left: 80px;
+}
+/* ===================================
+   LEFT
+=================================== */
+
+.Topbar_Left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  flex: 1;
+  min-width: 0;
 }
 
+.Topbar_MenuBtn {
+  width: 46px;
+  height: 46px;
 
-/* notification count */
-.notificationBadge {
+  border: none;
+  border-radius: 12px;
+
+  background: #f8fafc;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  font-size: 18px;
+
+  flex-shrink: 0;
+
+  transition: all 0.3s ease;
+}
+
+.Topbar_MenuBtn:hover {
+  background: #eef2ff;
+}
+
+/* ===================================
+   SEARCH
+=================================== */
+
+.Topbar_SearchBox {
+  width: 100%;
+  max-width: 420px;
+  min-width: 120px;
+
+  height: 46px;
+
+  background: #f8fafc;
+
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 0 16px;
+}
+
+.Topbar_SearchIcon {
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.Topbar_SearchBox input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+
+  font-size: 14px;
+  color: #111827;
+}
+
+.Topbar_SearchBox input::placeholder {
+  color: #94a3b8;
+}
+
+/* ===================================
+   RIGHT
+=================================== */
+
+.Topbar_Right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  flex-shrink: 0;
+}
+
+/* ===================================
+   NOTIFICATION
+=================================== */
+
+.Topbar_NotificationWrapper {
+  position: relative;
+}
+
+.Topbar_NotificationBtn {
+  width: 46px;
+  height: 46px;
+
+  border: none;
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  cursor: pointer;
+
+  font-size: 20px;
+  color: #111827;
+
+  flex-shrink: 0;
+}
+
+.Topbar_Badge {
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: 4px;
+  right: 4px;
 
-  width: 16px;
-  height: 16px;
-
-  background: #ff4d5e;
-  color: white;
+  width: 18px;
+  height: 18px;
 
   border-radius: 50%;
 
+  background: #ef4444;
+  color: white;
+
   font-size: 10px;
+  font-weight: 600;
 
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-
-
-/* MAIN POPUP */
-.notificationBox {
-
+.Topbar_NotificationDropdown {
   position: absolute;
+  top: 60px;
+  right: 0;
 
-  top: 35px;
+  width: 320px;
+  max-width: calc(100vw - 20px);
 
-  right: -20px;
+  background: white;
 
-  width: 390px;
+  border-radius: 16px;
 
-  background: #fff;
+  overflow: hidden;
 
-  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 
-  padding: 12px;
-
-  box-shadow: 
-  0px 8px 25px rgba(0,0,0,0.15);
-
-  z-index: 9999;
-
+  animation: dropdown 0.25s ease;
 }
 
+.Topbar_NotificationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
+  padding: 15px 18px;
 
-/* header */
-
-.notificationHeader {
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  padding: 5px 10px 15px;
-
+  border-bottom: 1px solid #f1f5f9;
 }
 
-
-.notificationHeader h2 {
-
-  margin:0;
-
-  font-size:22px;
-
-  color:#555;
-
-  font-weight:700;
-
+.Topbar_CloseNotification {
+  cursor: pointer;
 }
 
+.Topbar_NotificationItem {
+  padding: 14px 18px;
 
+  border-bottom: 1px solid #f1f5f9;
 
-.notificationHeader button {
+  transition: all 0.3s ease;
 
-  border:none;
-
-  background:none;
-
-  font-size:28px;
-
-  color:#777;
-
-  cursor:pointer;
-
+  cursor: pointer;
 }
 
-
-
-
-/* notification cards */
-
-.notificationItem {
-
-
-  border:1px solid #dfe6e8;
-
-  border-left:3px solid #087d87;
-
-  border-radius:10px;
-
-
-  padding:14px;
-
-
-  margin-bottom:10px;
-
-
-  background:white;
-
+.Topbar_NotificationItem:hover {
+  background: #f8fafc;
 }
 
-
-
-/* text */
-
-.notificationText {
-
-  color:#444;
-
-  font-size:15px;
-
-  line-height:22px;
-
+.Topbar_NotificationItem h5 {
+  margin: 0;
+  font-size: 14px;
 }
 
-
-
-/* bottom */
-
-.notificationBottom {
-
-
- display:flex;
-
- justify-content:space-between;
-
- align-items:center;
-
- margin-top:10px;
-
-
+.Topbar_NotificationItem p {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #64748b;
 }
 
+/* ===================================
+   PROFILE
+=================================== */
 
+.Topbar_Profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 
-.notificationBottom span {
-
-
- background:#e8f2f3;
-
- color:#087d87;
-
-
- padding:5px 12px;
-
-
- border-radius:8px;
-
-
- font-size:12px;
-
-
- font-weight:600;
-
-
+  flex-shrink: 0;
 }
 
+.Topbar_ProfileImage {
+  width: 50px;
+  height: 50px;
 
-
-.notificationBottom button {
-
-
- border:none;
-
- background:none;
-
-
- color:#ff6372;
-
-
- cursor:pointer;
-
- font-size:15px;
-
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-
-
-/* meeting */
-
-.join{
-
- color:#00a651;
-
- font-weight:bold;
-
+.Topbar_ProfileInfo h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #111827;
 }
 
-
-.decline{
-
- color:#ff4d5d;
-
- font-weight:bold;
-
+.Topbar_ProfileInfo p {
+  margin-top: 3px;
+  font-size: 13px;
+  color: #64748b;
 }
 
+/* ===================================
+   ANIMATION
+=================================== */
 
+@keyframes dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
 
-
-@media(max-width:768px){
-
-.notificationBox{
-
- width:320px;
-
- right:-120px;
-
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* ===================================
+   LARGE TABLET
+=================================== */
+
+
+/* ===================================
+   TABLET
+=================================== */
+
+@media (max-width: 992px) {
+  .Topbar {
+    width: 100%;
+    padding: 0 18px;
+  }
+
+  .Topbar_ProfileInfo {
+    display: none;
+  }
+
+  .Topbar_SearchBox {
+    max-width: 260px;
+  }
+}
+
+/* ===================================
+   MOBILE
+=================================== */
+@media (max-width: 768px) {
+  .Topbar,
+  .TopbarCollapsed {
+    left: 0;
+    right: 0;
+    width: 100%;
+
+    height: 72px;
+    padding: 0 14px;
+  }
+
+  .Topbar_ProfileInfo {
+    display: none;
+  }
+
+  .Topbar_SearchBox {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+  }
+}
+
+/* ===================================
+   SMALL MOBILE
+=================================== */
+
+@media (max-width: 576px) {
+  .Topbar {
+    padding: 0 10px;
+  }
+
+  .Topbar_SearchBox {
+    max-width: 140px;
+    min-width: 90px;
+
+    padding: 0 10px;
+  }
+
+  .Topbar_SearchBox input {
+    font-size: 13px;
+  }
+
+  .Topbar_NotificationDropdown {
+    width: 260px;
+    right: -10px;
+  }
+
+  .Topbar_ProfileImage {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* ===================================
+   EXTRA SMALL
+=================================== */
+
+@media (max-width: 420px) {
+  .Topbar {
+    height: 68px;
+  }
+
+  .Topbar_SearchBox {
+    max-width: 100px;
+    min-width: 70px;
+  }
+
+  .Topbar_SearchBox input {
+    font-size: 12px;
+  }
+
+  .Topbar_SearchBox input::placeholder {
+    font-size: 12px;
+  }
+
+  .Topbar_ProfileImage {
+    width: 34px;
+    height: 34px;
+  }
+
+  .Topbar_NotificationDropdown {
+    width: 220px;
+    right: -15px;
+  }
 }
