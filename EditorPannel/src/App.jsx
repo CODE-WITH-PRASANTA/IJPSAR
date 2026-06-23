@@ -11,6 +11,7 @@ import MainLayout from "./Layout/Mainlayout/Mainlayout";
 import PaperManagement from "./Components/PaperManagement/PaperManagement";
 import EditorDashboard from "./Components/EditorDashboard/EditorDashboard";
 import Topbar from "./Layout/Topbar/Topbar";
+
 // import EditorDashboard from "./Pages/EditorDashboard/EditorDashboard";
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
 
           <Route
             path="/editor-dashboard"
-            // element={<EditorDashboard />}
+            element={<EditorDashboard />}
           />
           <Route
             path="/paper-management"
@@ -42,6 +43,8 @@ function App() {
          <Route
          path="/topbar"
          element={<Topbar/>}/>
+
+        
 
           {/* Add all protected routes here */}
           {/* <Route path="/editor-profile" element={<EditorProfile />} /> */}
