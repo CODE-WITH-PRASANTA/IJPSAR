@@ -1,18 +1,77 @@
-// ArticleDetailsBreadcrumb.jsx
-
-import React from "react";
-import "./ArticleDetailsBreadcrumb.css";
-
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import {
   FaHome,
   FaChevronRight,
   FaFileMedicalAlt,
 } from "react-icons/fa";
-
-/* BACKGROUND IMAGE */
+import API from "../../api/axios";
+import "./ArticleDetailsBreadcrumb.css";
 import breadcrumbBg from "../../assets/bg-9.jpg";
 
+const BACKEND_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 const ArticleDetailsBreadcrumb = () => {
+  const { id } = useParams();
+
+  const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!id || id === "undefined") {
+      setError("Invalid Article ID");
+      setLoading(false);
+      return;
+    }
+
+    const fetchArticle = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        console.log("Article ID:", id);
+
+        const { data } = await API.get(
+          `/submitform/${id}`
+        );
+
+        console.log("Article Response:", data);
+
+        if (data?.success) {
+          setArticle(data.data);
+        } else {
+          setError("Article Not Found");
+        }
+      } catch (err) {
+        console.error(err);
+
+        setError(
+          err?.response?.data?.message ||
+            "Failed to fetch article"
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticle();
+  }, [id]);
+
+  const handleViewArticle = () => {
+    if (!article?.paperFile) return;
+
+    const filePath = article.paperFile.startsWith("/")
+      ? article.paperFile
+      : `/${article.paperFile}`;
+
+    window.open(
+      `${BACKEND_BASE_URL}${filePath}`,
+      "_blank"
+    );
+  };
+
   return (
     <section
       className="articleDetailsBread"
@@ -20,58 +79,66 @@ const ArticleDetailsBreadcrumb = () => {
         backgroundImage: `
           linear-gradient(
             135deg,
-            rgba(3, 18, 38, 0.94),
-            rgba(0, 92, 82, 0.82)
+            rgba(3,18,38,0.94),
+            rgba(0,92,82,0.82)
           ),
           url(${breadcrumbBg})
         `,
       }}
     >
-      {/* OVERLAY */}
       <div className="articleDetailsBreadOverlay"></div>
-
-      {/* GLOW */}
-      <div className="articleDetailsGlowOne"></div>
-      <div className="articleDetailsGlowTwo"></div>
 
       <div className="articleDetailsBreadContainer">
 
-        {/* LEFT CONTENT */}
         <div className="articleDetailsBreadLeft">
 
           <span className="articleDetailsMiniTag">
-            RESEARCH ARTICLE
+            {article?.authorCategory ||
+              "Research Article"}
           </span>
 
           <h1>
-            Article <span>Details</span>
+            {loading
+              ? "Loading Article..."
+              : article?.paperTitle ||
+                "Article Details"}
           </h1>
 
+          {error && (
+            <div
+              style={{
+                color: "#ff4d4f",
+                marginBottom: "15px",
+                fontWeight: "600",
+              }}
+            >
+              {error}
+            </div>
+          )}
+
           <p>
-            Explore publication information, article abstract,
-            DOI details, references, indexing data,
-            and author contributions.
+            {loading
+              ? "Loading Article Information..."
+              : article?.abstract ||
+                "No abstract available"}
           </p>
 
-          {/* BREADCRUMB */}
           <div className="articleDetailsBreadPath">
-
-            <a href="/">
+            <Link to="/">
               <FaHome />
               Home
-            </a>
+            </Link>
 
-           
+            <FaChevronRight />
 
-            <FaChevronRight className="articleDetailsArrow" />
-
-            <span>Article Details</span>
-
+            <span>
+              {article?.paperTitle ||
+                "Article Details"}
+            </span>
           </div>
 
         </div>
 
-        {/* RIGHT CARD */}
         <div className="articleDetailsBreadCard">
 
           <div className="articleDetailsCardIcon">
@@ -79,17 +146,21 @@ const ArticleDetailsBreadcrumb = () => {
           </div>
 
           <h3>
-            Indexed Research <br />
-            Publication
+            {article?.researchArea ||
+              "Research Area"}
           </h3>
 
           <p>
-            Access peer-reviewed pharmaceutical and allied
-            sciences research with DOI indexing and
-            citation-ready publication data.
+            {Array.isArray(article?.keywords)
+              ? article.keywords.join(", ")
+              : article?.keywords ||
+                "No Keywords Available"}
           </p>
 
-          <button>
+          <button
+            onClick={handleViewArticle}
+            disabled={!article?.paperFile}
+          >
             View Article
           </button>
 
