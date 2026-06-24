@@ -18,12 +18,12 @@ const Home = () => {
     <div>
         <Homesec />
         <IJwelcomes/>
+        <Samplearticles/>
         <AboutGerenal/>
         <DiciplineWe/>
         <Globally/>
         <Publication/>
         <Researchers/>
-        <Samplearticles/>
         <ImportantDates/>
         <CountriesReached/>
         <TestimonialHome/>

@@ -10,6 +10,13 @@ const AuthorSchema = new mongoose.Schema({
 
 const SubmitFormSchema = new mongoose.Schema(
   {
+    /* ================= PAPER INFO ================= */
+
+    paperId: {
+      type: String,
+      unique: true,
+    },
+
     paperTitle: {
       type: String,
       required: true,
@@ -23,8 +30,6 @@ const SubmitFormSchema = new mongoose.Schema(
 
     keywords: [String],
 
-    mobileCountryCode: String,
-
     researchArea: String,
 
     paperFile: {
@@ -32,11 +37,15 @@ const SubmitFormSchema = new mongoose.Schema(
       required: true,
     },
 
+    /* ================= AUTHOR INFO ================= */
+
     authorCategory: String,
 
     totalAuthors: Number,
 
     authors: [AuthorSchema],
+
+    mobileCountryCode: String,
 
     address: {
       addressLine1: String,
@@ -51,15 +60,77 @@ const SubmitFormSchema = new mongoose.Schema(
 
     specialMessage: String,
 
+    /* ================= EDITOR ================= */
+
+    editorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Editor",
+      default: null,
+    },
+
+    editorName: {
+      type: String,
+      default: "",
+    },
+
+    editorAssignedAt: {
+      type: Date,
+      default: null,
+    },
+
+    /* ================= REVIEWER ================= */
+
+    reviewerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Reviewer",
+      default: null,
+    },
+
+    reviewerName: {
+      type: String,
+      default: "",
+    },
+
+    reviewerAssignedAt: {
+      type: Date,
+      default: null,
+    },
+
+    /* ================= REVIEW ================= */
+
+    editorRemarks: {
+      type: String,
+      default: "",
+    },
+
+    reviewerRemarks: {
+      type: String,
+      default: "",
+    },
+
+    /* ================= VERSION ================= */
+
+    version: {
+      type: Number,
+      default: 1,
+    },
+
+    /* ================= STATUS ================= */
+
     status: {
       type: String,
       enum: [
-        "Pending",
-        "Under Review",
+        "Submitted",
+        "Editor Assigned",
+        "Editing",
+        "Reviewer Assigned",
+        "Review Pending",
+        "Revision Required",
         "Accepted",
         "Rejected",
+        "Published",
       ],
-      default: "Pending",
+      default: "Submitted",
     },
   },
   {

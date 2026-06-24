@@ -29,7 +29,7 @@ const ArticleDetails = () => {
         if (response.data?.success && response.data?.data) {
           setArticle(response.data.data);
           
-          // Persistence sync check for saved state tracking
+          // Optional: Check local session or local storage to see if this article was previously saved
           const savedArticles = JSON.parse(localStorage.getItem("saved_articles") || "[]");
           setIsSaved(savedArticles.includes(response.data.data._id || id));
         } else {
@@ -157,7 +157,7 @@ const ArticleDetails = () => {
 
   return (
     <section className="articleDetailsSection">
-      {/* BACKGROUND GLOWS */}
+      {/* BACKGROUND GLOW */}
       <div className="articleDetailsBgGlowOne"></div>
       <div className="articleDetailsBgGlowTwo"></div>
 
@@ -233,38 +233,46 @@ const ArticleDetails = () => {
             </div>
           </div>
 
-          {/* 1. INTRODUCTION SECTION */}
-          <div className="articleDetailsBlock">
-            <h3>1. Introduction</h3>
-            <p>{article?.introduction || "No introduction data provided for this document structure."}</p>
-          </div>
+          {/* INTRODUCTION */}
+          {article?.introduction && (
+            <div className="articleDetailsBlock">
+              <h3>1. Introduction</h3>
+              <p>{article.introduction}</p>
+            </div>
+          )}
 
-          {/* 2. MATERIALS AND METHODS SECTION */}
-          <div className="articleDetailsBlock">
-            <h3>2. Materials and Methods</h3>
-            <p>{article?.materialsAndMethods || "No materials and methods data provided for this document structure."}</p>
-          </div>
+          {/* MATERIALS */}
+          {article?.materialsAndMethods && (
+            <div className="articleDetailsBlock">
+              <h3>2. Materials and Methods</h3>
+              <p>{article.materialsAndMethods}</p>
+            </div>
+          )}
 
-          {/* 3. RESULTS SECTION */}
-          <div className="articleDetailsBlock">
-            <h3>3. Results</h3>
-            <p>{article?.results || "No results data provided for this document structure."}</p>
-          </div>
+          {/* RESULTS */}
+          {article?.results && (
+            <div className="articleDetailsBlock">
+              <h3>3. Results</h3>
+              <p>{article.results}</p>
+            </div>
+          )}
 
-          {/* 4. DISCUSSION SECTION */}
-          <div className="articleDetailsBlock">
-            <h3>4. Discussion</h3>
-            <p>{article?.discussion || "No discussion data provided for this document structure."}</p>
-          </div>
+          {/* DISCUSSION */}
+          {article?.discussion && (
+            <div className="articleDetailsBlock">
+              <h3>4. Discussion</h3>
+              <p>{article.discussion}</p>
+            </div>
+          )}
 
-          {/* REFERENCES SECTION */}
+          {/* REFERENCES */}
           <div className="articleDetailsBlock">
             <h2>References</h2>
             <ol className="articleReferences">
               {article?.references && Array.isArray(article.references) && article.references.length > 0 ? (
                 article.references.map((ref, idx) => <li key={idx}>{ref}</li>)
               ) : (
-                <p style={{ color: "#aaa", fontSize: "14px" }}>No reference citations linked to this profile context.</p>
+                <p>No reference citations linked to this profile context.</p>
               )}
             </ol>
           </div>
@@ -322,7 +330,7 @@ const ArticleDetails = () => {
                     <div key={i} className="articleRelatedItem">{rel}</div>
                   ))
                 ) : (
-                  <p style={{ fontSize: "13px", color: "#6b7280" }}>No related research maps available.</p>
+                  <p style={{ fontSize: "13px", color: "#aaa" }}>No related research maps available.</p>
                 )}
               </div>
             </div>

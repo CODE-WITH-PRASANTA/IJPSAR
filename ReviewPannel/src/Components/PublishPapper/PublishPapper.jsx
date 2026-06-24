@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import "./PublishPapper.css";
 import {
-  FaHome,
   FaSearch,
   FaEye,
   FaChevronLeft,
@@ -13,23 +12,25 @@ const PublishPapper = () => {
     {
       id: "ijrar236154",
       title:
-        "CONCURRENT PROCESS ANALYTICAL METHOD DEVELOPMENT AND VALIDATION",
+        "CONCURRENT PROCESS ANALYTICAL METHOD DEVELOPMENT AND VALIDATION OF PHARMACEUTICAL DOSAGE FORM USING ADVANCED TECHNIQUES",
       author: "Jyotsana Upadhyay",
       institute: "GIS IPS, DEHRADUN",
       paperId: "IJRAR21C1252",
     },
     {
       id: "ijrar239143",
-      title: "FORMULATION AND EVALUATION OF BIOADHESIVE MICROSPHERE",
+      title:
+        "FORMULATION AND EVALUATION OF BIOADHESIVE MICROSPHERE",
       author: "Deepankar Akoliya",
       institute: "GIS IPS, DEHRADUN",
       paperId: "IJRAR21D1307",
     },
     {
       id: "ijrar239156",
-      title: "FORMULATION AND CHARACTERIZATION OF NANOFORMULATION",
+      title:
+        "FORMULATION AND CHARACTERIZATION OF NANOFORMULATION",
       author: "Rohit Mehra",
-      institute: "GISIPS, DEHRADUN",
+      institute: "GIS IPS, DEHRADUN",
       paperId: "IJRAR21D1308",
     },
     {
@@ -155,31 +156,56 @@ const PublishPapper = () => {
 
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [expandedRows, setExpandedRows] = useState([]);
 
   const recordsPerPage = 10;
 
-  const filteredData = papers.filter(
-    (item) =>
-      item.title.toLowerCase().includes(search.toLowerCase()) ||
-      item.author.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredData = useMemo(() => {
+    return papers.filter(
+      (item) =>
+        item.title
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        item.author
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        item.paperId
+          .toLowerCase()
+          .includes(search.toLowerCase())
+    );
+  }, [search]);
 
-  const totalPages = Math.ceil(filteredData.length / recordsPerPage);
+  const totalPages = Math.ceil(
+    filteredData.length / recordsPerPage
+  );
 
   const currentData = filteredData.slice(
     (currentPage - 1) * recordsPerPage,
     currentPage * recordsPerPage
   );
 
+  const toggleReadMore = (id) => {
+    if (expandedRows.includes(id)) {
+      setExpandedRows(
+        expandedRows.filter((item) => item !== id)
+      );
+    } else {
+      setExpandedRows([...expandedRows, id]);
+    }
+  };
+
   return (
     <div className="PublishPapper-">
-     
-
       <div className="PublishPapper-Card">
         <div className="PublishPapper-ReviewStatus">
-          Review Status Abbrivation : 0 - Not Reviewed | 1 - Accepted |
-          PA-Partially Accepted | R-Rejected
+          Review Status Abbreviation :
+          <strong> 0</strong> - Not Reviewed |
+          <strong> 1</strong> - Accepted |
+          <strong> PA</strong> - Partially Accepted |
+          <strong> R</strong> - Rejected
         </div>
+
+        {/* Top Bar */}
 
         <div className="PublishPapper-TopBar">
           <select className="PublishPapper-Select">
@@ -188,14 +214,20 @@ const PublishPapper = () => {
 
           <div className="PublishPapper-Search">
             <FaSearch />
+
             <input
               type="text"
               placeholder="Search paper..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setCurrentPage(1);
+              }}
             />
           </div>
         </div>
+
+        {/* Table */}
 
         <div className="PublishPapper-TableWrapper">
           <table className="PublishPapper-Table">
@@ -205,30 +237,60 @@ const PublishPapper = () => {
                 <th>Title</th>
                 <th>Authors</th>
                 <th>Institute</th>
-                <th>Review Status</th>
-                <th>Paper id</th>
-                <th>Payment Details</th>
-                <th>View Published Paper</th>
+                <th>Status</th>
+                <th>Paper ID</th>
+                <th>Payment</th>
+                <th>Published Paper</th>
               </tr>
             </thead>
 
             <tbody>
-              {currentData.map((item, index) => (
-                <tr key={index}>
+              {currentData.map((item) => (
+                <tr key={item.id}>
                   <td>{item.id}</td>
-                  <td>{item.title}</td>
+
+                  <td className="title-column">
+                    {expandedRows.includes(item.id)
+                      ? item.title
+                      : item.title.length > 50
+                      ? `${item.title.substring(
+                          0,
+                          50
+                        )}...`
+                      : item.title}
+
+                    {item.title.length > 50 && (
+                      <button
+                        className="read-more-btn"
+                        onClick={() =>
+                          toggleReadMore(item.id)
+                        }
+                      >
+                        {expandedRows.includes(item.id)
+                          ? " Read Less"
+                          : " Read More"}
+                      </button>
+                    )}
+                  </td>
+
                   <td>{item.author}</td>
+
                   <td>{item.institute}</td>
+
                   <td>
                     <span className="PublishPapper-Status">
-                      Paper Published Successfully
+                      Published
                     </span>
                   </td>
+
                   <td>{item.paperId}</td>
+
                   <td>Received 1</td>
+
                   <td>
                     <button className="PublishPapper-ViewBtn">
-                      <FaEye /> VIEW
+                      <FaEye />
+                      VIEW
                     </button>
                   </td>
                 </tr>
@@ -237,21 +299,42 @@ const PublishPapper = () => {
           </table>
         </div>
 
+        {/* Pagination */}
+
         <div className="PublishPapper-Pagination">
           <button
             disabled={currentPage === 1}
-            onClick={() => setCurrentPage(currentPage - 1)}
+            onClick={() =>
+              setCurrentPage((prev) => prev - 1)
+            }
           >
             <FaChevronLeft />
           </button>
 
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
+          {Array.from(
+            { length: totalPages },
+            (_, index) => (
+              <button
+                key={index}
+                className={`page-btn ${
+                  currentPage === index + 1
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() =>
+                  setCurrentPage(index + 1)
+                }
+              >
+                {index + 1}
+              </button>
+            )
+          )}
 
           <button
             disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(currentPage + 1)}
+            onClick={() =>
+              setCurrentPage((prev) => prev + 1)
+            }
           >
             <FaChevronRight />
           </button>

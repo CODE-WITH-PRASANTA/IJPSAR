@@ -1,82 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
 .PublishPapper- {
   padding: 20px;
-  background: #f4f6fb;
+  background: #f4f7fc;
   min-height: 100vh;
 }
 
-/* HEADER */
-
-.PublishPapper-Header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.PublishPapper-Header h1 {
-  font-size: 28px;
-  font-weight: 700;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: 1.2;
-}
-
-.PublishPapper-Breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #64748b;
-  font-size: 14px;
-}
-
-/* CARD */
+/* ================= CARD ================= */
 
 .PublishPapper-Card {
-  background: #fff;
-  border-radius: 14px;
+  background: #ffffff;
+  border-radius: 18px;
   padding: 20px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
 }
 
-/* REVIEW STATUS */
+/* ================= REVIEW STATUS ================= */
 
 .PublishPapper-ReviewStatus {
-  font-size: 20px;
+  font-size: 15px;
   color: #334155;
-  font-weight: 600;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 14px 18px;
+  border-radius: 12px;
   margin-bottom: 20px;
-  line-height: 1.4;
+  line-height: 1.7;
 }
 
-/* TOP BAR */
+.PublishPapper-ReviewStatus strong {
+  color: #2563eb;
+}
+
+/* ================= TOP BAR ================= */
 
 .PublishPapper-TopBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
   gap: 20px;
+  margin-bottom: 20px;
 }
 
 .PublishPapper-Select {
   width: 80px;
   height: 42px;
-  border: 1px solid #d1d5db;
+  border: 1px solid #dbe2ea;
   border-radius: 10px;
-  padding: 0 10px;
+  padding: 0 12px;
   font-size: 14px;
+  outline: none;
+  cursor: pointer;
 }
 
 .PublishPapper-Search {
   width: 320px;
-  height: 42px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
+  height: 44px;
+  border: 1px solid #dbe2ea;
+  border-radius: 12px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   padding: 0 15px;
+  background: #fff;
 }
 
 .PublishPapper-Search svg {
@@ -92,31 +85,43 @@
   background: transparent;
 }
 
-/* TABLE */
+/* ================= TABLE ================= */
 
 .PublishPapper-TableWrapper {
   overflow-x: auto;
+  border-radius: 15px;
 }
 
 .PublishPapper-Table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 1100px;
+}
+
+.PublishPapper-Table thead {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
 }
 
 .PublishPapper-Table th {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
-  color: #fff;
-  padding: 14px 16px;
+  color: white;
+  padding: 14px;
   text-align: left;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .PublishPapper-Table td {
-  padding: 14px 16px;
-  font-size: 15px;
-  line-height: 1.4;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 14px;
+  border-bottom: 1px solid #edf2f7;
+  color: #334155;
+  font-size: 13px;
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.PublishPapper-Table tbody tr {
+  transition: 0.3s;
 }
 
 .PublishPapper-Table tbody tr:nth-child(even) {
@@ -127,107 +132,129 @@
   background: #eef4ff;
 }
 
-/* STATUS */
+/* ================= TITLE COLUMN ================= */
 
-.PublishPapper-Status {
-  color: #16a34a;
-  font-weight: 600;
-  font-size: 15px;
+.title-column {
+  min-width: 280px;
+  max-width: 320px;
+  word-break: break-word;
 }
 
-/* BUTTON */
+/* ================= READ MORE ================= */
+
+.read-more-btn {
+  border: none;
+  background: transparent;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.read-more-btn:hover {
+  text-decoration: underline;
+}
+
+/* ================= STATUS ================= */
+
+.PublishPapper-Status {
+  display: inline-block;
+  padding: 6px 12px;
+  background: #dcfce7;
+  color: #16a34a;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ================= VIEW BUTTON ================= */
 
 .PublishPapper-ViewBtn {
   border: none;
-  background: #2563eb;
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #4f46e5
+  );
   color: white;
-  padding: 9px 16px;
+  padding: 9px 14px;
   border-radius: 8px;
   cursor: pointer;
 
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
 
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
 
   transition: 0.3s;
 }
 
 .PublishPapper-ViewBtn:hover {
-  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 18px rgba(37, 99, 235, 0.3);
 }
 
-/* PAGINATION */
+/* ================= PAGINATION ================= */
 
 .PublishPapper-Pagination {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.PublishPapper-Pagination span {
-  font-size: 14px;
-  color: #475569;
+  gap: 8px;
+  margin-top: 25px;
+  flex-wrap: wrap;
 }
 
 .PublishPapper-Pagination button {
-  width: 36px;
+  min-width: 36px;
   height: 36px;
   border: none;
-  border-radius: 50%;
-  background: #2563eb;
-  color: white;
+  background: #e2e8f0;
+  color: #475569;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
   transition: 0.3s;
 }
 
 .PublishPapper-Pagination button:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: #2563eb;
+  color: white;
 }
 
 .PublishPapper-Pagination button:disabled {
   background: #cbd5e1;
+  color: #94a3b8;
   cursor: not-allowed;
 }
 
-/* LARGE DESKTOP */
-
-@media (min-width: 1400px) {
-  .PublishPapper- {
-    max-width: 1450px;
-    margin: 0 auto;
-  }
+.page-btn.active {
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #7c3aed
+  ) !important;
+  color: white !important;
 }
 
-/* TABLET */
+/* ================= SCROLL BAR ================= */
+
+.PublishPapper-TableWrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.PublishPapper-TableWrapper::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 20px;
+}
+
+/* ================= TABLET ================= */
 
 @media (max-width: 992px) {
-  .PublishPapper-Header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .PublishPapper-Header h1 {
-    font-size: 24px;
-  }
-
-  .PublishPapper-ReviewStatus {
-    font-size: 18px;
-  }
-
-  .PublishPapper-Search {
-    width: 280px;
-  }
-}
-
-/* MOBILE */
-
-@media (max-width: 768px) {
   .PublishPapper- {
     padding: 15px;
   }
@@ -241,17 +268,45 @@
     width: 100%;
   }
 
-  .PublishPapper-Header h1 {
-    font-size: 22px;
+  .PublishPapper-ReviewStatus {
+    font-size: 14px;
+  }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  .PublishPapper- {
+    padding: 10px;
   }
 
-  .PublishPapper-ReviewStatus {
-    font-size: 16px;
+  .PublishPapper-Card {
+    padding: 15px;
   }
 
   .PublishPapper-Table th,
   .PublishPapper-Table td {
-    padding: 12px;
-    font-size: 14px;
+    font-size: 12px;
+    padding: 12px 10px;
+  }
+
+  .title-column {
+    min-width: 220px;
+    max-width: 220px;
+  }
+
+  .PublishPapper-Pagination {
+    justify-content: center;
+  }
+
+  .PublishPapper-Pagination button {
+    min-width: 34px;
+    height: 34px;
+    font-size: 12px;
+  }
+
+  .PublishPapper-ViewBtn {
+    padding: 8px 12px;
+    font-size: 11px;
   }
 }
