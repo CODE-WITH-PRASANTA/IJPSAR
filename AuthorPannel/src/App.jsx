@@ -27,7 +27,6 @@ const App = () => {
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/paper-management" element={<Papermanagement />} />
           <Route path="/published-papers" element={<Publishpaper />} />
-          
         </Route>
       </Routes>
     </BrowserRouter>

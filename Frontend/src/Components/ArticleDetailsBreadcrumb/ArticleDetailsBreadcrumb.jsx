@@ -4,6 +4,8 @@ import {
   FaHome,
   FaChevronRight,
   FaFileMedicalAlt,
+  FaRegFileAlt,
+  FaFilePdf,
 } from "react-icons/fa";
 import API from "../../api/axios";
 import "./ArticleDetailsBreadcrumb.css";
@@ -18,6 +20,9 @@ const ArticleDetailsBreadcrumb = () => {
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  
+  // State to manage "Read More / Read Less" for abstract
+  const [isAbstractExpanded, setIsAbstractExpanded] = useState(false);
 
   useEffect(() => {
     if (!id || id === "undefined") {
@@ -32,11 +37,7 @@ const ArticleDetailsBreadcrumb = () => {
         setError("");
 
         console.log("Article ID:", id);
-
-        const { data } = await API.get(
-          `/submitform/${id}`
-        );
-
+        const { data } = await API.get(`/submitform/${id}`);
         console.log("Article Response:", data);
 
         if (data?.success) {
@@ -46,10 +47,8 @@ const ArticleDetailsBreadcrumb = () => {
         }
       } catch (err) {
         console.error(err);
-
         setError(
-          err?.response?.data?.message ||
-            "Failed to fetch article"
+          err?.response?.data?.message || "Failed to fetch article"
         );
       } finally {
         setLoading(false);
@@ -59,17 +58,44 @@ const ArticleDetailsBreadcrumb = () => {
     fetchArticle();
   }, [id]);
 
+  /**
+   * Enhanced PDF viewer logic handling cross-platform paths,
+   * backslashes from Windows servers, and missing clean URI segments.
+   */
   const handleViewArticle = () => {
-    if (!article?.paperFile) return;
+    if (!article?.paperFile) {
+      alert("No PDF file path is available for this article.");
+      return;
+    }
 
-    const filePath = article.paperFile.startsWith("/")
-      ? article.paperFile
-      : `/${article.paperFile}`;
+    let fileUrl = article.paperFile;
 
-    window.open(
-      `${BACKEND_BASE_URL}${filePath}`,
-      "_blank"
-    );
+    // 1. If it's already a fully qualified HTTP/HTTPS string, open it directly
+    if (fileUrl.startsWith("http://") || fileUrl.startsWith("https://")) {
+      window.open(fileUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    // 2. Normalize Windows server file backslashes (\) to standard web forward slashes (/)
+    fileUrl = fileUrl.replace(/\\/g, "/");
+
+    // 3. Prevent double slashing layouts when matching with base URLs
+    const cleanBaseUrl = BACKEND_BASE_URL.replace(/\/+$/, "");
+    const cleanFilePath = fileUrl.startsWith("/") ? fileUrl : `/${fileUrl}`;
+
+    const completePdfUrl = `${cleanBaseUrl}${cleanFilePath}`;
+    
+    console.log("Target PDF Application URL:", completePdfUrl);
+    window.open(completePdfUrl, "_blank", "noopener,noreferrer");
+  };
+
+  // Helper text processing for abstract string truncation
+  const getAbstractText = () => {
+    const text = article?.abstract || "No abstract available";
+    if (text.length <= 300 || isAbstractExpanded) {
+      return text;
+    }
+    return `${text.substring(0, 300)}...`;
   };
 
   return (
@@ -89,19 +115,18 @@ const ArticleDetailsBreadcrumb = () => {
       <div className="articleDetailsBreadOverlay"></div>
 
       <div className="articleDetailsBreadContainer">
-
+        
+        {/* Left Side: Article Information */}
         <div className="articleDetailsBreadLeft">
-
+          
           <span className="articleDetailsMiniTag">
-            {article?.authorCategory ||
-              "Research Article"}
+            {article?.authorCategory || "Research Article"}
           </span>
 
           <h1>
             {loading
               ? "Loading Article..."
-              : article?.paperTitle ||
-                "Article Details"}
+              : article?.paperTitle || "Article Details"}
           </h1>
 
           {error && (
@@ -116,52 +141,78 @@ const ArticleDetailsBreadcrumb = () => {
             </div>
           )}
 
-          <p>
-            {loading
-              ? "Loading Article Information..."
-              : article?.abstract ||
-                "No abstract available"}
-          </p>
+          {/* Abstract Section with Divider Line and Read More Toggle */}
+          <div className="articleDetailsAbstractWrapper">
+            <hr className="abstractDivider" />
+            <p className="articleDetailsAbstractText">
+              {loading ? "Loading Article Information..." : getAbstractText()}
+              
+              {!loading && article?.abstract && article.abstract.length > 300 && (
+                <button
+                  className="readMoreBtn"
+                  onClick={() => setIsAbstractExpanded(!isAbstractExpanded)}
+                >
+                  {isAbstractExpanded ? " Read Less" : " Read More"}
+                </button>
+              )}
+            </p>
+            <hr className="abstractDivider" />
+          </div>
 
+          {/* Navigation Paths / Breadcrumb */}
           <div className="articleDetailsBreadPath">
             <Link to="/">
-              <FaHome />
-              Home
+              <FaHome /> Home
             </Link>
 
             <FaChevronRight />
 
-            <span>
-              {article?.paperTitle ||
-                "Article Details"}
+            <Link to="/reform-to-transformation">
+              From Reform to Transformation: NEP 2020 and the Future of Higher Education in Andhra Pradesh
+            </Link>
+
+            <FaChevronRight />
+
+            <span className="activePath">
+              {article?.paperTitle || "Article Details"}
             </span>
           </div>
 
+          {/* Generated Paper ID UI Wrapper */}
+          {!loading && article && (
+            <div className="articleDetailsPaperIdBox">
+              <FaRegFileAlt className="paperIdIcon" />
+              <span>
+                <strong>Paper ID: </strong> 
+                {article.paperId || article._id || "N/A"}
+              </span>
+            </div>
+          )}
+
         </div>
 
+        {/* Right Side: Quick Specs Card */}
         <div className="articleDetailsBreadCard">
-
+          
           <div className="articleDetailsCardIcon">
             <FaFileMedicalAlt />
           </div>
 
-          <h3>
-            {article?.researchArea ||
-              "Research Area"}
-          </h3>
+          <h3>{article?.researchArea || "Research Area"}</h3>
 
           <p>
             {Array.isArray(article?.keywords)
               ? article.keywords.join(", ")
-              : article?.keywords ||
-                "No Keywords Available"}
+              : article?.keywords || "No Keywords Available"}
           </p>
 
           <button
             onClick={handleViewArticle}
             disabled={!article?.paperFile}
+            className={`viewArticleBtn ${!article?.paperFile ? "disabledBtn" : ""}`}
           >
-            View Article
+            <FaFilePdf style={{ marginRight: "8px", verticalAlign: "middle" }} />
+            View Article (PDF)
           </button>
 
         </div>

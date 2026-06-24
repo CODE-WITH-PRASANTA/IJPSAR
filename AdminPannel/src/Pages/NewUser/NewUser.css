@@ -1,27 +1,26 @@
-.nu_container {
+.nu-container {
   padding: 24px;
-  background: #000000;
-  /* Pure black background */
+  background: black;
   min-height: 100vh;
   color: #ffffff;
   font-family: "Segoe UI", sans-serif;
 }
 
 /* HEADER */
-.nu_header {
+.nu-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.nu_header h2 {
+.nu-header h2 {
   font-size: 22px;
   font-weight: 700;
   letter-spacing: -0.5px;
 }
 
-.nu_addBtn {
+.nu-addBtn {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
   /* Sharper, deeper premium blue */
   border: none;
@@ -36,20 +35,20 @@
   transition: all 0.2s ease;
 }
 
-.nu_addBtn:hover {
+.nu-addBtn:hover {
   background: linear-gradient(135deg, #3b82f6, #2563eb);
   transform: translateY(-1px);
 }
 
 /* FILTER BAR */
-.nu_filterBar {
+.nu-filterBar {
   display: flex;
   gap: 12px;
   margin-bottom: 16px;
 }
 
-.nu_filterBar input,
-.nu_filterBar select {
+.nu-filterBar input,
+.nu-filterBar select {
   padding: 10px 14px;
   background: #0a0a0a;
   /* Premium deep charcoal */
@@ -61,13 +60,13 @@
   transition: border-color 0.2s;
 }
 
-.nu_filterBar input:focus,
-.nu_filterBar select:focus {
+.nu-filterBar input:focus,
+.nu-filterBar select:focus {
   border-color: #3b82f6;
 }
 
 /* TABLE */
-.nu_tableCard {
+.nu-tableCard {
   background: #0a0a0a;
   /* Deep charcoal container */
   border: 1px solid #1f1f1f;
@@ -99,13 +98,13 @@ th {
 }
 
 /* USER */
-.nu_user {
+.nu-user {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.nu_avatar {
+.nu-avatar {
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -119,17 +118,17 @@ th {
   font-weight: bold;
 }
 
-.nu_name {
+.nu-name {
   font-weight: 600;
 }
 
-.nu_email {
+.nu-email {
   font-size: 12px;
   color: #6b7280;
 }
 
 /* BADGE */
-.nu_badge {
+.nu-badge {
   padding: 6px 10px;
   background: #141414;
   border: 1px solid #222222;
@@ -139,28 +138,28 @@ th {
 }
 
 /* STATUS COLOURS */
-.nu_status {
+.nu-status {
   font-size: 13px;
   font-weight: 600;
 }
 
-.nu_status.active {
+.nu-status.active {
   color: #4ade80;
   /* Vibrant neon-accent emerald */
 }
 
-.nu_status.block {
+.nu-status.block {
   color: #f87171;
   /* Vibrant neon-accent red */
 }
 
-.nu_status.inactive {
+.nu-status.inactive {
   color: #fbbf24;
   /* Vibrant neon-accent amber */
 }
 
 /* VIEW ACTIVITY BUTTON */
-.nu_signBtn {
+.nu-signBtn {
   border: none;
   padding: 8px 14px;
   border-radius: 10px;
@@ -172,7 +171,7 @@ th {
   transition: .2s ease;
 }
 
-.nu_signBtn:hover {
+.nu-signBtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
 }
@@ -180,7 +179,7 @@ th {
 /* ==========================
    PREMIUM MODAL OVERLAY & POP
 ========================== */
-.nu_modalOverlay {
+.nu-modalOverlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.85);
@@ -193,7 +192,7 @@ th {
   animation: fadeIn .25s ease;
 }
 
-.nu_modal {
+.nu-modal {
   width: 550px;
   max-width: 95%;
   background: #0f0f0f;
@@ -205,21 +204,21 @@ th {
   animation: modalPop .3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.nu_modalHeader {
+.nu-modalHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.nu_modalHeader h3 {
+.nu-modalHeader h3 {
   font-size: 24px;
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.5px;
 }
 
-.nu_closeBtn {
+.nu-closeBtn {
   width: 32px;
   height: 32px;
   border: none;
@@ -234,32 +233,32 @@ th {
   transition: all 0.2s;
 }
 
-.nu_closeBtn:hover {
+.nu-closeBtn:hover {
   background: #2e2e2e;
   color: #fff;
 }
 
-.nu_form {
+.nu-form {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-.nu_inputGroup {
+.nu-inputGroup {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.nu_inputGroup label {
+.nu-inputGroup label {
   color: #9ca3af;
   font-size: 13px;
   font-weight: 500;
 }
 
 /* Inputs design */
-.nu_inputGroup input,
-.nu_inputGroup select {
+.nu-inputGroup input,
+.nu-inputGroup select {
   height: 48px;
   padding: 0 16px;
   border-radius: 12px;
@@ -273,29 +272,29 @@ th {
 }
 
 /* CRITICAL: Overrides the browser forced white/light blue autocomplete style */
-.nu_inputGroup input:-webkit-autofill,
-.nu_inputGroup input:-webkit-autofill:hover,
-.nu_inputGroup input:-webkit-autofill:focus {
+.nu-inputGroup input:-webkit-autofill,
+.nu-inputGroup input:-webkit-autofill:hover,
+.nu-inputGroup input:-webkit-autofill:focus {
   border: 1px solid #3b82f6;
   -webkit-text-fill-color: #ffffff !important;
   -webkit-box-shadow: 0 0 0px 1000px #050505 inset !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.nu_inputGroup input:focus,
-.nu_inputGroup select:focus {
+.nu-inputGroup input:focus,
+.nu-inputGroup select:focus {
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, .15);
 }
 
-.nu_modalActions {
+.nu-modalActions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
   margin-top: 10px;
 }
 
-.nu_cancelBtn {
+.nu-cancelBtn {
   padding: 12px 22px;
   border-radius: 12px;
   border: 1px solid #222222;
@@ -306,12 +305,12 @@ th {
   transition: 0.2s;
 }
 
-.nu_cancelBtn:hover {
+.nu-cancelBtn:hover {
   background: #1f1f1f;
   color: #fff;
 }
 
-.nu_saveBtn {
+.nu-saveBtn {
   padding: 12px 22px;
   border-radius: 12px;
   border: none;
@@ -322,17 +321,17 @@ th {
   transition: .2s;
 }
 
-.nu_saveBtn:hover {
+.nu-saveBtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-.nu_userId {
+.nu-userId {
   font-weight: 600;
   color: #6366f1;
 }
 
-.nu_blockBtn {
+.nu-blockBtn {
   background: #dc2626;
   color: white;
   border: none;
@@ -341,7 +340,7 @@ th {
   cursor: pointer;
 }
 
-.nu_activeBtn {
+.nu-activeBtn {
   background: #16a34a;
   color: white;
   border: none;
@@ -350,30 +349,30 @@ th {
   cursor: pointer;
 }
 
-.nu_blockBtn:hover {
+.nu-blockBtn:hover {
   background: #b91c1c;
 }
 
-.nu_activeBtn:hover {
+.nu-activeBtn:hover {
   background: #15803d;
 }
 
-.nu_badge.editor {
+.nu-badge.editor {
   background: #dbeafe;
   color: #1d4ed8;
 }
 
-.nu_badge.author {
+.nu-badge.author {
   background: #dcfce7;
   color: #15803d;
 }
 
-.nu_badge.reviewer {
+.nu-badge.reviewer {
   background: #fef3c7;
   color: #b45309;
 }
 
-.nu_badge.admin {
+.nu-badge.admin {
   background: #f3e8ff;
   color: #7e22ce;
 }

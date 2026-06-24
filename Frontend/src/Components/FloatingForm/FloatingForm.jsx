@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import API from "../../api/axios";
 import "./FloatingForm.css";
-import logo from "../../assets/p-2.JPEG";
+import logo from "../../assets/p-2.jpeg";
 
 const FloatingForm = () => {
   const [floatingFormOpen, setFloatingFormOpen] = useState(true);
