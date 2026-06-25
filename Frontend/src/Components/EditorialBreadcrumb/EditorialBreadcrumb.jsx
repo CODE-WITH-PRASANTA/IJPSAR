@@ -1,6 +1,6 @@
 // EditorialBreadcrumb.jsx
-
-import React from "react";
+import React, { useState, useEffect } from "react";
+import API from "../../api/axios";
 import "./EditorialBreadcrumb.css";
 
 import {
@@ -14,6 +14,71 @@ import {
 import editorialBg from "../../assets/12.jpg";
 
 const EditorialBreadcrumb = () => {
+  // Stats tracking states
+  const [stats, setStats] = useState({
+    totalEditors: "50+", // Matches visual fallback layout initial values
+    totalCountries: "25+"
+  });
+
+  useEffect(() => {
+    const computeLiveStats = async () => {
+      try {
+        const response = await API.get("/editorialboard/all");
+        let dataArray = [];
+        
+        // Safely extract payload records array matching your standard router configurations
+        if (Array.isArray(response.data)) {
+          dataArray = response.data;
+        } else if (response.data && Array.isArray(response.data.members)) {
+          dataArray = response.data.members;
+        } else if (response.data && typeof response.data === 'object') {
+          dataArray = response.data.data || [];
+        }
+
+        if (dataArray.length > 0) {
+          // 1. Calculate Total Registered Members
+          const calculatedCount = dataArray.length;
+
+          // 2. Parse out unique countries from dynamic locations/institutions strings
+          const extractedCountries = new Set();
+          dataArray.forEach((member) => {
+            const locString = member.institution || member.location || "";
+            if (locString.trim()) {
+              // Extract the trailing component segment following the last comma separation token
+              const segments = locString.split(",");
+              const countryGuess = segments[segments.length - 1].trim();
+              if (countryGuess.length > 1) {
+                // Remove trailing full-stops or clean punctuation safely
+                const cleanCountry = countryGuess.replace(/[.]+$/, "").trim();
+                extractedCountries.add(cleanCountry.toLowerCase());
+              }
+            }
+          });
+
+          // Ensure if country scraping yielded zero returns due to input formatting, fallback cleanly
+          const uniqueCountriesCount = extractedCountries.size > 0 ? extractedCountries.size : 25;
+
+          setStats({
+            totalEditors: `${calculatedCount}+`,
+            totalCountries: `${uniqueCountriesCount}+`
+          });
+        }
+      } catch (error) {
+        console.error("Failed to update aggregate metrics inside breadcrumb:", error);
+      }
+    };
+
+    computeLiveStats();
+  }, []);
+
+  // Smooth view scroll helper implementation for button module actions
+  const handleScrollToGrid = () => {
+    const targetedSection = document.querySelector(".editorialBoard");
+    if (targetedSection) {
+      targetedSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section
       className="editorialBreadcrumb"
@@ -88,7 +153,7 @@ const EditorialBreadcrumb = () => {
               <FaUserGraduate />
 
               <div>
-                <h4>50+</h4>
+                <h4>{stats.totalEditors}</h4>
                 <span>Editors</span>
               </div>
             </div>
@@ -97,13 +162,13 @@ const EditorialBreadcrumb = () => {
               <FaUsers />
 
               <div>
-                <h4>25+</h4>
+                <h4>{stats.totalCountries}</h4>
                 <span>Countries</span>
               </div>
             </div>
           </div>
 
-          <button>
+          <button onClick={handleScrollToGrid}>
             Explore Board
             <FaArrowRight />
           </button>
