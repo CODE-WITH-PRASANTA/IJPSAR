@@ -10,6 +10,7 @@ const floatingformRoutes = require("./routes/floatingform.routes");
 const contactRoutes = require("./routes/contact.routes");
 const submitformRoutes = require("./routes/submitform.routes");
 const editorRoutes = require("./routes/editor.routes");
+const editorialboardRoutes = require("./routes/editorialboard.routes");
 
 dotenv.config();
 
@@ -46,10 +47,10 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/index", indexRoutes);
 app.use("/api/floatingform", floatingformRoutes);
-app.use("/api/contacts", contactRoutes);
+app.use("/api/contact", contactRoutes);
 app.use("/api/submitform", submitformRoutes);
 app.use("/api/editor", editorRoutes);
-
+app.use("/api/editorialboard", editorialboardRoutes);
 
 
 

@@ -14,6 +14,7 @@ const ensureDir = (dir) => {
 const routeFolderMap = {
    "/index": "uploads/index",
    "/submitform": "uploads/submitform",
+   "/editorialboard": "uploads/editorialboard",
    
 };
 
