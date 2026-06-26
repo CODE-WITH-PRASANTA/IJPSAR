@@ -52,9 +52,6 @@ app.use("/api/submitform", submitformRoutes);
 app.use("/api/editor", editorRoutes);
 app.use("/api/editorialboard", editorialboardRoutes);
 
-
-
-
 app.get("/", (req, res) => {
   res.send("Backend Server Running Successfully");
 });
