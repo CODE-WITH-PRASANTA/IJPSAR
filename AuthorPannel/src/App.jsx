@@ -10,6 +10,8 @@ import CalendarPage from "./Pages/CalendarPage/CalendarPage";
 import SubmitFrom from "./Components/SubmitFrom/SubmitFrom";
 import AuthorAuth from "./Components/AuthorAuth/AuthorAuth";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import Papermanagement from "./Components/Papermanagement/Papermanagement";
+import Publishpaper from "./Components/Publishpaper/Publishpaper";
 
 const App = () => {
   return (
@@ -37,6 +39,8 @@ const App = () => {
           <Route path="/tasks" element={<Tasks />} />
 
           <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/paper-management" element={<Papermanagement />} />
+          <Route path="/published-papers" element={<Publishpaper />} />
         </Route>
 
         {/* 404 */}

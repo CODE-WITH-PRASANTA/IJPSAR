@@ -1,102 +1,129 @@
 import React, { useState } from "react";
 import "./Topbar.css";
-import { useNavigate } from "react-router-dom";
 
 import {
   FaBars,
-  FaArrowRight,
   FaSearch,
   FaBell,
-  FaUserCircle,
-  FaCog,
-  FaSignOutAlt,
+  FaTimes,
 } from "react-icons/fa";
+
+import profileImg from "../../assets/hero.png";
 
 const Topbar = ({
   sidebarCollapsed,
   setSidebarCollapsed,
   setMobileSidebar,
 }) => {
-  const [profileOpen, setProfileOpen] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
 
-  const navigate = useNavigate();
+  const notifications = [
+    {
+      id: 1,
+      title: "New Paper Assigned",
+      time: "2 min ago",
+    },
+    {
+      id: 2,
+      title: "Review Submitted",
+      time: "10 min ago",
+    },
+    {
+      id: 3,
+      title: "Payment Updated",
+      time: "1 hour ago",
+    },
+  ];
 
-  const handleLogout = () => {
-  localStorage.removeItem("editorToken");
-  localStorage.removeItem("editorData");
-
-  navigate("/editor-login", {
-    replace: true,
-  });
-
-  window.location.reload();
-};
+  const handleSidebarToggle = () => {
+    if (window.innerWidth <= 768) {
+      setMobileSidebar(true);
+    } else {
+      setSidebarCollapsed(!sidebarCollapsed);
+    }
+  };
 
   return (
-    <header className="topbar">
-      <div className="topbarLeft">
-        {/* Desktop Menu */}
+    <div
+  className={`Topbar ${
+    sidebarCollapsed ? "TopbarCollapsed" : ""
+  }`}
+>
+      {/* LEFT */}
+      <div className="Topbar_Left">
         <button
-          className="topbarMenuBtn desktopBtn"
-          onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-        >
-          {sidebarCollapsed ? <FaArrowRight /> : <FaBars />}
-        </button>
-
-        {/* Mobile Menu */}
-        <button
-          className="topbarMenuBtn mobileBtn"
-          onClick={() => setMobileSidebar(true)}
+          className="Topbar_MenuBtn"
+          onClick={handleSidebarToggle}
         >
           <FaBars />
         </button>
 
-        <div className="topbarSearch">
-          <FaSearch />
+        <div className="Topbar_SearchBox">
+          <FaSearch className="Topbar_SearchIcon" />
 
-          <input type="text" placeholder="Search..." />
+          <input
+            type="text"
+            placeholder="Search..."
+          />
         </div>
       </div>
 
-      <div className="topbarRight">
-        <div className="topbarNotification">
-          <FaBell />
+      {/* RIGHT */}
+      <div className="Topbar_Right">
+        <div className="Topbar_NotificationWrapper">
+          <button
+            className="Topbar_NotificationBtn"
+            onClick={() =>
+              setShowNotifications(!showNotifications)
+            }
+          >
+            <FaBell />
 
-          <span className="notificationBadge">3</span>
-        </div>
+            <span className="Topbar_Badge">
+              {notifications.length}
+            </span>
+          </button>
 
-        <div
-          className="topbarProfile"
-          onClick={() => setProfileOpen(!profileOpen)}
-        >
-          <img src="https://i.pravatar.cc/150" alt="profile" />
+          {showNotifications && (
+            <div className="Topbar_NotificationDropdown">
+              <div className="Topbar_NotificationHeader">
+                <h4>Notifications</h4>
 
-          <div className="profileInfo">
-            <h4>Ann Adame</h4>
-            <p>Admin</p>
-          </div>
+                <FaTimes
+                  className="Topbar_CloseNotification"
+                  onClick={() =>
+                    setShowNotifications(false)
+                  }
+                />
+              </div>
 
-          {profileOpen && (
-            <div className="profileDropdown">
-              <button>
-                <FaUserCircle />
-                Profile
-              </button>
-
-              <button>
-                <FaCog />
-                Settings
-              </button>
-
-              <button onClick={handleLogout}>
-                <FaSignOutAlt />
-                Logout
-              </button>
+              {notifications.map((item) => (
+                <div
+                  key={item.id}
+                  className="Topbar_NotificationItem"
+                >
+                  <h5>{item.title}</h5>
+                  <p>{item.time}</p>
+                </div>
+              ))}
             </div>
           )}
         </div>
+
+        <div className="Topbar_Profile">
+          <img
+            src={profileImg}
+            alt="Admin"
+            className="Topbar_ProfileImage"
+          />
+
+          <div className="Topbar_ProfileInfo">
+            <h4>Ann Adame</h4>
+            <p>Admin</p>
+          </div>
+        </div>
       </div>
-    </header>
+    </div>
   );
 };
 

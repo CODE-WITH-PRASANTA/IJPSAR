@@ -15,6 +15,8 @@ import ContactManagement from "./Pages/ContactManagement/ContactManagement";
 import IndexAbstracte from "./Pages/IndexAbstracte/IndexAbstracte";
 import PublicationManagement from "./Pages/PublicationManagement/PublicationManagement";
 import IncDocPublicationManagement from "./Component/IncDocPublicationManagement/IncDocPublicationManagement";
+import Calender from "./Component/Calender/Calender";
+import EditorialBoard from "./Pages/EditorialBoard/EditorialBoard";
 
 function App() {
   return (
@@ -31,6 +33,10 @@ function App() {
           <Route path="/index-abstracting-management" element={<IndexAbstracte/>}/>
           <Route path="/publication-management" element={<PublicationManagement/>}/>
           <Route path="/inc-publication-management" element={<IncDocPublicationManagement/>}/>
+          <Route path="/calendar-management" element={<Calender />} />
+          <Route path="/editorial-board" element={<EditorialBoard/>}/>
+
+
         </Route>
       </Routes>
     </BrowserRouter>

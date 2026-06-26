@@ -1,0 +1,284 @@
+/* ==========================
+   SettingProfile
+========================== */
+
+.SettingProfile {
+  width: 100%;
+  padding: 20px;
+  background: #f5f7fb;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.SettingProfile-container {
+  width: 100%;
+}
+
+.SettingProfile-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+}
+
+/* ==========================
+   Header
+========================== */
+
+.SettingProfile-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #ececec;
+}
+
+.SettingProfile-header h2 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3448;
+}
+
+/* ==========================
+   Cover
+========================== */
+
+.SettingProfile-cover {
+  padding: 18px 18px 0;
+}
+
+.SettingProfile-cover img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* ==========================
+   Profile
+========================== */
+
+.SettingProfile-profileSection {
+  text-align: center;
+  margin-top: -60px;
+  padding-bottom: 25px;
+}
+
+.SettingProfile-avatarWrapper {
+  position: relative;
+  width: fit-content;
+  margin: auto;
+}
+
+.SettingProfile-avatar {
+  width: 115px;
+  height: 115px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #fff;
+}
+
+.SettingProfile-cameraBtn {
+  position: absolute;
+  top: 12px;
+  right: -2px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(0,0,0,.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SettingProfile-name {
+  margin-top: 15px;
+  font-size: 34px;
+  font-weight: 700;
+  color: #081f4b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.SettingProfile-verified {
+  color: #1da1f2;
+  font-size: 20px;
+}
+
+.SettingProfile-role {
+  margin-top: 4px;
+  color: #4c5b75;
+  font-size: 17px;
+}
+
+/* ==========================
+   Form
+========================== */
+
+.SettingProfile-form {
+  padding: 0 24px 24px;
+}
+
+.SettingProfile-section h2 {
+  font-size: 24px;
+  color: #101828;
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+
+.SettingProfile-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.SettingProfile-group label {
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #394150;
+}
+
+.SettingProfile-group input,
+.SettingProfile-group textarea,
+.SettingProfile-group select {
+  width: 100%;
+  border: 1px solid #d5d7da;
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-size: 15px;
+  outline: none;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.SettingProfile-group textarea {
+  resize: none;
+}
+
+.SettingProfile-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.SettingProfile-rowThree {
+  grid-template-columns: 1fr 0.65fr 0.3fr;
+}
+
+.SettingProfile-languageRow {
+  width: 360px;
+  max-width: 100%;
+}
+
+.SettingProfile-form hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 28px 0;
+}
+
+/* ==========================
+   Button
+========================== */
+
+.SettingProfile-btnWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.SettingProfile-submitBtn {
+  min-width: 140px;
+  height: 50px;
+  border: none;
+  border-radius: 6px;
+  background: #0e7684;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.SettingProfile-submitBtn:hover {
+  opacity: 0.9;
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media (max-width: 992px) {
+
+  .SettingProfile-row,
+  .SettingProfile-rowThree {
+    grid-template-columns: 1fr;
+  }
+
+  .SettingProfile-languageRow {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .SettingProfile {
+    padding: 10px;
+  }
+
+  .SettingProfile-cover img {
+    height: 180px;
+  }
+
+  .SettingProfile-avatar {
+    width: 95px;
+    height: 95px;
+  }
+
+  .SettingProfile-name {
+    font-size: 24px;
+  }
+
+  .SettingProfile-section h2 {
+    font-size: 22px;
+  }
+
+  .SettingProfile-btnWrapper {
+    justify-content: center;
+  }
+
+  .SettingProfile-submitBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .SettingProfile-cover img {
+    height: 140px;
+  }
+
+  .SettingProfile-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .SettingProfile-name {
+    font-size: 20px;
+  }
+
+  .SettingProfile-role {
+    font-size: 14px;
+  }
+
+  .SettingProfile-form {
+    padding: 0 15px 20px;
+  }
+
+  .SettingProfile-header h2 {
+    font-size: 26px;
+  }
+}

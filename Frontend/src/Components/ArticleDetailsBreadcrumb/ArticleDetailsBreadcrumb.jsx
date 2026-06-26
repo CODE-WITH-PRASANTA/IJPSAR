@@ -1,18 +1,103 @@
-// ArticleDetailsBreadcrumb.jsx
-
-import React from "react";
-import "./ArticleDetailsBreadcrumb.css";
-
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import {
   FaHome,
   FaChevronRight,
   FaFileMedicalAlt,
+  FaRegFileAlt,
+  FaFilePdf,
 } from "react-icons/fa";
-
-/* BACKGROUND IMAGE */
+import API from "../../api/axios";
+import "./ArticleDetailsBreadcrumb.css";
 import breadcrumbBg from "../../assets/bg-9.jpg";
 
+const BACKEND_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 const ArticleDetailsBreadcrumb = () => {
+  const { id } = useParams();
+
+  const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  
+  // State to manage "Read More / Read Less" for abstract
+  const [isAbstractExpanded, setIsAbstractExpanded] = useState(false);
+
+  useEffect(() => {
+    if (!id || id === "undefined") {
+      setError("Invalid Article ID");
+      setLoading(false);
+      return;
+    }
+
+    const fetchArticle = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        console.log("Article ID:", id);
+        const { data } = await API.get(`/submitform/${id}`);
+        console.log("Article Response:", data);
+
+        if (data?.success) {
+          setArticle(data.data);
+        } else {
+          setError("Article Not Found");
+        }
+      } catch (err) {
+        console.error(err);
+        setError(
+          err?.response?.data?.message || "Failed to fetch article"
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticle();
+  }, [id]);
+
+  /**
+   * Enhanced PDF viewer logic handling cross-platform paths,
+   * backslashes from Windows servers, and missing clean URI segments.
+   */
+  const handleViewArticle = () => {
+    if (!article?.paperFile) {
+      alert("No PDF file path is available for this article.");
+      return;
+    }
+
+    let fileUrl = article.paperFile;
+
+    // 1. If it's already a fully qualified HTTP/HTTPS string, open it directly
+    if (fileUrl.startsWith("http://") || fileUrl.startsWith("https://")) {
+      window.open(fileUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    // 2. Normalize Windows server file backslashes (\) to standard web forward slashes (/)
+    fileUrl = fileUrl.replace(/\\/g, "/");
+
+    // 3. Prevent double slashing layouts when matching with base URLs
+    const cleanBaseUrl = BACKEND_BASE_URL.replace(/\/+$/, "");
+    const cleanFilePath = fileUrl.startsWith("/") ? fileUrl : `/${fileUrl}`;
+
+    const completePdfUrl = `${cleanBaseUrl}${cleanFilePath}`;
+    
+    console.log("Target PDF Application URL:", completePdfUrl);
+    window.open(completePdfUrl, "_blank", "noopener,noreferrer");
+  };
+
+  // Helper text processing for abstract string truncation
+  const getAbstractText = () => {
+    const text = article?.abstract || "No abstract available";
+    if (text.length <= 300 || isAbstractExpanded) {
+      return text;
+    }
+    return `${text.substring(0, 300)}...`;
+  };
+
   return (
     <section
       className="articleDetailsBread"
@@ -20,77 +105,114 @@ const ArticleDetailsBreadcrumb = () => {
         backgroundImage: `
           linear-gradient(
             135deg,
-            rgba(3, 18, 38, 0.94),
-            rgba(0, 92, 82, 0.82)
+            rgba(3,18,38,0.94),
+            rgba(0,92,82,0.82)
           ),
           url(${breadcrumbBg})
         `,
       }}
     >
-      {/* OVERLAY */}
       <div className="articleDetailsBreadOverlay"></div>
 
-      {/* GLOW */}
-      <div className="articleDetailsGlowOne"></div>
-      <div className="articleDetailsGlowTwo"></div>
-
       <div className="articleDetailsBreadContainer">
-
-        {/* LEFT CONTENT */}
+        
+        {/* Left Side: Article Information */}
         <div className="articleDetailsBreadLeft">
-
+          
           <span className="articleDetailsMiniTag">
-            RESEARCH ARTICLE
+            {article?.authorCategory || "Research Article"}
           </span>
 
           <h1>
-            Article <span>Details</span>
+            {loading
+              ? "Loading Article..."
+              : article?.paperTitle || "Article Details"}
           </h1>
 
-          <p>
-            Explore publication information, article abstract,
-            DOI details, references, indexing data,
-            and author contributions.
-          </p>
+          {error && (
+            <div
+              style={{
+                color: "#ff4d4f",
+                marginBottom: "15px",
+                fontWeight: "600",
+              }}
+            >
+              {error}
+            </div>
+          )}
 
-          {/* BREADCRUMB */}
-          <div className="articleDetailsBreadPath">
-
-            <a href="/">
-              <FaHome />
-              Home
-            </a>
-
-           
-
-            <FaChevronRight className="articleDetailsArrow" />
-
-            <span>Article Details</span>
-
+          {/* Abstract Section with Divider Line and Read More Toggle */}
+          <div className="articleDetailsAbstractWrapper">
+            <hr className="abstractDivider" />
+            <p className="articleDetailsAbstractText">
+              {loading ? "Loading Article Information..." : getAbstractText()}
+              
+              {!loading && article?.abstract && article.abstract.length > 300 && (
+                <button
+                  className="readMoreBtn"
+                  onClick={() => setIsAbstractExpanded(!isAbstractExpanded)}
+                >
+                  {isAbstractExpanded ? " Read Less" : " Read More"}
+                </button>
+              )}
+            </p>
+            <hr className="abstractDivider" />
           </div>
+
+          {/* Navigation Paths / Breadcrumb */}
+          <div className="articleDetailsBreadPath">
+            <Link to="/">
+              <FaHome /> Home
+            </Link>
+
+            <FaChevronRight />
+
+            <Link to="/reform-to-transformation">
+              From Reform to Transformation: NEP 2020 and the Future of Higher Education in Andhra Pradesh
+            </Link>
+
+            <FaChevronRight />
+
+            <span className="activePath">
+              {article?.paperTitle || "Article Details"}
+            </span>
+          </div>
+
+          {/* Generated Paper ID UI Wrapper */}
+          {!loading && article && (
+            <div className="articleDetailsPaperIdBox">
+              <FaRegFileAlt className="paperIdIcon" />
+              <span>
+                <strong>Paper ID: </strong> 
+                {article.paperId || article._id || "N/A"}
+              </span>
+            </div>
+          )}
 
         </div>
 
-        {/* RIGHT CARD */}
+        {/* Right Side: Quick Specs Card */}
         <div className="articleDetailsBreadCard">
-
+          
           <div className="articleDetailsCardIcon">
             <FaFileMedicalAlt />
           </div>
 
-          <h3>
-            Indexed Research <br />
-            Publication
-          </h3>
+          <h3>{article?.researchArea || "Research Area"}</h3>
 
           <p>
-            Access peer-reviewed pharmaceutical and allied
-            sciences research with DOI indexing and
-            citation-ready publication data.
+            {Array.isArray(article?.keywords)
+              ? article.keywords.join(", ")
+              : article?.keywords || "No Keywords Available"}
           </p>
 
-          <button>
-            View Article
+          <button
+            onClick={handleViewArticle}
+            disabled={!article?.paperFile}
+            className={`viewArticleBtn ${!article?.paperFile ? "disabledBtn" : ""}`}
+          >
+            <FaFilePdf style={{ marginRight: "8px", verticalAlign: "middle" }} />
+            View Article (PDF)
           </button>
 
         </div>
