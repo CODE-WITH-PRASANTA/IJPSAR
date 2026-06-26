@@ -4,7 +4,7 @@ const SubmitForm = require("../models/submitform.model");
 
 exports.createSubmission = async (req, res) => {
   try {
-
+    console.log("Decoded Author:", req.author);
 
     const authors = JSON.parse(req.body.authors || "[]");
     const keywords = JSON.parse(req.body.keywords || "[]");
@@ -16,24 +16,21 @@ exports.createSubmission = async (req, res) => {
     ).padStart(4, "0")}`;
 
     const submission = await SubmitForm.create({
+      authorId: req.author.id,   // <-- Add this
+
       paperId,
-
       paperTitle: req.body.paperTitle,
-
       abstract: req.body.abstract,
-
       keywords,
 
       mobileCountryCode: req.body.mobileCountryCode,
-
       researchArea: req.body.researchArea,
 
-      paperFile: req.body.paperFile,
+      // Better to use uploaded file path
+      paperFile: req.file ? req.file.path : "",
 
       authorCategory: req.body.authorCategory,
-
       totalAuthors: authors.length,
-
       authors,
 
       address: {
@@ -46,7 +43,6 @@ exports.createSubmission = async (req, res) => {
       },
 
       referralCode: req.body.referralCode,
-
       specialMessage: req.body.editorMessage,
 
       status: "Submitted",
@@ -57,6 +53,7 @@ exports.createSubmission = async (req, res) => {
       message: "Paper Submitted Successfully",
       data: submission,
     });
+
   } catch (error) {
     console.error(error);
 
@@ -176,20 +173,19 @@ exports.getUnassignedPapers = async (req, res) => {
 };
 /* ================= UPDATE ================= */
 
-exports.updateSubmission = async (req, res)=> {
+exports.updateSubmission = async (req, res) => {
   try {
-    const updated = await SubmitForm.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-
-    if (!updated) {
-      return res.status(404).json({
-        success: false,
-        message: "Submission not found",
-      });
-    }
+    const updated =
+      await SubmitForm.findByIdAndUpdate(
+        req.params.id,
+        {
+          paperTitle: req.body.paperTitle,
+          abstract: req.body.abstract,
+          editorRemarks: req.body.editorRemarks,
+          status: req.body.status,
+        },
+        { new: true }
+      );
 
     return res.status(200).json({
       success: true,

@@ -1,0 +1,99 @@
+.reviewPaper {
+  padding: 25px;
+}
+
+.reviewHeader {
+  margin-bottom: 20px;
+}
+
+.reviewHeader h2 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.reviewHeader p {
+  color: #666;
+}
+
+.reviewTableWrapper {
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.reviewTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reviewTable th {
+  background: #2563eb;
+  color: white;
+  padding: 15px;
+  text-align: left;
+}
+
+.reviewTable td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.viewBtn,
+.editBtn,
+.approveBtn,
+.rejectBtn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.viewBtn {
+  background: #0ea5e9;
+  color: white;
+}
+
+.editBtn {
+  background: orange;
+  color: white;
+}
+
+.approveBtn {
+  background: green;
+  color: white;
+}
+
+.rejectBtn {
+  background: red;
+  color: white;
+}
+
+.emptyBox {
+  background: white;
+  padding: 50px;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.loading {
+  text-align: center;
+  padding: 50px;
+}
+
+@media(max-width:768px) {
+  .reviewTableWrapper {
+    overflow-x: auto;
+  }
+
+  .reviewTable {
+    min-width: 900px;
+  }
+}

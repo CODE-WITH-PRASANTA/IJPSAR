@@ -10,6 +10,8 @@ const floatingformRoutes = require("./routes/floatingform.routes");
 const contactRoutes = require("./routes/contact.routes");
 const submitformRoutes = require("./routes/submitform.routes");
 const editorRoutes = require("./routes/editor.routes");
+const authorRoutes = require("./routes/author.routes");
+
 
 dotenv.config();
 
@@ -18,22 +20,26 @@ const app = express();
 // Database Connection
 connectDB();
 
-// Middleware
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "http://localhost:5175",
-      "http://localhost:5176",
-      "http://localhost:5177",
-    ],
-    credentials: true,
-  }),
-);
-app.use(express.json({ limit: "50mb" }));
-app.use(
-  express.urlencoded({
+
+      
+      
+      app.use(
+        cors({
+          origin: [
+            "http://localhost:5173",
+            "http://localhost:5174",
+            "http://localhost:5175",
+            "http://localhost:5176",
+            "http://localhost:5177",
+          ],
+          credentials: true,
+        })
+      );
+      
+      app.use(express.json({ limit: "50mb" }));
+      
+      app.use(
+        express.urlencoded({
     limit: "50mb",
     extended: true,
   }),
@@ -49,9 +55,7 @@ app.use("/api/floatingform", floatingformRoutes);
 app.use("/api/contacts", contactRoutes);
 app.use("/api/submitform", submitformRoutes);
 app.use("/api/editor", editorRoutes);
-
-
-
+app.use("/api/author", authorRoutes);
 
 
 app.get("/", (req, res) => {
@@ -59,6 +63,7 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

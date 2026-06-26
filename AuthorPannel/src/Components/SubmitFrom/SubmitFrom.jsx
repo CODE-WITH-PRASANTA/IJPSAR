@@ -261,8 +261,13 @@ const SubmitFrom = () => {
 
       data.append("paperFile", uploadedFile);
 
+      const token = localStorage.getItem("authorToken");
+
+      console.log("Token:", token);
+
       const response = await API.post("/submitform/create", data, {
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       });

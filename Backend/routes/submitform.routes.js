@@ -2,10 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const {
-  upload,
-  convertToWebp,
-} = require("../middlewares/upload");
+const { upload, convertToWebp } = require("../middlewares/upload");
 
 const {
   createSubmission,
@@ -23,43 +20,30 @@ const {
   rejectPaper,
   publishPaper,
   getEditorPapers,
-  getUnassignedPapers
+  getUnassignedPapers,
 } = require("../controllers/submitform.controller");
 
+const authorAuth=require("../middlewares/author.middleware");
 /* ================= CREATE SUBMISSION ================= */
 
 router.post(
   "/create",
+  authorAuth,
   upload.single("paperFile"),
   convertToWebp,
   createSubmission
-);
+  );
 
 /* ================= GET ALL ================= */
 
-router.get(
-  "/all",
-  getAllSubmissions
-);
+router.get("/all", getAllSubmissions);
 
-router.get(
-  "/editor/:editorId",
-  getEditorPapers
-);
+router.get("/editor/:editorId", getEditorPapers);
 
-
-router.get(
-  "/unassigned",
-  getUnassignedPapers
-);
+router.get("/unassigned", getUnassignedPapers);
 /* ================= GET SINGLE ================= */
 
-router.get(
-  "/:id",
-  getSingleSubmission
-);
-
-
+router.get("/:id", getSingleSubmission);
 
 /* ================= UPDATE ================= */
 
@@ -67,68 +51,40 @@ router.put(
   "/update/:id",
   updateSubmission
 );
-
 /* ================= CHANGE STATUS ================= */
 
-router.put(
-  "/status/:id",
-  changeStatus
-);
+router.put("/status/:id", changeStatus);
 
 /* ================= ASSIGN EDITOR ================= */
 
-router.put(
-  "/assign-editor/:id",
-  assignEditor
-);
+router.put("/assign-editor/:id", assignEditor);
 
 /* ================= START EDITING ================= */
 
-router.put(
-  "/start-editing/:id",
-  startEditing
-);
+router.put("/start-editing/:id", startEditing);
 
 /* ================= ASSIGN REVIEWER ================= */
 
-router.put(
-  "/assign-reviewer/:id",
-  assignReviewer
-);
+router.put("/assign-reviewer/:id", assignReviewer);
 
 /* ================= SEND TO REVIEW ================= */
 
-router.put(
-  "/send-review/:id",
-  sendToReview
-);
+router.put("/send-review/:id", sendToReview);
 
 /* ================= ACCEPT PAPER ================= */
 
-router.put(
-  "/accept/:id",
-  acceptPaper
-);
+router.put("/accept/:id", acceptPaper);
 
 /* ================= REJECT PAPER ================= */
 
-router.put(
-  "/reject/:id",
-  rejectPaper
-);
+router.put("/reject/:id", rejectPaper);
 
 /* ================= PUBLISH PAPER ================= */
 
-router.put(
-  "/publish/:id",
-  publishPaper
-);
+router.put("/publish/:id", publishPaper);
 
 /* ================= DELETE ================= */
 
-router.delete(
-  "/delete/:id",
-  deleteSubmission
-);
+router.delete("/delete/:id", deleteSubmission);
 
 module.exports = router;

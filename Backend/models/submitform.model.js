@@ -1,15 +1,51 @@
 const mongoose = require("mongoose");
 
 const AuthorSchema = new mongoose.Schema({
-  fullName: String,
+  fullName: {
+    type: String,
+    required: true,
+  },
   designation: String,
   organization: String,
   contactNumber: String,
   email: String,
 });
 
+const RevisionSchema = new mongoose.Schema(
+  {
+    version: {
+      type: Number,
+      required: true,
+    },
+
+    paperFile: {
+      type: String,
+      required: true,
+    },
+
+    remarks: {
+      type: String,
+      default: "",
+    },
+
+    uploadedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { _id: false }
+);
+
 const SubmitFormSchema = new mongoose.Schema(
   {
+    /* ================= LOGGED IN AUTHOR ================= */
+
+    authorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Author",
+      required: true,
+    },
+
     /* ================= PAPER INFO ================= */
 
     paperId: {
@@ -37,12 +73,25 @@ const SubmitFormSchema = new mongoose.Schema(
       required: true,
     },
 
+    version: {
+      type: Number,
+      default: 1,
+    },
+
+    editedPdf: {
+      type: String,
+      default: "",
+    },
+
+    revisions: [RevisionSchema],
+
     /* ================= AUTHOR INFO ================= */
 
     authorCategory: String,
 
     totalAuthors: Number,
 
+    // Paper Authors (Main Author + Co-Authors)
     authors: [AuthorSchema],
 
     mobileCountryCode: String,
@@ -108,13 +157,6 @@ const SubmitFormSchema = new mongoose.Schema(
       default: "",
     },
 
-    /* ================= VERSION ================= */
-
-    version: {
-      type: Number,
-      default: 1,
-    },
-
     /* ================= STATUS ================= */
 
     status: {
@@ -138,7 +180,4 @@ const SubmitFormSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model(
-  "SubmitForm",
-  SubmitFormSchema
-);
+module.exports = mongoose.model("SubmitForm", SubmitFormSchema);
