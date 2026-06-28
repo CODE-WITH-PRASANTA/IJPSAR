@@ -55,22 +55,32 @@ const EditPaper = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setSaving(true);
     setError("");
-  
+
     try {
-      await API.put(`/submitform/update/${id}`, formData);
-  
-      alert("Paper Updated Successfully");
-  
-      navigate(-1);
+      const token = localStorage.getItem("editorToken");
+
+      const { data } = await API.put(`/submitform/update/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (data.success) {
+        alert(data.message);
+
+        setPaper(data.data);
+
+        navigate(-1);
+      }
     } catch (err) {
-      const message =
-        err.response?.data?.message ||
-        err.message ||
-        "Failed to update paper";
-  
-      setError(message);
+      console.log(err);
+
+      setError(
+        err.response?.data?.message || err.message || "Failed to update paper",
+      );
     } finally {
       setSaving(false);
     }
@@ -252,6 +262,8 @@ const EditPaper = () => {
                 onChange={handleChange}
               >
                 <option value="Editing">Editing</option>
+
+                <option value="Revision Required">Revision Required</option>
 
                 <option value="Review Pending">Review Pending</option>
 
