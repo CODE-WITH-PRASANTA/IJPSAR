@@ -11,6 +11,8 @@ const {
   updateSubmission,
   deleteSubmission,
   changeStatus,
+  getMyPapers,
+  uploadRevision,
 
   assignEditor,
   startEditing,
@@ -24,6 +26,7 @@ const {
 } = require("../controllers/submitform.controller");
 
 const authorAuth=require("../middlewares/author.middleware");
+const editorAuth = require("../middlewares/editor.middleware");
 /* ================= CREATE SUBMISSION ================= */
 
 router.post(
@@ -42,6 +45,7 @@ router.get("/editor/:editorId", getEditorPapers);
 
 router.get("/unassigned", getUnassignedPapers);
 /* ================= GET SINGLE ================= */
+router.get("/my-papers", authorAuth, getMyPapers);
 
 router.get("/:id", getSingleSubmission);
 
@@ -49,8 +53,18 @@ router.get("/:id", getSingleSubmission);
 
 router.put(
   "/update/:id",
+  editorAuth,
   updateSubmission
 );
+
+router.put(
+  "/revision/:id",
+  authorAuth,
+  upload.single("paperFile"),
+  convertToWebp,
+  uploadRevision
+);
+
 /* ================= CHANGE STATUS ================= */
 
 router.put("/status/:id", changeStatus);

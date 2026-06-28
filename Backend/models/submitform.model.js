@@ -33,7 +33,42 @@ const RevisionSchema = new mongoose.Schema(
       default: Date.now,
     },
   },
-  { _id: false }
+  { _id: false },
+);
+
+const FeedbackSchema = new mongoose.Schema(
+  {
+    version: {
+      type: Number,
+      required: true,
+    },
+
+    remark: {
+      type: String,
+      required: true,
+    },
+
+    status: {
+      type: String,
+      required: true,
+    },
+
+    editorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Editor",
+    },
+
+    editorName: {
+      type: String,
+      default: "",
+    },
+
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { _id: false },
 );
 
 const SubmitFormSchema = new mongoose.Schema(
@@ -83,15 +118,28 @@ const SubmitFormSchema = new mongoose.Schema(
       default: "",
     },
 
-    revisions: [RevisionSchema],
+    /* ================= REVISION HISTORY ================= */
 
+    revisions: {
+      type: [RevisionSchema],
+      default: [],
+    },
+
+    /* ================= FEEDBACK HISTORY ================= */
+
+   
+    
+
+    feedbackHistory: {
+      type: [FeedbackSchema],
+      default: [],
+    },
     /* ================= AUTHOR INFO ================= */
 
     authorCategory: String,
 
     totalAuthors: Number,
 
-    // Paper Authors (Main Author + Co-Authors)
     authors: [AuthorSchema],
 
     mobileCountryCode: String,
@@ -145,7 +193,7 @@ const SubmitFormSchema = new mongoose.Schema(
       default: null,
     },
 
-    /* ================= REVIEW ================= */
+    /* ================= CURRENT REMARKS ================= */
 
     editorRemarks: {
       type: String,
@@ -177,7 +225,7 @@ const SubmitFormSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 module.exports = mongoose.model("SubmitForm", SubmitFormSchema);
