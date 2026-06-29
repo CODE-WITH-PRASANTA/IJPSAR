@@ -48,6 +48,11 @@ const FeedbackSchema = new mongoose.Schema(
       required: true,
     },
 
+    link: {
+      type: String,
+      default: "",
+    },
+
     status: {
       type: String,
       required: true,
@@ -68,7 +73,7 @@ const FeedbackSchema = new mongoose.Schema(
       default: Date.now,
     },
   },
-  { _id: false },
+  { _id: false }
 );
 
 const SubmitFormSchema = new mongoose.Schema(
