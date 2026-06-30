@@ -11,7 +11,7 @@ import ReviewPaper from "./Components/ReviewPaper/ReviewPaper";
 import EditPaper from "./Components/ReviewPaper/EditPaper";
 // import EditorDashboard from "./Pages/EditorDashboard/EditorDashboard";
 import ProfileManagement from "./Components/ProfileManagement/ProfileManagement";
-import SettingActivity from "./Components/SettingActivity/SettingActivity";
+// import SettingActivity from "./Components/SettingActivity/SettingActivity";
 
 function App() {
   return (
