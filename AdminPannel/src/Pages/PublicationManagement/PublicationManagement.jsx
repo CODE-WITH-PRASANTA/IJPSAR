@@ -4,55 +4,43 @@ import "./PublicationManagement.css";
 import { useEffect } from "react";
 
 const PublicationManagement = () => {
-  const [publications, setPublications] = useState([
-    {
-      id: "PUB-2026-001",
-      title: "Artificial Intelligence Applications in Healthcare Research",
-      abstract: "This study explores advanced AI methodologies...",
-      tags: "AI, Healthcare, ML",
-      country: "India",
-      researchArea: "Artificial Intelligence",
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600",
-      author: { id: "A-101", name: "Dr. John Smith" },
-    },
-    {
-      id: "PUB-2026-002",
-      title: "Cloud Computing and Distributed Network Architecture",
-      abstract: "Research focusing on cloud infrastructure optimization...",
-      tags: "Cloud, Network",
-      country: "USA",
-      researchArea: "Computer Science",
-      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600",
-      author: { id: "A-102", name: "Prof. Emily Watson" },
-    },
-    {
-      id: "PUB-2026-003",
-      title: "Renewable Energy Resources and Sustainability",
-      abstract: "Analysis of renewable energy strategies...",
-      tags: "Energy, Sustainability",
-      country: "Germany",
-      researchArea: "Environmental Science",
-      image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600",
-      author: { id: "A-103", name: "Dr. Raj Mehta" },
-    },
-  ]);
+  const [publications, setPublications] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const res = await API.get("/submitform/all");
+
+      const data = res.data.data || [];
+
+      setPublications(
+        data.filter(
+          (paper) =>
+            paper.status === "Completed" || paper.status === "Published",
+        ),
+      );
+    } catch (err) {
+      console.log("Fetch error:", err);
+      setPublications([]);
+    }
+  };
+  const fetchAuthors = async () => {
+    try {
+      const { data } = await API.get("/author/all");
+
+      if (data.success) {
+        setAuthors(data.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-const fetchData = async () => {
-  try {
-    const res = await API.get("/submitform/all");
+    fetchData();
+    fetchAuthors();
+  }, []);
 
-    const data = res.data?.data || res.data;
-
-    setPublications(Array.isArray(data) ? data : []);
-  } catch (err) {
-    console.log("Fetch error:", err);
-    setPublications([]);
-  }
-};
-
-  fetchData();
-}, []);
-
+  const [authors, setAuthors] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedPublication, setSelectedPublication] = useState(null);
 
@@ -70,35 +58,17 @@ const fetchData = async () => {
   const [selectedAuthor, setSelectedAuthor] = useState(null);
   const [file, setFile] = useState(null);
 
-  // AUTHOR DROPDOWN LIST (SL wise + ID)
-  const authors = [
-    { id: "A-101", name: "Dr. John Smith" },
-    { id: "A-102", name: "Prof. Emily Watson" },
-    { id: "A-103", name: "Dr. Raj Mehta" },
-    { id: "A-104", name: "Dr. Anita Sharma" },
-  ];
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure?")) return;
 
-  const handleDelete = (id) => {
-    const confirmDelete = window.confirm("Are you sure?");
-    if (confirmDelete) {
-     const handleDelete = async (id) => {
-  const confirmDelete = window.confirm("Are you sure?");
-  if (!confirmDelete) return;
+    try {
+      await API.delete(`/submitform/delete/${id}`);
 
-  try {
-    await API.delete(`/submitform/delete/${id}`);
-
-    setPublications((prev) =>
-      prev.filter((item) => item.id !== id)
-    );
-  } catch (err) {
-    console.log(err);
-    alert("Delete failed");
-  }
-};
+      setPublications((prev) => prev.filter((item) => item._id !== id));
+    } catch (err) {
+      console.log(err);
     }
   };
-
   const handleView = (item) => setSelectedPublication(item);
 
   // ✅ OPEN FORM ON TITLE CLICK
@@ -114,7 +84,7 @@ const fetchData = async () => {
 
   // AUTHOR CHANGE
   const handleAuthorChange = (e) => {
-    const selected = authors.find((a) => a.id === e.target.value);
+    const selected = authors.find((a) => a._id === e.target.value);
     setEditData({
       ...editData,
       author: selected,
@@ -122,93 +92,138 @@ const fetchData = async () => {
   };
 
   // MODIFY SAVE
- const handleModify = async () => {
-  try {
-    const res = await API.put(
-      `/submitform/update/${editData.id}`,
-      editData
-    );
+  const handleModify = async () => {
+    try {
+      const res = await API.put(`/submitform/update/${editData._id}`, {
+        paperTitle: editData.paperTitle,
+        abstract: editData.abstract,
+        image: editData.image,
+        authorId: editData.authorId,
+        authorName: editData.authorName,
+        authorEmail: editData.authorEmail,
+      });
 
-    const updated = res.data.data;
+      const updated = res.data.data;
 
-    setPublications((prev) =>
-      prev.map((p) => (p.id === updated.id ? updated : p))
-    );
+      setPublications((prev) =>
+        prev.map((p) => (p._id === updated._id ? updated : p)),
+      );
 
-    setIsFormOpen(false);
-  } catch (err) {
-    console.log(err);
-    alert("Update failed");
-  }
-};
+      setIsFormOpen(false);
+    } catch (err) {
+      console.log(err);
+      alert("Update failed");
+    }
+  };
 
   // ✅ FRONTEND POST FUNCTION (FIXED FOR MULTIPART)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!file) {
-      alert("Please upload a paper file before submitting.");
+      alert("Please upload a paper file.");
       return;
     }
+
     if (!selectedAuthor) {
-      alert("Please assign an author.");
+      alert("Please select an author.");
       return;
     }
 
     try {
+      const token = localStorage.getItem("adminToken");
+
       const formData = new FormData();
-      formData.append("title", newTitle);
+
+      // Paper Details
+      formData.append("paperTitle", newTitle);
       formData.append("abstract", newAbstract);
-      formData.append("tags", newTags);
-      formData.append("country", newCountry);
       formData.append("researchArea", newResearchArea);
-      formData.append(
-  "author",
-  JSON.stringify({
-    id: selectedAuthor.id,
-    name: selectedAuthor.name,
-  })
-);
+      formData.append("country", newCountry);
+
+      // Keywords
+      formData.append("keywords", newTags);
+
+      // Author Details
+      formData.append("authorId", selectedAuthor._id);
+      formData.append("authorName", selectedAuthor.fullName);
+      formData.append("authorEmail", selectedAuthor.email);
+      formData.append("authorCategory", selectedAuthor.authorCategory || "");
+
+      // Paper File
       formData.append("paperFile", file);
 
-     const res = await API.post("/submitform/create", formData);
+      const { data } = await API.post("/submitform/create", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-console.log("SUCCESS:", res.data);
+      if (data.success) {
+        alert("Publication created successfully.");
 
-      console.log("SUCCESS:", res.data);
-      alert("Publication created successfully!");
+        setPublications((prev) => [...prev, data.data]);
 
-      // Append local data array to display visually on frontend immediately
-      const saved = res.data.data;
-      setPublications([...publications, newPaperLocal]);
-      
-      // Clear Form State
-      setNewTitle("");
-      setNewAbstract("");
-      setNewTags("");
-      setNewCountry("");
-      setNewResearchArea("");
-      setSelectedAuthor(null);
-      setFile(null);
-      setIsCreateOpen(false);
-
+        // Reset Form
+        setNewTitle("");
+        setNewAbstract("");
+        setNewTags("");
+        setNewCountry("");
+        setNewResearchArea("");
+        setSelectedAuthor(null);
+        setFile(null);
+        setIsCreateOpen(false);
+      }
     } catch (err) {
-      console.error("ERROR:", err.response?.data || err.message);
-      alert(`Network Submission Error: ${err.response?.data?.message || err.message}`);
+      console.log(err);
+
+      alert(err.response?.data?.message || "Failed to create publication.");
     }
   };
 
- const filteredData = (Array.isArray(publications) ? publications : []).filter((item) => {
-  const q = search.toLowerCase();
-  return (
-    item.title?.toLowerCase().includes(q) ||
-    item.id?.toLowerCase().includes(q)
-  );
-});
+  const filteredData = publications.filter((item) => {
+    const q = search.toLowerCase();
+
+    return (
+      item.paperTitle?.toLowerCase().includes(q) ||
+      item.paperId?.toLowerCase().includes(q)
+    );
+  });
+
+  const handlePublish = async (paperId) => {
+    try {
+      const { data } = await API.put(`/submitform/publish/${paperId}`);
+
+      if (data.success) {
+        alert("Paper Published Successfully");
+
+        fetchData();
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Publish failed");
+    }
+  };
+
+  const handleUnPublish = async (paperId) => {
+    try {
+      const { data } = await API.put(`/submitform/unpublish/${paperId}`);
+
+      if (data.success) {
+        alert("Paper Unpublished");
+
+        fetchData();
+      }
+    } catch (err) {
+      console.log(err);
+
+      alert("Unpublish failed");
+    }
+  };
 
   return (
     <div className="publicationManagement">
-
       {/* HEADER */}
       <div className="publicationHeader">
         <div>
@@ -216,7 +231,11 @@ console.log("SUCCESS:", res.data);
           <p>Manage Research Papers & Publications</p>
         </div>
         {/* ADD NEW PAPER TRIGGER BUTTON */}
-        <button className="viewBtn" onClick={() => setIsCreateOpen(true)} style={{ background: "linear-gradient(135deg, #10b881, #059669)" }}>
+        <button
+          className="viewBtn"
+          onClick={() => setIsCreateOpen(true)}
+          style={{ background: "linear-gradient(135deg, #10b881, #059669)" }}
+        >
           + Add New Paper
         </button>
       </div>
@@ -247,11 +266,16 @@ console.log("SUCCESS:", res.data);
 
           <tbody>
             {filteredData.map((item) => (
-              <tr key={item.id}>
+              <tr key={item._id}>
                 <td>
-                  <img src={item.image} className="paperImage" alt={item.title} />
+                  <img
+                    src={item.image || "/no-image.png"}
+                    className="paperImage"
+                  />
                 </td>
-                <td><span className="idBadge">{item.id}</span></td>
+                <td>
+                  <span className="idBadge">{item.paperId}</span>
+                </td>
 
                 {/* ✅ CLICK TITLE OPEN FORM */}
                 <td
@@ -259,23 +283,44 @@ console.log("SUCCESS:", res.data);
                   style={{ cursor: "pointer", color: "#3b82f6" }}
                   onClick={() => openEditForm(item)}
                 >
-                  {item.title}
+                  {item.paperTitle}
                 </td>
 
                 <td className="paperAbstract">{item.abstract}</td>
 
                 <td>
-                  {item.author?.name} ({item.author?.id})
+                  <div>
+                    <strong>{item.authorName}</strong>
+                    <br />
+                    <small>{item.authorEmail}</small>
+                  </div>
                 </td>
 
                 <td>
                   <div className="actionButtons">
-                    <button className="viewBtn" onClick={() => handleView(item)}>
-                      View
-                    </button>
-                    <button className="deleteBtn" onClick={() => handleDelete(item.id)}>
-                      Delete
-                    </button>
+                    <a
+                      href={`http://localhost:5000${item.paperFile}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="viewBtn"
+                    >
+                      View PDF
+                    </a>
+                    {item.isPublished ? (
+                      <button
+                        className="unpublishBtn"
+                        onClick={() => handleUnPublish(item._id)}
+                      >
+                        Unpublish
+                      </button>
+                    ) : (
+                      <button
+                        className="publishBtn"
+                        onClick={() => handlePublish(item._id)}
+                      >
+                        Publish
+                      </button>
+                    )}
                   </div>
                 </td>
               </tr>
@@ -287,25 +332,61 @@ console.log("SUCCESS:", res.data);
       {/* MOBILE CARDS */}
       <div className="publicationCards">
         {filteredData.map((item) => (
-          <div className="publicationCard" key={item.id}>
-            <img src={item.image} className="mobilePaperImage" alt={item.title} />
+          <div className="publicationCard" key={item.paperId}>
+            <img
+              src={item.image || "/no-image.png"}
+              className="mobilePaperImage"
+              alt={item.paperTitle}
+            />
             <div className="cardContent">
-              <span className="idBadge" style={{ marginBottom: "10px" }}>{item.id}</span>
-              <h3 style={{ cursor: "pointer", color: "#3b82f6" }} onClick={() => openEditForm(item)}>
-                {item.title}
+              <span className="idBadge" style={{ marginBottom: "10px" }}>
+                {item.paperId}
+              </span>
+              <h3
+                style={{ cursor: "pointer", color: "#3b82f6" }}
+                onClick={() => openEditForm(item)}
+              >
+                {item.paperTitle}
               </h3>
               <p className="mobileAbstract">{item.abstract}</p>
+
               <p style={{ fontSize: "14px", color: "#aaaaaa" }}>
-                <strong>Author:</strong> {item.author?.name} ({item.author?.id})
+                <strong>Author:</strong>
+
+                <br />
+
+                {item.authorName}
+
+                <br />
+
+                {item.authorEmail}
               </p>
-              <div className="cardActions">
-                <button className="viewBtn" onClick={() => handleView(item)}>
-                  View
-                </button>
-                <button className="deleteBtn" onClick={() => handleDelete(item.id)}>
-                  Delete
-                </button>
-              </div>
+            <div className="cardActions">
+    <a
+        href={`http://localhost:5000${item.paperFile}`}
+        target="_blank"
+        rel="noreferrer"
+        className="viewBtn"
+    >
+        View PDF
+    </a>
+
+    {item.isPublished ? (
+        <button
+            className="unpublishBtn"
+            onClick={() => handleUnPublish(item._id)}
+        >
+            Unpublish
+        </button>
+    ) : (
+        <button
+            className="publishBtn"
+            onClick={() => handlePublish(item._id)}
+        >
+            Publish
+        </button>
+    )}
+</div>
             </div>
           </div>
         ))}
@@ -316,21 +397,37 @@ console.log("SUCCESS:", res.data);
 
       {/* VIEW MODAL */}
       {selectedPublication && (
-        <div className="modalOverlay" onClick={() => setSelectedPublication(null)}>
+        <div
+          className="modalOverlay"
+          onClick={() => setSelectedPublication(null)}
+        >
           <div className="modalContent" onClick={(e) => e.stopPropagation()}>
-            <button className="closeModalBtn" onClick={() => setSelectedPublication(null)}>
+            <button
+              className="closeModalBtn"
+              onClick={() => setSelectedPublication(null)}
+            >
               &times;
             </button>
             <div className="modalHeader">
-              <span className="modalIdBadge">{selectedPublication.id}</span>
-              <h2>{selectedPublication.title}</h2>
+              <span className="modalIdBadge">
+                {selectedPublication.paperId}
+              </span>
+
+              <h2>{selectedPublication.paperTitle}</h2>
+              
             </div>
-            <img src={selectedPublication.image} className="modalImage" alt="paper preview" />
+            <img
+              src={selectedPublication.image || "/no-image.png"}
+              className="modalImage"
+              alt="paper preview"
+            />
             <div className="modalBody">
               <div className="modalMetaRow">
                 <div>
                   <strong>Author</strong>
-                  <p>{selectedPublication.author?.name || "N/A"}</p>
+                  <p>{selectedPublication.authorName || "N/A"}</p>
+
+                  <p>{selectedPublication.authorEmail}</p>
                 </div>
                 <div>
                   <strong>Country</strong>
@@ -354,16 +451,24 @@ console.log("SUCCESS:", res.data);
       {isFormOpen && editData && (
         <div className="modalOverlay" onClick={() => setIsFormOpen(false)}>
           <div className="modalContent" onClick={(e) => e.stopPropagation()}>
-            <button className="closeModalBtn" onClick={() => setIsFormOpen(false)}>
+            <button
+              className="closeModalBtn"
+              onClick={() => setIsFormOpen(false)}
+            >
               &times;
             </button>
 
             <div className="modalHeader">
               <h2>Edit Paper</h2>
-              <span className="idBadge" style={{ marginTop: "8px" }}>{editData.id}</span>
+              <span className="idBadge" style={{ marginTop: "8px" }}>
+                {editData.paperId}
+              </span>
             </div>
 
-            <div className="modalBody" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div
+              className="modalBody"
+              style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+            >
               {/* IMAGE */}
               <div>
                 <label className="formLabel">Paper Image URL</label>
@@ -380,8 +485,8 @@ console.log("SUCCESS:", res.data);
               <div>
                 <label className="formLabel">Paper Title</label>
                 <input
-                  name="title"
-                  value={editData.title || ""}
+                  name="paperTitle"
+                  value={editData.paperTitle}
                   onChange={handleChange}
                   placeholder="Paper Title"
                   className="publicationSearch"
@@ -404,22 +509,38 @@ console.log("SUCCESS:", res.data);
               <div>
                 <label className="formLabel">Assign Author</label>
                 <select
-                  value={editData.author?.id || ""}
-                  onChange={handleAuthorChange}
+                  required
+                  value={editData.authorId || ""}
+                  onChange={(e) => {
+                    const author = authors.find(
+                      (a) => a._id === e.target.value,
+                    );
+
+                    setEditData({
+                      ...editData,
+                      authorId: author._id,
+                      authorName: author.fullName,
+                      authorEmail: author.email,
+                    });
+                  }}
                   className="publicationSearch"
-                  style={{ width: "100%", appearance: "none" }}
                 >
-                  <option value="">Select Author</option>
-                  {authors.map((a, i) => (
-                    <option key={a.id} value={a.id}>
-                      {i + 1}. {a.name} ({a.id})
+                  <option value="">Choose Author...</option>
+
+                  {authors.map((author, index) => (
+                    <option key={author._id} value={author._id}>
+                      {index + 1}. {author.fullName} ({author.email})
                     </option>
                   ))}
                 </select>
               </div>
 
               {/* MODIFY BUTTON */}
-              <button className="viewBtn" onClick={handleModify} style={{ marginTop: "10px", width: "100%" }}>
+              <button
+                className="viewBtn"
+                onClick={handleModify}
+                style={{ marginTop: "10px", width: "100%" }}
+              >
                 Modify Paper
               </button>
             </div>
@@ -431,7 +552,10 @@ console.log("SUCCESS:", res.data);
       {isCreateOpen && (
         <div className="modalOverlay" onClick={() => setIsCreateOpen(false)}>
           <div className="modalContent" onClick={(e) => e.stopPropagation()}>
-            <button className="closeModalBtn" onClick={() => setIsCreateOpen(false)}>
+            <button
+              className="closeModalBtn"
+              onClick={() => setIsCreateOpen(false)}
+            >
               &times;
             </button>
 
@@ -439,8 +563,11 @@ console.log("SUCCESS:", res.data);
               <h2>Upload New Research Paper</h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="modalBody" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              
+            <form
+              onSubmit={handleSubmit}
+              className="modalBody"
+              style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+            >
               <div>
                 <label className="formLabel">Paper Title</label>
                 <input
@@ -465,7 +592,13 @@ console.log("SUCCESS:", res.data);
                 />
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "12px",
+                }}
+              >
                 <div>
                   <label className="formLabel">Tags (Comma Separated)</label>
                   <input
@@ -503,9 +636,9 @@ console.log("SUCCESS:", res.data);
                 <label className="formLabel">Select Author</label>
                 <select
                   required
-                  value={selectedAuthor?.id || ""}
+                 value={selectedAuthor?._id || ""}
                   onChange={(e) => {
-                    const found = authors.find(a => a.id === e.target.value);
+                    const found = authors.find((a) => a._id === e.target.value);
                     setSelectedAuthor(found || null);
                   }}
                   className="publicationSearch"
@@ -513,15 +646,17 @@ console.log("SUCCESS:", res.data);
                 >
                   <option value="">Choose Author...</option>
                   {authors.map((a, i) => (
-                    <option key={a.id} value={a.id}>
-                      {i + 1}. {a.name} ({a.id})
+                    <option key={a._id} value={a._id}>
+                      {i + 1} {a.fullName} ({a.email})
                     </option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label className="formLabel">Upload Paper Document (PDF / DOCX)</label>
+                <label className="formLabel">
+                  Upload Paper Document (PDF / DOCX)
+                </label>
                 <input
                   type="file"
                   required
@@ -530,14 +665,21 @@ console.log("SUCCESS:", res.data);
                 />
               </div>
 
-              <button type="submit" className="viewBtn" style={{ marginTop: "12px", width: "100%", background: "linear-gradient(135deg, #10b881, #059669)" }}>
+              <button
+                type="submit"
+                className="viewBtn"
+                style={{
+                  marginTop: "12px",
+                  width: "100%",
+                  background: "linear-gradient(135deg, #10b881, #059669)",
+                }}
+              >
                 Submit to Backend Server
               </button>
             </form>
           </div>
         </div>
       )}
-
     </div>
   );
 };
