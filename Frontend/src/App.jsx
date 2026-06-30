@@ -65,6 +65,19 @@ function App() {
           <Route path="/terms-and-conditions" element={<TermCondition />} />
           <Route path="/faq" element={<FaqSection />} />
           <Route path="/login" element={<LoginForm />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about-ijpasr" element={<AboutIJPSAR />} />
+          <Route path="/editorial-board" element={<EditorialBoard />} />
+          <Route
+            path="/indexing-abstracting"
+            element={<IndexingAbstracting />}
+          />
+          <Route path="/publication-ethics" element={<PublicationEthics />} />
+          <Route path="/peer-review-process" element={<PeerReview />} />
+          <Route path="/plagiarism-policy" element={<PlagiarismPolicy />} />
+          <Route path="/submit-manuscript" element={<SubmitManuscript />} />
+          <Route path="/author-guidelines" element={<AuthorGuidelines />} />
+          <Route path="/sample-article/:id" element={<ArticleDetails />} />
 
           <Route path="/submit-paper" element={<SubmitFrom />} />
 
