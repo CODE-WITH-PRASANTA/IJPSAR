@@ -20,18 +20,27 @@ const app = express();
 
 // Database Connection
 connectDB();
-      app.use(
-        cors({
-          origin: [
-            "http://localhost:5173",
-            "http://localhost:5174",
-            "http://localhost:5175",
-            "http://localhost:5176",
-            "http://localhost:5177",
-          ],
-          credentials: true,
-        })
-      );
+     app.use(
+  cors({
+    origin: [
+      // Local Development
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "http://localhost:5175",
+      "http://localhost:5176",
+      "http://localhost:5177",
+
+      // Production
+      "https://ijpasr.com",
+      "https://www.ijpasr.com",
+      "https://admin.ijpasr.com",
+      "https://author.ijpasr.com",
+      "https://editor.ijpasr.com",
+      "https://reviewer.ijpasr.com",
+    ],
+    credentials: true,
+  })
+);
       
       app.use(express.json({ limit: "50mb" }));
       
