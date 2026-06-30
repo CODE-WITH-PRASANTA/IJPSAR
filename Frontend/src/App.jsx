@@ -53,9 +53,9 @@ function App() {
         <Route path="/submit-manuscript" element={<SubmitManuscript />} />
         <Route path="/author-guidelines" element={<AuthorGuidelines />} />
        <Route
-  path="/sample-article/:id"
-  element={<ArticleDetails />}
-/>
+            path="/sample-article/:id"
+            element={<ArticleDetails />}
+          />
 
        <Route path="/authors" element={<Authors />} />
        <Route path="/contact" element={<Contact/>}/>

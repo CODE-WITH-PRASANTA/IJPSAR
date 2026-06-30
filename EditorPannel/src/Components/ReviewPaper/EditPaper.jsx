@@ -13,6 +13,7 @@ const EditPaper = () => {
     paperTitle: "",
     abstract: "",
     editorRemarks: "",
+    feedbackLink: "",
     status: "",
   });
 
@@ -36,6 +37,7 @@ const EditPaper = () => {
         paperTitle: data.paperTitle || "",
         abstract: data.abstract || "",
         editorRemarks: data.editorRemarks || "",
+        feedbackLink: data.feedbackLink || "",
         status: data.status || "",
       });
     } catch (err) {
@@ -249,6 +251,17 @@ const EditPaper = () => {
                 rows="5"
                 name="editorRemarks"
                 value={formData.editorRemarks}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="formGroup">
+              <label>Reference Link</label>
+
+              <input
+                type="url"
+                name="feedbackLink"
+                placeholder="https://drive.google.com/..."
+                value={formData.feedbackLink}
                 onChange={handleChange}
               />
             </div>
