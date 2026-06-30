@@ -125,6 +125,9 @@ exports.getEditorPapers = async (req, res) => {
   try {
     const papers = await SubmitForm.find({
       editorId: req.params.editorId,
+      status: {
+        $nin: ["Completed", "Published"],
+      },
     }).sort({
       createdAt: -1,
     });
@@ -479,30 +482,96 @@ exports.rejectPaper = async (req, res) => {
 };
 
 /* ================= PUBLISH PAPER ================= */
-
-exports.publishPaper = async (req, res) => {
+exports.completePaper = async (req, res) => {
   try {
-    const data = await SubmitForm.findByIdAndUpdate(
-      req.params.id,
-      {
-        status: "Published",
-      },
-      { new: true },
-    );
+    const paper = await SubmitForm.findById(req.params.id);
 
-    return res.status(200).json({
+    if (!paper) {
+      return res.status(404).json({
+        success: false,
+        message: "Paper not found",
+      });
+    }
+
+    paper.status = "Completed";
+    paper.completedAt = new Date();
+    paper.isPublished = false;
+
+    await paper.save();
+
+    return res.json({
       success: true,
-      message: "Paper Published",
-      data,
+      message: "Paper moved to Publication Management",
+      data: paper,
     });
-  } catch (error) {
+
+  } catch (err) {
     return res.status(500).json({
       success: false,
-      message: error.message,
+      message: err.message,
     });
   }
 };
+exports.publishPaper = async (req, res) => {
+  try {
+    const paper = await SubmitForm.findById(req.params.id);
 
+    if (!paper) {
+      return res.status(404).json({
+        success: false,
+        message: "Paper not found",
+      });
+    }
+
+    paper.status = "Published";
+    paper.isPublished = true;
+    paper.publishedAt = new Date();
+
+    await paper.save();
+
+    return res.json({
+      success: true,
+      message: "Paper Published Successfully",
+      data: paper,
+    });
+
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+exports.unPublishPaper = async (req, res) => {
+  try {
+    const paper = await SubmitForm.findById(req.params.id);
+
+    if (!paper) {
+      return res.status(404).json({
+        success: false,
+        message: "Paper not found",
+      });
+    }
+
+    paper.status = "Completed";
+    paper.isPublished = false;
+    paper.publishedAt = null;
+
+    await paper.save();
+
+    return res.json({
+      success: true,
+      message: "Paper Unpublished",
+      data: paper,
+    });
+
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
 /* ================= CHANGE STATUS ================= */
 
 exports.changeStatus = async (req, res) => {

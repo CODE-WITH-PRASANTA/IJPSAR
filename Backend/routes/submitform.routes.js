@@ -23,6 +23,8 @@ const {
   publishPaper,
   getEditorPapers,
   getUnassignedPapers,
+  completePaper,unPublishPaper 
+
 } = require("../controllers/submitform.controller");
 
 const authorAuth=require("../middlewares/author.middleware");
@@ -94,8 +96,11 @@ router.put("/accept/:id", acceptPaper);
 router.put("/reject/:id", rejectPaper);
 
 /* ================= PUBLISH PAPER ================= */
+router.put("/complete/:id", completePaper);
 
 router.put("/publish/:id", publishPaper);
+
+router.put("/unpublish/:id", unPublishPaper);
 
 /* ================= DELETE ================= */
 

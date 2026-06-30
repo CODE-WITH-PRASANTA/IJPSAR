@@ -209,24 +209,41 @@ const SubmitFormSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    /* ================= PUBLISH ================= */
+
+isPublished: {
+  type: Boolean,
+  default: false,
+},
+
+publishedAt: {
+  type: Date,
+  default: null,
+},
+
+completedAt: {
+  type: Date,
+  default: null,
+},
 
     /* ================= STATUS ================= */
 
     status: {
-      type: String,
-      enum: [
-        "Submitted",
-        "Editor Assigned",
-        "Editing",
-        "Reviewer Assigned",
-        "Review Pending",
-        "Revision Required",
-        "Accepted",
-        "Rejected",
-        "Published",
-      ],
-      default: "Submitted",
-    },
+  type: String,
+  enum: [
+    "Submitted",
+    "Editor Assigned",
+    "Editing",
+    "Reviewer Assigned",
+    "Review Pending",
+    "Revision Required",
+    "Accepted",
+    "Rejected",
+    "Completed",
+    "Published",
+  ],
+  default: "Submitted",
+},
   },
   {
     timestamps: true,
