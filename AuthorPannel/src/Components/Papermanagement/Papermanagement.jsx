@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Papermanagement = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState(7);
+ const [cardsPerPage, setCardsPerPage] = useState(2);
 
   const [paperData, setPaperData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,25 +35,24 @@ const Papermanagement = () => {
     }
   };
 
-  useEffect(() => {
-    const updateCardsPerPage = () => {
-      if (window.innerWidth <= 768) {
-        setCardsPerPage(3);
-      } else {
-        setCardsPerPage(7);
-      }
-    };
+ useEffect(() => {
+  const updateCardsPerPage = () => {
+    if (window.innerWidth <= 768) {
+      setCardsPerPage(1);
+    } else {
+      setCardsPerPage(2);
+    }
+  };
 
-    updateCardsPerPage();
+  updateCardsPerPage();
+  getAllPapers();
 
-    getAllPapers();
+  window.addEventListener("resize", updateCardsPerPage);
 
-    window.addEventListener("resize", updateCardsPerPage);
-
-    return () => {
-      window.removeEventListener("resize", updateCardsPerPage);
-    };
-  }, []);
+  return () => {
+    window.removeEventListener("resize", updateCardsPerPage);
+  };
+}, []);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this paper?")) return;
@@ -109,8 +108,37 @@ const Papermanagement = () => {
           <h2>Paper Management</h2>
           <p>Manage and review all submitted research papers.</p>
         </div>
+        <div className="paper-dashboard">
 
-        <div className="paper-management-grid">
+  <div className="dashboard-card total">
+    <h3>Total Papers</h3>
+    <h1>{paperData.length}</h1>
+  </div>
+
+  <div className="dashboard-card submitted">
+    <h3>Submitted</h3>
+    <h1>
+      {paperData.filter(item => item.status === "Submitted").length}
+    </h1>
+  </div>
+
+  <div className="dashboard-card revision">
+    <h3>Revision Required</h3>
+    <h1>
+      {paperData.filter(item => item.status === "Revision Required").length}
+    </h1>
+  </div>
+
+  <div className="dashboard-card accepted">
+    <h3>Accepted</h3>
+    <h1>
+      {paperData.filter(item => item.status === "Accepted").length}
+    </h1>
+  </div>
+
+</div>
+
+      <div className="paper-management-grid two-column">
           {currentCards.map((paper) => {
             const feedbacks = [...(paper.feedbackHistory || [])].reverse();
             const latestFeedback = feedbacks[0];
@@ -184,13 +212,27 @@ const Papermanagement = () => {
 
                   <p>{paper.paperId}</p>
                 </div>
+<div className="paper-meta">
 
-                <div className="paper-version">
-                  <strong>Current Version :</strong> V{paper.version}
-                </div>
-                <div className="paper-status-box">
-                  <strong>Current Status :</strong> {paper.status}
-                </div>
+<div className="meta-card version">
+
+<span>Version</span>
+
+<h4>V{paper.version}</h4>
+
+</div>
+
+<div
+className={`meta-card status ${paper.status.replace(/\s+/g,"-").toLowerCase()}`}
+>
+
+<span>Status</span>
+
+<h4>{paper.status}</h4>
+
+</div>
+
+</div>
                 {/* Feedback */}
                 <div className="paper-feedback">
                   <h3 className="feedback-heading">📝 Editor Feedback</h3>
@@ -267,30 +309,47 @@ const Papermanagement = () => {
         </div>
 
         {/* Pagination */}
-        {window.innerWidth <= 768 && (
+       
           <div className="paper-pagination">
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(currentPage - 1)}
-            >
-              Previous
-            </button>
 
-            <span>
-              {currentPage} / {totalPages}
-            </span>
+<button
+disabled={currentPage===1}
+onClick={()=>setCurrentPage(currentPage-1)}
+>
+Previous
+</button>
 
-            <button
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(currentPage + 1)}
-            >
-              Next
-            </button>
-          </div>
-        )}
-      </div>
-    </section>
+{
+Array.from({length:totalPages},(_,index)=>(
+<button
+key={index}
+className={
+currentPage===index+1
+?
+"page-number active"
+:
+"page-number"
+}
+onClick={()=>setCurrentPage(index+1)}
+>
+{index+1}
+</button>
+))
+}
+
+<button
+disabled={currentPage===totalPages}
+onClick={()=>setCurrentPage(currentPage+1)}
+>
+Next
+</button>
+
+</div>
+
+</div>
+</section>
   );
 };
+
 
 export default Papermanagement;

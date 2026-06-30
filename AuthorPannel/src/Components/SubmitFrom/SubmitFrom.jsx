@@ -420,7 +420,7 @@ const SubmitFrom = () => {
           <h1 className="panel-main-heading">Paper Submission Portal</h1>
           {isEdit && latestFeedback && (
             <div className="editor-feedback-box">
-              <h3>📝 Editor Feedback</h3>
+              <h3> Editor Feedback</h3>
 
               <p>{latestFeedback.remark}</p>
 
