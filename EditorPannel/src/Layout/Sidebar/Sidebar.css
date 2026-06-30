@@ -137,11 +137,9 @@
 }
 
 .sidebarItem.active {
-  background: linear-gradient(
-    135deg,
-    #14b8a6,
-    #0891b2
-  );
+  background: linear-gradient(135deg,
+      #14b8a6,
+      #0891b2);
 
   color: #ffffff;
 
@@ -223,11 +221,9 @@
 
   border-radius: 16px;
 
-  background: linear-gradient(
-    135deg,
-    #ecfeff,
-    #f0fdfa
-  );
+  background: linear-gradient(135deg,
+      #ecfeff,
+      #f0fdfa);
 
   border: 1px solid #ccfbf1;
 }
@@ -274,11 +270,9 @@
 
   border-radius: 14px;
 
-  background: linear-gradient(
-    135deg,
-    #14b8a6,
-    #0891b2
-  );
+  background: linear-gradient(135deg,
+      #14b8a6,
+      #0891b2);
 
   color: white;
 }
@@ -338,6 +332,68 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
   z-index: 999;
+}
+
+
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarMenu {
+  flex: 1;
+}
+
+.sidebarBottom {
+  margin-top: auto;
+  border-top: 1px solid #e5e7eb;
+  padding: 18px;
+}
+
+.sidebarUser {
+  margin-bottom: 15px;
+}
+
+.sidebarUserName {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.sidebarUserEmail {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 3px;
+  word-break: break-all;
+}
+
+.sidebarLogout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #ef4444;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  transition: .3s;
+}
+
+.sidebarLogout:hover {
+  background: #dc2626;
+}
+
+.sidebarCollapsed .sidebarBottom {
+  padding: 10px;
+}
+
+.sidebarCollapsed .sidebarLogout {
+  padding: 12px 0;
 }
 
 /* ===========================

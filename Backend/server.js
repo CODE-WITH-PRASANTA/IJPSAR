@@ -20,10 +20,6 @@ const app = express();
 
 // Database Connection
 connectDB();
-
-
-      
-      
       app.use(
         cors({
           origin: [

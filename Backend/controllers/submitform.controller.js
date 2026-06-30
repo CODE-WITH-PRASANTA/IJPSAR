@@ -218,13 +218,15 @@ exports.updateSubmission = async (req, res) => {
       submission.feedbackHistory.push({
         version: submission.version,
         remark: req.body.editorRemarks,
+        link: req.body.feedbackLink,
         status: req.body.status,
-        editorId: req.editor.id,          // From editorAuth middleware
+        editorId: submission.editorId,
         editorName: submission.editorName,
       });
 
       // Update current remark
       submission.editorRemarks = req.body.editorRemarks;
+      submission.feedbackLink = req.body.feedbackLink;
     }
 
     await submission.save();

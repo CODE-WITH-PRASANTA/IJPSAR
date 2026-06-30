@@ -13,6 +13,7 @@ const Papermanagement = () => {
   const navigate = useNavigate();
 
   const [openMenu, setOpenMenu] = useState(null);
+  const [showHistory, setShowHistory] = useState({});
 
   const getAllPapers = async () => {
     try {
@@ -111,7 +112,8 @@ const Papermanagement = () => {
 
         <div className="paper-management-grid">
           {currentCards.map((paper) => {
-            const latestFeedback = getLatestFeedback(paper);
+            const feedbacks = [...(paper.feedbackHistory || [])].reverse();
+            const latestFeedback = feedbacks[0];
 
             return (
               <div className="paper-card" key={paper._id}>
@@ -190,51 +192,49 @@ const Papermanagement = () => {
                   <strong>Current Status :</strong> {paper.status}
                 </div>
                 {/* Feedback */}
-
                 <div className="paper-feedback">
-                  <div className="feedback-header">
-                    <strong>Latest Editor Feedback</strong>
+                  <h3 className="feedback-heading">📝 Editor Feedback</h3>
 
-                    <span
-                      className={`feedback-status ${paper.status
-                        .toLowerCase()
-                        .replace(/\s/g, "-")}`}
-                    >
-                      {paper.status}
-                    </span>
-                  </div>
-
-                  {latestFeedback ? (
-                    <>
-                      <div className="feedback-box">
-                        <p className="feedback-text">{latestFeedback.remark}</p>
-                      </div>
-
-                      <p className="feedback-editor">
-                        👤 {latestFeedback.editorName}
-                        <p className="feedback-count">
-                          Total Feedbacks : {paper.feedbackHistory.length}
-                        </p>
-                      </p>
-
-                      <div className="feedback-footer">
-                        <span>Version {latestFeedback.version}</span>
-                        <span>
-                          {new Date(latestFeedback.createdAt).toLocaleString()}
-                        </span>
-                      </div>
-
-                      {paper.feedbackHistory.length > 1 && (
-                        <button
-                          className="history-btn"
-                          onClick={() =>
-                            navigate(`/paper-feedback/${paper._id}`)
-                          }
+                  {feedbacks.length > 0 ? (
+                    <div className="feedback-scroll-box">
+                      {feedbacks.map((item, index) => (
+                        <div
+                          key={index}
+                          className={`feedback-item ${
+                            index === 0 ? "current-feedback" : ""
+                          }`}
                         >
-                          View Feedback History
-                        </button>
-                      )}
-                    </>
+                          <div className="feedback-top">
+                            <span>Version {item.version}</span>
+
+                            <span className="feedback-status">
+                              {item.status}
+                            </span>
+                          </div>
+
+                          <p className="feedback-text">{item.remark}</p>
+
+                          {item.link && (
+                            <a
+                              href={item.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="feedback-link"
+                            >
+                              📎 Open Reference Link
+                            </a>
+                          )}
+
+                          <div className="feedback-footer">
+                            <span>👤 {item.editorName}</span>
+
+                            <span>
+                              {new Date(item.createdAt).toLocaleString()}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   ) : (
                     <p className="no-feedback">No feedback from editor yet.</p>
                   )}
