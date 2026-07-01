@@ -1,152 +1,649 @@
-.SalesTime {
-  width: 100%;
+/* ==========================================================================
+   DESIGN SYSTEM TOKENS & VARIABLES
+   ========================================================================== */
+:root {
+  --st-bg-main: #f8fafc;
+  --st-bg-card: #ffffff;
+  --st-border: #e2e8f0;
+  --st-text-main: #0f172a;
+  --st-text-muted: #64748b;
+  --st-primary: #4f46e5;
+  --st-primary-hover: #4338ca;
+  --st-primary-soft: rgba(79, 70, 229, 0.06);
+  --st-star: #fbbf24;
+  --st-danger: #ef4444;
+  --st-danger-soft: #fef2f2;
+  --st-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --st-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --st-radius-lg: 16px;
+  --st-radius-md: 10px;
+  --st-radius-sm: 6px;
 }
 
-.SalesTime-card {
-  width: 100%;
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 28px;
+/* ==========================================================================
+   LAYOUT STRUCTURE
+   ========================================================================== */
+.SalesTime_Wrapper {
+  background-color: var(--st-bg-main);
+ 
+  padding: 2rem 1.5rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   box-sizing: border-box;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
 }
 
-.SalesTime-header {
+.SalesTime_Wrapper *,
+.SalesTime_Wrapper *::before,
+.SalesTime_Wrapper *::after {
+  box-sizing: border-box;
+}
+
+.SalesTime_DashboardContainer {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+.SalesTime_PrimaryColumn,
+.SalesTime_SecondaryColumn {
+  min-width: 0; /* allow grid children to shrink instead of overflowing */
+}
+
+/* Base Component Cards */
+.SalesTime_ManagementCard {
+  background-color: var(--st-bg-card);
+  border: 1px solid var(--st-border);
+  border-radius: var(--st-radius-lg);
+  box-shadow: var(--st-shadow-md);
+  padding: 1.5rem;
+  width: 100%;
+}
+
+/* ==========================================================================
+   LEFT PANEL (TEAMS MANAGEMENT PANEL)
+   ========================================================================== */
+.SalesTime_PanelHeader {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
-.SalesTime-title {
+.SalesTime_PanelTitle {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--st-text-main);
+  margin: 0 0 0.35rem 0;
+}
+
+.SalesTime_PanelSubtitle {
+  font-size: 0.875rem;
+  color: var(--st-text-muted);
   margin: 0;
-  font-size: 34px;
-  font-weight: 600;
-  color: #1f2937;
 }
 
-.SalesTime-subtitle {
-  margin-top: 8px;
-  color: #9aa5b5;
-  font-size: 18px;
-  font-weight: 400;
+/* Search Bar Box */
+.SalesTime_SearchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 280px;
 }
 
-.SalesTime-menuBtn {
-  width: 42px;
-  height: 42px;
-  border: none;
+.SalesTime_SearchIcon {
+  position: absolute;
+  left: 14px;
+  color: var(--st-text-muted);
+  font-size: 0.875rem;
+  pointer-events: none;
+}
+
+.SalesTime_SearchField {
+  width: 100%;
+  padding: 10px 12px 10px 40px;
+  border: 1px solid var(--st-border);
+  border-radius: var(--st-radius-md);
+  font-size: 0.875rem;
+  color: var(--st-text-main);
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.SalesTime_SearchField:focus {
   outline: none;
+  border-color: var(--st-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Responsive Table System */
+.SalesTime_TableResponsiveWrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--st-border);
+  border-radius: var(--st-radius-md);
+  -webkit-overflow-scrolling: touch;
+}
+
+.SalesTime_DataTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 620px; /* keeps columns legible until the card breakpoint kicks in */
+}
+
+.SalesTime_TableTh {
+  background-color: #f8fafc;
+  padding: 14px 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--st-text-muted);
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--st-border);
+  white-space: nowrap;
+}
+
+.SalesTime_TableTd {
+  padding: 14px 16px;
+  font-size: 0.875rem;
+  color: var(--st-text-main);
+  border-bottom: 1px solid var(--st-border);
+  vertical-align: middle;
+}
+
+.SalesTime_TableBodyRow:last-child .SalesTime_TableTd {
+  border-bottom: none;
+}
+
+.SalesTime_TableBodyRow:hover {
+  background-color: #fafafa;
+}
+
+.SalesTime_TableBodyRow.Selected {
+  background-color: var(--st-primary-soft);
+}
+
+.SalesTime_EmptyState {
+  text-align: center;
+  color: var(--st-text-muted);
+  padding: 32px 16px;
+  font-size: 0.875rem;
+}
+
+/* Utility cell sizes */
+.CheckboxCell {
+  width: 48px;
+  text-align: center;
+  padding-right: 0;
+}
+
+.SalesTime_HeaderCheckbox,
+.SalesTime_RowCheckbox {
+  accent-color: var(--st-primary);
   cursor: pointer;
-  border-radius: 10px;
-  background: #eef9f7;
-  color: #1da7a1;
+  width: 15px;
+  height: 15px;
+}
+
+/* Team Profile Metadata Column */
+.SalesTime_TeamProfile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.SalesTime_TeamName {
+  font-size: 0.938rem;
+  font-weight: 600;
+  color: var(--st-text-main);
+  margin: 0;
+}
+
+.SalesTime_TeamDescription {
+  font-size: 0.813rem;
+  color: var(--st-text-muted);
+}
+
+/* Rating Sub-Element */
+.SalesTime_RatingStarsGroup {
+  display: flex;
+  gap: 3px;
+}
+
+.SalesTime_StarIcon {
+  font-size: 0.875rem;
+}
+
+.SalesTime_StarIcon.Filled {
+  color: var(--st-star);
+}
+
+.SalesTime_StarIcon.Empty {
+  color: #cbd5e1;
+}
+
+.SalesTime_DateValue {
+  color: #475569;
+  font-weight: 500;
+}
+
+/* Member Avatar Overlapping Stacks */
+.SalesTime_AvatarGroupStack {
+  display: flex;
+  align-items: center;
+}
+
+.SalesTime_UserBadgeAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-right: -8px;
+  box-shadow: var(--st-shadow-sm);
+  transition: transform 0.2s;
   flex-shrink: 0;
 }
 
-.SalesTime-chart {
-  width: 100%;
-  height: 420px;
-  margin-top: 20px;
+.SalesTime_UserBadgeAvatar:hover {
+  transform: translateY(-3px);
+  z-index: 10;
 }
 
-.SalesTime-legend {
+/* Table Management Footer */
+.SalesTime_PanelFooter {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
+  justify-content: space-between;
+  margin-top: 1.25rem;
   flex-wrap: wrap;
-  margin-top: 12px;
+  gap: 1rem;
 }
 
-.SalesTime-legendItem {
+.SalesTime_RowsPerPageSelector {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #8a94a6;
-  font-size: 18px;
 }
 
-.SalesTime-saving,
-.SalesTime-expense,
-.SalesTime-income {
-  width: 18px;
-  height: 3px;
-  border-radius: 50px;
+.SalesTime_FooterText {
+  font-size: 0.813rem;
+  color: var(--st-text-muted);
 }
 
-.SalesTime-saving {
-  background: #178b52;
+.SalesTime_PageDropdown {
+  padding: 6px 10px;
+  border: 1px solid var(--st-border);
+  border-radius: var(--st-radius-sm);
+  background-color: #ffffff;
+  font-size: 0.813rem;
+  color: var(--st-text-main);
+  cursor: pointer;
 }
 
-.SalesTime-expense {
-  background: #ef3e4a;
+.SalesTime_PaginationControlGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.SalesTime-income {
-  background: #1da7a1;
+.SalesTime_PaginationStatus {
+  font-size: 0.813rem;
+  color: var(--st-text-muted);
+  white-space: nowrap;
 }
 
-@media (max-width: 992px) {
-  .SalesTime-card {
-    padding: 22px;
-  }
+.SalesTime_PaginationBtnStack {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
 
-  .SalesTime-title {
-    font-size: 28px;
-  }
+.SalesTime_PaginationNavBtn,
+.SalesTime_PaginationNumberBtn {
+  background-color: #ffffff;
+  border: 1px solid var(--st-border);
+  border-radius: var(--st-radius-sm);
+  height: 32px;
+  min-width: 32px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.813rem;
+  font-weight: 500;
+  color: var(--st-text-main);
+  cursor: pointer;
+  transition: all 0.2s;
+}
 
-  .SalesTime-subtitle {
-    font-size: 15px;
-  }
+.SalesTime_PaginationNavBtn:hover,
+.SalesTime_PaginationNumberBtn:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
 
-  .SalesTime-chart {
-    height: 360px;
+.SalesTime_PaginationNavBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background-color: #ffffff;
+  border-color: var(--st-border);
+}
+
+.SalesTime_PaginationNumberBtn.Active {
+  background-color: var(--st-primary);
+  color: #ffffff;
+  border-color: var(--st-primary);
+}
+
+/* ==========================================================================
+   RIGHT PANEL (SECONDARY SIDEBAR BLOCK DIRECTORY)
+   ========================================================================== */
+.SalesTime_SidebarCardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+
+.SalesTime_SidebarCardTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--st-text-main);
+  margin: 0 0 0.35rem 0;
+}
+
+.SalesTime_SidebarCardDescription {
+  font-size: 0.813rem;
+  color: var(--st-text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.SalesTime_CounterBadge {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+/* Form Actions Row inside the Sidebar Card */
+.SalesTime_ActionInputGroup {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.SalesTime_FormInputField {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--st-border);
+  border-radius: var(--st-radius-md);
+  font-size: 0.875rem;
+  color: var(--st-text-main);
+}
+
+.SalesTime_FormInputField:focus {
+  outline: none;
+  border-color: var(--st-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.SalesTime_FormSubmitBtn {
+  background-color: var(--st-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--st-radius-md);
+  padding: 0 14px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.SalesTime_FormSubmitBtn:hover {
+  background-color: var(--st-primary-hover);
+}
+
+.SalesTime_FormSubmitBtn:disabled {
+  background-color: #a5b4fc;
+  cursor: not-allowed;
+}
+
+/* Directory Listing Containers */
+.SalesTime_UserDirectoryList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.SalesTime_EmptyDirectory {
+  text-align: center;
+  color: var(--st-text-muted);
+  font-size: 0.875rem;
+  padding: 24px 8px;
+  margin: 0;
+}
+
+.SalesTime_UserDirectoryCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--st-border);
+  border-radius: var(--st-radius-md);
+  background-color: #ffffff;
+}
+
+.SalesTime_UserDirectoryMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.SalesTime_DirectoryAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #e2e8f0;
+  color: var(--st-text-main);
+  font-weight: 700;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.SalesTime_DirectoryInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.SalesTime_DirectoryName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--st-text-main);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.SalesTime_DirectorySubtext {
+  font-size: 0.75rem;
+  color: var(--st-text-muted);
+}
+
+.SalesTime_DirectoryDeleteAction {
+  background: transparent;
+  border: none;
+  color: var(--st-danger);
+  cursor: pointer;
+  padding: 6px;
+  font-size: 0.875rem;
+  border-radius: var(--st-radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.SalesTime_DirectoryDeleteAction:hover {
+  background-color: var(--st-danger-soft);
+}
+
+/* ==========================================================================
+   DYNAMIC MEDIA QUERIES (RESPONSIVE SYSTEM)
+   ========================================================================== */
+
+/* Tablet: stack the two columns */
+@media (max-width: 1024px) {
+  .SalesTime_DashboardContainer {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
-@media (max-width: 768px) {
-  .SalesTime-card {
-    padding: 18px;
+/* Small tablet / large phone: tighten spacing */
+@media (max-width: 640px) {
+  .SalesTime_Wrapper {
+    padding: 1.25rem 0.75rem;
   }
 
-  .SalesTime-title {
-    font-size: 22px;
+  .SalesTime_ManagementCard {
+    padding: 1rem;
   }
 
-  .SalesTime-subtitle {
-    font-size: 14px;
+  .SalesTime_PanelHeader {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .SalesTime-chart {
-    height: 300px;
+  .SalesTime_SearchContainer {
+    width: 100%;
+    min-width: auto;
   }
 
-  .SalesTime-legendItem {
-    font-size: 14px;
+  .SalesTime_ActionInputGroup {
+    flex-direction: column;
+  }
+
+  .SalesTime_FormSubmitBtn {
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .SalesTime_PanelFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .SalesTime_PaginationControlGroup {
+    width: 100%;
+    justify-content: space-between;
   }
 }
 
-@media (max-width: 480px) {
-  .SalesTime-title {
-    font-size: 18px;
+/* Mobile: turn the table into a stacked card list instead of horizontal-scrolling */
+@media (max-width: 560px) {
+  .SalesTime_TableResponsiveWrapper {
+    border: none;
+    overflow: visible;
   }
 
-  .SalesTime-subtitle {
-    font-size: 12px;
+  .SalesTime_DataTable {
+    min-width: 0;
   }
 
-  .SalesTime-chart {
-    height: 250px;
+  .SalesTime_DataTable thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap; /* accessible-hide instead of display:none, keeps headers for screen readers */
   }
 
-  .SalesTime-menuBtn {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
+  .SalesTime_DataTable,
+  .SalesTime_DataTable tbody,
+  .SalesTime_DataTable tr,
+  .SalesTime_DataTable td {
+    display: block;
+    width: 100%;
+  }
+
+  .SalesTime_TableBodyRow {
+    position: relative;
+    border: 1px solid var(--st-border);
+    border-radius: var(--st-radius-md);
+    margin-bottom: 12px;
+    padding: 12px 12px 12px 44px;
+    background-color: #ffffff;
+  }
+
+  .SalesTime_TableBodyRow.Selected {
+    border-color: var(--st-primary);
+  }
+
+  .SalesTime_TableTd {
+    border-bottom: none;
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .SalesTime_TableTd[data-label]:not([data-label=""])::before {
+    content: attr(data-label);
+    font-size: 0.688rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--st-text-muted);
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .SalesTime_TableTd.CheckboxCell {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 0;
+    width: auto;
+  }
+
+  .SalesTime_TeamProfile {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .SalesTime_AvatarGroupStack {
+    justify-content: flex-end;
   }
 }

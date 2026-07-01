@@ -1,16 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap");
+
 .latestOrders {
   width: 100%;
-  padding-top: 20px;
-  background: #f5f6fa;
+
+  background: #f3f1ea;
   min-height: 100vh;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .ordersCard {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
+  border: 1px solid #e8e4d9;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 40px rgba(20, 33, 61, 0.06);
 }
 
 /* Header */
@@ -18,14 +21,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 22px;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 24px 28px;
+  background: linear-gradient(135deg, #14213d 0%, #1c2b4d 100%);
+  border-bottom: 1px solid #e8e4d9;
+}
+
+.headerText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.eyebrow {
+  color: #c89b3c;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .cardHeader h3 {
-  color: #111827;
-  font-size: 20px;
-  font-weight: 700;
+  color: #f7f5ef;
+  font-family: "Fraunces", "Georgia", serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 /* Menu */
@@ -34,30 +54,37 @@
 }
 
 .menuBtn {
-  background: transparent;
-  border: none;
-  color: #555;
-  font-size: 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: #f7f5ef;
+  font-size: 19px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 
 .menuBtn:hover {
-  color: #7c3aed;
-  transform: rotate(90deg);
+  background: #c89b3c;
+  border-color: #c89b3c;
+  color: #14213d;
 }
 
 .dropdownMenu {
   position: absolute;
-  top: 42px;
+  top: 46px;
   right: 0;
   width: 190px;
   background: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e8e4d9;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-  animation: fadeDown 0.3s ease;
+  box-shadow: 0 14px 32px rgba(20, 33, 61, 0.18);
+  animation: fadeDown 0.25s ease;
   z-index: 100;
 }
 
@@ -65,23 +92,24 @@
   width: 100%;
   border: none;
   background: white;
-  padding: 14px 18px;
+  padding: 13px 18px;
   text-align: left;
   color: #333;
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .dropdownMenu button:hover {
-  background: #7c3aed;
-  color: white;
+  background: #f3f1ea;
+  color: #14213d;
 }
 
 @keyframes fadeDown {
   from {
     opacity: 0;
-    transform: translateY(-12px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -103,18 +131,18 @@
 }
 
 .tableWrapper::-webkit-scrollbar-thumb {
-  background: #c7c7c7;
+  background: #d8d3c4;
   border-radius: 20px;
 }
 
 table {
   width: 100%;
-  min-width: 950px;
+  min-width: 1050px;
   border-collapse: collapse;
 }
 
 thead {
-  background: #f8fafc;
+  background: #faf9f5;
   position: sticky;
   top: 0;
   z-index: 5;
@@ -122,63 +150,161 @@ thead {
 
 th,
 td {
-  padding: 18px;
+  padding: 17px 18px;
   text-align: left;
 }
 
 th {
-  color: #6b7280;
-  font-weight: 600;
+  color: #6b6355;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: 0.3s;
-  border-bottom: 1px solid #e5e7eb;
+  user-select: none;
+  transition: 0.2s;
+  border-bottom: 2px solid #ece8dc;
+  white-space: nowrap;
 }
 
 th:hover {
-  color: #7c3aed;
+  color: #c89b3c;
+}
+
+.sortArrow {
+  color: #c89b3c;
+  margin-left: 2px;
+}
+
+.colSl {
+  width: 70px;
+  color: #a39c8a;
+  font-weight: 600;
+  cursor: default;
 }
 
 tbody tr {
-  border-bottom: 1px solid #f0f0f0;
-  transition: 0.3s ease;
+  border-bottom: 1px solid #f1eee5;
+  transition: background 0.2s ease;
 }
 
 tbody tr:hover {
-  background: rgba(124, 58, 237, 0.05);
+  background: #faf8f2;
 }
 
 td {
-  color: #111827;
-  font-size: 14px;
+  color: #23282f;
+  font-size: 14.5px;
 }
 
-/* Status */
+.editorCell {
+  font-weight: 600;
+  color: #14213d;
+}
+
+.paperIdCell {
+  font-family: "Inter", monospace;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #6b6355;
+}
+
+/* Status pills */
 .status {
   padding: 6px 14px;
   border-radius: 30px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   display: inline-block;
 }
 
-.paid {
-  background: rgba(99, 102, 241, 0.12);
-  color: #4f46e5;
+.status.completed {
+  background: rgba(22, 163, 74, 0.1);
+  color: #158a48;
 }
 
-.pending {
-  background: rgba(255, 193, 7, 0.12);
-  color: #f59e0b;
+.status.in-review {
+  background: rgba(201, 155, 60, 0.14);
+  color: #a67a1e;
 }
 
-.fulfilled {
-  background: rgba(34, 197, 94, 0.12);
-  color: #16a34a;
+.status.revision {
+  background: rgba(230, 126, 34, 0.14);
+  color: #c15c0f;
 }
 
-.cancelled {
-  background: rgba(239, 68, 68, 0.12);
-  color: #dc2626;
+.status.rejected {
+  background: rgba(220, 38, 38, 0.1);
+  color: #c62828;
+}
+
+/* Feedback labels */
+.feedback {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.feedback.excellent {
+  color: #158a48;
+}
+
+.feedback.good {
+  color: #2563a8;
+}
+
+.feedback.satisfactory {
+  color: #8a7a15;
+}
+
+.feedback.needs-revision {
+  color: #c15c0f;
+}
+
+.feedback.pending {
+  color: #a39c8a;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.feedback.not-suitable {
+  color: #c62828;
+}
+
+/* Action */
+.colAction {
+  width: 150px;
+}
+
+.completedBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 9px 16px;
+  border-radius: 9px;
+  border: 1.5px solid #14213d;
+  background: transparent;
+  color: #14213d;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.completedBtn:hover {
+  background: #14213d;
+  color: #f7f5ef;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(20, 33, 61, 0.25);
+}
+
+.completedBtn svg {
+  transition: transform 0.25s ease;
+}
+
+.completedBtn:hover svg {
+  transform: translateX(2px);
 }
 
 /* Pagination */
@@ -186,58 +312,67 @@ td {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 22px;
-  border-top: 1px solid #e5e7eb;
+  padding: 20px 28px;
+  border-top: 1px solid #ece8dc;
   flex-wrap: wrap;
   gap: 15px;
+  background: #faf9f5;
 }
 
 .itemsPerPage {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #374151;
+  color: #6b6355;
+  font-size: 13.5px;
+  font-weight: 500;
 }
 
 .itemsPerPage select {
-  padding: 10px 16px;
-  border-radius: 10px;
-  border: 2px solid #7c3aed;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #d8d3c4;
   background: white;
-  color: #333;
+  color: #23282f;
+  font-weight: 600;
   outline: none;
   cursor: pointer;
+}
+
+.itemsPerPage select:focus {
+  border-color: #c89b3c;
 }
 
 .pageControls {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #374151;
+  color: #6b6355;
+  font-size: 13.5px;
+  font-weight: 600;
 }
 
 .pageControls button {
-  width: 38px;
-  height: 38px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(
-    135deg,
-    #8b5cf6,
-    #7c3aed
-  );
-  color: white;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #d8d3c4;
+  border-radius: 9px;
+  background: white;
+  color: #14213d;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 
-.pageControls button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
+.pageControls button:hover:not(:disabled) {
+  background: #14213d;
+  border-color: #14213d;
+  color: #f7f5ef;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(20, 33, 61, 0.22);
 }
 
 .pageControls button:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
@@ -255,11 +390,11 @@ td {
   }
 
   .cardHeader {
-    padding: 14px;
+    padding: 16px;
   }
 
   .cardHeader h3 {
-    font-size: 17px;
+    font-size: 19px;
   }
 
   th,
@@ -281,11 +416,11 @@ td {
 
 @media (max-width: 480px) {
   .cardHeader {
-    padding: 12px;
+    padding: 12px 14px;
   }
 
   .cardHeader h3 {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .pagination {
