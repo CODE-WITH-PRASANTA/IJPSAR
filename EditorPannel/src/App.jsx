@@ -10,6 +10,7 @@ import PaperManagement from "./Components/PaperManagement/PaperManagement";
 import ReviewPaper from "./Components/ReviewPaper/ReviewPaper";
 import EditPaper from "./Components/ReviewPaper/EditPaper";
 import ProfileManagement from "./Components/ProfileManagement/ProfileManagement";
+import Publication from "./Pages/Publication/Publication";
 
 function App() {
   return (
@@ -55,6 +56,10 @@ function App() {
             <Route
               path="editor-profile"
               element={<ProfileManagement />}
+            />
+             <Route
+              path="/publication"
+              element={<Publication/>}
             />
 
           </Route>

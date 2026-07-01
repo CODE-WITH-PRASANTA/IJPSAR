@@ -60,87 +60,111 @@ const ReviewPaper = () => {
       </div>
 
       {loading ? (
-        <div className="loading">Loading...</div>
-      ) : papers.length === 0 ? (
-        <div className="emptyBox">No Papers Assigned</div>
-      ) : (
-        <div className="reviewTableWrapper">
-          <table className="reviewTable">
-            <thead>
-              <tr>
-                <th>Paper ID</th>
-                <th>Title</th>
-                <th>Research Area</th>
-                <th>Status</th>
-                <th>File</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {papers.map((paper) => (
-                <tr key={paper._id}>
-                  <td>{paper.paperId}</td>
-
-                  <td>{paper.paperTitle}</td>
-
-                  <td>{paper.researchArea}</td>
-
-                  <td>
-                    <span
-                      className={`status ${paper.status
-                        .replace(/\s+/g, "")
-                        .toLowerCase()}`}
-                    >
-                      {paper.status}
-                    </span>
-                  </td>
-
-                  <td>
-                    <button
-                      className="viewBtn"
-                      onClick={() =>
-                        window.open(`${BASE_URL}${paper.paperFile}`, "_blank")
-                      }
-                    >
-                      View
-                    </button>
-                  </td>
-
-                  <td>
-                    <button
-                      className="editBtn"
-                      onClick={() => navigate(`/edit-paper/${paper._id}`)}
-                    >
-                      Edit Paper
-                    </button>
-
-                    {/* <button
-                      className="approveBtn"
-                      onClick={() => updateStatus(paper._id, "Accepted")}
-                    >
-                      Accept
-                    </button>
-
-                    <button
-                      className="rejectBtn"
-                      onClick={() => updateStatus(paper._id, "Rejected")}
-                    >
-                      Reject
-                    </button> */}
-
-                    <button
-                      className="completeBtn"
-                      onClick={() => completePaper(paper._id)}
-                    >
-                      Complete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="loading">
+          <div className="spinner" />
+          <span>Loading papers...</span>
         </div>
+      ) : papers.length === 0 ? (
+        <div className="emptyBox">
+          <div className="emptyIcon">📄</div>
+          <h3>No Papers Assigned</h3>
+          <p>Papers assigned to you for review will show up here.</p>
+        </div>
+      ) : (
+        <>
+          {/* Table layout - visible on tablet/desktop */}
+          <div className="reviewTableWrapper">
+            <table className="reviewTable">
+              <thead>
+                <tr>
+                  <th>Paper ID</th>
+                  <th>Title</th>
+                  <th>Research Area</th>
+                  <th>Status</th>
+                  <th>File</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {papers.map((paper) => (
+                  <tr key={paper._id}>
+                    <td data-label="Paper ID">
+                      <span className="paperIdTag">{paper.paperId}</span>
+                    </td>
+
+                    <td data-label="Title" className="titleCell">
+                      {paper.paperTitle}
+                    </td>
+
+                    <td data-label="Research Area">{paper.researchArea}</td>
+
+                    <td data-label="Status">
+                      <span
+                        className={`status ${paper.status
+                          .replace(/\s+/g, "")
+                          .toLowerCase()}`}
+                      >
+                        {paper.status}
+                      </span>
+                    </td>
+
+                    <td data-label="File">
+                      <button
+                        type="button"
+                        className="viewBtn"
+                        onClick={() =>
+                          window.open(
+                            `${BASE_URL}${paper.paperFile}`,
+                            "_blank"
+                          )
+                        }
+                      >
+                        View
+                      </button>
+                    </td>
+
+                    <td data-label="Actions">
+                      <div className="actionGroup">
+                        <button
+                          type="button"
+                          className="editBtn"
+                          onClick={() =>
+                            navigate(`/edit-paper/${paper._id}`)
+                          }
+                        >
+                          Edit Paper
+                        </button>
+
+                        {/* <button
+                          className="approveBtn"
+                          onClick={() => updateStatus(paper._id, "Accepted")}
+                        >
+                          Accept
+                        </button>
+
+                        <button
+                          className="rejectBtn"
+                          onClick={() => updateStatus(paper._id, "Rejected")}
+                        >
+                          Reject
+                        </button> */}
+
+                        <button
+                          type="button"
+                          className="completeBtn"
+                          onClick={() => completePaper(paper._id)}
+                        >
+                          Complete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );
