@@ -1,32 +1,39 @@
 import React from "react";
-import {
-  FaCamera,
-  FaCheckCircle,
-} from "react-icons/fa";
-
+import { FaCamera, FaCheckCircle } from "react-icons/fa";
+import { IMG_URL } from "../../API/axios";
 import "./SettingProfile.css";
-
-const SettingProfile = () => {
+// if (!editor) {
+//   return <h2>Loading...</h2>;
+// }
+const SettingProfile = ({ editor }) => {
   return (
     <div className="SettingProfile">
       <div className="SettingProfile-container">
         <div className="SettingProfile-card">
-
           <div className="SettingProfile-header">
             <h2>Profile</h2>
           </div>
 
           <div className="SettingProfile-cover">
             <img
-              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
-              alt="cover"
+              src={
+                editor.profileImage
+                  ? `http://localhost:5000${editor.profileImage}`
+                  : "https://i.pravatar.cc/200?img=32"
+              }
+              alt="profile"
+              className="SettingProfile-avatar"
             />
           </div>
 
           <div className="SettingProfile-profileSection">
             <div className="SettingProfile-avatarWrapper">
               <img
-                src="https://i.pravatar.cc/200?img=32"
+                src={
+                  editor.profileImage
+                    ? `${IMG_URL}${editor.profileImage}`
+                    : "https://i.pravatar.cc/200?img=32"
+                }
                 alt="profile"
                 className="SettingProfile-avatar"
               />
@@ -37,17 +44,16 @@ const SettingProfile = () => {
             </div>
 
             <h3 className="SettingProfile-name">
-              Ninfa Monaldo
+              {editor.name}
               <FaCheckCircle className="SettingProfile-verified" />
             </h3>
 
             <p className="SettingProfile-role">
-              Web designer & Developer
+              {editor.designation || "Editor"}
             </p>
           </div>
 
           <form className="SettingProfile-form">
-
             {/* User Info */}
 
             <div className="SettingProfile-section">
@@ -55,35 +61,23 @@ const SettingProfile = () => {
 
               <div className="SettingProfile-group">
                 <label>Username</label>
-                <input
-                  type="text"
-                  defaultValue="Maria C. Eck"
-                />
+                <input type="text" value={editor.name || ""} readOnly />
               </div>
 
               <div className="SettingProfile-group">
                 <label>Email address</label>
-                <input
-                  type="email"
-                  defaultValue="MariaCEck@teleworm.us"
-                />
+                <input type="email" value={editor.email || ""} readOnly />
               </div>
 
               <div className="SettingProfile-row">
                 <div className="SettingProfile-group">
                   <label>Password</label>
-                  <input
-                    type="password"
-                    defaultValue="12345678"
-                  />
+                  <input type="password" value="********" readOnly />
                 </div>
 
                 <div className="SettingProfile-group">
                   <label>Confirm Password</label>
-                  <input
-                    type="password"
-                    defaultValue="12345678"
-                  />
+                  <input type="password" value="********" readOnly />
                 </div>
               </div>
             </div>
@@ -97,56 +91,39 @@ const SettingProfile = () => {
 
               <div className="SettingProfile-group">
                 <label>Address</label>
-                <textarea
-                  rows="3"
-                  defaultValue="1098 Asylum Avenue New Haven, CT 06510"
-                />
+                <textarea rows="3" value={editor.address || ""} readOnly />
               </div>
 
               <div className="SettingProfile-group">
                 <label>Address 2</label>
-                <textarea
-                  rows="3"
-                  defaultValue="51244 Ankunding Villages, Reicheltown, IL 84366"
-                />
+                <textarea rows="3" value={editor.address2 || ""} readOnly />
               </div>
 
               <div className="SettingProfile-row SettingProfile-rowThree">
                 <div className="SettingProfile-group">
                   <label>City</label>
-                  <input
-                    type="text"
-                    defaultValue="oregon"
-                  />
+                  <input type="text" value={editor.city || ""} readOnly />
                 </div>
 
                 <div className="SettingProfile-group">
                   <label>State</label>
-                  <select>
-                    <option>Choose...</option>
-                    <option>California</option>
-                    <option>Texas</option>
-                    <option>Florida</option>
-                  </select>
+                  <input type="text" value={editor.state || ""} readOnly />
                 </div>
 
                 <div className="SettingProfile-group">
                   <label>Zip</label>
-                  <input
-                    type="text"
-                    defaultValue="CT 06510"
-                  />
+                  <input type="text" value={editor.zip || ""} readOnly />
                 </div>
               </div>
 
               <div className="SettingProfile-languageRow">
                 <div className="SettingProfile-group">
                   <label>language</label>
-                  <select>
-                    <option>English</option>
-                    <option>Spanish</option>
-                    <option>French</option>
-                  </select>
+                  <input
+                    type="text"
+                    value={editor.language || "English"}
+                    readOnly
+                  />
                 </div>
               </div>
             </div>
@@ -155,13 +132,12 @@ const SettingProfile = () => {
               <button
                 type="submit"
                 className="SettingProfile-submitBtn"
+                disabled
               >
-                Submit
+                Update Profile
               </button>
             </div>
-
           </form>
-
         </div>
       </div>
     </div>

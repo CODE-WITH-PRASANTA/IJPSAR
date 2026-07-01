@@ -17,7 +17,10 @@ const {
   getAssignedPapers,
   removeAssignedPaper,
   deleteAssignedPaper,
+  getProfile
 } = require("../controllers/editor.controller");
+
+const editorAuth = require("../middlewares/editor.middleware");
 
 /* ================= AUTH ================= */
 
@@ -37,6 +40,13 @@ router.get(
   "/all",
   getAllEditors
 );
+
+router.get(
+  "/profile",
+  editorAuth,
+  getProfile
+);
+
 
 router.get(
   "/:id",

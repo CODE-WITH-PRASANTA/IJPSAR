@@ -96,7 +96,32 @@ exports.loginEditor = async (req, res) => {
     });
   }
 };
+/* ================= GET LOGGED IN EDITOR ================= */
 
+exports.getProfile = async (req, res) => {
+  try {
+    const editor = await Editor.findById(req.editor.id).select("-password");
+
+    if (!editor) {
+      return res.status(404).json({
+        success: false,
+        message: "Editor not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: editor,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 /* ================= GET ALL ================= */
 
 exports.getAllEditors = async (req, res) => {
@@ -172,8 +197,6 @@ exports.assignPaperToEditor = async (req, res) => {
     //  console.log("ASSIGN REQUEST =>", req.body);
     const { editorId, paperId } = req.body;
 
-   
-
     const editor = await Editor.findById(editorId);
 
     if (!editor) {
@@ -192,42 +215,37 @@ exports.assignPaperToEditor = async (req, res) => {
       });
     }
 
-    const updatedEditor =
-      await Editor.findByIdAndUpdate(
-        editorId,
-        {
-          $addToSet: {
-            assignedPapers: {
-              paperId: paper._id,
-            },
+    const updatedEditor = await Editor.findByIdAndUpdate(
+      editorId,
+      {
+        $addToSet: {
+          assignedPapers: {
+            paperId: paper._id,
           },
         },
-        {
-          new: true,
-        }
-      );
-
-   
-
-    await SubmitForm.findByIdAndUpdate(
-      paperId,
+      },
       {
-        editorId: editor._id.toString(),
-        editorName: editor.name,
-        status: "Editor Assigned",
-      }
+        new: true,
+      },
     );
+
+    await SubmitForm.findByIdAndUpdate(paperId, {
+      editorId: editor._id.toString(),
+      editorName: editor.name,
+      status: "Editor Assigned",
+    });
 
     return res.status(200).json({
       success: true,
       message: "Paper Assigned Successfully",
     });
   } catch (error) {
-    console.log(error);
+    console.log("UPDATE ERROR =>", error);
 
     return res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || error.toString(),
+      error,
     });
   }
 };
@@ -307,7 +325,6 @@ exports.removeAssignedPaper = async (req, res) => {
   }
 };
 
-
 /* ================= DELETE ================= */
 
 exports.deleteEditor = async (req, res) => {
@@ -378,13 +395,9 @@ exports.activateEditor = async (req, res) => {
   }
 };
 
-
 /* ================= DELETE PAPER FROM SYSTEM ================= */
 
-exports.deleteAssignedPaper = async (
-  req,
-  res
-) => {
+exports.deleteAssignedPaper = async (req, res) => {
   try {
     const { paperId } = req.params;
 
@@ -397,18 +410,15 @@ exports.deleteAssignedPaper = async (
             paperId,
           },
         },
-      }
+      },
     );
 
     // delete paper from submitform
-    await SubmitForm.findByIdAndDelete(
-      paperId
-    );
+    await SubmitForm.findByIdAndDelete(paperId);
 
     return res.status(200).json({
       success: true,
-      message:
-        "Paper deleted successfully",
+      message: "Paper deleted successfully",
     });
   } catch (error) {
     return res.status(500).json({

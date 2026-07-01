@@ -2,8 +2,7 @@ import React, { useMemo, useState } from "react";
 import "./Latestorders.css";
 import {
   FiMoreVertical,
-  FiChevronDown,
-  FiChevronUp,
+  FiChevronRight,
 } from "react-icons/fi";
 
 const Latestorders = () => {
@@ -11,155 +10,155 @@ const Latestorders = () => {
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({
-    key: "id",
-    direction: "asc",
+    key: "dateTime",
+    direction: "desc",
   });
 
-  const orders = [
+  const papers = [
     {
-      id: 784720,
-      date: "Nov 28, 2025, 8:38 PM",
-      status: "Pending",
-      amount: 189,
-      customer: "Victoria Nelson",
+      paperId: "PPR-2025-0784",
+      dateTime: "Nov 28, 2025, 8:38 PM",
+      status: "Completed",
+      feedback: "Excellent",
+      editorName: "Victoria Nelson",
     },
     {
-      id: 784704,
-      date: "Nov 27, 2025, 3:11 PM",
-      status: "Paid",
-      amount: 229,
-      customer: "Chloe Adams",
+      paperId: "PPR-2025-0770",
+      dateTime: "Nov 27, 2025, 3:11 PM",
+      status: "Completed",
+      feedback: "Good",
+      editorName: "Chloe Adams",
     },
     {
-      id: 784680,
-      date: "Nov 27, 2025, 0:06 AM",
-      status: "Paid",
-      amount: 499,
-      customer: "William Lopez",
+      paperId: "PPR-2025-0746",
+      dateTime: "Nov 27, 2025, 12:06 AM",
+      status: "In Review",
+      feedback: "Pending",
+      editorName: "William Lopez",
     },
     {
-      id: 784649,
-      date: "Nov 25, 2025, 2:25 PM",
-      status: "Pending",
-      amount: 159,
-      customer: "Sebastian Young",
+      paperId: "PPR-2025-0715",
+      dateTime: "Nov 25, 2025, 2:25 PM",
+      status: "Revision",
+      feedback: "Needs Revision",
+      editorName: "Sebastian Young",
     },
     {
-      id: 784633,
-      date: "Nov 24, 2025, 5:18 PM",
-      status: "Paid",
-      amount: 649,
-      customer: "Alexander Walker",
+      paperId: "PPR-2025-0699",
+      dateTime: "Nov 24, 2025, 5:18 PM",
+      status: "Completed",
+      feedback: "Excellent",
+      editorName: "Alexander Walker",
     },
     {
-      id: 784610,
-      date: "Nov 23, 2025, 9:48 PM",
-      status: "Paid",
-      amount: 329,
-      customer: "Charlotte White",
+      paperId: "PPR-2025-0676",
+      dateTime: "Nov 23, 2025, 9:48 PM",
+      status: "Completed",
+      feedback: "Satisfactory",
+      editorName: "Charlotte White",
     },
     {
-      id: 784579,
-      date: "Nov 23, 2025, 0:33 AM",
-      status: "Pending",
-      amount: 219,
-      customer: "Ava Johnson",
+      paperId: "PPR-2025-0645",
+      dateTime: "Nov 23, 2025, 12:33 AM",
+      status: "Revision",
+      feedback: "Needs Revision",
+      editorName: "Ava Johnson",
     },
     {
-      id: 784728,
-      date: "Nov 21, 2025, 10:56 PM",
-      status: "Paid",
-      amount: 349.99,
-      customer: "David Ramirez",
+      paperId: "PPR-2025-0794",
+      dateTime: "Nov 21, 2025, 10:56 PM",
+      status: "Completed",
+      feedback: "Good",
+      editorName: "David Ramirez",
     },
     {
-      id: 784563,
-      date: "Nov 21, 2025, 4:16 PM",
-      status: "Paid",
-      amount: 549,
-      customer: "Isabella Brown",
+      paperId: "PPR-2025-0629",
+      dateTime: "Nov 21, 2025, 4:16 PM",
+      status: "Completed",
+      feedback: "Excellent",
+      editorName: "Isabella Brown",
     },
     {
-      id: 784657,
-      date: "Nov 20, 2025, 6:57 PM",
-      status: "Paid",
-      amount: 279.99,
-      customer: "Ella Hernandez",
+      paperId: "PPR-2025-0723",
+      dateTime: "Nov 20, 2025, 6:57 PM",
+      status: "In Review",
+      feedback: "Pending",
+      editorName: "Ella Hernandez",
     },
     {
-      id: 784540,
-      date: "Nov 20, 2025, 1:51 PM",
-      status: "Paid",
-      amount: 399,
-      customer: "James Wilson",
+      paperId: "PPR-2025-0606",
+      dateTime: "Nov 20, 2025, 1:51 PM",
+      status: "Completed",
+      feedback: "Good",
+      editorName: "James Wilson",
     },
     {
-      id: 784526,
-      date: "Nov 19, 2025, 9:35 PM",
-      status: "Pending",
-      amount: 129.5,
-      customer: "Michael Thompson",
+      paperId: "PPR-2025-0592",
+      dateTime: "Nov 19, 2025, 9:35 PM",
+      status: "Revision",
+      feedback: "Needs Revision",
+      editorName: "Michael Thompson",
     },
     {
-      id: 784512,
-      date: "Nov 18, 2025, 8:02 PM",
-      status: "Paid",
-      amount: 249.99,
-      customer: "Daniel Rodriguez",
+      paperId: "PPR-2025-0578",
+      dateTime: "Nov 18, 2025, 8:02 PM",
+      status: "Completed",
+      feedback: "Excellent",
+      editorName: "Daniel Rodriguez",
     },
     {
-      id: 784586,
-      date: "Nov 18, 2025, 0:41 PM",
-      status: "Paid",
-      amount: 149.99,
-      customer: "Noah Anderson",
+      paperId: "PPR-2025-0652",
+      dateTime: "Nov 18, 2025, 12:41 PM",
+      status: "Completed",
+      feedback: "Satisfactory",
+      editorName: "Noah Anderson",
     },
     {
-      id: 784688,
-      date: "Nov 17, 2025, 10:29 PM",
-      status: "Fulfilled",
-      amount: 169,
-      customer: "Grace Scott",
+      paperId: "PPR-2025-0754",
+      dateTime: "Nov 17, 2025, 10:29 PM",
+      status: "Completed",
+      feedback: "Good",
+      editorName: "Grace Scott",
     },
     {
-      id: 784519,
-      date: "Nov 17, 2025, 2:48 PM",
-      status: "Fulfilled",
-      amount: 89,
-      customer: "Emily Carter",
+      paperId: "PPR-2025-0585",
+      dateTime: "Nov 17, 2025, 2:48 PM",
+      status: "Completed",
+      feedback: "Excellent",
+      editorName: "Emily Carter",
     },
     {
-      id: 784548,
-      date: "Nov 16, 2025, 11:40 PM",
-      status: "Fulfilled",
-      amount: 179.99,
-      customer: "Olivia Martinez",
+      paperId: "PPR-2025-0614",
+      dateTime: "Nov 16, 2025, 11:40 PM",
+      status: "Completed",
+      feedback: "Satisfactory",
+      editorName: "Olivia Martinez",
     },
     {
-      id: 784735,
-      date: "Nov 16, 2025, 2:19 PM",
-      status: "Fulfilled",
-      amount: 109,
-      customer: "Natalie Moore",
+      paperId: "PPR-2025-0801",
+      dateTime: "Nov 16, 2025, 2:19 PM",
+      status: "Completed",
+      feedback: "Good",
+      editorName: "Natalie Moore",
     },
     {
-      id: 784533,
-      date: "Nov 15, 2025, 5:12 PM",
-      status: "Cancelled",
-      amount: 59.99,
-      customer: "Sophia Nguyen",
+      paperId: "PPR-2025-0599",
+      dateTime: "Nov 15, 2025, 5:12 PM",
+      status: "Rejected",
+      feedback: "Not Suitable",
+      editorName: "Sophia Nguyen",
     },
     {
-      id: 784665,
-      date: "Nov 15, 2025, 3:44 PM",
-      status: "Fulfilled",
-      amount: 119,
-      customer: "Jack King",
+      paperId: "PPR-2025-0731",
+      dateTime: "Nov 15, 2025, 3:44 PM",
+      status: "Completed",
+      feedback: "Excellent",
+      editorName: "Jack King",
     },
   ];
 
-  const sortedOrders = useMemo(() => {
-    let sortable = [...orders];
+  const sortedPapers = useMemo(() => {
+    let sortable = [...papers];
 
     sortable.sort((a, b) => {
       if (a[sortConfig.key] < b[sortConfig.key])
@@ -190,20 +189,32 @@ const Latestorders = () => {
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
 
-  const currentOrders = sortedOrders.slice(
+  const currentPapers = sortedPapers.slice(
     indexOfFirst,
     indexOfLast
   );
 
   const totalPages = Math.ceil(
-    sortedOrders.length / itemsPerPage
+    sortedPapers.length / itemsPerPage
   );
+
+  const sortArrow = (key) => {
+    if (sortConfig.key !== key) return null;
+    return (
+      <span className="sortArrow">
+        {sortConfig.direction === "asc" ? "↑" : "↓"}
+      </span>
+    );
+  };
 
   return (
     <div className="latestOrders">
       <div className="ordersCard">
         <div className="cardHeader">
-          <h3>Latest Orders</h3>
+          <div className="headerText">
+            <span className="eyebrow">Editorial Desk</span>
+            <h3>Completed Papers</h3>
+          </div>
 
           <div className="menuWrapper">
             <button
@@ -228,46 +239,74 @@ const Latestorders = () => {
           <table>
             <thead>
               <tr>
-                <th onClick={() => requestSort("id")}>
-                  ID
-                </th>
+                <th className="colSl">Sl. No</th>
 
-                <th onClick={() => requestSort("date")}>
-                  Date
+                <th onClick={() => requestSort("dateTime")}>
+                  Date &amp; Time {sortArrow("dateTime")}
                 </th>
 
                 <th onClick={() => requestSort("status")}>
-                  Status
+                  Status {sortArrow("status")}
                 </th>
 
-                <th onClick={() => requestSort("amount")}>
-                  Amount
+                <th onClick={() => requestSort("feedback")}>
+                  Feedback {sortArrow("feedback")}
                 </th>
 
-                <th onClick={() => requestSort("customer")}>
-                  Customer
+                <th onClick={() => requestSort("editorName")}>
+                  Editor Name {sortArrow("editorName")}
+                </th>
+
+                <th className="colAction">Action</th>
+
+                <th onClick={() => requestSort("paperId")}>
+                  Paper ID {sortArrow("paperId")}
                 </th>
               </tr>
             </thead>
 
             <tbody>
-              {currentOrders.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.id}</td>
+              {currentPapers.map((item, idx) => (
+                <tr key={item.paperId}>
+                  <td className="colSl">
+                    {indexOfFirst + idx + 1}
+                  </td>
 
-                  <td>{item.date}</td>
+                  <td>{item.dateTime}</td>
 
                   <td>
                     <span
-                      className={`status ${item.status.toLowerCase()}`}
+                      className={`status ${item.status
+                        .toLowerCase()
+                        .replace(" ", "-")}`}
                     >
                       {item.status}
                     </span>
                   </td>
 
-                  <td>${item.amount}</td>
+                  <td>
+                    <span
+                      className={`feedback ${item.feedback
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
+                    >
+                      {item.feedback}
+                    </span>
+                  </td>
 
-                  <td>{item.customer}</td>
+                  <td className="editorCell">
+                    {item.editorName}
+                  </td>
+
+                  <td className="colAction">
+                    <button className="completedBtn">
+                      Completed <FiChevronRight />
+                    </button>
+                  </td>
+
+                  <td className="paperIdCell">
+                    {item.paperId}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -276,7 +315,7 @@ const Latestorders = () => {
 
         <div className="pagination">
           <div className="itemsPerPage">
-            <span>Items per page:</span>
+            <span>Rows per page:</span>
 
             <select
               value={itemsPerPage}

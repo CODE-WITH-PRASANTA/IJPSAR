@@ -23,8 +23,9 @@ exports.createMember = async (req, res) => {
   }
 };
 
+
 // ======================
-// GET ALL MEMBERS
+// GET ALL MEMBERS (Admin)
 // ======================
 exports.getMembers = async (req, res) => {
   try {
@@ -62,6 +63,39 @@ exports.getMembers = async (req, res) => {
   }
 };
 
+exports.getCategoryWiseMembers = async (req, res) => {
+  try {
+    const members = await EditorialBoard.find({
+      status: true,
+    }).sort({ createdAt: -1 });
+
+    const groupedData = {
+      "Patron & Management": [],
+      "Editor-in-Chief": [],
+      "International Editorial Advisory Board": [],
+      "Editorial Board": [],
+    };
+
+    members.forEach((member) => {
+      const category = member.category?.trim();
+
+      if (groupedData[category]) {
+        groupedData[category].push(member);
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      data: groupedData,
+    });
+  } catch (err) {
+    console.log(err);   // VERY IMPORTANT
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
 // ======================
 // GET SINGLE MEMBER
 // ======================

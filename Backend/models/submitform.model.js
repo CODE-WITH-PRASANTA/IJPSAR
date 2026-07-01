@@ -1,15 +1,91 @@
 const mongoose = require("mongoose");
 
 const AuthorSchema = new mongoose.Schema({
-  fullName: String,
+  fullName: {
+    type: String,
+    required: true,
+  },
   designation: String,
   organization: String,
   contactNumber: String,
   email: String,
 });
 
+const RevisionSchema = new mongoose.Schema(
+  {
+    version: {
+      type: Number,
+      required: true,
+    },
+
+    paperFile: {
+      type: String,
+      required: true,
+    },
+
+    remarks: {
+      type: String,
+      default: "",
+    },
+
+    uploadedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { _id: false },
+);
+
+const FeedbackSchema = new mongoose.Schema(
+  {
+    version: {
+      type: Number,
+      required: true,
+    },
+
+    remark: {
+      type: String,
+      required: true,
+    },
+
+    link: {
+      type: String,
+      default: "",
+    },
+
+    status: {
+      type: String,
+      required: true,
+    },
+
+    editorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Editor",
+    },
+
+    editorName: {
+      type: String,
+      default: "",
+    },
+
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { _id: false }
+);
+
 const SubmitFormSchema = new mongoose.Schema(
   {
+    /* ================= LOGGED IN AUTHOR ================= */
+
+    authorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Author",
+      required: true,
+    },
+
     /* ================= PAPER INFO ================= */
 
     paperId: {
@@ -37,6 +113,32 @@ const SubmitFormSchema = new mongoose.Schema(
       required: true,
     },
 
+    version: {
+      type: Number,
+      default: 1,
+    },
+
+    editedPdf: {
+      type: String,
+      default: "",
+    },
+
+    /* ================= REVISION HISTORY ================= */
+
+    revisions: {
+      type: [RevisionSchema],
+      default: [],
+    },
+
+    /* ================= FEEDBACK HISTORY ================= */
+
+   
+    
+
+    feedbackHistory: {
+      type: [FeedbackSchema],
+      default: [],
+    },
     /* ================= AUTHOR INFO ================= */
 
     authorCategory: String,
@@ -96,7 +198,7 @@ const SubmitFormSchema = new mongoose.Schema(
       default: null,
     },
 
-    /* ================= REVIEW ================= */
+    /* ================= CURRENT REMARKS ================= */
 
     editorRemarks: {
       type: String,
@@ -107,38 +209,45 @@ const SubmitFormSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    /* ================= PUBLISH ================= */
 
-    /* ================= VERSION ================= */
+isPublished: {
+  type: Boolean,
+  default: false,
+},
 
-    version: {
-      type: Number,
-      default: 1,
-    },
+publishedAt: {
+  type: Date,
+  default: null,
+},
+
+completedAt: {
+  type: Date,
+  default: null,
+},
 
     /* ================= STATUS ================= */
 
     status: {
-      type: String,
-      enum: [
-        "Submitted",
-        "Editor Assigned",
-        "Editing",
-        "Reviewer Assigned",
-        "Review Pending",
-        "Revision Required",
-        "Accepted",
-        "Rejected",
-        "Published",
-      ],
-      default: "Submitted",
-    },
+  type: String,
+  enum: [
+    "Submitted",
+    "Editor Assigned",
+    "Editing",
+    "Reviewer Assigned",
+    "Review Pending",
+    "Revision Required",
+    "Accepted",
+    "Rejected",
+    "Completed",
+    "Published",
+  ],
+  default: "Submitted",
+},
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-module.exports = mongoose.model(
-  "SubmitForm",
-  SubmitFormSchema
-);
+module.exports = mongoose.model("SubmitForm", SubmitFormSchema);

@@ -10,8 +10,8 @@ const {
   updateMember,
   deleteMember,
   changeStatus,
+  getCategoryWiseMembers
 } = require("../controllers/editorialboard.controller");
-
 router.post(
   "/create",
   upload.single("profileImage"),
@@ -20,6 +20,9 @@ router.post(
 );
 
 router.get("/all", getMembers);
+
+// Put this BEFORE /:id
+router.get("/category-wise", getCategoryWiseMembers);
 
 router.get("/:id", getMember);
 

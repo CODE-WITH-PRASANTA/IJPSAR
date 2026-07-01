@@ -1,210 +1,293 @@
 import React, { useState, useEffect } from "react";
+import {
+  FiFileText,
+  FiUser,
+  FiCalendar,
+  FiEye,
+  FiCheckCircle,
+} from "react-icons/fi";
 import "./Publishpaper.css";
 
 const Publishpaper = () => {
-  const [activeDropdown, setActiveDropdown] = useState(null);
+  // ===========================
+  // STATES
+  // ===========================
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState(7);
+  const [cardsPerPage, setCardsPerPage] = useState(3);
 
-  const toggleDropdown = (id) => {
-    setActiveDropdown(activeDropdown === id ? null : id);
-  };
-
+  // ===========================
+  // RESPONSIVE CARDS
+  // ===========================
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 768) {
-        setCardsPerPage(3); // Mobile: 3 cards
+        setCardsPerPage(1);
+      } else if (window.innerWidth <= 1024) {
+        setCardsPerPage(2);
       } else {
-        setCardsPerPage(7); // Desktop: show all cards
+        setCardsPerPage(3);
       }
+      setCurrentPage(1);
     };
 
     handleResize();
-
     window.addEventListener("resize", handleResize);
 
-    return () =>
-      window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // ===========================
+  // PAPER DATA (All status: "Published")
+  // ===========================
   const paperData = [
     {
       id: 1,
       title: "Modern React Development",
-      image:
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b",
       paperNo: "IJPSAR001",
       date: "18 Jun 2026",
-      feedback: "Accepted",
-      description:
-        "Research paper focusing on modern React architecture, performance optimization, and scalable component design.",
+      status: "Published",
+      version: "Version 1",
+      feedback:
+        "The paper has been reviewed successfully. Please update the methodology section and replace Figure 3 with the latest high-resolution image before final publication.",
+      editor: "Prasanta Kumar Khuntia",
+      feedbackDate: "30 Jun 2026",
+      feedbackTime: "5:27 PM",
     },
     {
       id: 2,
       title: "Digital Marketing Trends",
-      image:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
       paperNo: "IJPSAR002",
       date: "15 Jun 2026",
-      feedback: "Under Review",
-      description:
-        "Detailed analysis of emerging digital marketing trends and their impact on online business growth.",
+      status: "Published",
+      version: "Version 2",
+      feedback:
+        "The reviewer recommends adding more recent references related to AI-based marketing strategies and improving the conclusion section.",
+      editor: "Dr. S. Mohanty",
+      feedbackDate: "28 Jun 2026",
+      feedbackTime: "11:10 AM",
     },
     {
       id: 3,
       title: "Business Growth Strategy",
-      image:
-        "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
       paperNo: "IJPSAR003",
       date: "12 Jun 2026",
-      feedback: "Accepted",
-      description:
-        "Comprehensive research on strategic business growth models and implementation techniques.",
+      status: "Published",
+      version: "Version 1",
+      feedback:
+        "Excellent work. Only minor grammatical corrections are required before publication.",
+      editor: "Prof. A. Das",
+      feedbackDate: "26 Jun 2026",
+      feedbackTime: "2:45 PM",
     },
     {
       id: 4,
-      title: "Web Development Guide",
-      image:
-        "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+      title: "Artificial Intelligence Research",
       paperNo: "IJPSAR004",
       date: "10 Jun 2026",
-      feedback: "Pending",
-      description:
-        "An advanced guide to modern web technologies, frameworks, and best development practices.",
+      status: "Published",
+      version: "Version 3",
+      feedback:
+        "Final revision approved. The paper is ready for publication in the upcoming issue.",
+      editor: "Dr. B. Mishra",
+      feedbackDate: "24 Jun 2026",
+      feedbackTime: "4:30 PM",
     },
     {
       id: 5,
-      title: "Artificial Intelligence Research",
-      image:
-        "https://images.unsplash.com/photo-1677442136019-21780ecad995",
+      title: "Healthcare Innovation Study",
       paperNo: "IJPSAR005",
       date: "08 Jun 2026",
-      feedback: "Accepted",
-      description:
-        "Research paper discussing AI applications, machine learning models, and future innovations.",
+      status: "Published",
+      version: "Version 2",
+      feedback:
+        "Please include ethical approval details and revise the patient data analysis section.",
+      editor: "Dr. R. Panda",
+      feedbackDate: "20 Jun 2026",
+      feedbackTime: "9:40 AM",
     },
     {
       id: 6,
-      title: "Healthcare Innovation Study",
-      image:
-        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f",
+      title: "Cloud Computing Architecture",
       paperNo: "IJPSAR006",
       date: "05 Jun 2026",
-      feedback: "Revision Required",
-      description:
-        "Study exploring healthcare innovations, patient management systems, and medical technologies.",
+      status: "Published",
+      version: "Version 1",
+      feedback:
+        "The technical content is strong. Kindly improve formatting according to journal guidelines.",
+      editor: "Prof. N. Behera",
+      feedbackDate: "18 Jun 2026",
+      feedbackTime: "1:20 PM",
     },
     {
       id: 7,
-      title: "E-Learning Technologies",
-      image:
-        "https://images.unsplash.com/photo-1509062522246-3755977927d7",
+      title: "Machine Learning Applications",
       paperNo: "IJPSAR007",
       date: "01 Jun 2026",
-      feedback: "Accepted",
-      description:
-        "Analysis of modern e-learning technologies and their effectiveness in digital education.",
+      status: "Published",
+      version: "Version 2",
+      feedback:
+        "Reviewer comments have been addressed successfully. Congratulations on acceptance.",
+      editor: "Dr. A. Patra",
+      feedbackDate: "15 Jun 2026",
+      feedbackTime: "6:15 PM",
+    },
+    {
+      id: 8,
+      title: "Cyber Security Framework",
+      paperNo: "IJPSAR008",
+      date: "28 May 2026",
+      status: "Published",
+      version: "Version 1",
+      feedback:
+        "Awaiting editor assignment. No review comments available yet.",
+      editor: "Not Assigned",
+      feedbackDate: "--",
+      feedbackTime: "--",
+    },
+    {
+      id: 9,
+      title: "IoT Smart City Research",
+      paperNo: "IJPSAR009",
+      date: "25 May 2026",
+      status: "Published",
+      version: "Version 2",
+      feedback:
+        "Paper published successfully in Volume 8 Issue 4. Thank you for your contribution.",
+      editor: "Dr. K. Rout",
+      feedbackDate: "10 Jun 2026",
+      feedbackTime: "3:05 PM",
     },
   ];
 
-  // Pagination Logic
-  const totalPages = Math.ceil(
-    paperData.length / cardsPerPage
-  );
+  // ===========================
+  // PAGINATION
+  // ===========================
+  const totalPages = Math.ceil(paperData.length / cardsPerPage);
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const currentCards = paperData.slice(indexOfFirstCard, indexOfLastCard);
 
-  const lastCardIndex = currentPage * cardsPerPage;
-  const firstCardIndex = lastCardIndex - cardsPerPage;
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
 
-  const currentCards = paperData.slice(
-    firstCardIndex,
-    lastCardIndex
-  );
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  // ===========================
+  // CLEANED STATUS CLASS
+  // ===========================
+  const getStatusClass = () => "published";
 
   return (
     <section className="publish-paper-section">
       <div className="publish-paper-container">
+        {/* ================= HEADER ================= */}
         <div className="publish-paper-header">
-          <h2>Published Papers</h2>
-          <p>Manage and publish submitted research papers.</p>
+          <h2>Published Papers Portal</h2>
+          <p>
+            Browse your submitted papers, publication status, and editor feedback organized by section.
+          </p>
         </div>
 
+        {/* ================= GRID ================= */}
         <div className="publish-paper-grid">
-          {currentCards.map((paper) => (
-            <div className="publish-paper-card" key={paper.id}>
-              <div className="publish-paper-menu">
-                <button
-                  className="publish-paper-menu-btn"
-                  onClick={() => toggleDropdown(paper.id)}
-                >
-                  ⋮
-                </button>
+          {currentCards.length > 0 ? (
+            currentCards.map((paper) => (
+              <div className="publish-paper-card" key={paper.id}>
+                {/* ========= STATUS BADGE ========= */}
+                <div className={`publish-status ${getStatusClass()}`}>
+                  <FiCheckCircle />
+                  <span>{paper.status}</span>
+                </div>
 
-                {activeDropdown === paper.id && (
-                  <div className="publish-paper-dropdown">
-                    <button>Publish</button>
-                    <button>Unpublish</button>
+                {/* ========= TITLE ========= */}
+                <div className="paper-title-area">
+                  <h3>{paper.title}</h3>
+                  <p>
+                    <FiFileText />
+                    <span>{paper.paperNo}</span>
+                  </p>
+                </div>
+
+                {/* ========= META ========= */}
+                <div className="paper-meta">
+                  <div className="paper-meta-card">
+                    <span>Paper ID</span>
+                    <strong>{paper.paperNo}</strong>
                   </div>
-                )}
-              </div>
-
-              <div className="publish-paper-image-box">
-                <img src={paper.image} alt={paper.title} />
-              </div>
-
-              <div className="publish-paper-content">
-                <h3>{paper.title}</h3>
-
-                <div className="publish-paper-meta">
-                  <div>
-                    <span>Paper No</span>
-                    <p>{paper.paperNo}</p>
-                  </div>
-
-                  <div>
+                  <div className="paper-meta-card">
                     <span>Date</span>
-                    <p>{paper.date}</p>
+                    <strong>{paper.date}</strong>
                   </div>
                 </div>
 
-                <div className="publish-paper-feedback">
-                  <span>Feedback</span>
-                  <strong>{paper.feedback}</strong>
+                {/* ========= FEEDBACK ========= */}
+                <div className="feedback-box">
+                  <div className="feedback-header">
+                    <div className="feedback-version">
+                      <span>{paper.version}</span>
+                    </div>
+                    <div className={`feedback-status ${getStatusClass()}`}>
+                      {paper.status}
+                    </div>
+                  </div>
+
+                  <div className="feedback-message">{paper.feedback}</div>
+
+                  <div className="feedback-footer">
+                    <div className="feedback-editor">
+                      <FiUser />
+                      <span>{paper.editor}</span>
+                    </div>
+                    <div className="feedback-date">
+                      <FiCalendar />
+                      <span>
+                        {paper.feedbackDate} • {paper.feedbackTime}
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
-                <p className="publish-paper-description">
-                  {paper.description}
-                </p>
-
+                {/* ========= BUTTON ========= */}
                 <button className="publish-paper-btn">
-                  View Paper
+                  <FiEye />
+                  <span>View Paper</span>
                 </button>
               </div>
+            ))
+          ) : (
+            <div className="no-papers-message" style={{ gridColumn: "1 / -1", textAlign: "center", padding: "40px", color: "#666" }}>
+              No papers found in this section.
             </div>
-          ))}
+          )}
         </div>
 
-        {/* Mobile Pagination */}
-        {window.innerWidth <= 768 && (
+        {/* ================= PAGINATION ================= */}
+        {totalPages > 1 && (
           <div className="publish-paper-pagination">
-            <button
-              disabled={currentPage === 1}
-              onClick={() =>
-                setCurrentPage(currentPage - 1)
-              }
-            >
+            <button onClick={prevPage} disabled={currentPage === 1}>
               Previous
             </button>
 
-            <span>
-              {currentPage} / {totalPages}
-            </span>
+            <div className="pagination-numbers">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index}
+                  className={currentPage === index + 1 ? "active" : ""}
+                  onClick={() => setCurrentPage(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
 
-            <button
-              disabled={currentPage === totalPages}
-              onClick={() =>
-                setCurrentPage(currentPage + 1)
-              }
-            >
+            <button onClick={nextPage} disabled={currentPage === totalPages}>
               Next
             </button>
           </div>

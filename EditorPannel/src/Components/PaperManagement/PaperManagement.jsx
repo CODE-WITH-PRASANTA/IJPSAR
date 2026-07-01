@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import API from "../../API/axios";
 import "./PaperManagement.css";
+import { useNavigate } from "react-router-dom";
+
+const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL
 
 const PaperManagement = () => {
   const [papers, setPapers] = useState([]);
   const [search, setSearch] = useState("");
-
+  const navigate = useNavigate();
   const editor = JSON.parse(localStorage.getItem("editorData"));
 
   const fetchPapers = async () => {
@@ -138,7 +141,9 @@ const PaperManagement = () => {
                     <div className="actionBtns">
                       <button
                         className="viewBtn"
-                        onClick={() => window.open(paper.paperFile, "_blank")}
+                        onClick={() =>
+                          window.open(`${FRONTEND_URL}/sample-article/${paper._id}`, "_blank")
+                        }
                       >
                         View
                       </button>
