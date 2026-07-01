@@ -1,275 +1,953 @@
-/* ==========================
-   SettingActivity
-========================== */
+/*=========================================================
+        SETTING ACTIVITY - PREMIUM DASHBOARD UI
+=========================================================*/
 
-.SettingActivity {
-  width: 100%;
-  min-height: 100vh;
-  background: #f5f6fa;
-  padding: 20px;
-  font-family: "Poppins", sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-.SettingActivity-container {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+.SettingActivity{
+
+    width:100%;
+    height:100vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    padding:30px;
+
+    background:
+    radial-gradient(circle at top left,#eef7ff 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#f3f7ff 0%,transparent 40%),
+    linear-gradient(135deg,#f8fbff,#eef4ff);
+
+    font-family:"Poppins",sans-serif;
+
+    scrollbar-width:none;
 }
 
-/* ==========================
-   Timeline
-========================== */
-
-.SettingActivity-item {
-  display: flex;
-  gap: 16px;
-  position: relative;
-  padding-bottom: 35px;
+.SettingActivity::-webkit-scrollbar{
+    display:none;
 }
 
-.SettingActivity-item:not(:last-child)::before {
-  content: "";
-  position: absolute;
-  left: 18px;
-  top: 45px;
-  width: 1px;
-  height: calc(100% - 10px);
-  background: #e4e4e4;
+
+/*=========================================================
+                    MAIN CONTAINER
+=========================================================*/
+
+.SettingActivity-container{
+
+    max-width:1400px;
+    margin:auto;
+
+    background:rgba(255,255,255,.78);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.8);
+
+    border-radius:28px;
+
+    padding:40px;
+
+    box-shadow:
+
+    0 20px 60px rgba(28,60,120,.08),
+
+    0 5px 25px rgba(0,0,0,.05);
+
+    position:relative;
+
+    overflow:hidden;
 }
 
-.SettingActivity-avatar {
-  width: 38px;
-  height: 38px;
-  min-width: 38px;
-  border-radius: 50%;
-  background: #eef4f6;
-  color: #52707d;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 600;
+
+/* Decorative Blur */
+
+.SettingActivity-container::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:320px;
+    height:320px;
+
+    border-radius:50%;
+
+    top:-160px;
+    right:-100px;
+
+    background:rgba(77,140,255,.08);
+
+    filter:blur(20px);
+
 }
 
-.SettingActivity-avatar.green {
-  background: #eaf8ef;
-  color: #2d8a4f;
+.SettingActivity-container::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    border-radius:50%;
+
+    bottom:-100px;
+    left:-90px;
+
+    background:rgba(0,191,166,.08);
+
+    filter:blur(15px);
+
 }
 
-.SettingActivity-avatar.pink {
-  background: #fdeef1;
-  color: #dd5870;
+
+
+/*=========================================================
+                    TIMELINE
+=========================================================*/
+
+.SettingActivity-item{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:22px;
+
+    padding:25px;
+
+    border-radius:22px;
+
+    transition:.35s;
+
+    margin-bottom:20px;
+
+    background:rgba(255,255,255,.45);
+
+    border:1px solid rgba(230,235,245,.8);
+
 }
 
-.SettingActivity-avatar.blueLight {
-  background: #e8f6fb;
-  color: #167c9a;
+.SettingActivity-item:hover{
+
+    transform:translateY(-6px);
+
+    background:#ffffff;
+
+    box-shadow:
+
+    0 20px 45px rgba(17,60,120,.08);
+
 }
 
-.SettingActivity-content {
-  flex: 1;
+.SettingActivity-item:last-child{
+
+    margin-bottom:0;
+
 }
 
-/* ==========================
-   Text
-========================== */
 
-.SettingActivity-text {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 12px;
+/* Timeline Line */
+
+.SettingActivity-item:not(:last-child)::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:45px;
+
+    top:80px;
+
+    width:3px;
+
+    height:calc(100% + 18px);
+
+    border-radius:20px;
+
+    background:linear-gradient(
+
+        to bottom,
+
+        #4f7cff,
+
+        #00bfa6
+
+    );
+
 }
 
-.SettingActivity-name {
-  color: #0b6b8b;
-  font-weight: 600;
-  margin-right: 4px;
+
+/*=========================================================
+                    AVATAR
+=========================================================*/
+
+.SettingActivity-avatar{
+
+    width:64px;
+
+    height:64px;
+
+    min-width:64px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:linear-gradient(
+
+        135deg,
+
+        #4f7cff,
+
+        #5aaeff
+
+    );
+
+    box-shadow:
+
+    0 12px 30px rgba(79,124,255,.35);
+
 }
 
-.SettingActivity-tag {
-  display: inline-block;
-  margin: 0 6px;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 600;
+
+/* glowing border */
+
+.SettingActivity-avatar::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:4px;
+
+    border-radius:50%;
+
+    border:2px solid rgba(255,255,255,.3);
+
 }
 
-.SettingActivity-tag.blue {
-  border: 1px solid #0f6e88;
-  color: #0f6e88;
+.SettingActivity-avatar.green{
+
+    background:linear-gradient(
+
+        135deg,
+
+        #00b894,
+
+        #00d27a
+
+    );
+
 }
 
-.SettingActivity-tag.greenTag {
-  border: 1px solid #28a745;
-  color: #28a745;
+.SettingActivity-avatar.pink{
+
+    background:linear-gradient(
+
+        135deg,
+
+        #ff5f9e,
+
+        #ff7d67
+
+    );
+
 }
 
-.SettingActivity-tag.red {
-  border: 1px solid #ff6b6b;
-  color: #ff6b6b;
+.SettingActivity-avatar.blueLight{
+
+    background:linear-gradient(
+
+        135deg,
+
+        #29b6f6,
+
+        #4f7cff
+
+    );
+
 }
 
-.SettingActivity-time {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 12px;
-  font-size: 13px;
-  color: #666;
+.SettingActivity-avatar.image{
+
+    font-size:28px;
+
 }
 
-/* ==========================
-   Upload Gallery
-========================== */
 
-.SettingActivity-uploadTitle {
-  color: #4c84ff;
-  font-size: 14px;
-  margin-bottom: 15px;
+
+/*=========================================================
+                    CONTENT
+=========================================================*/
+
+.SettingActivity-content{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
 }
 
-.SettingActivity-gallery {
-  border: 1px dashed #d8d8d8;
-  border-radius: 8px;
-  padding: 10px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+
+/*=========================================================
+                    TEXT
+=========================================================*/
+
+.SettingActivity-text{
+
+    font-size:16px;
+
+    color:#5f6677;
+
+    line-height:1.8;
+
+    margin-bottom:18px;
+
 }
 
-.SettingActivity-gallery img {
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
-  border-radius: 6px;
+.SettingActivity-name{
+
+    font-size:17px;
+
+    font-weight:700;
+
+    color:#25314f;
+
 }
 
-/* ==========================
-   Post Card
-========================== */
+.SettingActivity-uploadTitle{
 
-.SettingActivity-postCard {
-  border: 1px dashed #d9d9d9;
-  border-radius: 8px;
-  padding: 18px;
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#4f7cff;
+
+    margin-bottom:20px;
+
 }
 
-.SettingActivity-postCard h4 {
-  margin-bottom: 10px;
-  font-size: 20px;
-  color: #111;
+
+/*=========================================================
+                    TAGS
+=========================================================*/
+
+.SettingActivity-tag{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:8px 16px;
+
+    margin-left:8px;
+
+    margin-right:8px;
+
+    border-radius:50px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    letter-spacing:.4px;
+
+    transition:.3s;
+
 }
 
-.SettingActivity-postCard p {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.7;
+.SettingActivity-tag:hover{
+
+    transform:translateY(-2px);
+
 }
 
-.SettingActivity-reactions {
-  display: flex;
-  gap: 12px;
-  margin-top: 15px;
+.SettingActivity-tag.blue{
+
+    background:#edf3ff;
+
+    color:#4f7cff;
+
+    border:1px solid #b8ccff;
+
 }
 
-.SettingActivity-reactions button {
-  border: 1px solid #32c46c;
-  background: transparent;
-  color: #32c46c;
-  padding: 7px 14px;
-  border-radius: 4px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  cursor: pointer;
+.SettingActivity-tag.greenTag{
+
+    background:#e9fff7;
+
+    color:#00a46f;
+
+    border:1px solid #8ae5c2;
+
 }
 
-/* ==========================
-   Buttons
-========================== */
+.SettingActivity-tag.red{
 
-.SettingActivity-actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 15px;
+    background:#fff0f3;
+
+    color:#ff4c7d;
+
+    border:1px solid #ffc4d5;
+
 }
 
-.SettingActivity-accept {
-  border: none;
-  background: #0f7b8c;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+
+/*=========================================================
+                    TIME
+=========================================================*/
+
+.SettingActivity-time{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    width:max-content;
+
+    padding:10px 18px;
+
+    margin-top:18px;
+
+    border-radius:40px;
+
+    background:#f6f8fd;
+
+    color:#66738b;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    box-shadow:0 5px 12px rgba(0,0,0,.04);
+
 }
 
-.SettingActivity-reject {
-  border: 1px solid #0f7b8c;
-  background: white;
-  color: #0f7b8c;
-  padding: 10px 18px;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.SettingActivity-time svg{
+
+    color:#4f7cff;
+
+    font-size:14px;
+
+}
+/*=========================================================
+                    IMAGE GALLERY
+=========================================================*/
+
+.SettingActivity-gallery{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:18px;
+
+    padding:18px;
+
+    border-radius:22px;
+
+    background:#f8fbff;
+
+    border:1px solid #e9eef7;
+
+    overflow:hidden;
+
 }
 
-/* ==========================
-   Responsive
-========================== */
+.SettingActivity-gallery img{
 
-@media (max-width: 992px) {
-  .SettingActivity-gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    transition:.45s;
+
+    box-shadow:0 12px 25px rgba(0,0,0,.08);
+
 }
 
-@media (max-width: 768px) {
-  .SettingActivity {
-    padding: 15px;
-  }
+.SettingActivity-gallery img:hover{
 
-  .SettingActivity-container {
-    padding: 18px;
-  }
+    transform:scale(1.05);
 
-  .SettingActivity-gallery {
-    grid-template-columns: 1fr;
-  }
+    box-shadow:0 18px 35px rgba(0,0,0,.15);
 
-  .SettingActivity-gallery img {
-    height: 220px;
-  }
-
-  .SettingActivity-actions,
-  .SettingActivity-reactions {
-    flex-direction: column;
-  }
-
-  .SettingActivity-accept,
-  .SettingActivity-reject,
-  .SettingActivity-reactions button {
-    width: 100%;
-    justify-content: center;
-  }
 }
 
-@media (max-width: 480px) {
-  .SettingActivity-item {
-    gap: 12px;
-  }
 
-  .SettingActivity-postCard h4 {
-    font-size: 18px;
-  }
 
-  .SettingActivity-text {
-    font-size: 13px;
-  }
+/*=========================================================
+                    POST CARD
+=========================================================*/
+
+.SettingActivity-postCard{
+
+    margin-top:10px;
+
+    padding:28px;
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    border:1px solid #edf1f7;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.05);
+
+    transition:.35s;
+
+}
+
+.SettingActivity-postCard:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 25px 45px rgba(0,0,0,.08);
+
+}
+
+.SettingActivity-postCard h4{
+
+    font-size:24px;
+
+    color:#22304c;
+
+    margin-bottom:18px;
+
+    font-weight:700;
+
+}
+
+.SettingActivity-postCard p{
+
+    color:#6f7788;
+
+    line-height:1.9;
+
+    font-size:15px;
+
+}
+
+
+
+/*=========================================================
+                    REACTION BUTTONS
+=========================================================*/
+
+.SettingActivity-reactions{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:25px;
+
+    flex-wrap:wrap;
+
+}
+
+.SettingActivity-reactions button{
+
+    border:none;
+
+    outline:none;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px 22px;
+
+    border-radius:50px;
+
+    background:linear-gradient(135deg,#4f7cff,#6d9dff);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+    box-shadow:0 10px 25px rgba(79,124,255,.25);
+
+}
+
+.SettingActivity-reactions button:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 30px rgba(79,124,255,.35);
+
+}
+
+.SettingActivity-reactions button:last-child{
+
+    background:linear-gradient(135deg,#00b894,#00d59b);
+
+    box-shadow:0 10px 25px rgba(0,184,148,.25);
+
+}
+
+
+
+/*=========================================================
+                    ACTION BUTTONS
+=========================================================*/
+
+.SettingActivity-actions{
+
+    display:flex;
+
+    gap:16px;
+
+    margin-top:24px;
+
+    flex-wrap:wrap;
+
+}
+
+.SettingActivity-accept{
+
+    border:none;
+
+    outline:none;
+
+    padding:14px 28px;
+
+    border-radius:50px;
+
+    background:linear-gradient(135deg,#4f7cff,#6d9dff);
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    transition:.35s;
+
+    box-shadow:0 12px 25px rgba(79,124,255,.25);
+
+}
+
+.SettingActivity-accept:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 18px 35px rgba(79,124,255,.35);
+
+}
+
+.SettingActivity-reject{
+
+    border:none;
+
+    outline:none;
+
+    padding:14px 28px;
+
+    border-radius:50px;
+
+    background:#fff2f4;
+
+    color:#ff4f76;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    transition:.35s;
+
+    border:1px solid #ffd1dc;
+
+}
+
+.SettingActivity-reject:hover{
+
+    background:#ff4f76;
+
+    color:#fff;
+
+}
+
+
+
+/*=========================================================
+                    ICONS
+=========================================================*/
+
+.SettingActivity-reactions svg,
+
+.SettingActivity-actions svg{
+
+    font-size:16px;
+
+}
+
+
+
+/*=========================================================
+                    HOVER EFFECT
+=========================================================*/
+
+.SettingActivity-item:hover .SettingActivity-avatar{
+
+    transform:rotate(8deg) scale(1.08);
+
+    transition:.4s;
+
+}
+
+.SettingActivity-item:hover .SettingActivity-name{
+
+    color:#4f7cff;
+
+}
+
+.SettingActivity-item:hover .SettingActivity-tag{
+
+    transform:translateY(-2px);
+
+}
+
+
+
+/*=========================================================
+                    FADE ANIMATION
+=========================================================*/
+
+@keyframes activityFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.SettingActivity-item{
+
+    animation:activityFade .6s ease;
+
+}
+
+
+
+/*=========================================================
+                    RESPONSIVE
+=========================================================*/
+
+@media(max-width:1200px){
+
+.SettingActivity-gallery{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+
+
+@media(max-width:992px){
+
+.SettingActivity{
+
+padding:20px;
+
+}
+
+.SettingActivity-container{
+
+padding:25px;
+
+}
+
+.SettingActivity-item{
+
+padding:20px;
+
+}
+
+}
+
+
+
+@media(max-width:768px){
+
+.SettingActivity-gallery{
+
+grid-template-columns:1fr;
+
+}
+
+.SettingActivity-gallery img{
+
+height:220px;
+
+}
+
+.SettingActivity-item{
+
+flex-direction:column;
+
+}
+
+.SettingActivity-item::before{
+
+display:none;
+
+}
+
+.SettingActivity-avatar{
+
+width:58px;
+
+height:58px;
+
+min-width:58px;
+
+}
+
+.SettingActivity-reactions,
+
+.SettingActivity-actions{
+
+flex-direction:column;
+
+}
+
+.SettingActivity-reactions button,
+
+.SettingActivity-accept,
+
+.SettingActivity-reject{
+
+width:100%;
+
+justify-content:center;
+
+}
+
+}
+
+
+
+@media(max-width:576px){
+
+.SettingActivity{
+
+padding:15px;
+
+}
+
+.SettingActivity-container{
+
+padding:18px;
+
+border-radius:18px;
+
+}
+
+.SettingActivity-postCard{
+
+padding:20px;
+
+}
+
+.SettingActivity-postCard h4{
+
+font-size:20px;
+
+}
+
+.SettingActivity-text{
+
+font-size:14px;
+
+line-height:1.8;
+
+}
+
+.SettingActivity-gallery img{
+
+height:180px;
+
+}
+
+.SettingActivity-time{
+
+font-size:12px;
+
+padding:8px 14px;
+
+}
+
 }

@@ -1,0 +1,482 @@
+/* ==========================================================================
+   1. GLOBAL & CONTAINER LAYOUT
+   ========================================================================== */
+.RaiseTicket {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #f4f6f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.RaiseTicket-wrapper{
+
+display:grid;
+
+grid-template-columns:repeat(2,minmax(0,1fr));
+
+gap:2rem;
+
+width:100%;
+
+max-width:1400px;
+
+margin:auto;
+
+align-items:start;
+
+}
+
+/* Hide global scrollbar for a super clean aesthetic */
+html, body {
+  scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* ==========================================================================
+   2. CARD MODULES (FORM & TABLE CONTAINER)
+   ========================================================================== */
+.RaiseTicket-formCard,
+.RaiseTicket-tableCard {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  flex: 1;
+  min-width: 0; /* Prevents flex items from breaking layout bounds */
+}
+
+.RaiseTicket-cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #edf2f7;
+  padding-bottom: 1rem;
+}
+
+.RaiseTicket-cardHeader svg {
+  font-size: 1.5rem;
+  color: #4f46e5; /* Modern Indigo accents */
+}
+
+.RaiseTicket-cardHeader h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0;
+  color: #1e293b;
+}
+
+/* ==========================================================================
+   3. INPUT BOXES & FORM CONTROLS
+   ========================================================================== */
+.RaiseTicket-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.RaiseTicket-row {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.RaiseTicket-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  position: relative;
+}
+
+.RaiseTicket-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* Universal input styling including readOnly and file type */
+.RaiseTicket-group input[type="text"],
+.RaiseTicket-group input[type="email"],
+.RaiseTicket-group select,
+.RaiseTicket-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #334155;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Focus and Active States for Input Boxes */
+.RaiseTicket-group input[type="text"]:focus,
+.RaiseTicket-group input[type="email"]:focus,
+.RaiseTicket-group select:focus,
+.RaiseTicket-group textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+}
+
+/* ReadOnly State (Status box) */
+.RaiseTicket-group input[readOnly] {
+  background-color: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* File Input Customization */
+.RaiseTicket-group input[type="file"] {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+.RaiseTicket-group input[type="file"]::file-selector-button {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 1rem;
+  transition: background 0.2s;
+}
+.RaiseTicket-group input[type="file"]::file-selector-button:hover {
+  background: #e2e8f0;
+}
+
+.RaiseTicket-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ==========================================================================
+   4. BUTTONS
+   ========================================================================== */
+.RaiseTicket-buttonGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.RaiseTicket-submitBtn,
+.RaiseTicket-resetBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.RaiseTicket-submitBtn {
+  background-color: #4f46e5;
+  color: white;
+  flex: 2;
+}
+.RaiseTicket-submitBtn:hover {
+  background-color: #4338ca;
+}
+
+.RaiseTicket-resetBtn {
+  background-color: #e2e8f0;
+  color: #475569;
+  flex: 1;
+}
+.RaiseTicket-resetBtn:hover {
+  background-color: #cbd5e1;
+}
+
+/* ==========================================================================
+   5. TABLE & DATA VIEW (Scrollbar Hidden)
+   ========================================================================== */
+.RaiseTicket-tableWrapper {
+  overflow-x: auto;
+  width: 100%;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+.RaiseTicket-tableWrapper::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome/Safari/Edge */
+}
+
+.RaiseTicket-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.RaiseTicket-table th {
+  background-color: #f8fafc;
+  color: #64748b;
+  font-weight: 600;
+  padding: 1rem;
+  border-bottom: 2px solid #edf2f7;
+}
+
+.RaiseTicket-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #edf2f7;
+  color: #334155;
+  white-space: nowrap; /* Prevents awkward mid-text wrapping */
+}
+
+.RaiseTicket-table tr:hover {
+  background-color: #f8fafc;
+}
+
+.RaiseTicket-empty {
+  text-align: center;
+  color: #94a3b8;
+  padding: 3rem !important;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   6. DYNAMIC BADGES & ACTION BUTTONS
+   ========================================================================== */
+.RaiseTicket-status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* Dynamic status variations safely mapped to lower case */
+.RaiseTicket-open {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.RaiseTicket-actionButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.RaiseTicket-editBtn,
+.RaiseTicket-deleteBtn {
+  border: none;
+  background: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.RaiseTicket-editBtn { color: #0284c7; }
+.RaiseTicket-editBtn:hover { background-color: #e0f2fe; }
+
+.RaiseTicket-deleteBtn { color: #ef4444; }
+.RaiseTicket-deleteBtn:hover { background-color: #fee2e2; }
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+/* Laptop */
+@media (max-width:1200px){
+
+.RaiseTicket{
+    padding:20px;
+}
+
+.RaiseTicket-wrapper{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+}
+
+.RaiseTicket-formCard,
+.RaiseTicket-tableCard{
+    width:100%;
+    max-width:100%;
+}
+
+}
+
+/* Tablet */
+@media (max-width:992px){
+
+.RaiseTicket{
+    padding:18px;
+}
+
+.RaiseTicket-formCard,
+.RaiseTicket-tableCard{
+    padding:20px;
+}
+
+.RaiseTicket-row{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+}
+
+.RaiseTicket-form{
+    max-height:600px;
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+}
+
+.RaiseTicket-form::-webkit-scrollbar{
+    display:none;
+}
+
+.RaiseTicket-tableWrapper{
+    max-height:450px;
+    overflow:auto;
+
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+}
+
+.RaiseTicket-tableWrapper::-webkit-scrollbar{
+    display:none;
+}
+
+.RaiseTicket-table{
+    min-width:800px;
+}
+
+}
+
+/* Mobile */
+@media (max-width:768px){
+
+.RaiseTicket{
+    padding:14px;
+}
+
+.RaiseTicket-cardHeader{
+    padding-bottom:15px;
+    margin-bottom:18px;
+}
+
+.RaiseTicket-cardHeader h2{
+    font-size:20px;
+}
+
+.RaiseTicket-cardHeader svg{
+    font-size:22px;
+}
+
+.RaiseTicket-group label{
+    font-size:14px;
+}
+
+.RaiseTicket-group input,
+.RaiseTicket-group select,
+.RaiseTicket-group textarea{
+    padding:12px;
+    font-size:14px;
+}
+
+.RaiseTicket-buttonGroup{
+    flex-direction:column;
+}
+
+.RaiseTicket-submitBtn,
+.RaiseTicket-resetBtn{
+    width:100%;
+}
+
+.RaiseTicket-table{
+    min-width:750px;
+}
+
+.RaiseTicket-table th,
+.RaiseTicket-table td{
+    padding:12px;
+    font-size:13px;
+}
+
+}
+
+/* Small Mobile */
+@media (max-width:576px){
+
+.RaiseTicket{
+    padding:10px;
+}
+
+.RaiseTicket-formCard,
+.RaiseTicket-tableCard{
+    padding:15px;
+    border-radius:10px;
+}
+
+.RaiseTicket-cardHeader h2{
+    font-size:18px;
+}
+
+.RaiseTicket-cardHeader svg{
+    font-size:20px;
+}
+
+.RaiseTicket-group{
+    margin-bottom:12px;
+}
+
+.RaiseTicket-group input,
+.RaiseTicket-group select,
+.RaiseTicket-group textarea{
+    padding:10px;
+    font-size:13px;
+}
+
+.RaiseTicket-submitBtn,
+.RaiseTicket-resetBtn{
+    padding:11px;
+    font-size:13px;
+}
+
+.RaiseTicket-table{
+    min-width:700px;
+}
+
+}
+
+/* Extra Small */
+@media (max-width:400px){
+
+.RaiseTicket{
+    padding:8px;
+}
+
+.RaiseTicket-cardHeader h2{
+    font-size:16px;
+}
+
+.RaiseTicket-group input,
+.RaiseTicket-group select,
+.RaiseTicket-group textarea{
+    font-size:12px;
+}
+
+.RaiseTicket-table{
+    min-width:650px;
+}
+
+}

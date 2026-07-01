@@ -1,0 +1,309 @@
+/* ==========================================
+   DashboardManagement.css
+========================================== */
+
+.dashboardManagement {
+  width: 100%;
+  min-height: 48vh;
+  display: grid;
+  grid-template-columns: 1.2fr 1.4fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* ===============================
+   Common Card
+================================ */
+
+.dashboardManagement-card {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  transition: all 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dashboardManagement-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(37, 99, 235, 0.12);
+}
+
+/* ===============================
+   Card Title
+================================ */
+
+.dashboardManagement-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.dashboardManagement-title svg {
+  font-size: 1.4rem;
+  color: #2563eb;
+}
+
+.dashboardManagement-title h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: #1e293b;
+  font-weight: 700;
+}
+
+/* ===============================
+   Recent Activity
+================================ */
+
+.dashboardManagement-activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+}
+
+.dashboardManagement-activity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  border-radius: 14px;
+  transition: 0.3s;
+}
+
+.dashboardManagement-activity:hover {
+  background: #f8fafc;
+}
+
+.dashboardManagement-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.dashboardManagement-content h4 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.dashboardManagement-content span {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* ===============================
+   Top Editors
+================================ */
+
+.dashboardManagement-editorList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+}
+
+.dashboardManagement-editor {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  transition: 0.3s;
+  background: #f8fbff;
+}
+
+.dashboardManagement-editor:hover {
+  background: #eef5ff;
+}
+
+.dashboardManagement-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboardManagement-info {
+  flex: 1;
+}
+
+.dashboardManagement-info h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+.dashboardManagement-info p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.dashboardManagement-score {
+  text-align: center;
+}
+
+.dashboardManagement-score strong {
+  display: block;
+  font-size: 1.15rem;
+  color: #2563eb;
+}
+
+.dashboardManagement-score span {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.dashboardManagement-rating {
+  background: #fff7ed;
+  color: #f59e0b;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* ===============================
+   Quick Actions
+================================ */
+
+.dashboardManagement-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.dashboardManagement-actionBtn {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.35s;
+}
+
+.dashboardManagement-actionBtn span {
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+}
+
+.dashboardManagement-actionBtn:hover {
+  transform: translateX(6px);
+  box-shadow: 0 12px 25px rgba(37, 99, 235, 0.35);
+}
+
+/* ===============================
+   Responsive
+================================ */
+
+@media (max-width: 1200px) {
+  .dashboardManagement {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 992px) {
+  .dashboardManagement {
+    gap: 20px;
+  }
+
+  .dashboardManagement-card {
+    padding: 20px;
+  }
+
+  .dashboardManagement-title h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboardManagement-editor {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .dashboardManagement-score,
+  .dashboardManagement-rating {
+    margin-left: 68px;
+  }
+
+  .dashboardManagement-actionBtn {
+    padding: 15px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .dashboardManagement {
+    margin-top: 18px;
+    gap: 18px;
+  }
+
+  .dashboardManagement-card {
+    border-radius: 18px;
+    padding: 18px;
+  }
+
+  .dashboardManagement-title h3 {
+    font-size: 1.1rem;
+  }
+
+  .dashboardManagement-title svg {
+    font-size: 1.2rem;
+  }
+
+  .dashboardManagement-avatar {
+    width: 46px;
+    height: 46px;
+    font-size: 1rem;
+  }
+
+  .dashboardManagement-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+
+  .dashboardManagement-info h4 {
+    font-size: 0.95rem;
+  }
+
+  .dashboardManagement-score strong {
+    font-size: 1rem;
+  }
+
+  .dashboardManagement-rating {
+    font-size: 0.8rem;
+  }
+
+  .dashboardManagement-actionBtn {
+    font-size: 0.85rem;
+    padding: 14px;
+  }
+}

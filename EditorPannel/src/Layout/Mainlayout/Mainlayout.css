@@ -1,33 +1,208 @@
-.mainLayout {
-  display: flex;
-  min-height: 100vh;
-  background: #f3f3f9;
+/* ==========================================================
+   MAIN LAYOUT
+========================================================== */
+
+.mainLayout{
+    display:flex;
+    width:100%;
+    min-height:100vh;
+    background:#f3f3f9;
+    overflow:hidden;
 }
 
-.mainLayoutContent {
-  flex: 1;
-  margin-left: 280px;
+/* ==========================================================
+   CONTENT AREA
+========================================================== */
 
-  transition: margin-left .3s ease;
+.mainLayoutContent{
+
+    flex:1;
+    width:100%;
+    min-width:0;
+
+    margin-left:280px;
+
+    display:flex;
+    flex-direction:column;
+
+    transition:margin-left .3s ease;
+
+    overflow:hidden;
+
 }
 
-.mainLayoutContentCollapsed {
-  margin-left: 80px;
+/* Sidebar Collapsed */
+
+.mainLayoutContentCollapsed{
+
+    margin-left:80px;
+
 }
 
-.mainLayoutPage {
-  margin-top: 80px;
-  padding: 24px;
+/* ==========================================================
+   PAGE
+========================================================== */
+
+.mainLayoutPage{
+
+    flex:1;
+
+    width:100%;
+    min-width:0;
+
+    margin-top:80px;
+
+    padding:24px;
+
+    overflow-x:hidden;
+    overflow-y:auto;
+
+    height:calc(100vh - 80px);
+
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+
 }
 
-@media (max-width: 768px) {
-  .mainLayoutContent,
-  .mainLayoutContentCollapsed {
-    margin-left: 0;
-  }
+.mainLayoutPage::-webkit-scrollbar{
 
-  .mainLayoutPage {
-    margin-top: 72px;
-    padding: 15px;
-  }
+    width:0;
+    height:0;
+    display:none;
+
+}
+
+/* ==========================================================
+   LARGE LAPTOP
+========================================================== */
+
+@media(max-width:1200px){
+
+.mainLayoutContent{
+
+margin-left:260px;
+
+}
+
+.mainLayoutContentCollapsed{
+
+margin-left:80px;
+
+}
+
+}
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media(max-width:1024px){
+
+.mainLayoutContent{
+
+margin-left:240px;
+
+}
+
+.mainLayoutContentCollapsed{
+
+margin-left:80px;
+
+}
+
+.mainLayoutPage{
+
+padding:18px;
+
+}
+
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media(max-width:768px){
+
+.mainLayout{
+
+display:block;
+
+width:100%;
+
+overflow:hidden;
+
+}
+
+/* Sidebar becomes overlay */
+
+.mainLayoutContent,
+.mainLayoutContentCollapsed{
+
+margin-left:0;
+
+width:100%;
+
+min-width:0;
+
+}
+
+.mainLayoutPage{
+
+margin-top:72px;
+
+padding:15px;
+
+width:100%;
+
+min-width:0;
+
+height:calc(100vh - 72px);
+
+overflow-y:auto;
+overflow-x:hidden;
+
+scrollbar-width:none;
+-ms-overflow-style:none;
+
+}
+
+.mainLayoutPage::-webkit-scrollbar{
+
+display:none;
+
+}
+
+}
+
+/* ==========================================================
+   SMALL MOBILE
+========================================================== */
+
+@media(max-width:576px){
+
+.mainLayoutPage{
+
+padding:12px;
+
+margin-top:70px;
+
+height:calc(100vh - 70px);
+
+}
+
+}
+
+/* ==========================================================
+   EXTRA SMALL
+========================================================== */
+
+@media(max-width:400px){
+
+.mainLayoutPage{
+
+padding:10px;
+
+}
+
 }
