@@ -9,30 +9,24 @@ import EditorDashboard from "./Components/EditorDashboard/EditorDashboard";
 import PaperManagement from "./Components/PaperManagement/PaperManagement";
 import ReviewPaper from "./Components/ReviewPaper/ReviewPaper";
 import EditPaper from "./Components/ReviewPaper/EditPaper";
-// import EditorDashboard from "./Pages/EditorDashboard/EditorDashboard";
 import ProfileManagement from "./Components/ProfileManagement/ProfileManagement";
-// import SettingActivity from "./Components/SettingActivity/SettingActivity";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+
         {/* Login */}
-        <Route path="/editor-login" element={<EditorLogin />} />
+        <Route
+          path="/editor-login"
+          element={<EditorLogin />}
+        />
 
         {/* Protected Routes */}
         <Route element={<EditorProtectedRoute />}>
-          <Route path="/" element={<MainLayout />} />
 
-          <Route
-            path="/editor-dashboard"
-            // element={<EditorDashboard />}
-          />
-          <Route path="/paper-management" element={<PaperManagement />} />
-          <Route path="/review-paper" element={<ReviewPaper />} />
-
-          <Route path="/edit-paper/:id" element={<EditPaper />} />
           <Route path="/" element={<MainLayout />}>
+
             <Route
               index
               element={<EditorDashboard />}
@@ -49,12 +43,24 @@ function App() {
             />
 
             <Route
-            path="editor-profile"
-            element={<ProfileManagement/>}/>
+              path="review-paper"
+              element={<ReviewPaper />}
+            />
 
-            
+            <Route
+              path="edit-paper/:id"
+              element={<EditPaper />}
+            />
+
+            <Route
+              path="editor-profile"
+              element={<ProfileManagement />}
+            />
+
           </Route>
+
         </Route>
+
       </Routes>
     </BrowserRouter>
   );

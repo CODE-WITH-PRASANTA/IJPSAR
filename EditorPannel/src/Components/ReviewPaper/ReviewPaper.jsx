@@ -40,6 +40,18 @@ const ReviewPaper = () => {
     }
   };
 
+  const completePaper = async (paperId) => {
+    try {
+      await API.put(`/submitform/complete/${paperId}`);
+
+      alert("Paper marked as Completed.");
+
+      fetchPapers();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="reviewPaper">
       <div className="reviewHeader">
@@ -103,7 +115,7 @@ const ReviewPaper = () => {
                       Edit Paper
                     </button>
 
-                    <button
+                    {/* <button
                       className="approveBtn"
                       onClick={() => updateStatus(paper._id, "Accepted")}
                     >
@@ -115,6 +127,13 @@ const ReviewPaper = () => {
                       onClick={() => updateStatus(paper._id, "Rejected")}
                     >
                       Reject
+                    </button> */}
+
+                    <button
+                      className="completeBtn"
+                      onClick={() => completePaper(paper._id)}
+                    >
+                      Complete
                     </button>
                   </td>
                 </tr>

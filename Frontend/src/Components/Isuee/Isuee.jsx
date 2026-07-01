@@ -28,7 +28,7 @@ const Isuee = () => {
       console.log("Articles Response:", data);
 
       if (data?.success) {
-        setArticles(data.data);
+        setArticles(data.data.filter((paper) => paper.status === "Published"));
       }
     } catch (error) {
       console.error("Fetch Error:", error);
@@ -39,20 +39,14 @@ const Isuee = () => {
 
   return (
     <section className="isuee">
-
       <div className="isuee-bg-glow isuee-glow1"></div>
       <div className="isuee-bg-glow isuee-glow2"></div>
 
       <div className="isuee-container">
-
         <div className="isuee-left">
-
           <div className="isuee-header">
-
             <div>
-              <span className="isuee-subtitle">
-                RESEARCH ARTICLES
-              </span>
+              <span className="isuee-subtitle">RESEARCH ARTICLES</span>
 
               <h1 className="isuee-title">
                 Latest <span>Publications</span>
@@ -63,36 +57,26 @@ const Isuee = () => {
               <FaFolderOpen />
               Browse Archives
             </button>
-
           </div>
 
           <div className="isuee-grid">
-
             {loading ? (
               <h3>Loading Articles...</h3>
             ) : articles.length === 0 ? (
               <h3>No Articles Found</h3>
             ) : (
               articles.map((item) => (
-                <div
-                  className="isuee-card"
-                  key={item._id}
-                >
+                <div className="isuee-card" key={item._id}>
                   <div className="isuee-card-top">
-
                     <span className="isuee-category">
-                      {item.researchArea ||
-                        "Research"}
+                      {item.researchArea || "Research"}
                     </span>
 
                     <div className="isuee-date">
                       <FaCalendarAlt />
 
-                      {new Date(
-                        item.createdAt
-                      ).toLocaleDateString()}
+                      {new Date(item.createdAt).toLocaleDateString()}
                     </div>
-
                   </div>
 
                   <div className="isuee-volume">
@@ -100,9 +84,7 @@ const Isuee = () => {
                     Research Publication
                   </div>
 
-                  <h3 className="isuee-card-title">
-                    {item.paperTitle}
-                  </h3>
+                  <h3 className="isuee-card-title">{item.paperTitle}</h3>
 
                   <div className="isuee-authors">
                     <FaUserEdit />
@@ -115,7 +97,6 @@ const Isuee = () => {
                   </div>
 
                   <div className="isuee-card-bottom">
-
                     {item.paperFile && (
                       <a
                         href={`http://localhost:5000${item.paperFile}`}
@@ -135,19 +116,15 @@ const Isuee = () => {
                       Read Article
                       <FaArrowRight />
                     </Link>
-
                   </div>
                 </div>
               ))
             )}
-
           </div>
         </div>
 
         <div className="isuee-sidebar">
-
           <div className="isuee-sidebar-card">
-
             <h3>Publication Summary</h3>
 
             <div className="isuee-detail-row">
@@ -159,29 +136,18 @@ const Isuee = () => {
               <span>Status:</span>
               <p>Published</p>
             </div>
-
           </div>
 
           <div className="isuee-sidebar-card">
-
             <h3>Most Recent Research</h3>
 
             <ul className="isuee-download-list">
-
-              {articles
-                .slice(0, 5)
-                .map((item) => (
-                  <li key={item._id}>
-                    {item.paperTitle}
-                  </li>
-                ))}
-
+              {articles.slice(0, 5).map((item) => (
+                <li key={item._id}>{item.paperTitle}</li>
+              ))}
             </ul>
-
           </div>
-
         </div>
-
       </div>
     </section>
   );
