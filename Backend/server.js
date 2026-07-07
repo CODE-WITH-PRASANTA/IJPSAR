@@ -14,6 +14,8 @@ const authorRoutes = require("./routes/author.routes");
 
 const editorialboardRoutes = require("./routes/editorialboard.routes");
 
+const paymentRoutes = require("./routes/payment.routes");
+
 dotenv.config();
 
 const app = express();
@@ -64,6 +66,8 @@ app.use("/api/editor", editorRoutes);
 app.use("/api/author", authorRoutes);
 
 app.use("/api/editorialboard", editorialboardRoutes);
+
+app.use("/api/payment", paymentRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend Server Running Successfully");

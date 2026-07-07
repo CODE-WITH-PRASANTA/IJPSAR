@@ -210,7 +210,66 @@
   border-color: #2563eb;
   color: #ffffff !important;
 }
+.PaymentInformation-actionButtons{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+}
 
+.PaymentInformation-actionButtons button{
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.PaymentInformation-editBtn{
+    background:#2563eb;
+    color:#fff;
+}
+
+.PaymentInformation-editBtn:hover{
+    background:#1d4ed8;
+}
+
+.PaymentInformation-deleteBtn{
+    background:#ef4444;
+    color:#fff;
+}
+
+.PaymentInformation-deleteBtn:hover{
+    background:#dc2626;
+}
+
+.PaymentInformation-completeBtn{
+    background:#16a34a;
+    color:#fff;
+}
+.PaymentInformation-loading{
+
+padding:40px;
+
+text-align:center;
+
+font-size:18px;
+
+font-weight:600;
+
+color:#666;
+
+}
+.PaymentInformation-completeBtn:hover{
+    background:#15803d;
+}
+
+.PaymentInformation-actionButtons button:active{
+    transform:scale(.95);
+}
 .PaymentInformation-pageBtn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
