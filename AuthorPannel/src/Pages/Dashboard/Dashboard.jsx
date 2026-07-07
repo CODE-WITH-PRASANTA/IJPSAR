@@ -6,6 +6,7 @@ import API from '../../api/axios'
 
 const Dashboard = () => {
   const [submissions, setSubmissions] = useState([])
+  const [payments, setPayments] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
 
@@ -14,9 +15,14 @@ const Dashboard = () => {
       setLoading(true)
       setError("")
 
-      const firstResponse = await API.get("/submitform/all", {
-        params: { page: 1, limit: 100 },
-      })
+      const [firstResponse, paymentsResponse] = await Promise.all([
+        API.get("/submitform/all", {
+          params: { page: 1, limit: 100 },
+        }),
+        API.get("/payment"),
+      ])
+
+      setPayments(paymentsResponse.data?.payments || [])
 
       if (!firstResponse.data?.success) {
         setSubmissions([])
@@ -49,6 +55,7 @@ const Dashboard = () => {
       console.log(err)
       setError("Unable to load dashboard papers.")
       setSubmissions([])
+      setPayments([])
     } finally {
       setLoading(false)
     }
@@ -60,7 +67,11 @@ const Dashboard = () => {
 
   return (
     <div>
-        <Overview submissions={submissions} loading={loading} />
+        <Overview
+          submissions={submissions}
+          payments={payments}
+          loading={loading}
+        />
         <SalesTime
           submissions={submissions}
           loading={loading}
