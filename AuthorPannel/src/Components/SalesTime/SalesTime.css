@@ -517,6 +517,17 @@
   background-color: var(--st-danger-soft);
 }
 
+.SalesTime_PublicationStatus {
+  background-color: #dcfce7;
+  color: #15803d;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 9px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 /* ==========================================================================
    DYNAMIC MEDIA QUERIES (RESPONSIVE SYSTEM)
    ========================================================================== */

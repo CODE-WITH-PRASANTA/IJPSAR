@@ -239,6 +239,22 @@ td {
   color: #c62828;
 }
 
+.status.submitted,
+.status.editor-assigned,
+.status.editing,
+.status.reviewer-assigned,
+.status.review-pending,
+.status.accepted,
+.status.published {
+  background: rgba(37, 99, 168, 0.1);
+  color: #2563a8;
+}
+
+.status.revision-required {
+  background: rgba(230, 126, 34, 0.14);
+  color: #c15c0f;
+}
+
 /* Feedback labels */
 .feedback {
   font-size: 13px;
@@ -269,6 +285,13 @@ td {
 
 .feedback.not-suitable {
   color: #c62828;
+}
+
+.emptyTableMessage {
+  text-align: center;
+  color: #6b6355;
+  padding: 34px 18px;
+  font-weight: 600;
 }
 
 /* Action */

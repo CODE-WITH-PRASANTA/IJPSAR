@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "./DashboardManagement.css";
 
 import {
@@ -14,54 +14,155 @@ import {
   FiArrowRight,
 } from "react-icons/fi";
 
-const DashboardManagement = () => {
-  const activities = [
-    {
-      title: "Paper Accepted",
-      time: "10 mins ago",
-      icon: <FiCheckCircle />,
-      color: "#22c55e",
-    },
-    {
-      title: "New Review Assigned",
-      time: "35 mins ago",
-      icon: <FiClock />,
-      color: "#f59e0b",
-    },
-    {
-      title: "Author Registered",
-      time: "1 hour ago",
-      icon: <FiUser />,
-      color: "#2563eb",
-    },
-    {
-      title: "Issue Published",
-      time: "Today",
+const getTimeAgo = (dateValue) => {
+  if (!dateValue) return "-";
+
+  const seconds = Math.floor((Date.now() - new Date(dateValue).getTime()) / 1000);
+  if (seconds < 60) return "Just now";
+
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes} min${minutes === 1 ? "" : "s"} ago`;
+
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days} day${days === 1 ? "" : "s"} ago`;
+
+  return new Date(dateValue).toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+};
+
+const getActivityMeta = (paper) => {
+  if (paper.status === "Published") {
+    return {
+      title: "Paper Published",
       icon: <FiActivity />,
       color: "#8b5cf6",
-    },
-  ];
+    };
+  }
 
-  const editors = [
-    {
-      name: "Dr. John Smith",
-      role: "Chief Editor",
-      papers: 156,
-      rating: "4.9",
-    },
-    {
-      name: "Dr. Emma Wilson",
-      role: "Associate Editor",
-      papers: 128,
-      rating: "4.8",
-    },
-    {
-      name: "Dr. Robert Lee",
-      role: "Review Editor",
-      papers: 95,
-      rating: "4.7",
-    },
-  ];
+  if (paper.status === "Completed") {
+    return {
+      title: "Paper Completed",
+      icon: <FiCheckCircle />,
+      color: "#22c55e",
+    };
+  }
+
+  if (paper.status === "Review Pending" || paper.status === "Reviewer Assigned") {
+    return {
+      title: "Review Updated",
+      icon: <FiClock />,
+      color: "#f59e0b",
+    };
+  }
+
+  return {
+    title: paper.editorId ? "Paper Assigned" : "Paper Submitted",
+    icon: paper.editorId ? <FiFileText /> : <FiUser />,
+    color: paper.editorId ? "#2563eb" : "#14b8a6",
+  };
+};
+
+const getInitial = (name = "") => name.trim().charAt(0).toUpperCase() || "E";
+
+const DashboardManagement = ({
+  papers = [],
+  allPapers = [],
+  editors = [],
+  loading = false,
+  error = "",
+}) => {
+  const activities = useMemo(
+    () =>
+      [...(papers.length ? papers : allPapers)]
+        .sort(
+          (a, b) =>
+            new Date(
+              b.publishedAt ||
+                b.completedAt ||
+                b.editorAssignedAt ||
+                b.updatedAt ||
+                b.createdAt ||
+                0
+            ) -
+            new Date(
+              a.publishedAt ||
+                a.completedAt ||
+                a.editorAssignedAt ||
+                a.updatedAt ||
+                a.createdAt ||
+                0
+            )
+        )
+        .slice(0, 4)
+        .map((paper) => {
+          const meta = getActivityMeta(paper);
+
+          return {
+            ...meta,
+            paperTitle: paper.paperTitle,
+            time: getTimeAgo(
+              paper.publishedAt ||
+                paper.completedAt ||
+                paper.editorAssignedAt ||
+                paper.updatedAt ||
+                paper.createdAt
+            ),
+          };
+        }),
+    [allPapers, papers]
+  );
+
+  const topEditors = useMemo(() => {
+    const editorMap = new Map(
+      editors.map((editor) => [
+        String(editor._id),
+        {
+          id: editor._id,
+          name: editor.name || "Editor",
+          role: editor.role || "Editor",
+          papers: 0,
+          rating: "5.0",
+        },
+      ])
+    );
+
+    allPapers.forEach((paper) => {
+      const editorId =
+        typeof paper.editorId === "object" ? paper.editorId?._id : paper.editorId;
+
+      if (!editorId) return;
+
+      const key = String(editorId);
+      const current = editorMap.get(key) || {
+        id: key,
+        name: paper.editorName || "Editor",
+        role: "Editor",
+        papers: 0,
+        rating: "5.0",
+      };
+
+      current.papers += 1;
+      editorMap.set(key, current);
+    });
+
+    return Array.from(editorMap.values())
+      .map((editor) => ({
+        ...editor,
+        papers:
+          editor.papers ||
+          editors.find((item) => String(item._id) === String(editor.id))
+            ?.assignedPapers?.length ||
+          0,
+      }))
+      .sort((a, b) => b.papers - a.papers)
+      .slice(0, 3);
+  }, [allPapers, editors]);
 
   const actions = [
     {
@@ -96,7 +197,15 @@ const DashboardManagement = () => {
 
         <div className="dashboardManagement-activityList">
 
-          {activities.map((item, index) => (
+          {loading && <p className="dashboardManagement-empty">Loading activity...</p>}
+
+          {!loading && error && <p className="dashboardManagement-empty">{error}</p>}
+
+          {!loading && !error && activities.length === 0 && (
+            <p className="dashboardManagement-empty">No activity found.</p>
+          )}
+
+          {!loading && !error && activities.map((item, index) => (
 
             <div
               className="dashboardManagement-activity"
@@ -112,7 +221,7 @@ const DashboardManagement = () => {
 
               <div className="dashboardManagement-content">
                 <h4>{item.title}</h4>
-                <span>{item.time}</span>
+                <span>{item.paperTitle} - {item.time}</span>
               </div>
 
             </div>
@@ -134,15 +243,23 @@ const DashboardManagement = () => {
 
         <div className="dashboardManagement-editorList">
 
-          {editors.map((editor, index) => (
+          {loading && <p className="dashboardManagement-empty">Loading editors...</p>}
+
+          {!loading && error && <p className="dashboardManagement-empty">{error}</p>}
+
+          {!loading && !error && topEditors.length === 0 && (
+            <p className="dashboardManagement-empty">No editors found.</p>
+          )}
+
+          {!loading && !error && topEditors.map((editor) => (
 
             <div
               className="dashboardManagement-editor"
-              key={index}
+              key={editor.id}
             >
 
               <div className="dashboardManagement-avatar">
-                {editor.name.charAt(3)}
+                {getInitial(editor.name)}
               </div>
 
               <div className="dashboardManagement-info">

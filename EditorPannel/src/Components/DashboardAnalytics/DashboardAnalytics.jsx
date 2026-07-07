@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "./DashboardAnalytics.css";
 
 import {
@@ -32,13 +32,83 @@ ChartJS.register(
   Filler
 );
 
-const DashboardAnalytics = () => {
+const getMonthBuckets = () => {
+  const now = new Date();
+
+  return Array.from({ length: 6 }, (_, index) => {
+    const date = new Date(now.getFullYear(), now.getMonth() - (5 - index), 1);
+
+    return {
+      label: date.toLocaleString("en-US", { month: "short" }),
+      month: date.getMonth(),
+      year: date.getFullYear(),
+    };
+  });
+};
+
+const isSameBucket = (dateValue, bucket) => {
+  if (!dateValue) return false;
+
+  const date = new Date(dateValue);
+  return date.getMonth() === bucket.month && date.getFullYear() === bucket.year;
+};
+
+const DashboardAnalytics = ({
+  papers = [],
+  allPapers = [],
+  loading = false,
+}) => {
+  const monthBuckets = useMemo(() => getMonthBuckets(), []);
+
+  const monthlySeries = useMemo(() => {
+    const source = papers.length ? papers : allPapers;
+
+    return monthBuckets.map((bucket) => {
+      const monthPapers = source.filter((paper) =>
+        isSameBucket(paper.createdAt, bucket)
+      );
+
+      return {
+        published: monthPapers.filter(
+          (paper) => paper.status === "Published" || paper.isPublished
+        ).length,
+        pending: monthPapers.filter((paper) =>
+          [
+            "Submitted",
+            "Editor Assigned",
+            "Editing",
+            "Reviewer Assigned",
+            "Review Pending",
+            "Revision Required",
+            "Accepted",
+          ].includes(paper.status)
+        ).length,
+        rejected: monthPapers.filter((paper) => paper.status === "Rejected").length,
+      };
+    });
+  }, [allPapers, monthBuckets, papers]);
+
+  const categoryData = useMemo(() => {
+    const source = papers.length ? papers : allPapers;
+    const counts = source.reduce((acc, paper) => {
+      const category = paper.researchArea || "Others";
+      acc[category] = (acc[category] || 0) + 1;
+      return acc;
+    }, {});
+
+    const entries = Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+
+    return entries.length ? entries : [["No Data", 1]];
+  }, [allPapers, papers]);
+
   const lineData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    labels: monthBuckets.map((bucket) => bucket.label),
     datasets: [
       {
         label: "Published",
-        data: [35, 42, 55, 48, 66, 82],
+        data: monthlySeries.map((item) => item.published),
         borderColor: "#2563eb",
         backgroundColor: "rgba(37,99,235,.12)",
         fill: true,
@@ -46,7 +116,7 @@ const DashboardAnalytics = () => {
       },
       {
         label: "Pending",
-        data: [22, 28, 24, 34, 26, 18],
+        data: monthlySeries.map((item) => item.pending),
         borderColor: "#14b8a6",
         backgroundColor: "rgba(20,184,166,.08)",
         fill: true,
@@ -54,7 +124,7 @@ const DashboardAnalytics = () => {
       },
       {
         label: "Rejected",
-        data: [8, 10, 12, 7, 9, 5],
+        data: monthlySeries.map((item) => item.rejected),
         borderColor: "#ef4444",
         backgroundColor: "rgba(239,68,68,.08)",
         fill: true,
@@ -74,16 +144,10 @@ const DashboardAnalytics = () => {
   };
 
   const doughnutData = {
-    labels: [
-      "Medical",
-      "Computer",
-      "Engineering",
-      "Science",
-      "Others",
-    ],
+    labels: categoryData.map(([label]) => label),
     datasets: [
       {
-        data: [35, 24, 18, 15, 8],
+        data: categoryData.map(([, value]) => value),
         backgroundColor: [
           "#2563eb",
           "#14b8a6",
@@ -124,7 +188,7 @@ const DashboardAnalytics = () => {
 
           <div className="dashboardAnalytics-badge">
             <FiTrendingUp />
-            +18%
+            {loading ? "..." : `${papers.length} papers`}
           </div>
         </div>
 

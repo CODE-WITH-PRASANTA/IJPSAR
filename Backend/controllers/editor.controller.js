@@ -1,3 +1,4 @@
+const sendNotification = require("../utils/sendNotification");
 const SubmitForm = require("../models/submitform.model");
 const Editor = require("../models/editor.model");
 const bcrypt = require("bcryptjs");
@@ -233,6 +234,15 @@ exports.assignPaperToEditor = async (req, res) => {
       editorId: editor._id.toString(),
       editorName: editor.name,
       status: "Editor Assigned",
+    });
+
+
+    await sendNotification({
+      receiverId: editor._id,
+      receiverRole: "Editor",
+      title: "New Paper Assigned",
+      message: `${paper.paperTitle} has been assigned to you.`,
+      paperId: paper._id,
     });
 
     return res.status(200).json({

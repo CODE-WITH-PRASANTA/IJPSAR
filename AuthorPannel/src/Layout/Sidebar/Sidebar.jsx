@@ -14,6 +14,7 @@ import {
 } from "react-icons/fi";
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import API from "../../api/axios";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -21,6 +22,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const [showNotificationPopup, setShowNotificationPopup] = useState(false); // New state for notifications popup
   const [showComplaintForm, setShowComplaintForm] = useState(false);
   const [author, setAuthor] = useState(null);
+  const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
 
   // Form State
@@ -30,12 +32,37 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     complain: "",
   });
 
+  const fetchNotifications = async () => {
+    try {
+      const token = localStorage.getItem("authorToken");
+
+      const { data } = await API.get("/notification/author", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (data.success) {
+        setNotifications(data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("author"));
+
     if (user) {
       setAuthor(user);
-      setFormData((prev) => ({ ...prev, name: user.fullName || "" }));
+
+      setFormData((prev) => ({
+        ...prev,
+        name: user.fullName || "",
+      }));
     }
+
+    fetchNotifications();
   }, []);
 
   const handleLogout = () => {
@@ -54,7 +81,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     e.preventDefault();
     console.log("Complaint Submitted Data:", formData);
     // Add logic here to sync with API endpoints if necessary
-    
+
     // Clear & close
     setFormData({ name: author?.fullName || "", subject: "", complain: "" });
     setShowComplaintForm(false);
@@ -165,7 +192,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           {/* Master Profile Actions Popup Menu */}
           {showProfileMenu && (
             <div className="Sidebar_ProfilePopup">
-              <div 
+              <div
                 className="Sidebar_ProfilePopupItem"
                 onClick={() => {
                   setShowNotificationPopup(true);
@@ -174,11 +201,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 }}
               >
                 <FiBell />
-                Notifications
+
+                <span>Notifications</span>
+
+                {notifications.filter((n) => !n.isRead).length > 0 && (
+                  <span className="notificationBadge">
+                    {notifications.filter((n) => !n.isRead).length}
+                  </span>
+                )}
               </div>
 
               {/* Updated based on Screenshot 2026-07-01 102815.png */}
-              <div 
+              <div
                 className="Sidebar_ProfilePopupItem"
                 onClick={() => {
                   setShowTicketNotification(true);
@@ -211,7 +245,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               </div>
               <div className="Ticket_NotificationBody">
                 <p>Have an inquiry or issue regarding publication timelines?</p>
-                <button 
+                <button
                   className="Ticket_RaiseBtn"
                   onClick={() => {
                     setShowComplaintForm(true);
@@ -228,20 +262,66 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           {showNotificationPopup && (
             <div className="Notification_PopBox">
               <div className="Notification_PopHeader">
-                <h5>Recent Notifications</h5>
+                <div className="Notification_Header_Left">
+                  <h5>Recent Notifications</h5>
+
+                  {notifications.length > 0 && (
+                    <button
+                      className="markAllBtn"
+                      onClick={async () => {
+                        const token = localStorage.getItem("authorToken");
+
+                        await API.put(
+                          "/notification/author/read-all",
+                          {},
+                          {
+                            headers: {
+                              Authorization: `Bearer ${token}`,
+                            },
+                          },
+                        );
+
+                        fetchNotifications();
+                      }}
+                    >
+                      Mark All Read
+                    </button>
+                  )}
+                </div>{" "}
                 <button onClick={() => setShowNotificationPopup(false)}>
                   <FiX />
                 </button>
               </div>
               <div className="Notification_PopBody">
-                <div className="Notification_Item unread">
-                  <p>Your paper <strong>#4012</strong> has been sent for reviewer matching.</p>
-                  <span className="Notification_Time">Just now</span>
-                </div>
-                <div className="Notification_Item">
-                  <p>Welcome to the updated IJPSAR Author Panel platform.</p>
-                  <span className="Notification_Time">2 hours ago</span>
-                </div>
+                {notifications.length === 0 ? (
+                  <p className="noNotification">No Notifications</p>
+                ) : (
+                  notifications.map((item) => (
+                    <div
+                      key={item._id}
+                      className={`Notification_Item ${
+                        item.isRead ? "" : "unread"
+                      }`}
+                      onClick={async () => {
+                        if (!item.isRead) {
+                          await API.put(`/notification/read/${item._id}`);
+
+                          fetchNotifications();
+                        }
+                      }}
+                    >
+                      <p>
+                        <strong>{item.title}</strong>
+                      </p>
+
+                      <p>{item.message}</p>
+
+                      <span className="Notification_Time">
+                        {new Date(item.createdAt).toLocaleString()}
+                      </span>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           )}
@@ -254,7 +334,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           <div className="Complaint_ModalCard">
             <div className="Complaint_ModalHeader">
               <h3>Submit Support Ticket</h3>
-              <button 
+              <button
                 className="Complaint_CloseBtn"
                 onClick={() => setShowComplaintForm(false)}
               >
@@ -265,44 +345,44 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             <form onSubmit={handleFormSubmit} className="Complaint_Form">
               <div className="Form_Group">
                 <label>Full Name</label>
-                <input 
-                  type="text" 
-                  name="name" 
-                  value={formData.name} 
-                  onChange={handleInputChange} 
-                  placeholder="Enter your name" 
-                  required 
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Enter your name"
+                  required
                 />
               </div>
 
               <div className="Form_Group">
                 <label>Subject</label>
-                <input 
-                  type="text" 
-                  name="subject" 
-                  value={formData.subject} 
-                  onChange={handleInputChange} 
-                  placeholder="e.g., Delay in review status assignment" 
-                  required 
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Delay in review status assignment"
+                  required
                 />
               </div>
 
               <div className="Form_Group">
                 <label>Complain Box</label>
-                <textarea 
-                  name="complain" 
-                  rows="4" 
-                  value={formData.complain} 
-                  onChange={handleInputChange} 
-                  placeholder="Describe your system complaint or ticket issue in detail..." 
-                  required 
+                <textarea
+                  name="complain"
+                  rows="4"
+                  value={formData.complain}
+                  onChange={handleInputChange}
+                  placeholder="Describe your system complaint or ticket issue in detail..."
+                  required
                 ></textarea>
               </div>
 
               <div className="Complaint_FormActions">
-                <button 
-                  type="button" 
-                  className="Form_Btn cancel" 
+                <button
+                  type="button"
+                  className="Form_Btn cancel"
                   onClick={() => setShowComplaintForm(false)}
                 >
                   Cancel

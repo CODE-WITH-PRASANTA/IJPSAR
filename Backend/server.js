@@ -13,6 +13,7 @@ const editorRoutes = require("./routes/editor.routes");
 const authorRoutes = require("./routes/author.routes");
 
 const editorialboardRoutes = require("./routes/editorialboard.routes");
+const notificationRoutes = require("./routes/notification.routes");
 
 const paymentRoutes = require("./routes/payment.routes");
 
@@ -64,6 +65,8 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/submitform", submitformRoutes);
 app.use("/api/editor", editorRoutes);
 app.use("/api/author", authorRoutes);
+app.use("/api/notification", notificationRoutes);
+
 
 app.use("/api/editorialboard", editorialboardRoutes);
 

@@ -8,32 +8,90 @@ import {
 } from "react-icons/fi";
 import "./DashboardOverview.css";
 
-const DashboardOverview = () => {
+const REVIEW_STATUSES = [
+  "Editor Assigned",
+  "Editing",
+  "Reviewer Assigned",
+  "Review Pending",
+  "Revision Required",
+  "Accepted",
+];
+
+const getPercent = (value, total) =>
+  total > 0 ? Math.round((value / total) * 100) : 0;
+
+const isThisMonth = (dateValue) => {
+  if (!dateValue) return false;
+
+  const date = new Date(dateValue);
+  const now = new Date();
+
+  return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+};
+
+const DashboardOverview = ({
+  papers = [],
+  allPapers = [],
+  editors = [],
+  loading = false,
+}) => {
+  const totalPapers = papers.length;
+  const underReview = papers.filter((paper) =>
+    REVIEW_STATUSES.includes(paper.status)
+  ).length;
+  const published = papers.filter(
+    (paper) => paper.status === "Published" || paper.isPublished
+  ).length;
+  const completed = papers.filter(
+    (paper) => paper.status === "Completed" || paper.status === "Published"
+  ).length;
+  const accepted = papers.filter(
+    (paper) =>
+      paper.status === "Accepted" ||
+      paper.status === "Completed" ||
+      paper.status === "Published"
+  ).length;
+  const todaySubmissions = allPapers.filter((paper) => {
+    if (!paper.createdAt) return false;
+
+    return new Date(paper.createdAt).toDateString() === new Date().toDateString();
+  }).length;
+  const newAuthors = new Set(
+    allPapers
+      .filter((paper) => isThisMonth(paper.createdAt))
+      .flatMap((paper) => paper.authors || [])
+      .map((author) => author.email || author.fullName)
+      .filter(Boolean)
+  ).size;
+  const activeEditors = editors.filter(
+    (editor) => !editor.status || editor.status === "Active"
+  ).length;
+
   const cards = [
     {
       id: 1,
       title: "Total Papers",
-      value: "1,286",
-      growth: "+18.6%",
-      progress: 78,
+      value: totalPapers,
+      growth: `${allPapers.length} all`,
+      progress: getPercent(totalPapers, allPapers.length || totalPapers),
       color: "#2563eb",
       icon: <FiFileText />,
     },
     {
       id: 2,
       title: "Under Review",
-      value: "324",
-      growth: "+9.3%",
-      progress: 58,
+      value: underReview,
+      growth: `${getPercent(underReview, totalPapers)}%`,
+      progress: getPercent(underReview, totalPapers),
       color: "#f59e0b",
       icon: <FiClock />,
     },
     {
       id: 3,
       title: "Published",
-      value: "962",
-      growth: "+25.1%",
-      progress: 92,
+      value: published,
+      growth: `${getPercent(published, totalPapers)}%`,
+      progress: getPercent(published, totalPapers),
       color: "#22c55e",
       icon: <FiCheckCircle />,
     },
@@ -67,13 +125,13 @@ const DashboardOverview = () => {
 
               <div className="dashboardOverview-growth">
                 <FiArrowUpRight />
-                {item.growth}
+                {loading ? "..." : item.growth}
               </div>
             </div>
 
             <h5>{item.title}</h5>
 
-            <h1>{item.value}</h1>
+            <h1>{loading ? "..." : item.value.toLocaleString()}</h1>
 
             <div className="dashboardOverview-progress">
               <div
@@ -83,7 +141,7 @@ const DashboardOverview = () => {
             </div>
 
             <div className="dashboardOverview-footer">
-              <span>{item.progress}% Completed</span>
+              <span>{loading ? "..." : `${item.progress}% Completed`}</span>
               <span>This Month</span>
             </div>
           </div>
@@ -98,29 +156,29 @@ const DashboardOverview = () => {
 
           <div className="dashboardOverview-row">
             <span>Acceptance Rate</span>
-            <strong>84%</strong>
+            <strong>{loading ? "..." : `${getPercent(accepted, totalPapers)}%`}</strong>
           </div>
 
           <div className="dashboardOverview-line">
-            <div style={{ width: "84%" }}></div>
+            <div style={{ width: `${getPercent(accepted, totalPapers)}%` }}></div>
           </div>
 
           <div className="dashboardOverview-row">
             <span>Review Completion</span>
-            <strong>71%</strong>
+            <strong>{loading ? "..." : `${getPercent(completed, totalPapers)}%`}</strong>
           </div>
 
           <div className="dashboardOverview-line">
-            <div style={{ width: "71%" }}></div>
+            <div style={{ width: `${getPercent(completed, totalPapers)}%` }}></div>
           </div>
 
           <div className="dashboardOverview-row">
             <span>Issue Publication</span>
-            <strong>93%</strong>
+            <strong>{loading ? "..." : `${getPercent(published, completed)}%`}</strong>
           </div>
 
           <div className="dashboardOverview-line">
-            <div style={{ width: "93%" }}></div>
+            <div style={{ width: `${getPercent(published, completed)}%` }}></div>
           </div>
 
         </div>
@@ -129,17 +187,17 @@ const DashboardOverview = () => {
 
           <div className="dashboardOverview-statBox">
             <h4>Today's Submission</h4>
-            <span>46</span>
+            <span>{loading ? "..." : todaySubmissions}</span>
           </div>
 
           <div className="dashboardOverview-statBox">
             <h4>Active Editors</h4>
-            <span>18</span>
+            <span>{loading ? "..." : activeEditors}</span>
           </div>
 
           <div className="dashboardOverview-statBox">
             <h4>New Authors</h4>
-            <span>31</span>
+            <span>{loading ? "..." : newAuthors}</span>
           </div>
 
         </div>

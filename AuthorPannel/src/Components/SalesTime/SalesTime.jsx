@@ -1,100 +1,92 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import "./SalesTime.css";
 import {
   FaSearch,
   FaStar,
   FaRegStar,
-  FaTrashAlt,
   FaChevronLeft,
   FaChevronRight,
-  FaPlus,
+  FaFileAlt,
 } from "react-icons/fa";
 
-const SalesTime = () => {
+const COLORS = ["#6C63FF", "#F552C4", "#1ABC9C", "#5568FE", "#F59E0B"];
+
+const formatDate = (dateValue) => {
+  if (!dateValue) return "-";
+
+  return new Date(dateValue).toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+};
+
+const getInitials = (name = "") =>
+  name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase() || "A";
+
+const SalesTime = ({ submissions = [], loading = false, error = "" }) => {
   const [search, setSearch] = useState("");
 
-  const teamData = [
-    {
-      id: 1,
-      team: "Quality Assurance",
-      desc: "Product testing & automation",
-      rating: 5,
-      modified: "25 Sep, 2024",
-      members: [
-        { name: "A", color: "#6C63FF" },
-        { name: "B", color: "#F552C4" },
-        { name: "C", color: "#1ABC9C" },
-      ],
-    },
-    {
-      id: 2,
-      team: "Legal Team",
-      desc: "Legal support & compliance",
-      rating: 4,
-      modified: "25 Aug, 2024",
-      members: [
-        { name: "A", color: "#6C63FF" },
-        { name: "B", color: "#F552C4" },
-      ],
-    },
-    {
-      id: 3,
-      team: "Product Management",
-      desc: "Product development & lifecycle",
-      rating: 5,
-      modified: "21 Oct, 2024",
-      members: [
-        { name: "A", color: "#6C63FF" },
-        { name: "B", color: "#F552C4" },
-        { name: "C", color: "#1ABC9C" },
-        { name: "D", color: "#5568FE" },
-      ],
-    },
-    {
-      id: 4,
-      team: "Finance Team",
-      desc: "Financial planning & budget",
-      rating: 4,
-      modified: "20 Sep, 2024",
-      members: [
-        { name: "A", color: "#6C63FF" },
-        { name: "B", color: "#F552C4" },
-        { name: "C", color: "#1ABC9C" },
-      ],
-    },
-    {
-      id: 5,
-      team: "Logistics Team",
-      desc: "Supply chain & distribution",
-      rating: 3,
-      modified: "20 Aug, 2024",
-      members: [
-        { name: "A", color: "#6C63FF" },
-        { name: "B", color: "#F552C4" },
-      ],
-    },
-  ];
+  const teamData = useMemo(() => {
+    const authorMap = new Map();
 
-  const users = [
-    {
-      id: 1,
-      name: "Esther Howard",
-      commits: "6 system commits",
-      avatar: "E",
-    },
-    {
-      id: 2,
-      name: "Tyler Hero",
-      commits: "29 system commits",
-      avatar: "T",
-    },
-    {
-      id: 3,
-      name: "Arlene McCoy",
-      commits: "34 system commits",
-      avatar: "A",
-    },
-  ];
+    submissions.forEach((paper) => {
+      const authors = paper.authors?.length
+        ? paper.authors
+        : [{ fullName: paper.authorName || "Unknown Author" }];
+
+      authors.forEach((author) => {
+        const name = author.fullName || "Unknown Author";
+        const key = author.email || name;
+        const current = authorMap.get(key) || {
+          id: key,
+          team: name,
+          desc: author.organization || author.designation || "Author",
+          rating: 5,
+          modifiedAt: paper.updatedAt || paper.createdAt,
+          papers: 0,
+          members: [],
+        };
+
+        const latestTime = new Date(current.modifiedAt || 0).getTime();
+        const paperTime = new Date(paper.updatedAt || paper.createdAt || 0).getTime();
+
+        current.papers += 1;
+        current.modifiedAt = paperTime > latestTime
+          ? paper.updatedAt || paper.createdAt
+          : current.modifiedAt;
+        current.members = authors.slice(0, 4).map((item, index) => ({
+          name: getInitials(item.fullName),
+          color: COLORS[index % COLORS.length],
+        }));
+
+        authorMap.set(key, current);
+      });
+    });
+
+    return Array.from(authorMap.values()).sort(
+      (a, b) => new Date(b.modifiedAt || 0) - new Date(a.modifiedAt || 0)
+    );
+  }, [submissions]);
+
+  const latestPublications = useMemo(
+    () =>
+      submissions
+        .filter((paper) => paper.status === "Published" || paper.isPublished)
+        .sort(
+          (a, b) =>
+            new Date(b.publishedAt || b.updatedAt || b.createdAt || 0) -
+            new Date(a.publishedAt || a.updatedAt || a.createdAt || 0)
+        )
+        .slice(0, 5),
+    [submissions]
+  );
 
   const filteredTeams = teamData.filter((item) =>
     item.team.toLowerCase().includes(search.toLowerCase())
@@ -112,7 +104,7 @@ const SalesTime = () => {
               <div className="SalesTime_PanelMeta">
                 <h2 className="SalesTime_PanelTitle">Teams</h2>
                 <p className="SalesTime_PanelSubtitle">
-                  Manage organization units and performance data
+                  All authors found from submitted papers
                 </p>
               </div>
 
@@ -135,14 +127,38 @@ const SalesTime = () => {
                     <th className="SalesTime_TableTh CheckboxCell">
                       <input type="checkbox" className="SalesTime_HeaderCheckbox" />
                     </th>
-                    <th className="SalesTime_TableTh">TEAM</th>
+                    <th className="SalesTime_TableTh">AUTHOR</th>
                     <th className="SalesTime_TableTh">RATING</th>
                     <th className="SalesTime_TableTh">LAST MODIFIED</th>
                     <th className="SalesTime_TableTh">MEMBERS</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredTeams.map((item) => (
+                  {loading && (
+                    <tr>
+                      <td className="SalesTime_EmptyState" colSpan="5">
+                        Loading authors...
+                      </td>
+                    </tr>
+                  )}
+
+                  {!loading && error && (
+                    <tr>
+                      <td className="SalesTime_EmptyState" colSpan="5">
+                        {error}
+                      </td>
+                    </tr>
+                  )}
+
+                  {!loading && !error && filteredTeams.length === 0 && (
+                    <tr>
+                      <td className="SalesTime_EmptyState" colSpan="5">
+                        No authors found.
+                      </td>
+                    </tr>
+                  )}
+
+                  {!loading && !error && filteredTeams.map((item) => (
                     <tr key={item.id} className="SalesTime_TableBodyRow">
                       <td className="SalesTime_TableTd CheckboxCell">
                         <input type="checkbox" className="SalesTime_RowCheckbox" />
@@ -150,7 +166,9 @@ const SalesTime = () => {
                       <td className="SalesTime_TableTd">
                         <div className="SalesTime_TeamProfile">
                           <h4 className="SalesTime_TeamName">{item.team}</h4>
-                          <span className="SalesTime_TeamDescription">{item.desc}</span>
+                          <span className="SalesTime_TeamDescription">
+                            {item.desc} - {item.papers} paper{item.papers === 1 ? "" : "s"}
+                          </span>
                         </div>
                       </td>
                       <td className="SalesTime_TableTd">
@@ -165,7 +183,7 @@ const SalesTime = () => {
                         </div>
                       </td>
                       <td className="SalesTime_TableTd SalesTime_DateValue">
-                        {item.modified}
+                        {formatDate(item.modifiedAt)}
                       </td>
                       <td className="SalesTime_TableTd">
                         <div className="SalesTime_AvatarGroupStack">
@@ -197,7 +215,9 @@ const SalesTime = () => {
               </div>
 
               <div className="SalesTime_PaginationControlGroup">
-                <span className="SalesTime_PaginationStatus">1-5 of 12</span>
+                <span className="SalesTime_PaginationStatus">
+                  {filteredTeams.length ? `1-${filteredTeams.length} of ${filteredTeams.length}` : "0 of 0"}
+                </span>
                 <div className="SalesTime_PaginationBtnStack">
                   <button className="SalesTime_PaginationNavBtn" aria-label="Previous Page">
                     <FaChevronLeft />
@@ -223,41 +243,41 @@ const SalesTime = () => {
               <div className="SalesTime_SidebarCardMeta">
                 <h2 className="SalesTime_SidebarCardTitle">Latest Publication</h2>
                 <p className="SalesTime_SidebarCardDescription">
-                  Users on the block list are restricted from initiating chat workflows.
+                  Latest 5 published papers from all authors.
                 </p>
               </div>
               <span className="SalesTime_CounterBadge">
-                {users.length} Users
+                {latestPublications.length} Papers
               </span>
             </div>
 
-            <div className="SalesTime_ActionInputGroup">
-              <input
-                type="text"
-                className="SalesTime_FormInputField"
-                placeholder="Block new user by username..."
-              />
-              <button className="SalesTime_FormSubmitBtn">
-                <FaPlus className="SalesTime_BtnIcon" />
-                <span>Add User</span>
-              </button>
-            </div>
-
             <div className="SalesTime_UserDirectoryList">
-              {users.map((user) => (
-                <div className="SalesTime_UserDirectoryCard" key={user.id}>
+              {loading && (
+                <p className="SalesTime_EmptyDirectory">Loading publications...</p>
+              )}
+
+              {!loading && !error && latestPublications.length === 0 && (
+                <p className="SalesTime_EmptyDirectory">No published papers found.</p>
+              )}
+
+              {!loading && error && (
+                <p className="SalesTime_EmptyDirectory">{error}</p>
+              )}
+
+              {!loading && !error && latestPublications.map((paper) => (
+                <div className="SalesTime_UserDirectoryCard" key={paper._id || paper.paperId}>
                   <div className="SalesTime_UserDirectoryMeta">
                     <div className="SalesTime_DirectoryAvatar">
-                      {user.avatar}
+                      <FaFileAlt />
                     </div>
                     <div className="SalesTime_DirectoryInfo">
-                      <h4 className="SalesTime_DirectoryName">{user.name}</h4>
-                      <span className="SalesTime_DirectorySubtext">{user.commits}</span>
+                      <h4 className="SalesTime_DirectoryName">{paper.paperTitle}</h4>
+                      <span className="SalesTime_DirectorySubtext">
+                        {paper.paperId} - {formatDate(paper.publishedAt || paper.updatedAt)}
+                      </span>
                     </div>
                   </div>
-                  <button className="SalesTime_DirectoryDeleteAction" aria-label="Delete User">
-                    <FaTrashAlt />
-                  </button>
+                  <span className="SalesTime_PublicationStatus">{paper.status}</span>
                 </div>
               ))}
             </div>

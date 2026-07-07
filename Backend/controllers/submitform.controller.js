@@ -1,3 +1,4 @@
+const sendNotification = require("../utils/sendNotification");
 const SubmitForm = require("../models/submitform.model");
 
 /* ================= CREATE SUBMISSION ================= */
@@ -144,6 +145,54 @@ exports.getEditorPapers = async (req, res) => {
   }
 };
 
+
+exports.getPublishedEditorPapers = async (req, res) => {
+  try {
+    const papers = await SubmitForm.find({
+      editorId: req.params.editorId,
+      status: "Published",
+      isPublished: true,
+    }).sort({
+      publishedAt: -1,
+    });
+
+    return res.status(200).json({
+      success: true,
+      count: papers.length,
+      data: papers,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+
+exports.getPublishedAuthorPapers = async (req, res) => {
+  try {
+    const papers = await SubmitForm.find({
+      authorId: req.author.id,
+      status: "Published",
+    }).sort({
+      updatedAt: -1,
+    });
+
+    return res.status(200).json({
+      success: true,
+      count: papers.length,
+      data: papers,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 exports.getUnassignedPapers = async (req, res) => {
   try {
     const papers = await SubmitForm.find({
@@ -225,6 +274,14 @@ exports.updateSubmission = async (req, res) => {
         status: req.body.status,
         editorId: submission.editorId,
         editorName: submission.editorName,
+      });
+
+      await sendNotification({
+        receiverId: submission.authorId,
+        receiverRole: "Author",
+        title: "New Feedback",
+        message: "Editor has provided feedback for your paper.",
+        paperId: submission._id,
       });
 
       // Update current remark
@@ -499,12 +556,19 @@ exports.completePaper = async (req, res) => {
 
     await paper.save();
 
+    await sendNotification({
+      receiverId: "ADMIN_ID",
+      receiverRole: "Admin",
+      title: "Paper Ready",
+      message: `${paper.paperTitle} is ready for publication.`,
+      paperId: paper._id,
+    });
+
     return res.json({
       success: true,
       message: "Paper moved to Publication Management",
       data: paper,
     });
-
   } catch (err) {
     return res.status(500).json({
       success: false,
@@ -529,12 +593,19 @@ exports.publishPaper = async (req, res) => {
 
     await paper.save();
 
+    await sendNotification({
+      receiverId: paper.authorId,
+      receiverRole: "Author",
+      title: "Paper Published",
+      message: "Congratulations! Your paper has been published.",
+      paperId: paper._id,
+    });
+
     return res.json({
       success: true,
       message: "Paper Published Successfully",
       data: paper,
     });
-
   } catch (err) {
     return res.status(500).json({
       success: false,
@@ -564,7 +635,6 @@ exports.unPublishPaper = async (req, res) => {
       message: "Paper Unpublished",
       data: paper,
     });
-
   } catch (err) {
     return res.status(500).json({
       success: false,
