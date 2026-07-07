@@ -15,6 +15,8 @@ const authorRoutes = require("./routes/author.routes");
 const editorialboardRoutes = require("./routes/editorialboard.routes");
 const notificationRoutes = require("./routes/notification.routes");
 
+const paymentRoutes = require("./routes/payment.routes");
+
 dotenv.config();
 
 const app = express();
@@ -58,6 +60,8 @@ app.use("/api/notification", notificationRoutes);
 
 
 app.use("/api/editorialboard", editorialboardRoutes);
+
+app.use("/api/payment", paymentRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend Server Running Successfully");

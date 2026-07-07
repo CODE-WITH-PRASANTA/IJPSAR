@@ -145,6 +145,54 @@ exports.getEditorPapers = async (req, res) => {
   }
 };
 
+
+exports.getPublishedEditorPapers = async (req, res) => {
+  try {
+    const papers = await SubmitForm.find({
+      editorId: req.params.editorId,
+      status: "Published",
+      isPublished: true,
+    }).sort({
+      publishedAt: -1,
+    });
+
+    return res.status(200).json({
+      success: true,
+      count: papers.length,
+      data: papers,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+
+exports.getPublishedAuthorPapers = async (req, res) => {
+  try {
+    const papers = await SubmitForm.find({
+      authorId: req.author.id,
+      status: "Published",
+    }).sort({
+      updatedAt: -1,
+    });
+
+    return res.status(200).json({
+      success: true,
+      count: papers.length,
+      data: papers,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 exports.getUnassignedPapers = async (req, res) => {
   try {
     const papers = await SubmitForm.find({

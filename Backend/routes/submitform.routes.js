@@ -23,11 +23,13 @@ const {
   publishPaper,
   getEditorPapers,
   getUnassignedPapers,
-  completePaper,unPublishPaper 
-
+  completePaper,
+  unPublishPaper,
+  getPublishedEditorPapers,
+  getPublishedAuthorPapers,
 } = require("../controllers/submitform.controller");
 
-const authorAuth=require("../middlewares/author.middleware");
+const authorAuth = require("../middlewares/author.middleware");
 const editorAuth = require("../middlewares/editor.middleware");
 /* ================= CREATE SUBMISSION ================= */
 
@@ -36,14 +38,20 @@ router.post(
   authorAuth,
   upload.single("paperFile"),
   convertToWebp,
-  createSubmission
-  );
+  createSubmission,
+);
 
 /* ================= GET ALL ================= */
 
 router.get("/all", getAllSubmissions);
-
+router.get("/editor/:editorId/published", getPublishedEditorPapers);
+router.get(
+  "/author/published",
+  authorAuth,
+  getPublishedAuthorPapers
+);
 router.get("/editor/:editorId", getEditorPapers);
+
 
 router.get("/unassigned", getUnassignedPapers);
 /* ================= GET SINGLE ================= */
@@ -53,18 +61,14 @@ router.get("/:id", getSingleSubmission);
 
 /* ================= UPDATE ================= */
 
-router.put(
-  "/update/:id",
-  editorAuth,
-  updateSubmission
-);
+router.put("/update/:id", editorAuth, updateSubmission);
 
 router.put(
   "/revision/:id",
   authorAuth,
   upload.single("paperFile"),
   convertToWebp,
-  uploadRevision
+  uploadRevision,
 );
 
 /* ================= CHANGE STATUS ================= */

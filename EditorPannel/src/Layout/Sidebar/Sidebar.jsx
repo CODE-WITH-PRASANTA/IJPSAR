@@ -153,12 +153,7 @@ const Sidebar = ({ sidebarCollapsed, mobileSidebar, setMobileSidebar }) => {
           </NavLink>
 
           {/* Chat */}
-          <NavLink to="/editor-chat" className="sidebarItem">
-            <div className="sidebarItemLeft">
-              <FaComments />
-              {!sidebarCollapsed && <span>Chat</span>}
-            </div>
-          </NavLink>
+         
 
           {/* Payment */}
           <NavLink to="/payment-info" className="sidebarItem">
