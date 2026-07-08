@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { 
-  FaFilePdf, 
-  FaQuoteRight, 
-  FaShareAlt, 
-  FaRegBookmark, 
+import {
+  FaFilePdf,
+  FaQuoteRight,
+  FaShareAlt,
+  FaRegBookmark,
   FaBookmark,
   FaCalendarAlt,
   FaIdCard,
   FaEnvelopeOpenText,
-  FaUserTag
+  FaUserTag,
 } from "react-icons/fa";
 import API from "../../api/axios";
 import "./ArticleDetailsSec.css";
@@ -23,6 +23,7 @@ const ArticleDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isSaved, setIsSaved] = useState(false);
+  const [showFullAbstract, setShowFullAbstract] = useState(false);
 
   useEffect(() => {
     if (!id) {
@@ -36,19 +37,27 @@ const ArticleDetails = () => {
         setLoading(true);
         setError(null);
         const response = await API.get(`/submitform/${id}`);
-        
+
         if (response.data?.success && response.data?.data) {
           const fetchedData = response.data.data;
           setArticle(fetchedData);
-          
-          const savedArticles = JSON.parse(localStorage.getItem("saved_articles") || "[]");
+
+          const savedArticles = JSON.parse(
+            localStorage.getItem("saved_articles") || "[]",
+          );
           setIsSaved(savedArticles.includes(fetchedData._id || id));
         } else {
-          setError("Data payload successfully retrieved but invalid structural signature.");
+          setError(
+            "Data payload successfully retrieved but invalid structural signature.",
+          );
         }
       } catch (err) {
         console.error("Fetch Data Execution Failure:", err);
-        setError(err.response?.data?.message || err.message || "An unexpected system error occurred.");
+        setError(
+          err.response?.data?.message ||
+            err.message ||
+            "An unexpected system error occurred.",
+        );
       } finally {
         setLoading(false);
       }
@@ -60,11 +69,13 @@ const ArticleDetails = () => {
   // Enhanced dynamic file reference builder (No ports assigned)
   const handleDownloadPDF = () => {
     if (!article?.paperFile) {
-      alert("No printable manuscript or publication file resource linked with this profile.");
+      alert(
+        "No printable manuscript or publication file resource linked with this profile.",
+      );
       return;
     }
     let fileUrl = article.paperFile;
-    
+
     if (fileUrl.startsWith("http://") || fileUrl.startsWith("https://")) {
       window.open(fileUrl, "_blank", "noopener,noreferrer");
       return;
@@ -74,25 +85,36 @@ const ArticleDetails = () => {
     const cleanBaseUrl = BACKEND_BASE_URL.replace(/\/+$/, "");
     const cleanFilePath = fileUrl.startsWith("/") ? fileUrl : `/${fileUrl}`;
 
-    window.open(`${cleanBaseUrl}${cleanFilePath}`, "_blank", "noopener,noreferrer");
+    window.open(
+      `${cleanBaseUrl}${cleanFilePath}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
   };
 
   const handleCiteAction = () => {
     if (!article) return;
-    const currentYear = article.infoPublished 
-      ? new Date(article.infoPublished).getFullYear() 
+    const currentYear = article.infoPublished
+      ? new Date(article.infoPublished).getFullYear()
       : new Date(article.createdAt || Date.now()).getFullYear();
-      
+
     const authorsStr = getPrimaryAuthorsString();
     const title = article.paperTitle || "Untitled Publication";
     const volume = article.volume || "12(6)";
     const doi = article.doiNumber || "N/A";
-    
+
     const citationString = `${authorsStr}. (${currentYear}). ${title}. International Journal of Pharmaceutical and Advanced Scientific Research, ${volume}. DOI: ${doi}`;
-    
-    navigator.clipboard.writeText(citationString)
-      .then(() => alert(`Citation copied to your clipboard:\n\n${citationString}`))
-      .catch(() => alert("Clipboard system permission block. Manual context copy selection needed."));
+
+    navigator.clipboard
+      .writeText(citationString)
+      .then(() =>
+        alert(`Citation copied to your clipboard:\n\n${citationString}`),
+      )
+      .catch(() =>
+        alert(
+          "Clipboard system permission block. Manual context copy selection needed.",
+        ),
+      );
   };
 
   const handleShareAction = async () => {
@@ -110,15 +132,22 @@ const ArticleDetails = () => {
         console.warn("Share execution cancelled or failed:", err);
       }
     } else {
-      navigator.clipboard.writeText(window.location.href)
-        .then(() => alert("Web link sharing API not supported on this device. URL copied to clipboard instead!"));
+      navigator.clipboard
+        .writeText(window.location.href)
+        .then(() =>
+          alert(
+            "Web link sharing API not supported on this device. URL copied to clipboard instead!",
+          ),
+        );
     }
   };
 
   const handleSaveToggle = () => {
     if (!article) return;
     const targetId = article._id || id;
-    let savedArticles = JSON.parse(localStorage.getItem("saved_articles") || "[]");
+    let savedArticles = JSON.parse(
+      localStorage.getItem("saved_articles") || "[]",
+    );
 
     if (!isSaved) {
       if (!savedArticles.includes(targetId)) {
@@ -128,7 +157,7 @@ const ArticleDetails = () => {
       setIsSaved(true);
       alert("Article saved to browser bookmarks!");
     } else {
-      savedArticles = savedArticles.filter(item => item !== targetId);
+      savedArticles = savedArticles.filter((item) => item !== targetId);
       localStorage.setItem("saved_articles", JSON.stringify(savedArticles));
       setIsSaved(false);
       alert("Article reference removed from browser bookmarks.");
@@ -139,7 +168,10 @@ const ArticleDetails = () => {
     if (!article?.keywords) return [];
     if (Array.isArray(article.keywords)) return article.keywords;
     if (typeof article.keywords === "string") {
-      return article.keywords.split(",").map(kw => kw.trim()).filter(Boolean);
+      return article.keywords
+        .split(",")
+        .map((kw) => kw.trim())
+        .filter(Boolean);
     }
     return [];
   };
@@ -147,62 +179,95 @@ const ArticleDetails = () => {
   const getPrimaryAuthorsString = () => {
     if (!article) return "Unknown Author";
     if (article.authorName) {
-      return Array.isArray(article.authorName) ? article.authorName.join(", ") : String(article.authorName);
+      return Array.isArray(article.authorName)
+        ? article.authorName.join(", ")
+        : String(article.authorName);
     }
     if (Array.isArray(article.authors) && article.authors.length > 0) {
-      return article.authors.map(a => a.name || a.authorName || (typeof a === 'string' ? a : '')).filter(Boolean).join(", ");
+      return article.authors
+        .map((a) => a.name || a.authorName || (typeof a === "string" ? a : ""))
+        .filter(Boolean)
+        .join(", ");
     }
     return "Unknown Author";
   };
 
   const getAuthorsListForTable = () => {
     if (!article) return [];
-    
+
     // Scenario 1: Structured authors array exists
     if (Array.isArray(article.authors) && article.authors.length > 0) {
-      return article.authors.map(auth => {
-        if (typeof auth === 'string') {
-          return { name: auth, email: "N/A", designation: "Researcher", organization: "No affiliation listed." };
+      return article.authors.map((auth) => {
+        if (typeof auth === "string") {
+          return {
+            name: auth,
+            email: "N/A",
+            designation: "Researcher",
+            organization: "No affiliation listed.",
+          };
         }
         return {
           name: auth.name || auth.authorName || "Unknown",
           email: auth.email || auth.authorEmail || "N/A",
           designation: auth.designation || "Researcher",
-          organization: auth.organization || auth.affiliation || "No affiliation listed."
+          organization:
+            auth.organization || auth.affiliation || "No affiliation listed.",
         };
       });
     }
-    
+
     // Scenario 2: authorName is an Array of strings or objects
     if (Array.isArray(article.authorName)) {
-      return article.authorName.map(auth => {
-        if (typeof auth === 'string') {
+      return article.authorName.map((auth) => {
+        if (typeof auth === "string") {
           return {
             name: auth,
             email: article.authorEmail || article.email || "N/A",
             designation: article.designation || "Author / Researcher",
-            organization: article.affiliation || article.organization || "No affiliation listed."
+            organization:
+              article.affiliation ||
+              article.organization ||
+              "No affiliation listed.",
           };
         }
         return {
           name: auth.name || auth.authorName || "Unknown",
-          email: auth.email || auth.authorEmail || article.authorEmail || article.email || "N/A",
-          designation: auth.designation || article.designation || "Author / Researcher",
-          organization: auth.organization || auth.affiliation || article.affiliation || article.organization || "No affiliation listed."
+          email:
+            auth.email ||
+            auth.authorEmail ||
+            article.authorEmail ||
+            article.email ||
+            "N/A",
+          designation:
+            auth.designation || article.designation || "Author / Researcher",
+          organization:
+            auth.organization ||
+            auth.affiliation ||
+            article.affiliation ||
+            article.organization ||
+            "No affiliation listed.",
         };
       });
     }
 
     // Scenario 3: authorName is a standalone String or Single Object
     if (article.authorName) {
-      return [{
-        name: typeof article.authorName === 'object' ? (article.authorName.name || article.authorName.authorName) : article.authorName,
-        email: article.authorEmail || article.email || "N/A",
-        designation: article.designation || "Author / Researcher",
-        organization: article.affiliation || article.organization || "No affiliation listed."
-      }];
+      return [
+        {
+          name:
+            typeof article.authorName === "object"
+              ? article.authorName.name || article.authorName.authorName
+              : article.authorName,
+          email: article.authorEmail || article.email || "N/A",
+          designation: article.designation || "Author / Researcher",
+          organization:
+            article.affiliation ||
+            article.organization ||
+            "No affiliation listed.",
+        },
+      ];
     }
-    
+
     return [];
   };
 
@@ -238,14 +303,16 @@ const ArticleDetails = () => {
       <div className="articleDetailsBgGlowTwo"></div>
 
       <div className="articleDetailsContainer">
-        
         {/* LEFT SIDE: MAIN MANUSCRIPT CONTENT */}
         <div className="articleDetailsLeft">
-          
           <div className="articleDetailsTags">
             <span className="articleDetailsTag active">Open Access</span>
-            <span className="articleDetailsTag">{article?.authorCategory || "Original Research"}</span>
-            <span className="articleDetailsTag">{article?.researchArea || "Pharmaceutics"}</span>
+            <span className="articleDetailsTag">
+              {article?.authorCategory || "Original Research"}
+            </span>
+            <span className="articleDetailsTag">
+              {article?.researchArea || "Pharmaceutics"}
+            </span>
           </div>
 
           <h1 className="articleDetailsTitle">
@@ -254,9 +321,7 @@ const ArticleDetails = () => {
 
           {/* DISPLAY AUTHOR UNDER TITLE */}
           <div className="articleDetailsTopAuthorsBlock">
-            <div className="articleDetailsAuthors">
-              {topAuthorsHeading}
-            </div>
+            <div className="articleDetailsAuthors">{topAuthorsHeading}</div>
             {(article?.affiliation || article?.organization) && (
               <div className="articleDetailsAffiliation">
                 {article.affiliation || article.organization}
@@ -266,10 +331,18 @@ const ArticleDetails = () => {
 
           <div className="articleSubHeaderIdentifiers">
             <div className="idBadge">
-              <FaIdCard className="badgeIcon" /> <span><strong>Paper ID:</strong> {article?.paperId || article?._id || "N/A"}</span>
+              <FaIdCard className="badgeIcon" />{" "}
+              <span>
+                <strong>Paper ID:</strong>{" "}
+                {article?.paperId || article?._id || "N/A"}
+              </span>
             </div>
             <div className="idBadge">
-              <FaCalendarAlt className="badgeIcon" /> <span><strong>Published:</strong> {article?.infoPublished || "Pending"}</span>
+              <FaCalendarAlt className="badgeIcon" />{" "}
+              <span>
+                <strong>Published:</strong>{" "}
+                {article?.infoPublished || "Pending"}
+              </span>
             </div>
           </div>
 
@@ -292,7 +365,11 @@ const ArticleDetails = () => {
                       <tr key={index}>
                         <td className="fontWeightBold">{auth.name}</td>
                         <td className="emailColumn">{auth.email}</td>
-                        <td><span className="designationTag">{auth.designation}</span></td>
+                        <td>
+                          <span className="designationTag">
+                            {auth.designation}
+                          </span>
+                        </td>
                         <td>{auth.organization}</td>
                       </tr>
                     ))}
@@ -300,12 +377,19 @@ const ArticleDetails = () => {
                 </table>
               </div>
             ) : (
-              <p className="noDataFallback">No structured author profiles available for this publication context.</p>
+              <p className="noDataFallback">
+                No structured author profiles available for this publication
+                context.
+              </p>
             )}
           </div>
 
           <div className="articleDetailsActions">
-            <button className="articleDetailsBtn primary" onClick={handleDownloadPDF} disabled={!article?.paperFile}>
+            <button
+              className="articleDetailsBtn primary"
+              onClick={handleDownloadPDF}
+              disabled={!article?.paperFile}
+            >
               <FaFilePdf /> Download PDF
             </button>
             <button className="articleDetailsBtn" onClick={handleCiteAction}>
@@ -314,8 +398,16 @@ const ArticleDetails = () => {
             <button className="articleDetailsBtn" onClick={handleShareAction}>
               <FaShareAlt /> Share
             </button>
-            <button className={`articleDetailsBtn ${isSaved ? "saved-active" : ""}`} onClick={handleSaveToggle}>
-              {isSaved ? <FaBookmark style={{ fill: "#00ebd2" }} /> : <FaRegBookmark />} {isSaved ? "Saved" : "Save"}
+            <button
+              className={`articleDetailsBtn ${isSaved ? "saved-active" : ""}`}
+              onClick={handleSaveToggle}
+            >
+              {isSaved ? (
+                <FaBookmark style={{ fill: "#00ebd2" }} />
+              ) : (
+                <FaRegBookmark />
+              )}{" "}
+              {isSaved ? "Saved" : "Save"}
             </button>
           </div>
 
@@ -325,7 +417,22 @@ const ArticleDetails = () => {
 
           <div className="articleDetailsBlock">
             <h2>Abstract</h2>
-            <p className="abstractContentParagraph">{article?.abstract || "No abstract content documentation loaded."}</p>
+            <p className="abstractContentParagraph">
+              {showFullAbstract
+                ? article?.abstract
+                : article?.abstract?.length > 350
+                  ? article.abstract.substring(0, 350) + "..."
+                  : article?.abstract}
+            </p>
+
+            {article?.abstract?.length > 350 && (
+              <button
+                className="readMoreBtn"
+                onClick={() => setShowFullAbstract(!showFullAbstract)}
+              >
+                {showFullAbstract ? "Read Less" : "Read More"}
+              </button>
+            )}
           </div>
 
           <div className="articleDetailsBlock">
@@ -333,7 +440,9 @@ const ArticleDetails = () => {
             <div className="articleKeywords">
               {cleanKeywordsList.length > 0 ? (
                 cleanKeywordsList.map((keyword, index) => (
-                  <span key={index} className="articleKeyword">{keyword}</span>
+                  <span key={index} className="articleKeyword">
+                    {keyword}
+                  </span>
                 ))
               ) : (
                 <span className="articleKeyword">N/A</span>
@@ -347,14 +456,22 @@ const ArticleDetails = () => {
               <h2>Submission Metadata</h2>
               {article?.referralCode && (
                 <div className="metadataFieldRow">
-                  <span className="fieldLabel"><FaUserTag /> Referral Code:</span>
-                  <span className="fieldValue highlightedCode">{article.referralCode}</span>
+                  <span className="fieldLabel">
+                    <FaUserTag /> Referral Code:
+                  </span>
+                  <span className="fieldValue highlightedCode">
+                    {article.referralCode}
+                  </span>
                 </div>
               )}
               {article?.specialMessage && (
                 <div className="metadataFieldRow columnLayout">
-                  <span className="fieldLabel"><FaEnvelopeOpenText /> Special Message for Editor:</span>
-                  <p className="fieldValue messageBox textBlock">{article.specialMessage}</p>
+                  <span className="fieldLabel">
+                    <FaEnvelopeOpenText /> Special Message for Editor:
+                  </span>
+                  <p className="fieldValue messageBox textBlock">
+                    {article.specialMessage}
+                  </p>
                 </div>
               )}
             </div>
@@ -389,16 +506,23 @@ const ArticleDetails = () => {
           {/* REFERENCES SECTION */}
           <div className="articleDetailsBlock">
             <h2>References</h2>
-            {article?.references && Array.isArray(article.references) && article.references.length > 0 ? (
+            {article?.references &&
+            Array.isArray(article.references) &&
+            article.references.length > 0 ? (
               <ol className="articleReferences">
-                {article.references.map((ref, idx) => <li key={idx}>{ref}</li>)}
+                {article.references.map((ref, idx) => (
+                  <li key={idx}>{ref}</li>
+                ))}
               </ol>
             ) : article?.referralCode ? (
               <div className="referenceMetadataCard textBlock">
-                <strong>Referral Context:</strong> Referenced via tracking key <span>{article.referralCode}</span>
+                <strong>Referral Context:</strong> Referenced via tracking key{" "}
+                <span>{article.referralCode}</span>
               </div>
             ) : (
-              <p className="noDataFallback">No reference citations linked to this profile context.</p>
+              <p className="noDataFallback">
+                No reference citations linked to this profile context.
+              </p>
             )}
           </div>
         </div>
@@ -406,36 +530,43 @@ const ArticleDetails = () => {
         {/* RIGHT SIDE: METRICS AND METADATA CARD BAR */}
         <div className="articleDetailsRight">
           <div className="articleDetailsSticky">
-            
             <div className="articleSidebarCard">
               <h4 className="articleSidebarTitle">Article Metrics</h4>
               <div className="articleMetricItem">
-                <strong>Views:</strong> <span>{article?.metrics?.views ?? "0"}</span>
+                <strong>Views:</strong>{" "}
+                <span>{article?.metrics?.views ?? "0"}</span>
               </div>
               <div className="articleMetricItem">
-                <strong>Downloads:</strong> <span>{article?.metrics?.downloads ?? "0"}</span>
+                <strong>Downloads:</strong>{" "}
+                <span>{article?.metrics?.downloads ?? "0"}</span>
               </div>
               <div className="articleMetricItem">
-                <strong>Citations:</strong> <span>{article?.metrics?.citations ?? "0"}</span>
+                <strong>Citations:</strong>{" "}
+                <span>{article?.metrics?.citations ?? "0"}</span>
               </div>
               <div className="articleMetricItem">
-                <strong>Altmetric:</strong> <span>{article?.metrics?.altmetric ?? "0"}</span>
+                <strong>Altmetric:</strong>{" "}
+                <span>{article?.metrics?.altmetric ?? "0"}</span>
               </div>
             </div>
 
             <div className="articleSidebarCard">
               <h4 className="articleSidebarTitle">Article Info</h4>
               <div className="articleMetricItem">
-                <strong>Received:</strong> <span>{article?.infoReceived || "N/A"}</span>
+                <strong>Received:</strong>{" "}
+                <span>{article?.infoReceived || "N/A"}</span>
               </div>
               <div className="articleMetricItem">
-                <strong>Revised:</strong> <span>{article?.infoRevised || "N/A"}</span>
+                <strong>Revised:</strong>{" "}
+                <span>{article?.infoRevised || "N/A"}</span>
               </div>
               <div className="articleMetricItem">
-                <strong>Accepted:</strong> <span>{article?.infoAccepted || "N/A"}</span>
+                <strong>Accepted:</strong>{" "}
+                <span>{article?.infoAccepted || "N/A"}</span>
               </div>
               <div className="articleMetricItem">
-                <strong>Published:</strong> <span>{article?.infoPublished || "N/A"}</span>
+                <strong>Published:</strong>{" "}
+                <span>{article?.infoPublished || "N/A"}</span>
               </div>
               <div className="articleMetricItem">
                 <strong>Volume:</strong> <span>{article?.volume || "N/A"}</span>
@@ -445,21 +576,25 @@ const ArticleDetails = () => {
             <div className="articleSidebarCard">
               <h4 className="articleSidebarTitle">Related Articles</h4>
               <div className="articleRelatedLinks">
-                {article?.relatedArticles && Array.isArray(article.relatedArticles) && article.relatedArticles.length > 0 ? (
+                {article?.relatedArticles &&
+                Array.isArray(article.relatedArticles) &&
+                article.relatedArticles.length > 0 ? (
                   article.relatedArticles.map((rel, i) => (
                     <div key={i} className="articleRelatedItem">
-                      {typeof rel === 'object' ? (rel.title || rel.paperTitle) : String(rel)}
+                      {typeof rel === "object"
+                        ? rel.title || rel.paperTitle
+                        : String(rel)}
                     </div>
                   ))
                 ) : (
-                  <p style={{ fontSize: "13px", color: "#aaa" }}>No related research maps available.</p>
+                  <p style={{ fontSize: "13px", color: "#aaa" }}>
+                    No related research maps available.
+                  </p>
                 )}
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
     </section>
   );

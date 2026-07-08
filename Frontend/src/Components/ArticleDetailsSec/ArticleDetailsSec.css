@@ -27,13 +27,11 @@
   position: relative;
   overflow: hidden;
   padding: 100px 8%;
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #fafdf8 30%,
-    #f4fbe3 70%,
-    #e9f6df 100
-  );
+  background: linear-gradient(180deg,
+      #ffffff 0%,
+      #fafdf8 30%,
+      #f4fbe3 70%,
+      #e9f6df 100);
 }
 
 /* =========================================================
@@ -610,8 +608,25 @@
   animation: spin 1s linear infinite;
 }
 
+.readMoreBtn {
+  margin-top: 15px;
+  padding: 10px 18px;
+  border: none;
+  background: #0f6c75;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.readMoreBtn:hover {
+  background: #084f56;
+}
+
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes fadeUp {
@@ -619,6 +634,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -633,6 +649,7 @@
   .articleDetailsSection {
     padding: 80px 5%;
   }
+
   .articleDetailsTitle {
     font-size: 2.8rem;
   }
@@ -643,6 +660,7 @@
     grid-template-columns: 1fr 340px;
     gap: 40px;
   }
+
   .articleDetailsTitle {
     font-size: 2.4rem;
   }
@@ -653,6 +671,7 @@
     grid-template-columns: 1fr;
     gap: 40px;
   }
+
   .articleDetailsSticky {
     position: relative;
     top: 0;
@@ -663,16 +682,20 @@
   .articleDetailsSection {
     padding: 60px 4%;
   }
+
   .articleDetailsTitle {
     font-size: 2rem;
   }
+
   .articleDetailsBlock {
     padding: 28px;
   }
+
   .articleDetailsBlock h2 {
     font-size: 1.6rem;
   }
-  .authorMetadataTable th, 
+
+  .authorMetadataTable th,
   .authorMetadataTable td {
     padding: 12px 14px;
     font-size: 0.9rem;
@@ -683,18 +706,22 @@
   .articleDetailsTitle {
     font-size: 1.6rem;
   }
+
   .articleSubHeaderIdentifiers {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
+
   .idBadge {
     width: 100%;
   }
+
   .articleDetailsActions {
     flex-direction: column;
     align-items: stretch;
   }
+
   .articleDetailsBtn {
     width: 100%;
   }

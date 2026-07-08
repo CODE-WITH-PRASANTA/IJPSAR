@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useMemo, useState, useRef, useEffect } from "react";
 import "./Overview.css";
 
 import {
@@ -26,6 +26,9 @@ const AnimatedCounter = ({ value }) => {
   useEffect(() => {
     const node = nodeRef.current;
     if (!node) return;
+
+    startedRef.current = false;
+    setDisplay(0);
 
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -74,7 +77,55 @@ const AnimatedCounter = ({ value }) => {
   );
 };
 
-const Overview = () => {
+const PENDING_STATUSES = [
+  "Submitted",
+  "Editor Assigned",
+  "Editing",
+  "Reviewer Assigned",
+  "Review Pending",
+  "Revision Required",
+  "Accepted",
+];
+
+const getDate = (item) =>
+  item?.createdAt || item?.date || item?.updatedAt || item?.publishedAt || null;
+
+const countForMonth = (items, filterFn, monthOffset = 0) => {
+  const now = new Date();
+  const target = new Date(now.getFullYear(), now.getMonth() + monthOffset, 1);
+
+  return items.filter((item) => {
+    const dateValue = getDate(item);
+    if (!dateValue || !filterFn(item)) return false;
+
+    const date = new Date(dateValue);
+    return (
+      date.getMonth() === target.getMonth() &&
+      date.getFullYear() === target.getFullYear()
+    );
+  }).length;
+};
+
+const getTrend = (items, filterFn) => {
+  const current = countForMonth(items, filterFn, 0);
+  const previous = countForMonth(items, filterFn, -1);
+
+  if (previous === 0) {
+    return {
+      change: current > 0 ? `+${current}` : "0%",
+      positive: current >= previous,
+    };
+  }
+
+  const percent = Math.round(((current - previous) / previous) * 100);
+
+  return {
+    change: `${percent >= 0 ? "+" : ""}${percent}%`,
+    positive: percent >= 0,
+  };
+};
+
+const Overview = ({ submissions = [], payments = [], loading = false }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedPeriod, setSelectedPeriod] = useState("30 days");
 
@@ -93,48 +144,68 @@ const Overview = () => {
 
   const periods = ["24 hours", "7 days", "30 days", "6 months"];
 
-  const cards = [
-    {
-      id: "total-submissions",
-      paperId: "IJPSAR-2026-001",
-      title: "Total Submissions",
-      value: 1248,
-      change: "+12.8%",
-      positive: true,
-      icon: <FiFileText />,
-      accentClass: "submissions-accent",
-    },
-    {
-      id: "pending-papers",
-      paperId: "IJPSAR-2026-002",
-      title: "Pending Papers",
-      value: 186,
-      change: "+4.2%",
-      positive: true,
-      icon: <FiClock />,
-      accentClass: "pending-accent",
-    },
-    {
-      id: "pending-payments",
-      paperId: "IJPSAR-2026-003",
-      title: "Pending Payments",
-      value: 94,
-      change: "-2.5%",
-      positive: false,
-      icon: <FiCreditCard />,
-      accentClass: "payments-accent",
-    },
-    {
-      id: "published-papers",
-      paperId: "IJPSAR-2026-004",
-      title: "Published Papers",
-      value: 832,
-      change: "+18.4%",
-      positive: true,
-      icon: <FiCheckCircle />,
-      accentClass: "published-accent",
-    },
-  ];
+  const cards = useMemo(() => {
+    const totalTrend = getTrend(submissions, () => true);
+    const pendingTrend = getTrend(submissions, (paper) =>
+      PENDING_STATUSES.includes(paper.status)
+    );
+    const paymentsTrend = getTrend(payments, (payment) =>
+      ["Pending", "Processing"].includes(payment.status)
+    );
+    const publishedTrend = getTrend(
+      submissions,
+      (paper) => paper.status === "Published" || paper.isPublished
+    );
+
+    return [
+      {
+        id: "total-submissions",
+        paperId: "ALL PAPERS",
+        title: "Total Submissions",
+        value: submissions.length,
+        change: totalTrend.change,
+        positive: totalTrend.positive,
+        icon: <FiFileText />,
+        accentClass: "submissions-accent",
+      },
+      {
+        id: "pending-papers",
+        paperId: "IN PROGRESS",
+        title: "Pending Papers",
+        value: submissions.filter((paper) =>
+          PENDING_STATUSES.includes(paper.status)
+        ).length,
+        change: pendingTrend.change,
+        positive: pendingTrend.positive,
+        icon: <FiClock />,
+        accentClass: "pending-accent",
+      },
+      {
+        id: "pending-payments",
+        paperId: "PAYMENTS",
+        title: "Pending Payments",
+        value: payments.filter((payment) =>
+          ["Pending", "Processing"].includes(payment.status)
+        ).length,
+        change: paymentsTrend.change,
+        positive: paymentsTrend.positive,
+        icon: <FiCreditCard />,
+        accentClass: "payments-accent",
+      },
+      {
+        id: "published-papers",
+        paperId: "PUBLISHED",
+        title: "Published Papers",
+        value: submissions.filter(
+          (paper) => paper.status === "Published" || paper.isPublished
+        ).length,
+        change: publishedTrend.change,
+        positive: publishedTrend.positive,
+        icon: <FiCheckCircle />,
+        accentClass: "published-accent",
+      },
+    ];
+  }, [payments, submissions]);
 
   return (
     <div className="Overview" id="dashboard-overview-root">
@@ -234,7 +305,11 @@ const Overview = () => {
               <div className="Overview_CardBody">
                 <span className="Overview_CardLabel">{card.title}</span>
 
-                <AnimatedCounter value={card.value} />
+                {loading ? (
+                  <h3 className="Counter_Animate">...</h3>
+                ) : (
+                  <AnimatedCounter value={card.value} />
+                )}
 
                 <div
                   className={`Overview_CardChange ${
