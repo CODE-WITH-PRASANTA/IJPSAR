@@ -231,6 +231,97 @@ exports.getMyPapers = async (req, res) => {
     });
   }
 };
+
+
+/* ================= GET PUBLISHED ARCHIVE ================= */
+
+exports.getPublishedArchive = async (req, res) => {
+  try {
+    const papers = await SubmitForm.find({
+      status: "Published",
+      isPublished: true,
+    })
+      .select(
+        "paperTitle publishedAt createdAt status isPublished"
+      )
+      .sort({ publishedAt: -1 });
+
+    const archive = {};
+
+    papers.forEach((paper) => {
+      const publishDate =
+        paper.publishedAt || paper.createdAt;
+
+      const year = new Date(
+        publishDate
+      ).getFullYear();
+
+      const month =
+        new Date(publishDate).getMonth() + 1;
+
+      if (!archive[year]) {
+        archive[year] = {
+          year,
+          issues: new Set(),
+          articles: 0,
+        };
+      }
+
+      archive[year].issues.add(month);
+      archive[year].articles += 1;
+    });
+
+    const years = Object.keys(archive)
+      .sort((a, b) => Number(a) - Number(b));
+
+    const data = years
+      .map((year, index) => ({
+        year: Number(year),
+        volume: index + 1,
+        issues: archive[year].issues.size,
+        articles: archive[year].articles,
+      }))
+      .sort((a, b) => b.year - a.year);
+
+    return res.status(200).json({
+      success: true,
+      count: data.length,
+      data,
+    });
+  } catch (error) {
+    console.error("ARCHIVE ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+/* ================= GET ALL PUBLISHED PAPERS ================= */
+
+exports.getAllPublishedPapers = async (req, res) => {
+  try {
+    const papers = await SubmitForm.find({
+      status: "Published",
+      isPublished: true,
+    }).sort({
+      publishedAt: -1,
+    });
+
+    return res.status(200).json({
+      success: true,
+      count: papers.length,
+      data: papers,
+    });
+  } catch (error) {
+    console.error("GET PUBLISHED PAPERS ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 /* ================= UPDATE ================= */
 
 exports.updateSubmission = async (req, res) => {

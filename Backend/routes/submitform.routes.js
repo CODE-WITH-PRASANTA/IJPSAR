@@ -27,6 +27,8 @@ const {
   unPublishPaper,
   getPublishedEditorPapers,
   getPublishedAuthorPapers,
+  getPublishedArchive,
+    getAllPublishedPapers,
 } = require("../controllers/submitform.controller");
 
 const authorAuth = require("../middlewares/author.middleware");
@@ -44,14 +46,20 @@ router.post(
 /* ================= GET ALL ================= */
 
 router.get("/all", getAllSubmissions);
-router.get("/editor/:editorId/published", getPublishedEditorPapers);
-router.get(
-  "/author/published",
-  authorAuth,
-  getPublishedAuthorPapers
-);
-router.get("/editor/:editorId", getEditorPapers);
 
+
+router.get(
+  "/published/all",
+  getAllPublishedPapers
+);
+
+/* ================= PUBLIC ARCHIVE ================= */
+
+router.get("/published/archive", getPublishedArchive);
+
+router.get("/editor/:editorId/published", getPublishedEditorPapers);
+router.get("/author/published", authorAuth, getPublishedAuthorPapers);
+router.get("/editor/:editorId", getEditorPapers);
 
 router.get("/unassigned", getUnassignedPapers);
 /* ================= GET SINGLE ================= */
