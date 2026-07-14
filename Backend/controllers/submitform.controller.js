@@ -5,35 +5,21 @@ const SubmitForm = require("../models/submitform.model");
 
 exports.createSubmission = async (req, res) => {
   try {
-    // console.log("Decoded Author:", req.author);
-
     const authors = JSON.parse(req.body.authors || "[]");
     const keywords = JSON.parse(req.body.keywords || "[]");
 
-    const count = await SubmitForm.countDocuments();
-
-    const paperId = `PAPER-${new Date().getFullYear()}-${String(
-      count + 1,
-    ).padStart(4, "0")}`;
-
-    const submission = await SubmitForm.create({
-      authorId: req.author.id, // <-- Add this
-
-      paperId,
+    // 1. Create the submission document first
+    const newSubmission = new SubmitForm({
+      authorId: req.author.id,
       paperTitle: req.body.paperTitle,
       abstract: req.body.abstract,
       keywords,
-
       mobileCountryCode: req.body.mobileCountryCode,
       researchArea: req.body.researchArea,
-
-      // Better to use uploaded file path
       paperFile: req.file ? req.file.path : "",
-
       authorCategory: req.body.authorCategory,
       totalAuthors: authors.length,
       authors,
-
       address: {
         addressLine1: req.body.address1,
         addressLine2: req.body.address2,
@@ -42,12 +28,17 @@ exports.createSubmission = async (req, res) => {
         country: req.body.country,
         pincode: req.body.pincode,
       },
-
       referralCode: req.body.referralCode,
       specialMessage: req.body.editorMessage,
-
       status: "Submitted",
     });
+
+    // 2. Generate a unique ID using a portion of the MongoDB _id
+    const shortId = newSubmission._id.toString().slice(-6).toUpperCase();
+    newSubmission.paperId = `PAPER-${new Date().getFullYear()}-${shortId}`;
+
+    // 3. Save the document
+    const submission = await newSubmission.save();
 
     return res.status(201).json({
       success: true,
@@ -55,8 +46,7 @@ exports.createSubmission = async (req, res) => {
       data: submission,
     });
   } catch (error) {
-    console.error(error);
-
+    console.error("CREATE SUBMISSION ERROR:", error);
     return res.status(500).json({
       success: false,
       message: error.message,
