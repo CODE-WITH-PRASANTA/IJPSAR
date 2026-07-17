@@ -604,3 +604,63 @@
     padding: 11px 18px;
   }
 }
+/* Abstract styling tweaks */
+.articleDetailsAbstractWrapper {
+  margin: 20px 0;
+}
+
+.abstractDivider {
+  border: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 12px 0;
+}
+
+.articleDetailsAbstractText {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #e2e8f0;
+}
+
+.readMoreBtn {
+  background: none;
+  border: none;
+  color: #00ffcc;
+  cursor: pointer;
+  font-weight: 600;
+  padding-left: 5px;
+  text-decoration: underline;
+}
+
+.readMoreBtn:hover {
+  color: #ffffff;
+}
+
+/* Paper ID UI Box Styling */
+.articleDetailsPaperIdBox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 8px 16px;
+  border-radius: 6px;
+  margin-top: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f1f5f9;
+  font-size: 0.95rem;
+}
+
+.paperIdIcon {
+  color: #00ffcc;
+}
+
+/* Active breadcrumb segment color */
+.activePath {
+  color: #cbd5e1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 250px;
+  display: inline-block;
+  vertical-align: bottom;
+}

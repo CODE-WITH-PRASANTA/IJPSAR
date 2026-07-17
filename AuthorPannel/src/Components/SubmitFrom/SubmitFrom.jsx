@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import API from "../../api/Axios";
 import {
   FileText,
@@ -16,6 +16,7 @@ import {
   Mail,
   User,
 } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import "./SubmitFrom.css";
 
@@ -184,6 +185,38 @@ const SubmitFrom = () => {
   const [isItalic, setIsItalic] = useState(false);
   const [paperId, setPaperId] = useState("");
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const editPaper = location.state?.paper;
+  const isEdit = location.state?.isEdit;
+  const latestFeedback = location.state?.latestFeedback;
+
+  useEffect(() => {
+    if (!isEdit || !editPaper) return;
+
+    setFormData({
+      paperTitle: editPaper.paperTitle || "",
+      abstract: editPaper.abstract || "",
+      researchArea: editPaper.researchArea || "",
+      authorCategory: editPaper.authorCategory || "",
+      address1: editPaper.address1 || "",
+      address2: editPaper.address2 || "",
+      city: editPaper.city || "",
+      state: editPaper.state || "",
+      country: editPaper.country || "",
+      pincode: editPaper.pincode || "",
+      referralCode: editPaper.referralCode || "",
+      editorMessage: editPaper.editorMessage || "",
+      mobileCountryCode: editPaper.mobileCountryCode || "",
+    });
+
+    setEditorText(editPaper.abstract || "");
+    setKeywords(editPaper.keywords || []);
+    setAuthors(editPaper.authors || []);
+    setTotalAuthors(editPaper.authors?.length || 1);
+  }, [editPaper, isEdit]);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -203,76 +236,85 @@ const SubmitFrom = () => {
     e.preventDefault();
 
     try {
-      // Paper Title Validation
+      // Validation
       if (!formData.paperTitle.trim()) {
         alert("Paper Title is required");
         return;
       }
 
-      // Abstract Validation
       if (!editorText.trim()) {
         alert("Abstract is required");
         return;
       }
 
-      // File Validation
-      // if (!uploadedFile) {
-      //   alert("Please upload paper");
-      //   return;
-      // }
-
-      // Captcha Validation
       const correctAnswer = captcha.num1 + captcha.num2;
 
       if (Number(captchaAnswer) !== correctAnswer) {
         alert("Invalid Captcha");
-
         generateCaptcha();
         setCaptchaAnswer("");
-
         return;
       }
 
-      const data = new FormData();
+      const form = new FormData();
 
-      data.append("paperTitle", formData.paperTitle);
-      data.append("abstract", editorText);
+      form.append("paperTitle", formData.paperTitle);
+      form.append("abstract", editorText);
+      form.append("keywords", JSON.stringify(keywords));
+      form.append("authors", JSON.stringify(authors));
+      form.append("mobileCountryCode", formData.mobileCountryCode);
+      form.append("researchArea", formData.researchArea);
+      form.append("authorCategory", formData.authorCategory);
+      form.append("address1", formData.address1);
+      form.append("address2", formData.address2);
+      form.append("city", formData.city);
+      form.append("state", formData.state);
+      form.append("country", formData.country);
+      form.append("pincode", formData.pincode);
+      form.append("referralCode", formData.referralCode);
+      form.append("editorMessage", formData.editorMessage);
 
-      data.append("keywords", JSON.stringify(keywords));
+      // Upload new file only if selected
+      if (uploadedFile) {
+        form.append("paperFile", uploadedFile);
+      }
 
-      data.append("authors", JSON.stringify(authors));
+      const token = localStorage.getItem("authorToken");
 
-      data.append("mobileCountryCode", formData.mobileCountryCode);
+      let response;
 
-      data.append("researchArea", formData.researchArea);
-
-      data.append("authorCategory", formData.authorCategory);
-
-      data.append("address1", formData.address1);
-      data.append("address2", formData.address2);
-      data.append("city", formData.city);
-      data.append("state", formData.state);
-      data.append("country", formData.country);
-      data.append("pincode", formData.pincode);
-
-      data.append("referralCode", formData.referralCode);
-
-      data.append("editorMessage", formData.editorMessage);
-
-      data.append("paperFile", uploadedFile);
-
-      const response = await API.post("/submitform/create", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      if (isEdit) {
+        response = await API.put(
+          `/submitform/revision/${editPaper._id}`,
+          form,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          },
+        );
+      } else {
+        response = await API.post("/submitform/create", form, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
 
       if (response.data.success) {
-        const generatedPaperId = response.data?.data?.paperId;
+        if (isEdit) {
+          alert("Paper Updated Successfully");
+        } else {
+          const generatedPaperId = response.data.data.paperId;
 
-        alert(`Paper Submitted Successfully\n\nPaper ID: ${generatedPaperId}`);
+          alert(
+            `Paper Submitted Successfully\n\nPaper ID: ${generatedPaperId}`,
+          );
 
-        setPaperId(generatedPaperId);
+          setPaperId(generatedPaperId);
+        }
 
         // Reset Form
         setFormData({
@@ -302,14 +344,14 @@ const SubmitFrom = () => {
         ]);
 
         setKeywords(["Research", "Innovation"]);
-
         setUploadedFile(null);
         setEditorText("");
         setTotalAuthors(1);
 
-        // Reset Captcha
         generateCaptcha();
         setCaptchaAnswer("");
+
+        navigate("/paper-management");
       }
     } catch (error) {
       console.error(error);
@@ -376,7 +418,23 @@ const SubmitFrom = () => {
             <h1 className="panel-main-heading">Paper Submission Portal</h1>
           </div> */}
           <h1 className="panel-main-heading">Paper Submission Portal</h1>
+          {isEdit && latestFeedback && (
+            <div className="editor-feedback-box">
+              <h3> Editor Feedback</h3>
 
+              <p>{latestFeedback.remark}</p>
+
+              <div className="feedback-meta">
+                <span>Version {latestFeedback.version}</span>
+
+                <span>{latestFeedback.editorName}</span>
+
+                <span>
+                  {new Date(latestFeedback.createdAt).toLocaleDateString()}
+                </span>
+              </div>
+            </div>
+          )}
           {paperId && (
             <div
               style={{
@@ -589,7 +647,9 @@ const SubmitFrom = () => {
                           <span className="dropzone-primary-prompt">
                             {uploadedFile
                               ? `Selected: ${uploadedFile.name}`
-                              : "Click to browse files or drag here"}
+                              : isEdit && editPaper?.paperFile
+                                ? "Current File Available"
+                                : "Click to browse files or drag here"}
                           </span>
                           <span className="dropzone-format-constraint-text">
                             Supported Formats: <strong>.doc</strong>,{" "}
@@ -1006,7 +1066,7 @@ const SubmitFrom = () => {
 
             <div className="form-global-action-footer">
               <button type="submit" className="global-master-submit-btn">
-                Submit Entire Application
+                {isEdit ? "Update Paper" : "Submit Entire Application"}
               </button>
             </div>
           </form>

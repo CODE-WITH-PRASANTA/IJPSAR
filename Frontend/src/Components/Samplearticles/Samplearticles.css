@@ -161,13 +161,208 @@
 /* =========================
    GRID
 ========================= */
-
+/* =========================
+   GRID
+========================= */
 .samplearticles-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 16px; /* Reduced gap between cards */
 }
 
+/* =========================
+   CARD
+========================= */
+.samplearticles-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 12px; /* Sleeker, less rounded edges */
+  padding: 16px;       /* Much tighter internal padding */
+  border: 1px solid rgba(100, 195, 69, 0.12);
+  overflow: hidden;
+  transition: 0.35s ease;
+  box-shadow:
+    0 4px 20px rgba(15, 23, 42, 0.03),
+    0 1px 4px rgba(100, 195, 69, 0.02);
+  min-height: 290px;   /* Significantly reduced height to feel compact */
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+}
+
+.samplearticles-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(100, 195, 69, 0.25);
+  box-shadow:
+    0 12px 25px rgba(100, 195, 69, 0.10),
+    0 6px 15px rgba(15, 23, 42, 0.04);
+}
+
+/* GLOW EFFECT */
+.samplearticles-glow {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(
+    circle,
+    rgba(100, 195, 69, 0.10),
+    transparent 70%
+  );
+  top: -40px;
+  right: -40px;
+  opacity: 0;
+  transition: 0.5s ease;
+}
+
+/* =========================
+   META TOP (Category & Date)
+========================= */
+.samplearticles-meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.samplearticles-category {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(100, 195, 69, 0.08);
+  color: #0f172a;
+  font-size: 11px; /* Crisper, smaller text */
+  font-weight: 700;
+}
+
+.samplearticles-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+/* =========================
+   VOLUME
+========================= */
+.samplearticles-volume {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+/* =========================
+   TITLE
+========================= */
+.samplearticles-card h3 {
+  font-size: 15px; /* Clean, standard notebook/desktop card title size */
+  line-height: 1.35;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Truncates title nicely to 2 lines if it runs too long */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* AUTHORS */
+.samplearticles-authors {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+/* DOI */
+.samplearticles-doi {
+  background: rgba(100, 195, 69, 0.03);
+  border: 1px dashed rgba(100, 195, 69, 0.12);
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 600;
+  word-break: break-word;
+  margin-bottom: 14px;
+}
+
+/* =========================
+   FOOTER BUTTONS
+========================= */
+.samplearticles-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  gap: 8px;
+}
+
+/* PDF BUTTON */
+.samplearticles-pdf-btn {
+  border: none;
+  background: #64c345;
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.samplearticles-pdf-btn:hover {
+  background: #4fa733;
+}
+
+/* READ ARTICLE BUTTON */
+.samplearticles-read-btn {
+  border: none;
+  background: transparent;
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.samplearticles-read-btn:hover {
+  color: #64c345;
+}
+
+/* =========================
+   SECTION OUTER SPACING
+========================= */
+.samplearticles {
+  padding: 40px 20px; /* Reduced top/bottom block spacing */
+}
+
+.samplearticles-top {
+  margin-bottom: 24px;
+}
+
+.samplearticles-heading h2 {
+  font-size: 28px; /* Tamer heading size */
+}
+
+.samplearticles-view-btn {
+  min-width: 110px;
+  height: 38px;
+  border-radius: 8px;
+  font-size: 14px;
+}
 /* =========================
    CARD
 ========================= */

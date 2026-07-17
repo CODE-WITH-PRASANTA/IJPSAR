@@ -1,18 +1,15 @@
 /* ==========================================
-   SIDEBAR MAIN
+    SIDEBAR MAIN
 ========================================== */
-
 .Sidebar {
   width: 310px;
   min-width: 310px;
   height: 100vh;
   background: #ffffff;
   border-right: 1px solid #e5e7eb;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   position: relative;
   z-index: 999;
   transition: all 0.3s ease;
@@ -34,9 +31,8 @@
 }
 
 /* ==========================================
-   HEADER
+    HEADER
 ========================================== */
-
 .Sidebar_Header {
   display: flex;
   align-items: center;
@@ -54,17 +50,10 @@
   width: 42px;
   height: 42px;
   border-radius: 12px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background: linear-gradient(
-    135deg,
-    #6366f1,
-    #4f46e5
-  );
-
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
   color: white;
   font-size: 18px;
   font-weight: 700;
@@ -75,6 +64,14 @@
   font-weight: 800;
   color: #111827;
   margin: 0;
+  line-height: 1.2;
+}
+
+.Sidebar_Logo h4 {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  margin: 2px 0 0 0;
 }
 
 .Sidebar_Close {
@@ -86,9 +83,8 @@
 }
 
 /* ==========================================
-   MENU
+    MENU
 ========================================== */
-
 .Sidebar_Menu {
   display: flex;
   flex-direction: column;
@@ -99,17 +95,13 @@
   height: 52px;
   border-radius: 14px;
   padding: 0 16px;
-
   display: flex;
   align-items: center;
   gap: 14px;
-
   text-decoration: none;
-
   color: #4b5563;
   font-size: 15px;
   font-weight: 500;
-
   transition: all 0.25s ease;
 }
 
@@ -134,20 +126,16 @@
 }
 
 /* ==========================================
-   PROFILE SECTION
+    PROFILE SECTION
 ========================================== */
-
 .Sidebar_Profile {
   height: 90px;
   padding: 0 18px;
-
   border-top: 1px solid #edf0f7;
   background: #ffffff;
-
   display: flex;
   align-items: center;
   gap: 12px;
-
   position: relative;
 }
 
@@ -161,6 +149,7 @@
 
 .Sidebar_ProfileInfo {
   flex: 1;
+  overflow: hidden;
 }
 
 .Sidebar_ProfileInfo h4 {
@@ -168,32 +157,33 @@
   font-weight: 700;
   color: #111827;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Sidebar_ProfileInfo p {
   font-size: 12px;
   color: #6b7280;
   margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ==========================================
-   PROFILE BUTTON
+    PROFILE BUTTON
 ========================================== */
-
 .Sidebar_ProfileButton {
   width: 38px;
   height: 38px;
-
   border: none;
   border-radius: 10px;
-
   background: #f8fafc;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   transition: all 0.25s ease;
 }
 
@@ -211,56 +201,44 @@
 }
 
 /* ==========================================
-   PROFILE POPUP
+    POPUPS & INTERACTIVE NOTIFICATIONS
 ========================================== */
-
-.Sidebar_ProfilePopup {
+.Sidebar_ProfilePopup,
+.Ticket_NotificationBox {
   position: absolute;
   right: 15px;
-  bottom: 85px;
-
-  width: 240px;
+  bottom: 95px;
+  width: 250px;
   background: #ffffff;
-
   border-radius: 16px;
-
-  overflow: hidden;
-
-  box-shadow:
-    0 20px 45px rgba(0, 0, 0, 0.12);
-
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+  border: 1px solid #f1f5f9;
   z-index: 9999;
-
-  animation: profilePopup 0.25s ease;
+  animation: popupReveal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes profilePopup {
+@keyframes popupReveal {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px) scale(0.98);
   }
-
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 .Sidebar_ProfilePopupItem {
   height: 52px;
   padding: 0 18px;
-
   display: flex;
   align-items: center;
   gap: 12px;
-
   cursor: pointer;
-
   font-size: 14px;
   font-weight: 500;
   color: #374151;
-
-  transition: 0.25s;
+  transition: 0.2s;
 }
 
 .Sidebar_ProfilePopupItem:hover {
@@ -269,33 +247,251 @@
 
 .Sidebar_ProfilePopupItem svg {
   font-size: 17px;
+  color: #6b7280;
 }
 
 .Sidebar_ProfilePopupItem.danger {
   color: #ef4444;
+  border-top: 1px solid #f1f5f9;
+}
+
+.Sidebar_ProfilePopupItem.danger svg {
+  color: #ef4444;
+}
+
+/* Mini Message Alert Window */
+.Ticket_NotificationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.Ticket_NotificationHeader h5 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.Ticket_NotificationHeader button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #9ca3af;
+  font-size: 16px;
+  display: flex;
+}
+
+.Ticket_NotificationBody {
+  padding: 16px;
+}
+
+.Ticket_NotificationBody p {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.Ticket_RaiseBtn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #4f46e5;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.Ticket_RaiseBtn:hover {
+  background: #4338ca;
 }
 
 /* ==========================================
-   OVERLAY
+    COMPLAINT FORM STANDALONE MODAL
 ========================================== */
+.Complaint_ModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.2s ease;
+}
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.Complaint_ModalCard {
+  background: #ffffff;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 24px;
+  margin: 20px;
+  animation: modalSlide 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalSlide {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.Complaint_ModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.Complaint_ModalHeader h3 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.Complaint_CloseBtn {
+  border: none;
+  background: #f1f5f9;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+.Complaint_CloseBtn:hover {
+  background: #e2e8f0;
+}
+
+.Complaint_Form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.Form_Group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.Form_Group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.Form_Group input,
+.Form_Group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #111827;
+  background: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.Form_Group input:focus,
+.Form_Group textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.Complaint_FormActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.Form_Btn {
+  padding: 11px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  transition: background 0.2s;
+}
+
+.Form_Btn.cancel {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.Form_Btn.cancel:hover {
+  background: #e5e7eb;
+}
+
+.Form_Btn.submit {
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+.Form_Btn.submit:hover {
+  background: #4338ca;
+}
+
+
+.notificationBadge {
+  margin-left: auto;
+  background: #ef4444;
+  color: #fff;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* ==========================================
+    OVERLAY & RESPONSIVE LAYOUTS
+========================================== */
 .Sidebar_Overlay {
   display: none;
 }
-
-/* ==========================================
-   MOBILE
-========================================== */
 
 @media (max-width: 991px) {
   .Sidebar {
     position: fixed;
     left: -100%;
     top: 0;
-
     width: 310px;
     height: 100vh;
-
     z-index: 9999;
     transition: left 0.35s ease;
   }
@@ -313,14 +509,10 @@
   .Sidebar_Overlay {
     position: fixed;
     inset: 0;
-
     background: rgba(0, 0, 0, 0.45);
-
     opacity: 0;
     visibility: hidden;
-
     transition: 0.3s;
-
     z-index: 9998;
     display: block;
   }
@@ -344,4 +536,57 @@
   .Sidebar_MenuItem {
     font-size: 14px;
   }
+}
+.Notification_PopBox {
+  position: absolute;
+  bottom: 80px;
+  left: 20px;
+  width: 260px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 12px;
+}
+
+.Notification_PopHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+
+.Notification_PopHeader h5 {
+  margin: 0;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.Notification_PopHeader button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+}
+
+.Notification_Item {
+  padding: 6px 0;
+  font-size: 12px;
+  color: #475569;
+  border-bottom: 1px dashed #f1f5f9;
+}
+
+.Notification_Item.unread {
+  border-left: 2px solid #3b82f6;
+  padding-left: 4px;
+}
+
+.Notification_Time {
+  display: block;
+  font-size: 10px;
+  color: #94a3b8;
+  margin-top: 2px;
 }

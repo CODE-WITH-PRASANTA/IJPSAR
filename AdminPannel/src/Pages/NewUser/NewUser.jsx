@@ -104,17 +104,17 @@ const NewUser = () => {
   };
 
   return (
-    <div className="nu_container">
+    <div className="nu-container">
       {/* HEADER */}
-      <div className="nu_header">
+      <div className="nu-header">
         <h2>Users</h2>
-        <button className="nu_addBtn" onClick={() => setOpen(true)}>
+        <button className="nu-addBtn" onClick={() => setOpen(true)}>
           <FaPlus /> Add User
         </button>
       </div>
 
       {/* FILTER BAR */}
-      <div className="nu_filterBar">
+      <div className="nu-filterBar">
         <input
           placeholder="Search users"
           value={search}
@@ -144,7 +144,7 @@ const NewUser = () => {
       </div>
 
       {/* TABLE */}
-      <div className="nu_tableCard">
+      <div className="nu-tableCard">
         <table>
           <thead>
             <tr>
@@ -163,27 +163,27 @@ const NewUser = () => {
               <tr key={u._id}>
                 {/* User ID */}
                 <td>
-                  <span className="nu_userId">{u.userId}</span>
+                  <span className="nu-userId">{u.userId}</span>
                 </td>
 
                 {/* User */}
                 <td>
-                  <div className="nu_user">
-                    <div className="nu_avatar">
+                  <div className="nu-user">
+                    <div className="nu-avatar">
                       {u.name?.charAt(0).toUpperCase()}
                     </div>
 
                     <div>
-                      <p className="nu_name">{u.name}</p>
+                      <p className="nu-name">{u.name}</p>
 
-                      <span className="nu_email">{u.email}</span>
+                      <span className="nu-email">{u.email}</span>
                     </div>
                   </div>
                 </td>
 
                 {/* Role */}
                 <td>
-                  <span className={`nu_badge ${u.role?.toLowerCase()}`}>
+                  <span className={`nu-badge ${u.role?.toLowerCase()}`}>
                     {u.role}
                   </span>
                 </td>
@@ -191,7 +191,7 @@ const NewUser = () => {
                 {/* Status */}
                 <td>
                   <span
-                    className={`nu_status ${u.status
+                    className={`nu-status ${u.status
                       ?.toLowerCase()
                       .replace(" ", "")}`}
                   >
@@ -209,7 +209,7 @@ const NewUser = () => {
                 {/* Profile */}
                 <td>
                   <button
-                    className="nu_signBtn"
+                    className="nu-signBtn"
                     onClick={() =>
                       navigate("/newsprofile", {
                         state: {
@@ -226,7 +226,7 @@ const NewUser = () => {
                 <td>
                   {u.status === "Active" ? (
                     <button
-                      className="nu_blockBtn"
+                      className="nu-blockBtn"
                       onClick={async () => {
                         try {
                           await API.put(`/editor/block/${u._id}`);
@@ -241,7 +241,7 @@ const NewUser = () => {
                     </button>
                   ) : (
                     <button
-                      className="nu_activeBtn"
+                      className="nu-activeBtn"
                       onClick={async () => {
                         try {
                           await API.put(`/editor/activate/${u._id}`);
@@ -278,17 +278,17 @@ const NewUser = () => {
 
       {/* PREMIUM MODAL */}
       {open && (
-        <div className="nu_modalOverlay">
-          <div className="nu_modal">
-            <div className="nu_modalHeader">
+        <div className="nu-modalOverlay">
+          <div className="nu-modal">
+            <div className="nu-modalHeader">
               <h3>Add User</h3>
-              <button className="nu_closeBtn" onClick={() => setOpen(false)}>
+              <button className="nu-closeBtn" onClick={() => setOpen(false)}>
                 ✖
               </button>
             </div>
 
-            <div className="nu_form">
-              <div className="nu_inputGroup">
+            <div className="nu-form">
+              <div className="nu-inputGroup">
                 <label>Name</label>
                 <input
                   name="name"
@@ -299,7 +299,7 @@ const NewUser = () => {
                 />
               </div>
 
-              <div className="nu_inputGroup">
+              <div className="nu-inputGroup">
                 <label>Email Address</label>
                 <input
                   type="email"
@@ -311,7 +311,7 @@ const NewUser = () => {
                 />
               </div>
 
-              <div className="nu_inputGroup">
+              <div className="nu-inputGroup">
                 <label>Role</label>
                 <select name="role" value={form.role} onChange={handleChange}>
                   <option value="">Select Role</option>
@@ -320,7 +320,7 @@ const NewUser = () => {
                 </select>
               </div>
 
-              <div className="nu_inputGroup">
+              <div className="nu-inputGroup">
                 <label>Phone Number</label>
                 <input
                   type="tel"
@@ -332,7 +332,7 @@ const NewUser = () => {
                 />
               </div>
 
-              <div className="nu_inputGroup">
+              <div className="nu-inputGroup">
                 <label>Password</label>
                 <input
                   type="password"
@@ -344,7 +344,7 @@ const NewUser = () => {
                 />
               </div>
 
-              <div className="nu_inputGroup">
+              <div className="nu-inputGroup">
                 <label>Confirm Password</label>
                 <input
                   type="password"
@@ -356,17 +356,17 @@ const NewUser = () => {
                 />
               </div>
 
-              <div className="nu_modalActions">
+              <div className="nu-modalActions">
                 <button
                   type="button"
-                  className="nu_cancelBtn"
+                  className="nu-cancelBtn"
                   onClick={() => setOpen(false)}
                 >
                   Cancel
                 </button>
                 <button
                   type="button"
-                  className="nu_saveBtn"
+                  className="nu-saveBtn"
                   onClick={handleAddUser}
                 >
                   Add User

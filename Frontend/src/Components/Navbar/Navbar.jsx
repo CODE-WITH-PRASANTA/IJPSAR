@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 /* LOGO */
-import logo from "../../assets/p-2.JPEG";
+import logo from "../../assets/p-2.jpeg";
 
 const Navbar = () => {
 

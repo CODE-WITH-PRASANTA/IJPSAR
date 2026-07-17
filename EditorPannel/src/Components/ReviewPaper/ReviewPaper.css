@@ -1,0 +1,382 @@
+.reviewPaper {
+  padding: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---------- Header ---------- */
+.reviewHeader {
+  margin-bottom: 22px;
+}
+
+.reviewHeader h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 4px;
+}
+
+.reviewHeader p {
+  color: #6b7280;
+  font-size: 14.5px;
+  margin: 0;
+}
+
+/* ---------- Table wrapper ---------- */
+.reviewTableWrapper {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eef0f4;
+}
+
+.reviewTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reviewTable th {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.reviewTable td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f1f5;
+  font-size: 14.5px;
+  color: #1f2937;
+  vertical-align: middle;
+}
+
+.reviewTable tbody tr {
+  transition: background 0.15s ease;
+}
+
+.reviewTable tbody tr:hover {
+  background: #f8fafc;
+}
+
+.reviewTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.titleCell {
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.paperIdTag {
+  display: inline-block;
+  padding: 3px 10px;
+  background: #eef2ff;
+  color: #4338ca;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: monospace;
+}
+
+/* ---------- Status badges ---------- */
+.status {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.underreview {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status.accepted {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status.rejected {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.status.completed {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+/* ---------- Buttons ---------- */
+.actionGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.viewBtn,
+.editBtn,
+.approveBtn,
+.rejectBtn,
+.completeBtn {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease;
+}
+
+.viewBtn:hover,
+.editBtn:hover,
+.approveBtn:hover,
+.rejectBtn:hover,
+.completeBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.viewBtn:active,
+.editBtn:active,
+.approveBtn:active,
+.rejectBtn:active,
+.completeBtn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.viewBtn {
+  background: #0ea5e9;
+  color: #fff;
+}
+
+.viewBtn:hover {
+  background: #0284c7;
+}
+
+.editBtn {
+  background: #f97316;
+  color: #fff;
+}
+
+.editBtn:hover {
+  background: #ea580c;
+}
+
+.approveBtn {
+  background: #16a34a;
+  color: #fff;
+}
+
+.approveBtn:hover {
+  background: #15803d;
+}
+
+.rejectBtn {
+  background: #dc2626;
+  color: #fff;
+}
+
+.rejectBtn:hover {
+  background: #b91c1c;
+}
+
+.completeBtn {
+  background: #0f766e;
+  color: #fff;
+}
+
+.completeBtn:hover {
+  background: #115e59;
+}
+
+/* ---------- Empty / loading states ---------- */
+.emptyBox {
+  background: #fff;
+  padding: 60px 20px;
+  text-align: center;
+  border-radius: 16px;
+  border: 1px dashed #d1d5db;
+  color: #374151;
+}
+
+.emptyIcon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.emptyBox h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.emptyBox p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 60px 20px;
+  color: #4b5563;
+  font-size: 14.5px;
+}
+
+.spinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid #dbeafe;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Responsive breakpoints ---------- */
+
+/* Tablet: allow horizontal scroll instead of squeezing columns */
+@media (max-width: 900px) {
+  .reviewTableWrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .reviewTable {
+    min-width: 720px;
+  }
+}
+
+/* Mobile: switch table to stacked card layout */
+@media (max-width: 640px) {
+  .reviewPaper {
+    padding: 16px;
+  }
+
+  .reviewHeader h2 {
+    font-size: 22px;
+  }
+
+  .reviewTableWrapper {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    overflow: visible;
+  }
+
+  .reviewTable {
+    min-width: 0;
+    display: block;
+  }
+
+  .reviewTable thead {
+    display: none;
+  }
+
+  .reviewTable tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .reviewTable tbody tr {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+    padding: 14px 16px;
+  }
+
+  .reviewTable tbody tr:hover {
+    background: #fff;
+  }
+
+  .reviewTable td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f2f6;
+    text-align: right;
+  }
+
+  .reviewTable td:last-child {
+    border-bottom: none;
+  }
+
+  .reviewTable td::before {
+    content: attr(data-label);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #9ca3af;
+    text-align: left;
+  }
+
+  .titleCell {
+    max-width: 60%;
+    text-align: right;
+    white-space: normal;
+  }
+
+  .actionGroup {
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .viewBtn,
+  .editBtn,
+  .approveBtn,
+  .rejectBtn,
+  .completeBtn {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .actionGroup {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .viewBtn,
+  .editBtn,
+  .approveBtn,
+  .rejectBtn,
+  .completeBtn {
+    width: 100%;
+  }
+}

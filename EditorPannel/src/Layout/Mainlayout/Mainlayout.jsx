@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import "./MainLayout.css";
+import { Outlet } from "react-router-dom";
+import "./Mainlayout.css";
 
 import Sidebar from "../Sidebar/Sidebar";
 import Topbar from "../Topbar/Topbar";
 
 const MainLayout = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] =
-    useState(false);
-
-  const [mobileSidebar, setMobileSidebar] =
-    useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileSidebar, setMobileSidebar] = useState(false);
 
   return (
     <div className="mainLayout">
-
       <Sidebar
         sidebarCollapsed={sidebarCollapsed}
         mobileSidebar={mobileSidebar}
@@ -33,35 +30,10 @@ const MainLayout = () => {
           setMobileSidebar={setMobileSidebar}
         />
 
-        <div className="mainLayoutPage">
-
-          <div className="dashboardCard">
-            Revenue Analytics
-          </div>
-
-          <div className="dashboardCard">
-            Sales Statistics
-          </div>
-
-          <div className="dashboardCard">
-            Customer Overview
-          </div>
-
-          <div className="dashboardCard">
-            Orders Report
-          </div>
-
-          <div className="dashboardCard">
-            Revenue Growth
-          </div>
-
-          <div className="dashboardCard">
-            Monthly Performance
-          </div>
-
-        </div>
+        <main className="mainLayoutPage">
+          <Outlet />
+        </main>
       </div>
-
     </div>
   );
 };

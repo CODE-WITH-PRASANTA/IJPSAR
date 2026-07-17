@@ -1,171 +1,81 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./Latestorders.css";
 import {
   FiMoreVertical,
-  FiChevronDown,
-  FiChevronUp,
+  FiChevronRight,
 } from "react-icons/fi";
 
-const Latestorders = () => {
+const formatDateTime = (dateValue) => {
+  if (!dateValue) return "-";
+
+  return new Date(dateValue).toLocaleString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+};
+
+const getLatestFeedback = (paper) => {
+  if (paper.editorRemarks) return paper.editorRemarks;
+
+  const latestFeedback = paper.feedbackHistory?.[paper.feedbackHistory.length - 1];
+  return latestFeedback?.remark || "Pending";
+};
+
+const getClassName = (value = "") =>
+  value.toLowerCase().replace(/\s+/g, "-");
+
+const Latestorders = ({ submissions = [], loading = false, error = "" }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({
-    key: "id",
-    direction: "asc",
+    key: "dateTime",
+    direction: "desc",
   });
 
-  const orders = [
-    {
-      id: 784720,
-      date: "Nov 28, 2025, 8:38 PM",
-      status: "Pending",
-      amount: 189,
-      customer: "Victoria Nelson",
-    },
-    {
-      id: 784704,
-      date: "Nov 27, 2025, 3:11 PM",
-      status: "Paid",
-      amount: 229,
-      customer: "Chloe Adams",
-    },
-    {
-      id: 784680,
-      date: "Nov 27, 2025, 0:06 AM",
-      status: "Paid",
-      amount: 499,
-      customer: "William Lopez",
-    },
-    {
-      id: 784649,
-      date: "Nov 25, 2025, 2:25 PM",
-      status: "Pending",
-      amount: 159,
-      customer: "Sebastian Young",
-    },
-    {
-      id: 784633,
-      date: "Nov 24, 2025, 5:18 PM",
-      status: "Paid",
-      amount: 649,
-      customer: "Alexander Walker",
-    },
-    {
-      id: 784610,
-      date: "Nov 23, 2025, 9:48 PM",
-      status: "Paid",
-      amount: 329,
-      customer: "Charlotte White",
-    },
-    {
-      id: 784579,
-      date: "Nov 23, 2025, 0:33 AM",
-      status: "Pending",
-      amount: 219,
-      customer: "Ava Johnson",
-    },
-    {
-      id: 784728,
-      date: "Nov 21, 2025, 10:56 PM",
-      status: "Paid",
-      amount: 349.99,
-      customer: "David Ramirez",
-    },
-    {
-      id: 784563,
-      date: "Nov 21, 2025, 4:16 PM",
-      status: "Paid",
-      amount: 549,
-      customer: "Isabella Brown",
-    },
-    {
-      id: 784657,
-      date: "Nov 20, 2025, 6:57 PM",
-      status: "Paid",
-      amount: 279.99,
-      customer: "Ella Hernandez",
-    },
-    {
-      id: 784540,
-      date: "Nov 20, 2025, 1:51 PM",
-      status: "Paid",
-      amount: 399,
-      customer: "James Wilson",
-    },
-    {
-      id: 784526,
-      date: "Nov 19, 2025, 9:35 PM",
-      status: "Pending",
-      amount: 129.5,
-      customer: "Michael Thompson",
-    },
-    {
-      id: 784512,
-      date: "Nov 18, 2025, 8:02 PM",
-      status: "Paid",
-      amount: 249.99,
-      customer: "Daniel Rodriguez",
-    },
-    {
-      id: 784586,
-      date: "Nov 18, 2025, 0:41 PM",
-      status: "Paid",
-      amount: 149.99,
-      customer: "Noah Anderson",
-    },
-    {
-      id: 784688,
-      date: "Nov 17, 2025, 10:29 PM",
-      status: "Fulfilled",
-      amount: 169,
-      customer: "Grace Scott",
-    },
-    {
-      id: 784519,
-      date: "Nov 17, 2025, 2:48 PM",
-      status: "Fulfilled",
-      amount: 89,
-      customer: "Emily Carter",
-    },
-    {
-      id: 784548,
-      date: "Nov 16, 2025, 11:40 PM",
-      status: "Fulfilled",
-      amount: 179.99,
-      customer: "Olivia Martinez",
-    },
-    {
-      id: 784735,
-      date: "Nov 16, 2025, 2:19 PM",
-      status: "Fulfilled",
-      amount: 109,
-      customer: "Natalie Moore",
-    },
-    {
-      id: 784533,
-      date: "Nov 15, 2025, 5:12 PM",
-      status: "Cancelled",
-      amount: 59.99,
-      customer: "Sophia Nguyen",
-    },
-    {
-      id: 784665,
-      date: "Nov 15, 2025, 3:44 PM",
-      status: "Fulfilled",
-      amount: 119,
-      customer: "Jack King",
-    },
-  ];
+  const papers = useMemo(
+    () =>
+      submissions
+        .filter((paper) => paper.editorId || paper.editorName)
+        .map((paper) => ({
+          id: paper._id || paper.paperId,
+          paperId: paper.paperId || "-",
+          dateTime: formatDateTime(
+            paper.completedAt ||
+              paper.editorAssignedAt ||
+              paper.updatedAt ||
+              paper.createdAt
+          ),
+          dateSort:
+            paper.completedAt ||
+            paper.editorAssignedAt ||
+            paper.updatedAt ||
+            paper.createdAt,
+          status: paper.status || "Editor Assigned",
+          feedback: getLatestFeedback(paper),
+          editorName: paper.editorName || "Assigned Editor",
+        })),
+    [submissions]
+  );
 
-  const sortedOrders = useMemo(() => {
-    let sortable = [...orders];
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [papers.length, itemsPerPage]);
+
+  const sortedPapers = useMemo(() => {
+    const sortable = [...papers];
 
     sortable.sort((a, b) => {
-      if (a[sortConfig.key] < b[sortConfig.key])
+      const firstValue = sortConfig.key === "dateTime" ? a.dateSort : a[sortConfig.key];
+      const secondValue = sortConfig.key === "dateTime" ? b.dateSort : b[sortConfig.key];
+
+      if (firstValue < secondValue)
         return sortConfig.direction === "asc" ? -1 : 1;
 
-      if (a[sortConfig.key] > b[sortConfig.key])
+      if (firstValue > secondValue)
         return sortConfig.direction === "asc" ? 1 : -1;
 
       return 0;
@@ -190,20 +100,30 @@ const Latestorders = () => {
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
 
-  const currentOrders = sortedOrders.slice(
+  const currentPapers = sortedPapers.slice(
     indexOfFirst,
     indexOfLast
   );
 
-  const totalPages = Math.ceil(
-    sortedOrders.length / itemsPerPage
-  );
+  const totalPages = Math.max(1, Math.ceil(sortedPapers.length / itemsPerPage));
+
+  const sortArrow = (key) => {
+    if (sortConfig.key !== key) return null;
+    return (
+      <span className="sortArrow">
+        {sortConfig.direction === "asc" ? "↑" : "↓"}
+      </span>
+    );
+  };
 
   return (
     <div className="latestOrders">
       <div className="ordersCard">
         <div className="cardHeader">
-          <h3>Latest Orders</h3>
+          <div className="headerText">
+            <span className="eyebrow">Editorial Desk</span>
+            <h3>Completed Papers</h3>
+          </div>
 
           <div className="menuWrapper">
             <button
@@ -228,46 +148,94 @@ const Latestorders = () => {
           <table>
             <thead>
               <tr>
-                <th onClick={() => requestSort("id")}>
-                  ID
-                </th>
+                <th className="colSl">Sl. No</th>
 
-                <th onClick={() => requestSort("date")}>
-                  Date
+                <th onClick={() => requestSort("dateTime")}>
+                  Date &amp; Time {sortArrow("dateTime")}
                 </th>
 
                 <th onClick={() => requestSort("status")}>
-                  Status
+                  Status {sortArrow("status")}
                 </th>
 
-                <th onClick={() => requestSort("amount")}>
-                  Amount
+                <th onClick={() => requestSort("feedback")}>
+                  Feedback {sortArrow("feedback")}
                 </th>
 
-                <th onClick={() => requestSort("customer")}>
-                  Customer
+                <th onClick={() => requestSort("editorName")}>
+                  Editor Name {sortArrow("editorName")}
+                </th>
+
+                <th className="colAction">Action</th>
+
+                <th onClick={() => requestSort("paperId")}>
+                  Paper ID {sortArrow("paperId")}
                 </th>
               </tr>
             </thead>
 
             <tbody>
-              {currentOrders.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.id}</td>
+              {loading && (
+                <tr>
+                  <td colSpan="7" className="emptyTableMessage">
+                    Loading assigned papers...
+                  </td>
+                </tr>
+              )}
 
-                  <td>{item.date}</td>
+              {!loading && error && (
+                <tr>
+                  <td colSpan="7" className="emptyTableMessage">
+                    {error}
+                  </td>
+                </tr>
+              )}
+
+              {!loading && !error && currentPapers.length === 0 && (
+                <tr>
+                  <td colSpan="7" className="emptyTableMessage">
+                    No editor-assigned papers found.
+                  </td>
+                </tr>
+              )}
+
+              {!loading && !error && currentPapers.map((item, idx) => (
+                <tr key={item.id}>
+                  <td className="colSl">
+                    {indexOfFirst + idx + 1}
+                  </td>
+
+                  <td>{item.dateTime}</td>
 
                   <td>
                     <span
-                      className={`status ${item.status.toLowerCase()}`}
+                      className={`status ${getClassName(item.status)}`}
                     >
                       {item.status}
                     </span>
                   </td>
 
-                  <td>${item.amount}</td>
+                  <td>
+                    <span
+                      className={`feedback ${getClassName(item.feedback)}`}
+                    >
+                      {item.feedback}
+                    </span>
+                  </td>
 
-                  <td>{item.customer}</td>
+                  <td className="editorCell">
+                    {item.editorName}
+                  </td>
+
+                  <td className="colAction">
+                    <button className="completedBtn">
+                      {item.status} <FiChevronRight />
+                    </button>
+                  </td>
+
+                  <td className="paperIdCell">
+                    {item.paperId}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -276,7 +244,7 @@ const Latestorders = () => {
 
         <div className="pagination">
           <div className="itemsPerPage">
-            <span>Items per page:</span>
+            <span>Rows per page:</span>
 
             <select
               value={itemsPerPage}

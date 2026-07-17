@@ -16,6 +16,94 @@
   --shadow-premium-soft: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 12px -1px rgba(15, 23, 42, 0.02);
 }
 
+.editor-feedback-box{
+    position: relative;
+    margin: 0 0 30px;
+    padding: 24px 28px;
+    background: linear-gradient(135deg,#ffffff,#f9fcff);
+    border: 1px solid #d8e6f7;
+    border-left: 6px solid #2563eb;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(15,23,42,.08);
+    transition: .3s ease;
+}
+
+.editor-feedback-box:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 18px 35px rgba(15,23,42,.12);
+}
+
+.editor-feedback-box h3{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:0 0 18px;
+    color:#0f172a;
+    font-size:24px;
+    font-weight:700;
+}
+
+.editor-feedback-box h3::before{
+    content:"📝";
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    background:#eef4ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+}
+
+.editor-feedback-box p{
+    margin:0;
+    padding:18px;
+    background:#ffffff;
+    border:1px solid #dbeafe;
+    border-radius:12px;
+    color:#334155;
+    font-size:16px;
+    line-height:1.8;
+    white-space:pre-wrap;
+}
+
+.feedback-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:20px;
+}
+
+.feedback-meta span{
+    display:flex;
+    align-items:center;
+    padding:10px 18px;
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:600;
+    color:#475569;
+}
+
+.feedback-meta span:nth-child(1){
+    background:#eff6ff;
+    color:#2563eb;
+    border-color:#bfdbfe;
+}
+
+.feedback-meta span:nth-child(2){
+    background:#ecfdf5;
+    color:#15803d;
+    border-color:#bbf7d0;
+}
+
+.feedback-meta span:nth-child(3){
+    background:#fff7ed;
+    color:#ea580c;
+    border-color:#fed7aa;
+}
+
 /* Base Configuration Layout */
 .admin-dashboard-container {
   min-height: 100vh;
@@ -52,7 +140,7 @@
   font-size: 1.75rem;
   font-weight: 700;
   color: var(--text-main-color);
-  margin: 0;
+ margin-bottom: 50px;
   letter-spacing: -0.02em;
 }
 
@@ -515,6 +603,129 @@
 .global-master-submit-btn:active {
   transform: translateY(1px);
 }
+/* =========================
+   PAPER NUMBER
+========================= */
+
+.paper-number-container {
+  width: 100%;
+  max-width: 200px;
+  margin: 25px auto;
+}
+
+.paper-number-label {
+  display:block;
+  margin-bottom: 10px;
+
+  font-size: 2rem;
+  font-weight: 500;
+  color: #334155;
+}
+
+.paper-number-input {
+  width: 100%;
+  padding: 18px 20px;
+
+  border: 2px solid #2563eb;
+  border-radius: 14px;
+
+  background: #f8fafc;
+  color: #0f172a;
+
+  font-size: 1.4rem;
+  font-weight: 800; /* Bold */
+
+  text-align: center;
+  letter-spacing: 2px;
+
+  outline: none;
+  cursor: default;
+
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.08);
+
+  transition: all 0.3s ease;
+}
+
+.paper-number-input:hover {
+  border-color: #1d4ed8;
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.12);
+}
+
+.paper-number-input:focus {
+  border-color: #1d4ed8;
+}
+/* =========================
+   PAPER NUMBER ROW
+========================= */
+
+.paper-number-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 15px;
+
+  width: 100%;
+  margin: 30px 0;
+}
+
+.paper-number-row-label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+
+  min-width: 120px;
+}
+
+.paper-number-row-input {
+  width: 220px;
+
+  padding: 14px 18px;
+
+  border: 2px solid #2563eb;
+  border-radius: 12px;
+
+  background: #f8fafc;
+  color: #0f172a;
+
+  font-size: 1.2rem;
+  font-weight: 800;
+
+  letter-spacing: 2px;
+
+  outline: none;
+}
+
+.paper-number-row-input:focus {
+  border-color: #1d4ed8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .paper-number-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .paper-number-row-input {
+    width: 100%;
+  }
+}
+/* Responsive */
+
+@media (max-width: 768px) {
+  .paper-number-container {
+    max-width: 100%;
+  }
+
+  .paper-number-input {
+    font-size: 1.15rem;
+    padding: 16px;
+  }
+}
 
 /* Adaptive Breakpoints Media Queries Matrix */
 @media (max-width: 1024px) {
@@ -526,6 +737,25 @@
   }
 }
 
+@media(max-width:768px){
+
+    .editor-feedback-box{
+        padding:20px;
+    }
+
+    .editor-feedback-box h3{
+        font-size:20px;
+    }
+
+    .feedback-meta{
+        flex-direction:column;
+    }
+
+    .feedback-meta span{
+        width:100%;
+        justify-content:center;
+    }
+}
 @media (max-width: 768px) {
   .split-two-equal-columns,
   .author-fields-inner-matrix {

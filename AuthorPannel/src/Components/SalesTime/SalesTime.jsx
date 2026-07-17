@@ -1,132 +1,290 @@
-import React from "react";
-import { BsThreeDots } from "react-icons/bs";
-import {
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-} from "recharts";
+import React, { useMemo, useState } from "react";
 import "./SalesTime.css";
+import {
+  FaSearch,
+  FaStar,
+  FaRegStar,
+  FaChevronLeft,
+  FaChevronRight,
+  FaFileAlt,
+} from "react-icons/fa";
 
-const SalesTime = () => {
-  const chartData = [
-    { month: "Jan", saving: 13, expense: 33, income: 45 },
-    { month: "Feb", saving: 21, expense: 42, income: 52 },
-    { month: "Mar", saving: 28, expense: 26, income: 39 },
-    { month: "Apr", saving: 20, expense: 20, income: 24 },
-    { month: "May", saving: 13, expense: 31, income: 33 },
-    { month: "Jun", saving: 18, expense: 38, income: 26 },
-    { month: "Jul", saving: 29, expense: 28, income: 44 },
-    { month: "Aug", saving: 15, expense: 47, income: 55 },
-    { month: "Sep", saving: 24, expense: 44, income: 45 },
-    { month: "Oct", saving: 31, expense: 56, income: 48 },
-    { month: "Nov", saving: 9, expense: 17, income: 35 },
-    { month: "Dec", saving: 27, expense: 46, income: 60 },
-  ];
+const COLORS = ["#6C63FF", "#F552C4", "#1ABC9C", "#5568FE", "#F59E0B"];
+
+const formatDate = (dateValue) => {
+  if (!dateValue) return "-";
+
+  return new Date(dateValue).toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+};
+
+const getInitials = (name = "") =>
+  name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase() || "A";
+
+const SalesTime = ({ submissions = [], loading = false, error = "" }) => {
+  const [search, setSearch] = useState("");
+
+  const teamData = useMemo(() => {
+    const authorMap = new Map();
+
+    submissions.forEach((paper) => {
+      const authors = paper.authors?.length
+        ? paper.authors
+        : [{ fullName: paper.authorName || "Unknown Author" }];
+
+      authors.forEach((author) => {
+        const name = author.fullName || "Unknown Author";
+        const key = author.email || name;
+        const current = authorMap.get(key) || {
+          id: key,
+          team: name,
+          desc: author.organization || author.designation || "Author",
+          rating: 5,
+          modifiedAt: paper.updatedAt || paper.createdAt,
+          papers: 0,
+          members: [],
+        };
+
+        const latestTime = new Date(current.modifiedAt || 0).getTime();
+        const paperTime = new Date(paper.updatedAt || paper.createdAt || 0).getTime();
+
+        current.papers += 1;
+        current.modifiedAt = paperTime > latestTime
+          ? paper.updatedAt || paper.createdAt
+          : current.modifiedAt;
+        current.members = authors.slice(0, 4).map((item, index) => ({
+          name: getInitials(item.fullName),
+          color: COLORS[index % COLORS.length],
+        }));
+
+        authorMap.set(key, current);
+      });
+    });
+
+    return Array.from(authorMap.values()).sort(
+      (a, b) => new Date(b.modifiedAt || 0) - new Date(a.modifiedAt || 0)
+    );
+  }, [submissions]);
+
+  const latestPublications = useMemo(
+    () =>
+      submissions
+        .filter((paper) => paper.status === "Published" || paper.isPublished)
+        .sort(
+          (a, b) =>
+            new Date(b.publishedAt || b.updatedAt || b.createdAt || 0) -
+            new Date(a.publishedAt || a.updatedAt || a.createdAt || 0)
+        )
+        .slice(0, 5),
+    [submissions]
+  );
+
+  const filteredTeams = teamData.filter((item) =>
+    item.team.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <div className="SalesTime">
-      <div className="SalesTime-card">
-        <div className="SalesTime-header">
-          <div className="SalesTime-heading">
-            <h2 className="SalesTime-title">SWIFT Revenue</h2>
-            <p className="SalesTime-subtitle">
-              Your data last update 1 hours ago.
-            </p>
-          </div>
+    <div className="SalesTime_Wrapper">
+      <div className="SalesTime_DashboardContainer">
+        
+        {/* LEFT COLUMN: TEAMS TABLE MANAGEMENT */}
+        <div className="SalesTime_PrimaryColumn">
+          <div className="SalesTime_ManagementCard">
+            
+            <div className="SalesTime_PanelHeader">
+              <div className="SalesTime_PanelMeta">
+                <h2 className="SalesTime_PanelTitle">Teams</h2>
+                <p className="SalesTime_PanelSubtitle">
+                  All authors found from submitted papers
+                </p>
+              </div>
 
-          <button className="SalesTime-menuBtn">
-            <BsThreeDots />
-          </button>
+              <div className="SalesTime_SearchContainer">
+                <FaSearch className="SalesTime_SearchIcon" />
+                <input
+                  type="text"
+                  className="SalesTime_SearchField"
+                  placeholder="Search Teams..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="SalesTime_TableResponsiveWrapper">
+              <table className="SalesTime_DataTable">
+                <thead>
+                  <tr className="SalesTime_TableHeaderRow">
+                    <th className="SalesTime_TableTh CheckboxCell">
+                      <input type="checkbox" className="SalesTime_HeaderCheckbox" />
+                    </th>
+                    <th className="SalesTime_TableTh">AUTHOR</th>
+                    <th className="SalesTime_TableTh">RATING</th>
+                    <th className="SalesTime_TableTh">LAST MODIFIED</th>
+                    <th className="SalesTime_TableTh">MEMBERS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {loading && (
+                    <tr>
+                      <td className="SalesTime_EmptyState" colSpan="5">
+                        Loading authors...
+                      </td>
+                    </tr>
+                  )}
+
+                  {!loading && error && (
+                    <tr>
+                      <td className="SalesTime_EmptyState" colSpan="5">
+                        {error}
+                      </td>
+                    </tr>
+                  )}
+
+                  {!loading && !error && filteredTeams.length === 0 && (
+                    <tr>
+                      <td className="SalesTime_EmptyState" colSpan="5">
+                        No authors found.
+                      </td>
+                    </tr>
+                  )}
+
+                  {!loading && !error && filteredTeams.map((item) => (
+                    <tr key={item.id} className="SalesTime_TableBodyRow">
+                      <td className="SalesTime_TableTd CheckboxCell">
+                        <input type="checkbox" className="SalesTime_RowCheckbox" />
+                      </td>
+                      <td className="SalesTime_TableTd">
+                        <div className="SalesTime_TeamProfile">
+                          <h4 className="SalesTime_TeamName">{item.team}</h4>
+                          <span className="SalesTime_TeamDescription">
+                            {item.desc} - {item.papers} paper{item.papers === 1 ? "" : "s"}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="SalesTime_TableTd">
+                        <div className="SalesTime_RatingStarsGroup">
+                          {[1, 2, 3, 4, 5].map((star) =>
+                            star <= item.rating ? (
+                              <FaStar key={star} className="SalesTime_StarIcon Filled" />
+                            ) : (
+                              <FaRegStar key={star} className="SalesTime_StarIcon Empty" />
+                            )
+                          )}
+                        </div>
+                      </td>
+                      <td className="SalesTime_TableTd SalesTime_DateValue">
+                        {formatDate(item.modifiedAt)}
+                      </td>
+                      <td className="SalesTime_TableTd">
+                        <div className="SalesTime_AvatarGroupStack">
+                          {item.members.map((m, index) => (
+                            <div
+                              key={index}
+                              className="SalesTime_UserBadgeAvatar"
+                              style={{ backgroundColor: m.color }}
+                            >
+                              {m.name}
+                            </div>
+                          ))}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="SalesTime_PanelFooter">
+              <div className="SalesTime_RowsPerPageSelector">
+                <span className="SalesTime_FooterText">Rows per page</span>
+                <select className="SalesTime_PageDropdown">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
+
+              <div className="SalesTime_PaginationControlGroup">
+                <span className="SalesTime_PaginationStatus">
+                  {filteredTeams.length ? `1-${filteredTeams.length} of ${filteredTeams.length}` : "0 of 0"}
+                </span>
+                <div className="SalesTime_PaginationBtnStack">
+                  <button className="SalesTime_PaginationNavBtn" aria-label="Previous Page">
+                    <FaChevronLeft />
+                  </button>
+                  <button className="SalesTime_PaginationNumberBtn Active">1</button>
+                  <button className="SalesTime_PaginationNumberBtn">2</button>
+                  <button className="SalesTime_PaginationNumberBtn">3</button>
+                  <button className="SalesTime_PaginationNavBtn" aria-label="Next Page">
+                    <FaChevronRight />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
 
-        <div className="SalesTime-chart">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              data={chartData}
-              margin={{
-                top: 20,
-                right: 20,
-                left: 0,
-                bottom: 10,
-              }}
-            >
-              <CartesianGrid
-                vertical={false}
-                stroke="#E8EDF3"
-                strokeDasharray="0"
-              />
+        {/* RIGHT COLUMN: RESTRICTIONS & PUBLICATIONS */}
+        <div className="SalesTime_SecondaryColumn">
+          <div className="SalesTime_ManagementCard">
+            
+            <div className="SalesTime_SidebarCardTop">
+              <div className="SalesTime_SidebarCardMeta">
+                <h2 className="SalesTime_SidebarCardTitle">Latest Publication</h2>
+                <p className="SalesTime_SidebarCardDescription">
+                  Latest 5 published papers from all authors.
+                </p>
+              </div>
+              <span className="SalesTime_CounterBadge">
+                {latestPublications.length} Papers
+              </span>
+            </div>
 
-              <XAxis
-                dataKey="month"
-                axisLine={false}
-                tickLine={false}
-                tick={{
-                  fill: "#5E6A7D",
-                  fontSize: 14,
-                }}
-              />
+            <div className="SalesTime_UserDirectoryList">
+              {loading && (
+                <p className="SalesTime_EmptyDirectory">Loading publications...</p>
+              )}
 
-              <YAxis
-                domain={[0, 70]}
-                ticks={[0, 10, 20, 30, 40, 50, 60, 70]}
-                axisLine={false}
-                tickLine={false}
-                tick={{
-                  fill: "#5E6A7D",
-                  fontSize: 14,
-                }}
-              />
+              {!loading && !error && latestPublications.length === 0 && (
+                <p className="SalesTime_EmptyDirectory">No published papers found.</p>
+              )}
 
-              <Tooltip />
+              {!loading && error && (
+                <p className="SalesTime_EmptyDirectory">{error}</p>
+              )}
 
-              <Line
-                type="monotone"
-                dataKey="saving"
-                stroke="#178B52"
-                strokeWidth={3}
-                dot={false}
-              />
+              {!loading && !error && latestPublications.map((paper) => (
+                <div className="SalesTime_UserDirectoryCard" key={paper._id || paper.paperId}>
+                  <div className="SalesTime_UserDirectoryMeta">
+                    <div className="SalesTime_DirectoryAvatar">
+                      <FaFileAlt />
+                    </div>
+                    <div className="SalesTime_DirectoryInfo">
+                      <h4 className="SalesTime_DirectoryName">{paper.paperTitle}</h4>
+                      <span className="SalesTime_DirectorySubtext">
+                        {paper.paperId} - {formatDate(paper.publishedAt || paper.updatedAt)}
+                      </span>
+                    </div>
+                  </div>
+                  <span className="SalesTime_PublicationStatus">{paper.status}</span>
+                </div>
+              ))}
+            </div>
 
-              <Line
-                type="monotone"
-                dataKey="expense"
-                stroke="#EF3E4A"
-                strokeWidth={3}
-                strokeDasharray="8 8"
-                dot={false}
-              />
-
-              <Line
-                type="monotone"
-                dataKey="income"
-                stroke="#1DA7A1"
-                strokeWidth={3}
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className="SalesTime-legend">
-          <div className="SalesTime-legendItem">
-            <span className="SalesTime-saving"></span>
-            <span>Saving</span>
-          </div>
-
-          <div className="SalesTime-legendItem">
-            <span className="SalesTime-expense"></span>
-            <span>Expense</span>
-          </div>
-
-          <div className="SalesTime-legendItem">
-            <span className="SalesTime-income"></span>
-            <span>Income</span>
           </div>
         </div>
+
       </div>
     </div>
   );

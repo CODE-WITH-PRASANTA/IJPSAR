@@ -3,8 +3,8 @@ import "./App.css";
 import Topbar from "./Components/Topbar/Topbar";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
-import Home from './Pages/Home/Home'
-import AboutIJPSAR from './Pages/AboutIJPSAR/AboutIJPSAR'
+import Home from "./Pages/Home/Home";
+import AboutIJPSAR from "./Pages/AboutIJPSAR/AboutIJPSAR";
 import EditorialBoard from "./Pages/EditorialBoard/EditorialBoard";
 import IndexingAbstracting from "./Pages/IndexingAbstracting/IndexingAbstracting";
 import PublicationEthics from "./Pages/PublicationEthics/PublicationEthics";
@@ -36,49 +36,63 @@ import PreeReview from "./Pages/PreeReview/PreeReview";
 function App() {
   return (
     <>
-    <Router>
-      <Topbar />
+      <Router>
+        <Topbar />
 
-      <Navbar />
-      {/* 🔄 Routes */}
-      <Routes>
+        <Navbar />
+        {/* 🔄 Routes */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about-ijpasr" element={<AboutIJPSAR />} />
+          <Route path="/editorial-board" element={<EditorialBoard />} />
+          <Route
+            path="/indexing-abstracting"
+            element={<IndexingAbstracting />}
+          />
+          <Route path="/publication-ethics" element={<PublicationEthics />} />
+          <Route path="/peer-review-process" element={<PeerReview />} />
+          <Route path="/plagiarism-policy" element={<PlagiarismPolicy />} />
+          <Route path="/submit-manuscript" element={<SubmitManuscript />} />
+          <Route path="/author-guidelines" element={<AuthorGuidelines />} />
+          <Route path="/sample-article/:id" element={<ArticleDetails />} />
 
-       <Route path="/" element={<Home />} />
-       <Route path="/about-ijpasr" element={<AboutIJPSAR />} />
-        <Route path="/editorial-board" element={<EditorialBoard />} />
-        <Route path="/indexing-abstracting" element={<IndexingAbstracting />} />
-        <Route path="/publication-ethics" element={<PublicationEthics />} />
-        <Route path="/peer-review-process" element={<PeerReview />} />
-        <Route path="/plagiarism-policy" element={<PlagiarismPolicy />} />
-        <Route path="/submit-manuscript" element={<SubmitManuscript />} />
-        <Route path="/author-guidelines" element={<AuthorGuidelines />} />
-        <Route path="/sample-article" element={<ArticleDetails />} />
+          <Route path="/authors" element={<Authors />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/current-issue" element={<CurrentIsuue />} />
+          <Route path="/archives" element={<Archives />} />
+          <Route path="/search-articles" element={<SearchArticle />} />
+          
+          <Route path="/best-paper-award" element={<Nomination />} />
+          <Route path="/terms-and-conditions" element={<TermCondition />} />
+          <Route path="/faq" element={<FaqSection />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about-ijpasr" element={<AboutIJPSAR />} />
+          <Route path="/editorial-board" element={<EditorialBoard />} />
+          <Route
+            path="/indexing-abstracting"
+            element={<IndexingAbstracting />}
+          />
+          <Route path="/publication-ethics" element={<PublicationEthics />} />
+          <Route path="/peer-review-process" element={<PeerReview />} />
+          <Route path="/plagiarism-policy" element={<PlagiarismPolicy />} />
+          <Route path="/submit-manuscript" element={<SubmitManuscript />} />
+          <Route path="/author-guidelines" element={<AuthorGuidelines />} />
+          <Route path="/sample-article/:id" element={<ArticleDetails />} />
 
-       <Route path="/authors" element={<Authors />} />
-       <Route path="/contact" element={<Contact/>}/>
-       <Route path="/current-issue" element={<CurrentIsuue/>}/>
-       <Route path="/archives" element={<Archives/>}/>
-       <Route path="/search-articles" element={<SearchArticle/>}/>
-       <Route path="/best-paper-award" element={<Nomination/>}/>
-       <Route path="/terms-and-conditions" element={<TermCondition/>}/>
-       <Route path="/faq" element={<FaqSection />} />
-       <Route path="/login" element={<LoginForm />} />
+          <Route path="/submit-paper" element={<SubmitFrom />} />
 
-       <Route path="/submit-paper" element={<SubmitFrom />} />
-       
-       <Route path="/return-refund-policy" element={<ReturnRefund />} />
-       <Route path="/privacy-policy" element={<Privacypolicy />} />
-       <Route path="/disclaimer" element={<Disclaimer />} />
-       <Route path="/peer-review" element={<PreeReview/>}/>
+          <Route path="/return-refund-policy" element={<ReturnRefund />} />
+          <Route path="/privacy-policy" element={<Privacypolicy />} />
+          <Route path="/disclaimer" element={<Disclaimer />} />
+          <Route path="/peer-review" element={<PreeReview />} />
+        </Routes>
 
-      </Routes>
+        <Footer />
 
-     <Footer />
-
-     <FloatingIcons />
-     <FloatingForm />
-     
-    </Router>
+        <FloatingIcons />
+        <FloatingForm />
+      </Router>
     </>
   );
 }

@@ -1,188 +1,208 @@
-/* =========================
+/* ==========================================================
    MAIN LAYOUT
-========================= */
+========================================================== */
 
-.mainLayout {
-  display: flex;
-  min-height: 100vh;
-  background: #f3f3f9;
-  overflow-x: hidden;
+.mainLayout{
+    display:flex;
+    width:100%;
+    min-height:100vh;
+    background:#f3f3f9;
+    overflow:hidden;
 }
 
-/* =========================
+/* ==========================================================
    CONTENT AREA
-========================= */
+========================================================== */
 
-.mainLayoutContent {
-  flex: 1;
+.mainLayoutContent{
 
-  margin-left: 280px;
-  width: calc(100% - 280px);
+    flex:1;
+    width:100%;
+    min-width:0;
 
-  transition:
-    margin-left 0.35s ease,
-    width 0.35s ease;
+    margin-left:280px;
+
+    display:flex;
+    flex-direction:column;
+
+    transition:margin-left .3s ease;
+
+    overflow:hidden;
+
 }
 
-.mainLayoutContentCollapsed {
-  margin-left: 80px;
-  width: calc(100% - 80px);
+/* Sidebar Collapsed */
+
+.mainLayoutContentCollapsed{
+
+    margin-left:80px;
+
 }
 
-/* =========================
-   PAGE AREA
-========================= */
+/* ==========================================================
+   PAGE
+========================================================== */
 
-.mainLayoutPage {
-  padding: 24px;
+.mainLayoutPage{
 
-  display: grid;
+    flex:1;
 
-  grid-template-columns:
-    repeat(
-      auto-fit,
-      minmax(320px, 1fr)
-    );
+    width:100%;
+    min-width:0;
 
-  gap: 20px;
+    margin-top:80px;
+
+    padding:24px;
+
+    overflow-x:hidden;
+    overflow-y:auto;
+
+    height:calc(100vh - 80px);
+
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+
 }
 
-/* =========================
-   DASHBOARD CARDS
-========================= */
+.mainLayoutPage::-webkit-scrollbar{
 
-.dashboardCard {
-  min-height: 220px;
+    width:0;
+    height:0;
+    display:none;
 
-  background: #fff;
-
-  border-radius: 16px;
-
-  padding: 20px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 18px;
-  font-weight: 600;
-
-  color: #344054;
-
-  box-shadow:
-    0 4px 15px
-    rgba(0, 0, 0, 0.08);
-
-  transition: all .3s ease;
 }
 
-.dashboardCard:hover {
-  transform: translateY(-5px);
-
-  box-shadow:
-    0 10px 25px
-    rgba(0, 0, 0, 0.12);
-}
-
-/* =========================
+/* ==========================================================
    LARGE LAPTOP
-========================= */
+========================================================== */
 
-@media (max-width: 1400px) {
+@media(max-width:1200px){
 
-  .mainLayoutPage {
-    grid-template-columns:
-      repeat(
-        auto-fit,
-        minmax(280px, 1fr)
-      );
-  }
+.mainLayoutContent{
+
+margin-left:260px;
 
 }
 
-/* =========================
+.mainLayoutContentCollapsed{
+
+margin-left:80px;
+
+}
+
+}
+
+/* ==========================================================
    TABLET
-========================= */
+========================================================== */
 
-@media (max-width: 992px) {
+@media(max-width:1024px){
 
-  .mainLayoutContent {
-    margin-left: 80px;
-    width: calc(100% - 80px);
-  }
+.mainLayoutContent{
 
-  .mainLayoutContentCollapsed {
-    margin-left: 80px;
-    width: calc(100% - 80px);
-  }
-
-  .mainLayoutPage {
-    padding: 20px;
-
-    gap: 16px;
-
-    grid-template-columns:
-      repeat(
-        auto-fit,
-        minmax(250px, 1fr)
-      );
-  }
-
-  .dashboardCard {
-    min-height: 180px;
-  }
+margin-left:240px;
 
 }
 
-/* =========================
+.mainLayoutContentCollapsed{
+
+margin-left:80px;
+
+}
+
+.mainLayoutPage{
+
+padding:18px;
+
+}
+
+}
+
+/* ==========================================================
    MOBILE
-========================= */
+========================================================== */
 
-@media (max-width: 768px) {
+@media(max-width:768px){
 
-  .mainLayoutContent,
-  .mainLayoutContentCollapsed {
-    margin-left: 0;
-    width: 100%;
-  }
+.mainLayout{
 
-  .mainLayoutPage {
-    padding: 15px;
+display:block;
 
-    gap: 15px;
+width:100%;
 
-    grid-template-columns: 1fr;
-  }
-
-  .dashboardCard {
-    min-height: 170px;
-
-    padding: 18px;
-
-    border-radius: 12px;
-
-    font-size: 16px;
-  }
+overflow:hidden;
 
 }
 
-/* =========================
+/* Sidebar becomes overlay */
+
+.mainLayoutContent,
+.mainLayoutContentCollapsed{
+
+margin-left:0;
+
+width:100%;
+
+min-width:0;
+
+}
+
+.mainLayoutPage{
+
+margin-top:72px;
+
+padding:15px;
+
+width:100%;
+
+min-width:0;
+
+height:calc(100vh - 72px);
+
+overflow-y:auto;
+overflow-x:hidden;
+
+scrollbar-width:none;
+-ms-overflow-style:none;
+
+}
+
+.mainLayoutPage::-webkit-scrollbar{
+
+display:none;
+
+}
+
+}
+
+/* ==========================================================
    SMALL MOBILE
-========================= */
+========================================================== */
 
-@media (max-width: 480px) {
+@media(max-width:576px){
 
-  .mainLayoutPage {
-    padding: 12px;
-    gap: 12px;
-  }
+.mainLayoutPage{
 
-  .dashboardCard {
-    min-height: 150px;
+padding:12px;
 
-    padding: 15px;
+margin-top:70px;
 
-    font-size: 15px;
-  }
+height:calc(100vh - 70px);
+
+}
+
+}
+
+/* ==========================================================
+   EXTRA SMALL
+========================================================== */
+
+@media(max-width:400px){
+
+.mainLayoutPage{
+
+padding:10px;
+
+}
 
 }

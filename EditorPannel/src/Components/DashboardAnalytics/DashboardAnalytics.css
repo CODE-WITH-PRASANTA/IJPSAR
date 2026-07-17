@@ -1,0 +1,183 @@
+/* ==========================================
+   DashboardAnalytics.css
+========================================== */
+
+.dashboardAnalytics {
+  width: 100%;
+  min-height: 48vh;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* ==========================
+   Cards
+========================== */
+
+.dashboardAnalytics-card {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  transition: all 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dashboardAnalytics-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(37, 99, 235, 0.12);
+}
+
+/* ==========================
+   Header
+========================== */
+
+.dashboardAnalytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.dashboardAnalytics-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 1.5rem;
+  color: #1e293b;
+  font-weight: 700;
+}
+
+.dashboardAnalytics-header h2 svg {
+  color: #2563eb;
+  font-size: 1.4rem;
+}
+
+.dashboardAnalytics-header p {
+  margin-top: 6px;
+  color: #64748b;
+  font-size: 0.92rem;
+}
+
+/* ==========================
+   Badge
+========================== */
+
+.dashboardAnalytics-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #ecfdf5;
+  color: #16a34a;
+  padding: 8px 14px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.dashboardAnalytics-badge svg {
+  font-size: 1rem;
+}
+
+/* ==========================
+   Charts
+========================== */
+
+.dashboardAnalytics-chart {
+  flex: 1;
+  position: relative;
+  min-height: 320px;
+}
+
+.dashboardAnalytics-doughnut {
+  flex: 1;
+  position: relative;
+  min-height: 320px;
+}
+
+/* ==========================
+   Legend (ChartJS)
+========================== */
+
+.dashboardAnalytics canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media (max-width: 1200px) {
+
+  .dashboardAnalytics {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboardAnalytics-chart,
+  .dashboardAnalytics-doughnut {
+    min-height: 300px;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .dashboardAnalytics {
+    gap: 18px;
+  }
+
+  .dashboardAnalytics-card {
+    padding: 20px;
+  }
+
+  .dashboardAnalytics-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dashboardAnalytics-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .dashboardAnalytics-chart,
+  .dashboardAnalytics-doughnut {
+    min-height: 260px;
+  }
+
+}
+
+@media (max-width: 576px) {
+
+  .dashboardAnalytics {
+    margin-top: 18px;
+  }
+
+  .dashboardAnalytics-card {
+    border-radius: 18px;
+    padding: 18px;
+  }
+
+  .dashboardAnalytics-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .dashboardAnalytics-header p {
+    font-size: 0.85rem;
+  }
+
+  .dashboardAnalytics-badge {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .dashboardAnalytics-chart,
+  .dashboardAnalytics-doughnut {
+    min-height: 220px;
+  }
+
+}

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
 import logo from "../../assets/p-2.jpeg";
-
+import API from "../../API/axios";
 import {
   FaTachometerAlt,
   FaFileAlt,
@@ -14,14 +14,45 @@ import {
   FaUser,
   FaDollarSign,
   FaTimes,
+  FaSignOutAlt,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = ({ sidebarCollapsed, mobileSidebar, setMobileSidebar }) => {
   const [openMenu, setOpenMenu] = useState("apps");
+  const [editor, setEditor] = useState({});
 
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? "" : menu);
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  const getProfile = async () => {
+    try {
+      const token = localStorage.getItem("editorToken");
+
+      const { data } = await API.get("/editor/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (data.success) {
+        setEditor(data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("editorToken");
+    localStorage.removeItem("editor");
+
+    window.location.href = "/editor-login";
   };
 
   return (
@@ -122,12 +153,7 @@ const Sidebar = ({ sidebarCollapsed, mobileSidebar, setMobileSidebar }) => {
           </NavLink>
 
           {/* Chat */}
-          <NavLink to="/editor-chat" className="sidebarItem">
-            <div className="sidebarItemLeft">
-              <FaComments />
-              {!sidebarCollapsed && <span>Chat</span>}
-            </div>
-          </NavLink>
+         
 
           {/* Payment */}
           <NavLink to="/payment-info" className="sidebarItem">
@@ -136,6 +162,22 @@ const Sidebar = ({ sidebarCollapsed, mobileSidebar, setMobileSidebar }) => {
               {!sidebarCollapsed && <span>Payment Information</span>}
             </div>
           </NavLink>
+        </div>
+
+        <div className="sidebarBottom">
+          {!sidebarCollapsed && (
+            <div className="sidebarUser">
+              <div className="sidebarUserName">{editor?.name}</div>
+
+              <div className="sidebarUserEmail">{editor?.email}</div>
+            </div>
+          )}
+
+          <button className="sidebarLogout" onClick={handleLogout}>
+            <FaSignOutAlt />
+
+            {!sidebarCollapsed && <span>Logout</span>}
+          </button>
         </div>
       </aside>
     </>

@@ -1,7 +1,9 @@
 // Samplearticles.jsx
 
-import React from "react";
 import "./Samplearticles.css";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { API, BASE_URL } from "../../api/axios";
 
 import {
   FaCalendarAlt,
@@ -13,125 +15,69 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 
-const articles = [
-  {
-    id: 1,
-    category: "Pharmaceutics",
-    date: "Nov 12, 2025",
-    volume: "Vol 12 · Issue 06",
-    title:
-      "Novel lipid nanoparticles enhance oral bioavailability of curcumin in rats",
-    authors: "R. Sharma, J. Patel, M. Kuznetsov",
-    doi: "10.55421/ijpasr.2025.1206.001",
-  },
-
-  {
-    id: 2,
-    category: "Pharmacology",
-    date: "Nov 11, 2025",
-    volume: "Vol 12 · Issue 06",
-    title:
-      "In-silico identification of natural inhibitors targeting SARS-CoV-2 Mpro protease",
-    authors: "L. Okafor, A. Bensalem",
-    doi: "10.55421/ijpasr.2025.1206.002",
-  },
-
-  {
-    id: 3,
-    category: "Microbiology",
-    date: "Nov 10, 2025",
-    volume: "Vol 12 · Issue 06",
-    title:
-      "Antimicrobial activity of green-synthesized silver nanoparticles",
-    authors: "P. Krishnan, S. Iyer",
-    doi: "10.55421/ijpasr.2025.1206.003",
-  },
-
-  {
-    id: 4,
-    category: "Clinical Pharmacy",
-    date: "Nov 09, 2025",
-    volume: "Vol 12 · Issue 06",
-    title:
-      "Pharmacovigilance trends in oncology drugs: a five-year retrospective analysis",
-    authors: "M. Garcia, D. Romero",
-    doi: "10.55421/ijpasr.2025.1206.004",
-  },
-
-  {
-    id: 5,
-    category: "Pharm Chemistry",
-    date: "Nov 08, 2025",
-    volume: "Vol 12 · Issue 06",
-    title:
-      "Synthesis and QSAR study of novel benzimidazole derivatives",
-    authors: "K. Tanaka, H. Suzuki",
-    doi: "10.55421/ijpasr.2025.1206.005",
-  },
-
-  {
-    id: 6,
-    category: "Pharmacognosy",
-    date: "Nov 07, 2025",
-    volume: "Vol 12 · Issue 06",
-    title:
-      "Phytochemical screening and hepatoprotective potential of Withania somnifera",
-    authors: "A. Mehta, V. Joshi",
-    doi: "10.55421/ijpasr.2025.1206.006",
-  },
-];
-
 const Samplearticles = () => {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
+  const fetchArticles = async () => {
+    try {
+      const { data } = await API.get("/submitform/all");
+
+      if (data.success) {
+        const published = data.data
+          .filter((paper) => paper.status === "Published")
+          .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+          .slice(0, 6);
+
+        setArticles(published);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const scrollLeft = () => {
-    document
-      .getElementById("samplearticles-slider")
-      .scrollBy({
-        left: -340,
-        behavior: "smooth",
-      });
+    document.getElementById("samplearticles-slider").scrollBy({
+      left: -340,
+      behavior: "smooth",
+    });
   };
 
   const scrollRight = () => {
-    document
-      .getElementById("samplearticles-slider")
-      .scrollBy({
-        left: 340,
-        behavior: "smooth",
-      });
+    document.getElementById("samplearticles-slider").scrollBy({
+      left: 340,
+      behavior: "smooth",
+    });
   };
 
   return (
     <section className="samplearticles">
-
       <div className="samplearticles-container">
-
         {/* TOP */}
 
         <div className="samplearticles-top">
-
           <div className="samplearticles-heading">
-
             <span className="samplearticles-tag">
               LATEST PUBLISHED ARTICLES
             </span>
 
-            <h2>
-              Sample articles from recent issues
-            </h2>
-
+            <h2>Sample articles from recent issues</h2>
           </div>
 
           <button className="samplearticles-view-btn">
             View all <FaArrowRight />
           </button>
-
         </div>
 
         {/* MOBILE NAV */}
 
         <div className="samplearticles-mobile-nav">
-
           <button onClick={scrollLeft}>
             <FaChevronLeft />
           </button>
@@ -139,87 +85,81 @@ const Samplearticles = () => {
           <button onClick={scrollRight}>
             <FaChevronRight />
           </button>
-
         </div>
 
         {/* GRID */}
 
-        <div
-          className="samplearticles-grid"
-          id="samplearticles-slider"
-        >
+        <div className="samplearticles-grid" id="samplearticles-slider">
+          {loading ? (
+            <h3>Loading...</h3>
+          ) : (
+            articles.map((item) => (
+              <div className="samplearticles-card" key={item.id}>
+                {/* TOP INFO */}
 
-          {articles.map((item) => (
+                <div className="samplearticles-meta-top">
+                  <span className="samplearticles-category">
+                    {item.researchArea || "Research"}
+                  </span>
 
-            <div className="samplearticles-card" key={item.id}>
+                  <span className="samplearticles-date">
+                    <FaCalendarAlt />
+                    {new Date(item.updatedAt).toLocaleDateString()}
+                  </span>
+                </div>
 
-              {/* TOP INFO */}
+                {/* VOLUME */}
 
-              <div className="samplearticles-meta-top">
+                <div className="samplearticles-volume">
+                  <FaBookOpen />
+                  Volume {item.version}
+                </div>
 
-                <span className="samplearticles-category">
-                  {item.category}
-                </span>
+                {/* TITLE */}
 
-                <span className="samplearticles-date">
-                  <FaCalendarAlt />
-                  {item.date}
-                </span>
+                <h3>{item.paperTitle}</h3>
 
+                {/* AUTHORS */}
+
+                <div className="samplearticles-authors">
+                  <FaUsers />
+                  {item.authors?.map((author) => author.fullName).join(", ")}
+                </div>
+
+                {/* DOI */}
+
+                <div className="samplearticles-doi">
+                  Paper ID: {item.paperId}
+                </div>
+
+                {/* FOOTER */}
+
+                <div className="samplearticles-footer">
+                  <a
+                    href={`${BASE_URL}${item.paperFile}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="samplearticles-pdf-btn"
+                  >
+                    <FaFilePdf />
+                    PDF
+                  </a>
+
+                  <Link
+                    to={`/sample-article/${item._id}`}
+                    className="samplearticles-read-btn"
+                  >
+                    Read Article
+                    <FaArrowRight />
+                  </Link>
+                </div>
+
+                <div className="samplearticles-glow"></div>
               </div>
-
-              {/* VOLUME */}
-
-              <div className="samplearticles-volume">
-                <FaBookOpen />
-                {item.volume}
-              </div>
-
-              {/* TITLE */}
-
-              <h3>
-                {item.title}
-              </h3>
-
-              {/* AUTHORS */}
-
-              <div className="samplearticles-authors">
-                <FaUsers />
-                {item.authors}
-              </div>
-
-              {/* DOI */}
-
-              <div className="samplearticles-doi">
-                DOI: {item.doi}
-              </div>
-
-              {/* FOOTER */}
-
-              <div className="samplearticles-footer">
-
-                <button className="samplearticles-pdf-btn">
-                  <FaFilePdf />
-                  PDF
-                </button>
-
-                <button className="samplearticles-read-btn">
-                  Read article
-                  <FaArrowRight />
-                </button>
-
-              </div>
-
-              <div className="samplearticles-glow"></div>
-
-            </div>
-
-          ))}
-
+            ))
+          )}
         </div>
-
       </div>
-
     </section>
   );
 };

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
 
-import logo from "../../assets/p-2.JPEG";
+import logo from "../../assets/p-2.jpeg";
 
 import {
   FaTachometerAlt,
@@ -207,6 +207,16 @@ const Sidebar = () => {
           >
             <FaAddressBook />
             <span>Contact & Support Center</span>
+          </NavLink>
+           {/* Contact Management */}
+          <NavLink
+            to="/editorial-board"
+            className={({ isActive }) =>
+              isActive ? "sidebarLink active" : "sidebarLink"
+            }
+          >
+            <FaAddressBook />
+            <span>Editorial & Board</span>
           </NavLink>
         </div>
 
