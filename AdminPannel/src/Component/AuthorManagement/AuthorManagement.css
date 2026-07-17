@@ -1,0 +1,320 @@
+/* Color Strategy & Standard Variables */
+:root {
+  --bg-dark-color: #0b0f19;
+  --card-dark-color: #121824;
+  --input-bg-dark: #1a2232;
+  --border-dark: #243249;
+  
+  --text-main: #ffffff;
+  --text-secondary: #94a3b8;
+  
+  --primary-blue: #2563eb;
+  --primary-blue-hover: #1d4ed8;
+  
+  --success-green: #10b981;
+  --danger-red: #ef4444;
+}
+
+/* Master Layout container */
+.portal-container {
+  min-height: 100vh;
+  background-color: var(--bg-dark-color);
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Dark Table Dashboard Panel */
+.table-dashboard-card {
+  width: 100%;
+  max-width: 1150px;
+  background-color: var(--card-dark-color);
+  border: 1px solid var(--border-dark);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.table-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.table-dashboard-title {
+  color: var(--text-main);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.search-input-wrapper {
+  min-width: 240px;
+}
+
+.table-search {
+  width: 100%;
+  background-color: var(--input-bg-dark);
+  border: 1px solid var(--border-dark);
+  color: var(--text-main);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.table-search:focus {
+  border-color: #3b82f6;
+}
+
+/* Responsive Table Area */
+.table-responsive-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border-dark);
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  background-color: rgba(18, 24, 36, 0.6);
+}
+
+.dashboard-table th {
+  background-color: #0e131f;
+  color: var(--text-main);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.dashboard-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-dark);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.dashboard-table tr:last-child td {
+  border-bottom: none;
+}
+
+.dashboard-table tr:hover td {
+  background-color: rgba(30, 41, 59, 0.4);
+}
+
+/* Text styles inside table */
+.text-bold {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  letter-spacing: 3px;
+}
+
+.font-mono {
+  font-family: monospace;
+}
+
+.no-data-cell {
+  text-align: center;
+  padding: 40px !important;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-badge.pending {
+  background-color: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+.status-badge.accepted {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: var(--success-green);
+}
+
+/* ==========================================================================
+   NEW HIGHLY-PROFESSIONAL ACTION BUTTONS
+   ========================================================================== */
+.action-buttons-cell {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  min-width: 180px; /* Ensures structural width consistency across pages */
+}
+
+.btn-action {
+  flex: 1;
+  max-width: 95px;
+  padding: 8px 0;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Accept Button */
+.btn-accept {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.btn-accept:hover:not(:disabled) {
+  background-color: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Static Accepted State */
+.btn-accept.accepted-state {
+  background-color: rgba(30, 41, 59, 0.5);
+  color: #64748b;
+  border: 1px solid rgba(71, 85, 105, 0.2);
+  cursor: default;
+}
+
+.btn-icon {
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+/* Delete Button */
+.btn-delete {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-delete:hover {
+  background-color: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+
+/* ==========================================================================
+   PAGINATION PANEL
+   ========================================================================== */
+.pagination-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-dark);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.pagination-info {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pagination-btn {
+  background-color: var(--input-bg-dark);
+  border: 1px solid var(--border-dark);
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  border-color: var(--primary-blue);
+  color: var(--text-main);
+  background-color: rgba(37, 99, 235, 0.1);
+}
+
+.pagination-btn.active {
+  background-color: var(--primary-blue);
+  border-color: var(--primary-blue);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.arrow-btn {
+  font-weight: 500;
+}
+
+.num-btn {
+  min-width: 36px;
+  text-align: center;
+}
+
+/* Responsive Overrides */
+@media (max-width: 600px) {
+  .portal-container {
+    padding: 16px 12px;
+  }
+  
+  .table-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .search-input-wrapper {
+    width: 100%;
+  }
+
+  .pagination-wrapper {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}

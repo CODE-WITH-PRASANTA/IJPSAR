@@ -17,6 +17,7 @@ import PublicationManagement from "./Pages/PublicationManagement/PublicationMana
 import IncDocPublicationManagement from "./Component/IncDocPublicationManagement/IncDocPublicationManagement";
 import Calender from "./Component/Calender/Calender";
 import EditorialBoard from "./Pages/EditorialBoard/EditorialBoard";
+import AuthorManagement from "./Component/AuthorManagement/AuthorManagement";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/inc-publication-management" element={<IncDocPublicationManagement/>}/>
           <Route path="/calendar-management" element={<Calender />} />
           <Route path="/editorial-board" element={<EditorialBoard/>}/>
+          <Route path="/authot-table" element={<AuthorManagement/>}/>
 
 
         </Route>

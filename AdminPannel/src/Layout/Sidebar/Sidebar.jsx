@@ -146,6 +146,16 @@ const Sidebar = () => {
           >
             <FaClipboardList />
             <span>Lead Management Hub</span>
+          </NavLink> 
+
+           <NavLink
+            to="/authot-table"
+            className={({ isActive }) =>
+              isActive ? "sidebarLink active" : "sidebarLink"
+            }
+          >
+            <FaClipboardList />
+            <span>Author Management</span>
           </NavLink>
 
           {/* Index & Abstracting Management */}
