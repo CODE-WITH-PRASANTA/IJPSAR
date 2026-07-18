@@ -18,6 +18,7 @@ import PublicationManagement from "./Pages/PublicationManagement/PublicationMana
 import IncDocPublicationManagement from "./Component/IncDocPublicationManagement/IncDocPublicationManagement";
 import Calender from "./Component/Calender/Calender";
 import EditorialBoard from "./Pages/EditorialBoard/EditorialBoard";
+import AuthorManagement from "./Component/AuthorManagement/AuthorManagement";
 
 import AdminAuth from "./Pages/AdminAuth/AdminAuth";
 
@@ -28,7 +29,24 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+<<<<<<< HEAD
         {/* AUTH */}
+=======
+        <Route path="/" element={<MainLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/testimonial-management" element={<Testimonial />} />
+          <Route path="/new-editor" element={<NewUser/>}/>
+          <Route path="/newsprofile"element={<NewsProfile/>}/>
+          <Route path="/manage-editor" element={<ManageEditior/>}/>
+          <Route path="/cold-lead-management" element={<LeadManagementHub/>}/>
+          <Route path="/contact-management" element={<ContactManagement/>}/>
+          <Route path="/index-abstracting-management" element={<IndexAbstracte/>}/>
+          <Route path="/publication-management" element={<PublicationManagement/>}/>
+          <Route path="/inc-publication-management" element={<IncDocPublicationManagement/>}/>
+          <Route path="/calendar-management" element={<Calender />} />
+          <Route path="/editorial-board" element={<EditorialBoard/>}/>
+          <Route path="/authot-table" element={<AuthorManagement/>}/>
+>>>>>>> b6df283a43c115199d04b40986ac07da7f2eedd1
 
         <Route
           path="/login"

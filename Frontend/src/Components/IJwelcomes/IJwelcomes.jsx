@@ -1,7 +1,7 @@
-
 import React from "react";
 import "./IJwelcomes.css";
 import { FaArrowRight } from "react-icons/fa";
+import welcomeImage from  '../../assets/Chemical-1.jpg'
 
 const IJwelcomes = () => {
   return (
@@ -26,12 +26,24 @@ const IJwelcomes = () => {
           </p>
         </div>
 
-        {/* RIGHT BUTTON */}
+        {/* RIGHT SECTION */}
         <div className="ijwelcome-right">
-          <button className="ijwelcome-btn">
-            Submit Manuscript
-            <FaArrowRight className="ijwelcome-btn-icon" />
-          </button>
+          <div className="ijwelcome-action-wrapper">
+            
+            {/* JPG IMAGE ABOVE BUTTON */}
+            <img 
+              src={welcomeImage} 
+              alt="Submit Guideline" 
+              className="ijwelcome-top-img" 
+            />
+
+            {/* BUTTON */}
+            <button className="ijwelcome-btn">
+              Submit Manuscript
+              <FaArrowRight className="ijwelcome-btn-icon" />
+            </button>
+
+          </div>
         </div>
 
       </div>
