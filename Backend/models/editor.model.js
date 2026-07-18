@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema(
+const editorSchema = new mongoose.Schema(
   {
     userId: {
       type: String,
@@ -14,8 +14,8 @@ const UserSchema = new mongoose.Schema(
 
     email: {
       type: String,
-      unique: true,
       required: true,
+      unique: true,
     },
 
     phone: String,
@@ -25,10 +25,74 @@ const UserSchema = new mongoose.Schema(
       required: true,
     },
 
+    profileImage: {
+      type: String,
+      default: "",
+    },
+
+    designation: {
+      type: String,
+      default: "",
+    },
+
+    organization: {
+      type: String,
+      default: "",
+    },
+
+    qualification: {
+      type: String,
+      default: "",
+    },
+
+    specialization: {
+      type: String,
+      default: "",
+    },
+
+    country: {
+      type: String,
+      default: "",
+    },
+
+    city: {
+      type: String,
+      default: "",
+    },
+    address: {
+      type: String,
+      default: "",
+    },
+
+    address2: {
+      type: String,
+      default: "",
+    },
+
+    state: {
+      type: String,
+      default: "",
+    },
+
+    zip: {
+      type: String,
+      default: "",
+    },
+
+    language: {
+      type: String,
+      default: "English",
+    },
+
+    bio: {
+      type: String,
+      default: "",
+    },
+
     role: {
       type: String,
       enum: ["Admin", "Author", "Editor", "Reviewer"],
-      default: "Author",
+      default: "Editor",
     },
 
     status: {
@@ -37,7 +101,6 @@ const UserSchema = new mongoose.Schema(
       default: "Active",
     },
 
-    // Assigned Documents
     assignedPapers: [
       {
         paperId: {
@@ -54,7 +117,7 @@ const UserSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-module.exports = mongoose.model("Editor", UserSchema);
+module.exports = mongoose.model("Editor", editorSchema);

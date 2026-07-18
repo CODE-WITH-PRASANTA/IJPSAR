@@ -29,7 +29,7 @@ const IncDocPublicationManagement = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await API.patch(`/submitform/status/${id}`, {
+      await API.put(`/submitform/status/${id}`, {
         status,
       });
 

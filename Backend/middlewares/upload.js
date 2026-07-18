@@ -15,6 +15,7 @@ const routeFolderMap = {
    "/index": "uploads/index",
    "/submitform": "uploads/submitform",
    "/editorialboard": "uploads/editorialboard",
+   "/editor": "uploads/editor",
    
 };
 

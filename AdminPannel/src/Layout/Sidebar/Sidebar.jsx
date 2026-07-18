@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
-import { NavLink } from "react-router-dom";
+
+import {
+  NavLink,
+  useNavigate,
+} from "react-router-dom";
+
+import { useAuth } from "../../Context/AuthContext";
 
 import logo from "../../assets/p-2.jpeg";
 
 import {
   FaTachometerAlt,
   FaUser,
-  FaUsers,
   FaShieldAlt,
   FaChevronDown,
   FaBell,
-  FaCog,
   FaSignOutAlt,
   FaCommentDots,
   FaNetworkWired,
@@ -25,10 +29,14 @@ import {
   FaStar,
   FaAddressBook,
   FaBook,
+  FaCalendarAlt,
 } from "react-icons/fa";
-import { FaCalendarAlt } from "react-icons/fa";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const { admin, logout } = useAuth();
+
   const [showProfile, setShowProfile] = useState(false);
   const [showLogoMenu, setShowLogoMenu] = useState(false);
   const [showChat, setShowChat] = useState(false);
@@ -36,7 +44,19 @@ const Sidebar = () => {
 
   const [openMenu, setOpenMenu] = useState("dashboard");
 
-  return (
+  const handleLogout = async () => {
+    try {
+      await logout();
+
+      navigate("/login", {
+        replace: true,
+      });
+    } catch (error) {
+      console.log("Logout Error:", error);
+    }
+  };
+
+ return (
     <>
       <button
         className="mobileMenuBtn"
@@ -83,7 +103,11 @@ const Sidebar = () => {
                 User Management
               </NavLink>
 
-              <NavLink to="/logout">
+              <NavLink
+                type="button"
+                className="sidebarSignOutBtn"
+                onClick={handleLogout}
+              >
                 <FaSignOutAlt />
                 Sign Out
               </NavLink>
@@ -208,7 +232,7 @@ const Sidebar = () => {
             <FaAddressBook />
             <span>Contact & Support Center</span>
           </NavLink>
-           {/* Contact Management */}
+          {/* Contact Management */}
           <NavLink
             to="/editorial-board"
             className={({ isActive }) =>
@@ -246,8 +270,9 @@ const Sidebar = () => {
                 <img src="https://i.pravatar.cc/150" alt="" />
 
                 <div>
-                  <h4>Demo User</h4>
-                  <p>demo@email.com</p>
+                  <h4>{admin?.name || "Admin"}</h4>
+
+                  <p>{admin?.email || "admin@email.com"}</p>
                 </div>
               </div>
 
@@ -257,7 +282,11 @@ const Sidebar = () => {
 
               <NavLink to="/account">My Account</NavLink>
 
-              <button className="logoutBtn">
+              <button
+                type="button"
+                className="logoutBtn"
+                onClick={handleLogout}
+              >
                 <FaSignOutAlt />
                 Logout
               </button>

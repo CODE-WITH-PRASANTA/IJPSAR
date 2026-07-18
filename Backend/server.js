@@ -11,6 +11,8 @@ const contactRoutes = require("./routes/contact.routes");
 const submitformRoutes = require("./routes/submitform.routes");
 const editorRoutes = require("./routes/editor.routes");
 const authorRoutes = require("./routes/author.routes");
+const adminAuthRoutes = require("./routes/adminAuth.routes");
+const transactionRoutes = require("./routes/transaction.routes");
 
 const editorialboardRoutes = require("./routes/editorialboard.routes");
 const notificationRoutes = require("./routes/notification.routes");
@@ -23,23 +25,23 @@ const app = express();
 
 // Database Connection
 connectDB();
-      app.use(
-        cors({
-          origin: [
-            "http://localhost:5173",
-            "http://localhost:5174",
-            "http://localhost:5175",
-            "http://localhost:5176",
-            "http://localhost:5177",
-          ],
-          credentials: true,
-        })
-      );
-      
-      app.use(express.json({ limit: "50mb" }));
-      
-      app.use(
-        express.urlencoded({
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "http://localhost:5175",
+      "http://localhost:5176",
+      "http://localhost:5177",
+    ],
+    credentials: true,
+  }),
+);
+
+app.use(express.json({ limit: "50mb" }));
+
+app.use(
+  express.urlencoded({
     limit: "50mb",
     extended: true,
   }),
@@ -56,8 +58,9 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/submitform", submitformRoutes);
 app.use("/api/editor", editorRoutes);
 app.use("/api/author", authorRoutes);
+app.use("/api/admin", adminAuthRoutes);
 app.use("/api/notification", notificationRoutes);
-
+app.use("/api/transactions", transactionRoutes);
 
 app.use("/api/editorialboard", editorialboardRoutes);
 
@@ -68,7 +71,6 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -3,6 +3,7 @@ const SubmitForm = require("../models/submitform.model");
 const Editor = require("../models/editor.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { deleteImageFile } = require("../middlewares/upload");
 
 /* ================= CREATE EDITOR ================= */
 
@@ -191,6 +192,58 @@ exports.updateEditor = async (req, res) => {
   }
 };
 
+exports.updateProfile = async (req, res) => {
+  try {
+    const editor = await Editor.findById(req.editor.id);
+
+    if (!editor) {
+      return res.status(404).json({
+        success: false,
+        message: "Editor not found",
+      });
+    }
+
+    // Update profile image
+    if (req.file) {
+      deleteImageFile(editor.profileImage);
+      editor.profileImage = req.file.path.replace(/\\/g, "/");
+    }
+
+    // Basic Info
+    editor.name = req.body.name || editor.name;
+    editor.phone = req.body.phone || "";
+    editor.designation = req.body.designation || "";
+
+    // Personal Info
+    editor.address = req.body.address || "";
+    editor.address2 = req.body.address2 || "";
+    editor.city = req.body.city || "";
+    editor.state = req.body.state || "";
+    editor.zip = req.body.zip || "";
+    editor.language = req.body.language || "English";
+
+    // Extra Info
+    editor.organization = req.body.organization || "";
+    editor.qualification = req.body.qualification || "";
+    editor.specialization = req.body.specialization || "";
+    editor.country = req.body.country || "";
+    editor.bio = req.body.bio || "";
+
+    await editor.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile Updated Successfully",
+      data: editor,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
 /* ================= ASSIGN PAPER ================= */
 
 exports.assignPaperToEditor = async (req, res) => {
@@ -235,7 +288,6 @@ exports.assignPaperToEditor = async (req, res) => {
       editorName: editor.name,
       status: "Editor Assigned",
     });
-
 
     await sendNotification({
       receiverId: editor._id,

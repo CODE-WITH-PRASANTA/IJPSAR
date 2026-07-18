@@ -40,41 +40,39 @@ const ProfileManagement = () => {
   }, []);
 
   const getProfile = async () => {
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const token = localStorage.getItem("editorToken");
+      const token = localStorage.getItem("editorToken");
 
-    if (!token) {
-      console.log("No Token Found");
-      return;
+      if (!token) {
+        console.log("No Token Found");
+        return;
+      }
+
+      const { data } = await API.get("/editor/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log(data);
+
+      if (data.success) {
+        setEditor(data.data);
+      }
+    } catch (error) {
+      console.log(error.response?.data || error);
+    } finally {
+      setLoading(false);
     }
-
-    const { data } = await API.get("/editor/profile", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    console.log(data);
-
-    if (data.success) {
-      setEditor(data.data);
-    }
-  } catch (error) {
-    console.log(error.response?.data || error);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   if (loading) {
-  return (
-    <div style={{ padding: 50, textAlign: "center" }}>
-      Loading Profile...
-    </div>
-  );
-}
+    return (
+      <div style={{ padding: 50, textAlign: "center" }}>Loading Profile...</div>
+    );
+  }
   return (
     <div className="profileManagement">
       <div className="profileManagement__container">
@@ -124,7 +122,10 @@ const ProfileManagement = () => {
           {activeTab === "profile" && (
             <div className="profileManagement__profileCard">
               {/* Your existing Profile UI here */}
-             <SettingProfile editor={editor || {}} />
+              <SettingProfile
+                editor={editor || {}}
+                onProfileUpdated={(updatedEditor) => setEditor(updatedEditor)}
+              />
             </div>
           )}
 
