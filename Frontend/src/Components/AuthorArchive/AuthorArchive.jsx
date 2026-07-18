@@ -1,6 +1,4 @@
-// AuthorArchive.jsx
-
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./AuthorArchive.css";
 
 import {
@@ -11,249 +9,498 @@ import {
   FaArrowRight,
   FaFilePdf,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
-const articleData = [
-  {
-    category: "Pharmaceutics",
-    date: "Nov 12, 2025",
-    title:
-      "Novel lipid nanoparticles enhance oral bioavailability of curcumin in rats",
-    authors: "R. Sharma, J. Patel, M. Kuznetsov",
-    doi: "10.55421/ijpasr.2025.1206.001",
-  },
-  {
-    category: "Pharmacology",
-    date: "Nov 11, 2025",
-    title:
-      "In-silico identification of natural inhibitors targeting SARS-CoV-2 Mpro protease",
-    authors: "L. Okafor, A. Bensalem",
-    doi: "10.55421/ijpasr.2025.1206.002",
-  },
-  {
-    category: "Microbiology",
-    date: "Nov 10, 2025",
-    title:
-      "Antimicrobial activity of green-synthesized silver nanoparticles",
-    authors: "P. Krishnan, S. Iyer",
-    doi: "10.55421/ijpasr.2025.1206.003",
-  },
-  {
-    category: "Clinical Pharmacy",
-    date: "Nov 09, 2025",
-    title:
-      "Pharmacovigilance trends in oncology drugs: a five-year retrospective analysis",
-    authors: "M. Garcia, D. Romero",
-    doi: "10.55421/ijpasr.2025.1206.004",
-  },
-  {
-    category: "Pharm Chemistry",
-    date: "Nov 08, 2025",
-    title:
-      "Synthesis and QSAR study of novel benzimidazole derivatives",
-    authors: "K. Tanaka, H. Suzuki",
-    doi: "10.55421/ijpasr.2025.1206.005",
-  },
-  {
-    category: "Pharmacognosy",
-    date: "Nov 07, 2025",
-    title:
-      "Phytochemical screening and hepatoprotective potential of plant extract",
-    authors: "A. Mehta, V. Joshi",
-    doi: "10.55421/ijpasr.2025.1206.006",
-  },
-];
+import { Link } from "react-router-dom";
+import API, { BASE_URL } from "../../api/axios";
 
 const AuthorArchive = () => {
+  const [papers, setPapers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const [keyword, setKeyword] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
+
+  const [volume, setVolume] = useState("Any");
+  const [issue, setIssue] = useState("Any");
+  const [category, setCategory] = useState("All");
+  const [sort, setSort] = useState("Latest");
+
+  /* ================= FETCH PUBLISHED PAPERS ================= */
+
+  const fetchPublishedPapers = async () => {
+    try {
+      setLoading(true);
+
+      const response = await API.get(
+        "/submitform/published/all"
+      );
+
+      console.log(
+        "Published Papers:",
+        response.data
+      );
+
+      setPapers(response.data.data || []);
+    } catch (error) {
+      console.error(
+        "Fetch published papers error:",
+        error.response?.data || error.message
+      );
+
+      setPapers([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPublishedPapers();
+  }, []);
+
+  /* ================= GET YEAR ================= */
+
+  const getPaperYear = (paper) => {
+    const date =
+      paper.publishedAt || paper.createdAt;
+
+    return new Date(date).getFullYear();
+  };
+
+  /* ================= GET MONTH / ISSUE ================= */
+
+  const getPaperIssue = (paper) => {
+    const date =
+      paper.publishedAt || paper.createdAt;
+
+    return new Date(date).getMonth() + 1;
+  };
+
+  /* ================= GET VOLUME ================= */
+
+  const years = useMemo(() => {
+    return [
+      ...new Set(
+        papers.map((paper) => getPaperYear(paper))
+      ),
+    ].sort((a, b) => a - b);
+  }, [papers]);
+
+  const getPaperVolume = (paper) => {
+    const year = getPaperYear(paper);
+
+    return years.indexOf(year) + 1;
+  };
+
+  /* ================= VOLUME OPTIONS ================= */
+
+  const volumeOptions = useMemo(() => {
+    return [
+      ...new Set(
+        papers.map((paper) =>
+          getPaperVolume(paper)
+        )
+      ),
+    ].sort((a, b) => b - a);
+  }, [papers, years]);
+
+  /* ================= ISSUE OPTIONS ================= */
+
+  const issueOptions = useMemo(() => {
+    return [
+      ...new Set(
+        papers.map((paper) =>
+          getPaperIssue(paper)
+        )
+      ),
+    ].sort((a, b) => a - b);
+  }, [papers]);
+
+  /* ================= CATEGORY OPTIONS ================= */
+
+  const categoryOptions = useMemo(() => {
+    return [
+      ...new Set(
+        papers
+          .map((paper) => paper.researchArea)
+          .filter(Boolean)
+      ),
+    ].sort();
+  }, [papers]);
+
+  /* ================= MULTIPLE FILTER ================= */
+
+  const filteredPapers = useMemo(() => {
+    let result = [...papers];
+
+    /* KEYWORD */
+
+    if (searchKeyword.trim()) {
+      const query = searchKeyword
+        .trim()
+        .toLowerCase();
+
+      result = result.filter((paper) => {
+        const authors = paper.authors
+          ?.map((author) => author.name)
+          .join(" ");
+
+        const searchableText = [
+          paper.paperTitle,
+          paper.abstract,
+          paper.paperId,
+          paper.researchArea,
+          authors,
+          ...(paper.keywords || []),
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+        return searchableText.includes(query);
+      });
+    }
+
+    /* VOLUME */
+
+    if (volume !== "Any") {
+      result = result.filter(
+        (paper) =>
+          getPaperVolume(paper) ===
+          Number(volume)
+      );
+    }
+
+    /* ISSUE */
+
+    if (issue !== "Any") {
+      result = result.filter(
+        (paper) =>
+          getPaperIssue(paper) === Number(issue)
+      );
+    }
+
+    /* CATEGORY */
+
+    if (category !== "All") {
+      result = result.filter(
+        (paper) =>
+          paper.researchArea === category
+      );
+    }
+
+    /* SORT */
+
+    if (sort === "Latest") {
+      result.sort(
+        (a, b) =>
+          new Date(
+            b.publishedAt || b.createdAt
+          ) -
+          new Date(
+            a.publishedAt || a.createdAt
+          )
+      );
+    }
+
+    if (sort === "Oldest") {
+      result.sort(
+        (a, b) =>
+          new Date(
+            a.publishedAt || a.createdAt
+          ) -
+          new Date(
+            b.publishedAt || b.createdAt
+          )
+      );
+    }
+
+    return result;
+  }, [
+    papers,
+    searchKeyword,
+    volume,
+    issue,
+    category,
+    sort,
+    years,
+  ]);
+
+  /* ================= SEARCH ================= */
+
+  const handleSearch = () => {
+    setSearchKeyword(keyword);
+  };
+
+  /* ================= AUTHORS ================= */
+
+  const getAuthors = (authors = []) => {
+    if (!authors.length) {
+      return "Unknown Author";
+    }
+
+    return authors
+      .map(
+        (author) =>
+          author.name ||
+          author.fullName ||
+          author.authorName
+      )
+      .filter(Boolean)
+      .join(", ");
+  };
+
+  /* ================= PDF ================= */
+
+  const handlePdf = (paperFile) => {
+    if (!paperFile) {
+      alert("PDF not available");
+      return;
+    }
+
+    const pdfUrl = paperFile.startsWith("http")
+      ? paperFile
+      : `${BASE_URL}/${paperFile.replace(/\\/g, "/")}`;
+
+    window.open(pdfUrl, "_blank");
+  };
+
   return (
     <section className="authorarchive">
-
-      {/* GLOW */}
-      <div className="authorarchive-glow authorarchive-glow1"></div>
-      <div className="authorarchive-glow authorarchive-glow2"></div>
+      <div className="authorarchive-glow authorarchive-glow1" />
+      <div className="authorarchive-glow authorarchive-glow2" />
 
       <div className="authorarchive-container">
 
-        {/* SEARCH FILTER */}
-        <div className="authorarchive-filter">
+        {/* FILTER */}
 
+        <div className="authorarchive-filter">
           <div className="authorarchive-filter-grid">
 
-            {/* INPUT */}
-            <div className="authorarchive-input-group authorarchive-large">
+            {/* KEYWORD */}
 
+            <div className="authorarchive-input-group authorarchive-large">
               <label>
                 Keyword / Title / Author
               </label>
 
               <input
                 type="text"
-                placeholder="e.g. nanoparticles, curcumin, R. Sharma"
+                placeholder="Search title, author, keyword..."
+                value={keyword}
+                onChange={(e) =>
+                  setKeyword(e.target.value)
+                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearch();
+                  }
+                }}
               />
-
             </div>
 
             {/* VOLUME */}
-            <div className="authorarchive-input-group">
 
+            <div className="authorarchive-input-group">
               <label>Volume</label>
 
-              <select>
-                <option>Any</option>
-                <option>Volume 12</option>
-                <option>Volume 11</option>
-                <option>Volume 10</option>
-              </select>
+              <select
+                value={volume}
+                onChange={(e) =>
+                  setVolume(e.target.value)
+                }
+              >
+                <option value="Any">Any</option>
 
+                {volumeOptions.map((item) => (
+                  <option
+                    key={item}
+                    value={item}
+                  >
+                    Volume {item}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* ISSUE */}
-            <div className="authorarchive-input-group">
 
+            <div className="authorarchive-input-group">
               <label>Issue</label>
 
-              <select>
-                <option>Any</option>
-                <option>Issue 01</option>
-                <option>Issue 02</option>
-                <option>Issue 03</option>
-              </select>
+              <select
+                value={issue}
+                onChange={(e) =>
+                  setIssue(e.target.value)
+                }
+              >
+                <option value="Any">Any</option>
 
+                {issueOptions.map((item) => (
+                  <option
+                    key={item}
+                    value={item}
+                  >
+                    Issue{" "}
+                    {String(item).padStart(2, "0")}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* CATEGORY */}
-            <div className="authorarchive-input-group">
 
+            <div className="authorarchive-input-group">
               <label>Category</label>
 
-              <select>
-                <option>All</option>
-                <option>Pharmaceutics</option>
-                <option>Pharmacology</option>
-                <option>Microbiology</option>
+              <select
+                value={category}
+                onChange={(e) =>
+                  setCategory(e.target.value)
+                }
+              >
+                <option value="All">All</option>
+
+                {categoryOptions.map((item) => (
+                  <option
+                    key={item}
+                    value={item}
+                  >
+                    {item}
+                  </option>
+                ))}
               </select>
-
             </div>
-
           </div>
 
-          <button className="authorarchive-search-btn">
-
+          <button
+            className="authorarchive-search-btn"
+            onClick={handleSearch}
+          >
             <FaSearch />
-
             Search
-
           </button>
-
         </div>
 
         {/* RESULT TOP */}
-        <div className="authorarchive-result-top">
 
+        <div className="authorarchive-result-top">
           <p>
-            Showing 9 of 12,480 results
+            Showing {filteredPapers.length} of{" "}
+            {papers.length} results
           </p>
 
-          <select className="authorarchive-sort">
-
-            <option>
-              Sort: Relevance
-            </option>
-
-            <option>
+          <select
+            className="authorarchive-sort"
+            value={sort}
+            onChange={(e) =>
+              setSort(e.target.value)
+            }
+          >
+            <option value="Latest">
               Latest
             </option>
 
-            <option>
-              Most Viewed
+            <option value="Oldest">
+              Oldest
             </option>
-
           </select>
-
         </div>
 
         {/* CARDS */}
+
         <div className="authorarchive-grid">
+          {loading ? (
+            <p>Loading published papers...</p>
+          ) : filteredPapers.length === 0 ? (
+            <p>No published papers found.</p>
+          ) : (
+            filteredPapers.map((paper) => {
+              const paperDate =
+                paper.publishedAt ||
+                paper.createdAt;
 
-          {articleData.map((item, index) => (
+              const paperVolume =
+                getPaperVolume(paper);
 
-            <div
-              className="authorarchive-card"
-              key={index}
-            >
+              const paperIssue =
+                getPaperIssue(paper);
 
-              {/* TOP */}
-              <div className="authorarchive-card-top">
+              return (
+                <div
+                  className="authorarchive-card"
+                  key={paper._id}
+                >
+                  <div className="authorarchive-card-top">
+                    <span className="authorarchive-category">
+                      {paper.researchArea ||
+                        "Research"}
+                    </span>
 
-                <span className="authorarchive-category">
-                  {item.category}
-                </span>
+                    <div className="authorarchive-meta">
+                      <span>
+                        <FaCalendarAlt />
 
-                <div className="authorarchive-meta">
+                        {new Date(
+                          paperDate
+                        ).toLocaleDateString(
+                          "en-US",
+                          {
+                            month: "short",
+                            day: "2-digit",
+                            year: "numeric",
+                          }
+                        )}
+                      </span>
 
-                  <span>
-                    <FaCalendarAlt />
-                    {item.date}
-                  </span>
+                      <span>
+                        <FaBookOpen />
 
-                  <span>
-                    <FaBookOpen />
-                    Vol 12 • Issue 06
-                  </span>
+                        Vol {paperVolume} • Issue{" "}
+                        {String(
+                          paperIssue
+                        ).padStart(2, "0")}
+                      </span>
+                    </div>
+                  </div>
 
+                  <h3 className="authorarchive-title">
+                    {paper.paperTitle}
+                  </h3>
+
+                  <div className="authorarchive-authors">
+                    <FaUserEdit />
+
+                    {getAuthors(paper.authors)}
+                  </div>
+
+                  <div className="authorarchive-doi">
+                    Paper ID: {paper.paperId}
+                  </div>
+
+                  <div className="authorarchive-card-bottom">
+                    <button
+                      className="authorarchive-pdf"
+                      onClick={() =>
+                        handlePdf(paper.paperFile)
+                      }
+                    >
+                      <FaFilePdf />
+                      PDF
+                    </button>
+
+                    <Link
+                      to={`/sample-article/${paper._id}`}
+                      className="authorarchive-read"
+                    >
+                      Read Article
+                      <FaArrowRight />
+                    </Link>
+                  </div>
                 </div>
-
-              </div>
-
-              {/* TITLE */}
-              <h3 className="authorarchive-title">
-                {item.title}
-              </h3>
-
-              {/* AUTHORS */}
-              <div className="authorarchive-authors">
-
-                <FaUserEdit />
-
-                {item.authors}
-
-              </div>
-
-              {/* DOI */}
-              <div className="authorarchive-doi">
-
-                DOI:
-                {item.doi}
-
-              </div>
-
-              {/* BUTTONS */}
-              <div className="authorarchive-card-bottom">
-
-                <button className="authorarchive-pdf">
-
-                  <FaFilePdf />
-
-                  PDF
-
-                </button>
-
-               <Link
-  to="/sample-article"
-  className="authorarchive-read"
->
-  Read Article
-  <FaArrowRight />
-</Link>
-
-              </div>
-
-            </div>
-
-          ))}
-
+              );
+            })
+          )}
         </div>
-
       </div>
     </section>
   );

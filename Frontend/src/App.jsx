@@ -61,6 +61,7 @@ function App() {
           <Route path="/current-issue" element={<CurrentIsuue />} />
           <Route path="/archives" element={<Archives />} />
           <Route path="/search-articles" element={<SearchArticle />} />
+          
           <Route path="/best-paper-award" element={<Nomination />} />
           <Route path="/terms-and-conditions" element={<TermCondition />} />
           <Route path="/faq" element={<FaqSection />} />
