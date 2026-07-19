@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Topbar from "./Components/Topbar/Topbar";
+// import Topbar from "./Components/Topbar/Topbar";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Home from "./Pages/Home/Home";
@@ -32,14 +32,16 @@ import Disclaimer from "./Components/Disclaimer/Disclaimer";
 import FloatingIcons from "./Components/FloatingIcons/FloatingIcons";
 import FloatingForm from "./Components/FloatingForm/FloatingForm";
 import PreeReview from "./Pages/PreeReview/PreeReview";
+import ScrollToTop from "./Components/ScrollToTop/ScrollToTop";
 
 function App() {
   return (
     <>
       <Router>
-        <Topbar />
+        {/* <Topbar /> */}
 
         <Navbar />
+        <ScrollToTop />
         {/* 🔄 Routes */}
         <Routes>
           <Route path="/" element={<Home />} />

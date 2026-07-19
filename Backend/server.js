@@ -12,6 +12,9 @@ const contactRoutes = require("./routes/contact.routes");
 const submitformRoutes = require("./routes/submitform.routes");
 const editorRoutes = require("./routes/editor.routes");
 const authorRoutes = require("./routes/author.routes");
+const adminAuthRoutes = require("./routes/adminAuth.routes");
+const transactionRoutes = require("./routes/transaction.routes");
+
 const editorialboardRoutes = require("./routes/editorialboard.routes");
 const notificationRoutes = require("./routes/notification.routes");
 const paymentRoutes = require("./routes/payment.routes");
@@ -66,7 +69,10 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/submitform", submitformRoutes);
 app.use("/api/editor", editorRoutes);
 app.use("/api/author", authorRoutes);
+app.use("/api/admin", adminAuthRoutes);
 app.use("/api/notification", notificationRoutes);
+app.use("/api/transactions", transactionRoutes);
+
 app.use("/api/editorialboard", editorialboardRoutes);
 app.use("/api/payment", paymentRoutes);
 
@@ -77,6 +83,7 @@ app.get("/", (req, res) => {
 // 5. Database & Server Start
 connectDB();
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

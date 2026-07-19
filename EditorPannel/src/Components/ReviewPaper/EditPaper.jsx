@@ -29,6 +29,14 @@ const EditPaper = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const fileUrl = `${BASE_URL}${paper?.paperFile || ""}`;
+
+  const isPDF = paper?.paperFile?.toLowerCase().endsWith(".pdf");
+
+  const isWord =
+    paper?.paperFile?.toLowerCase().endsWith(".doc") ||
+    paper?.paperFile?.toLowerCase().endsWith(".docx");
+
   useEffect(() => {
     fetchPaper();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,7 +60,7 @@ const EditPaper = () => {
     } catch (err) {
       setError(
         err.response?.data?.message ||
-          "Failed to load paper. Please try again."
+          "Failed to load paper. Please try again.",
       );
     } finally {
       setLoading(false);
@@ -87,11 +95,20 @@ const EditPaper = () => {
     } catch (err) {
       console.log(err);
       setError(
-        err.response?.data?.message || err.message || "Failed to update paper"
+        err.response?.data?.message || err.message || "Failed to update paper",
       );
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.setAttribute("download", "");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   if (loading) {
@@ -122,7 +139,14 @@ const EditPaper = () => {
       <div className="paperHeader">
         <div className="headerLeft">
           <button className="backBtn" onClick={() => navigate(-1)}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M15 18l-6-6 6-6" />
             </svg>
             Back
@@ -142,25 +166,52 @@ const EditPaper = () => {
         <div className="pdfViewerCard">
           <div className="cardTitleRow">
             <span className="cardTitle">Uploaded Research Paper</span>
-            <a
-              href={`${BASE_URL}${paper.paperFile}`}
-              target="_blank"
-              rel="noreferrer"
+            <button
+              type="button"
               className="downloadBtn"
+              onClick={handleDownload}
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" />
               </svg>
               Download
-            </a>
+            </button>
           </div>
 
           <div className="pdfFrameWrapper">
-            <iframe
-              src={`${BASE_URL}${paper.paperFile}`}
-              title="Paper PDF"
-              className="pdfFrame"
-            />
+            {isPDF ? (
+              <iframe src={fileUrl} title="Paper PDF" className="pdfFrame" />
+            ) : isWord ? (
+              <div className="wordPreview">
+                <div className="wordIcon">📄</div>
+
+                <h3>Word Document</h3>
+
+                <p>
+                  Word files cannot be previewed in the browser. Click the
+                  button below to download the document.
+                </p>
+
+                <button
+                  type="button"
+                  className="downloadBtn"
+                  onClick={handleDownload}
+                >
+                  Download Word File
+                </button>
+              </div>
+            ) : (
+              <div className="wordPreview">
+                <h3>Unsupported File</h3>
+              </div>
+            )}
           </div>
         </div>
 
@@ -174,7 +225,9 @@ const EditPaper = () => {
               </h3>
               <div className="infoRow">
                 <span className="infoLabel">Editor</span>
-                <span className="infoValue">{paper.editorName || "Not Assigned"}</span>
+                <span className="infoValue">
+                  {paper.editorName || "Not Assigned"}
+                </span>
               </div>
               <div className="infoRow">
                 <span className="infoLabel">Assigned Date</span>
@@ -186,7 +239,9 @@ const EditPaper = () => {
               </div>
               <div className="infoRow">
                 <span className="infoLabel">Version</span>
-                <span className="infoValue infoPill pillIndigo">V{paper.version}</span>
+                <span className="infoValue infoPill pillIndigo">
+                  V{paper.version}
+                </span>
               </div>
               <div className="infoRow">
                 <span className="infoLabel">Created</span>
@@ -203,7 +258,9 @@ const EditPaper = () => {
               </h3>
               <div className="infoRow">
                 <span className="infoLabel">Paper ID</span>
-                <span className="infoValue infoPill pillTeal">{paper.paperId}</span>
+                <span className="infoValue infoPill pillTeal">
+                  {paper.paperId}
+                </span>
               </div>
               <div className="infoRow">
                 <span className="infoLabel">Research Area</span>
@@ -219,7 +276,9 @@ const EditPaper = () => {
               </div>
               <div className="infoRow">
                 <span className="infoLabel">Status</span>
-                <span className={`statusBadge inlineBadge ${STATUS_STYLES[paper.status] || ""}`}>
+                <span
+                  className={`statusBadge inlineBadge ${STATUS_STYLES[paper.status] || ""}`}
+                >
                   {paper.status}
                 </span>
               </div>

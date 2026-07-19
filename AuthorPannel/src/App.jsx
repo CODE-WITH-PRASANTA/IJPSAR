@@ -12,6 +12,7 @@ import AuthorAuth from "./Components/AuthorAuth/AuthorAuth";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import Papermanagement from "./Components/Papermanagement/Papermanagement";
 import Publishpaper from "./Components/Publishpaper/Publishpaper";
+import TransactionDetails from "./Pages/TransactionDetails/TransactionDetails";
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/paper-management" element={<Papermanagement />} />
           <Route path="/published-papers" element={<Publishpaper />} />
+          <Route path="/transaction-details" element={<TransactionDetails />} />
         </Route>
 
         {/* 404 */}

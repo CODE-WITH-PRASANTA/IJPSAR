@@ -1,114 +1,163 @@
 /* =========================================
-   NAVBAR MAIN
+   CORE CONTAINER STRUCTURE & FIXED BEHAVIOR
 ========================================= */
-
 .navbarMainContainer {
   width: 100%;
   background: #ffffff;
-
-  position: fixed;
-  top: 45px; /* Adjust according to your topbar height */
+  position: fixed !important; 
+  top: 0;
   left: 0;
-
-  z-index: 99998;
-
-  border-bottom: 2px solid rgba(102, 198, 65, 0.18);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  z-index: 999999; 
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .navbarWrapper {
-  max-width: 1500px;
-  margin: auto;
-
-  height: 110px;
-
+  max-width: 1650px;
+  margin: 0 auto;
+  height: 105px; /* Boosted slightly to 105px for perfect stacked proportion room */
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  padding: 0 35px;
-
-  gap: 40px;
+  padding: 0 30px;
+  gap: 30px;
 }
 
 /* =========================================
-   LOGO
+   LEFT BRAND SECTION
 ========================================= */
-
-.navbarLogoContainer {
+.navbarBrandSection {
   display: flex;
   align-items: center;
-
+  gap: 14px;
   flex-shrink: 0;
 }
 
+.navbarLogoLink {
+  display: flex;
+  align-items: center;
+}
+
 .navbarLogo {
-  width: 100px;
-  height: 100px;
-
+  width: 64px;
+  height: 64px;
   object-fit: contain;
-
-  transition: 0.3s ease;
+  border-radius: 8px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .navbarLogo:hover {
-  transform: scale(1.03);
+  transform: scale(1.04);
+}
+
+.navbarBrandMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.navbarMetaBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.navbarMetaIcon {
+  color: #66c641;
+  font-size: 12px;
 }
 
 /* =========================================
-   MENU
+   MIDDLE VERTICAL STACKED LAYOUT
 ========================================= */
+.navbarMiddleStack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between the Email Bar and Link Titles */
+  flex: 1;
+}
 
+/* =========================================
+   DESKTOP EMAIL STRIP (TOP OF TITLES)
+========================================= */
+.navbarEmailRibbon {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #f8fafc; /* Premium sleek accent background box */
+  border: 1px solid #e2e8f0;
+  padding: 4px 16px;
+  border-radius: 20px; /* High-end pill style shape */
+}
+
+.navbarEmailLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #64748b;
+  font-size: 12.5px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbarEmailLink:hover {
+  color: #66c641;
+}
+
+.navbarEmailIcon {
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.navbarEmailDivider {
+  width: 1px;
+  height: 12px;
+  background: #cbd5e1;
+}
+
+/* =========================================
+   NAVIGATION LINKS MAIN BLOCK (BOTTOM OF STACK)
+========================================= */
 .navbarMenuContainer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-
-  gap: 48px;
-
-  flex: 1;
+  justify-content: center;
+  gap: 24px;
 }
 
 .navbarMenuItem {
   position: relative;
-
   display: flex;
   align-items: center;
-  gap: 8px;
-
+  gap: 6px;
   text-decoration: none;
-
-  font-size: 17px;
-  font-weight: 700;
-
-  color: #1f2937;
-
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #1e293b;
   cursor: pointer;
-
-  transition: 0.3s ease;
+  padding: 4px 0;
+  transition: color 0.25s ease;
+  white-space: nowrap;
 }
-
-/* =========================================
-   HOVER EFFECT
-========================================= */
 
 .navbarMenuItem::after {
   content: "";
-
   position: absolute;
-  bottom: -10px;
+  bottom: -4px;
   left: 50%;
-
   width: 0%;
-  height: 3px;
-
+  height: 2px;
   background: #66c641;
-
-  border-radius: 50px;
-
   transform: translateX(-50%);
-
-  transition: 0.3s ease;
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .navbarMenuItem:hover {
@@ -120,160 +169,87 @@
 }
 
 /* =========================================
-   DROPDOWN
+   DROPDOWN HOVER ARCHITECTURE
 ========================================= */
-
 .navbarDropdownContainer {
   position: relative;
-
-  padding: 28px 0;
-  margin: -28px 0;
 }
 
 .navbarDropdownContainer:hover .navbarDropdownMenu {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0px);
+  transform: translateX(-50%) translateY(0px);
   pointer-events: auto;
 }
 
-/* =========================================
-   DROPDOWN MENU
-========================================= */
-
 .navbarDropdownMenu {
   position: absolute;
-  top: 85px;
-  left: 0;
-
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
   background: #ffffff;
-
-  border-radius: 20px;
-
-  padding: 24px;
-
-  border: 1px solid rgba(102, 198, 65, 0.12);
-
-  box-shadow:
-    0 18px 45px rgba(0, 0, 0, 0.08);
-
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
   opacity: 0;
   visibility: hidden;
-
-  transform: translateY(18px);
-
   pointer-events: none;
-
-  transition: 0.3s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
 }
-
-/* SMALL */
 
 .navbarSmallDropdown {
-  width: 280px;
-
+  width: 250px;
   display: flex;
   flex-direction: column;
-
-  gap: 10px;
+  gap: 2px;
 }
-
-/* LARGE */
 
 .navbarLargeDropdown {
-  width: 500px;
-
+  width: 440px;
   display: flex;
   justify-content: space-between;
-
-  gap: 35px;
+  gap: 20px;
 }
-
-/* =========================================
-   DROPDOWN COLUMN
-========================================= */
 
 .navbarDropdownColumn {
   flex: 1;
-
   display: flex;
   flex-direction: column;
-
-  gap: 12px;
+  gap: 4px;
 }
-
-/* =========================================
-   DROPDOWN TITLE
-========================================= */
 
 .navbarDropdownTitle {
-  position: relative;
-
-  font-size: 13px;
-  font-weight: 800;
-
+  font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2px;
-
+  letter-spacing: 1px;
   color: #66c641;
-
-  margin-bottom: 10px;
-
-  padding-bottom: 10px;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
-
-.navbarDropdownTitle::after {
-  content: "";
-
-  position: absolute;
-  bottom: 0;
-  left: 0;
-
-  width: 42px;
-  height: 3px;
-
-  border-radius: 50px;
-
-  background: #66c641;
-}
-.navbarMobileLoginButton {
-  display: none;
-}
-/* =========================================
-   DROPDOWN ITEMS
-========================================= */
 
 .navbarDropdownItem {
   text-decoration: none;
-
-  color: #374151;
-
-  font-size: 15px;
-  font-weight: 600;
-
-  padding: 10px 14px;
-
-  border-radius: 12px;
-
-  transition: 0.3s ease;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
 .navbarDropdownItem:hover {
-  background: rgba(102, 198, 65, 0.1);
-
+  background: rgba(102, 198, 65, 0.06);
   color: #66c641;
-
-  transform: translateX(4px);
+  transform: translateX(3px);
 }
 
-/* =========================================
-   ARROW
-========================================= */
-
 .navbarArrowIcon {
-  font-size: 10px;
-
-  transition: 0.3s ease;
+  font-size: 9px;
+  transition: transform 0.25s ease;
 }
 
 .navbarDropdownContainer:hover .navbarArrowIcon {
@@ -281,322 +257,336 @@
 }
 
 /* =========================================
-   MOBILE ICON
+   RIGHT ACTION CONTROLS & DESKTOP BUTTONS
 ========================================= */
-
-.navbarMobileIcon {
-  display: none;
-
-  font-size: 22px;
-
-  cursor: pointer;
-
-  color: #111827;
-}
-.navbarMobileIcon {
-  position: relative;
-  z-index: 9999999;
-}
-/* =========================================
-   CLOSE BUTTON
-========================================= */
-
-.navbarCloseButton {
-  display: none;
-}
-
-/* =========================================
-   TABLET
-========================================= */
-
-@media (max-width: 1100px) {
-
-  .navbarLogo {
-    width: 95px;
-    height: 95px;
-  }
-
-  .navbarMenuContainer {
-    gap: 30px;
-  }
-
-  .navbarMenuItem {
-    font-size: 15px;
-  }
-/* ==========================
-   MOBILE LOGIN BUTTON
-========================== */
-
-.navbarMobileLoginButton {
+.navbarActionControlCluster {
   display: flex;
-
   align-items: center;
-  justify-content: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
 
-  width: 100%;
-  min-height: 50px;
+.navbarLoginDropdown {
+  position: relative;
+}
 
-  margin-top: auto;
+.navbarLoginButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
+.navbarLoginButton:hover {
+  border-color: #66c641;
+  color: #66c641;
+}
+
+.navbarLoginIcon {
+  font-size: 15px;
+}
+
+.navbarLoginDropdownMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 155px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+}
+
+.navbarLoginDropdown:hover .navbarLoginDropdownMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.navbarLoginDropdownLink {
+  display: block;
+  padding: 10px 14px;
+  color: #475569;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.navbarLoginDropdownLink:hover {
+  background: rgba(102, 198, 65, 0.06);
+  color: #66c641;
+}
+
+.navbarPrimarySubmitButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   background: #66c641;
   color: #ffffff;
-
-  text-decoration: none;
-  font-size: 16px;
+  border: none;
+  padding: 11px 22px;
+  border-radius: 8px;
+  font-size: 14px;
   font-weight: 700;
-
-  border-radius: 12px;
-
-  transition: 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(102, 198, 65, 0.25);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.navbarMobileLoginButton:hover {
-  background: #57b737;
-  color: #ffffff;
+.navbarPrimarySubmitButton:hover {
+  background: #54b030;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(102, 198, 65, 0.38);
 }
-  .navbarLargeDropdown {
-    width: 450px;
-  }
+
+.submitIconAnim {
+  transition: transform 0.25s ease;
+}
+
+.navbarPrimarySubmitButton:hover .submitIconAnim {
+  transform: translate(2px, -2px) scale(1.05);
+}
+
+/* RESPONSIVE TOGGLES DEFAULT */
+.navbarMobileIcon, 
+.navbarCloseButton, 
+.navbarMobileActionGroup {
+  display: none;
 }
 
 /* =========================================
-   MOBILE
+   MEDIA QUERY ARCHITECTURE (RESPONSIVE CONFIG)
 ========================================= */
+@media (max-width: 1400px) {
+  .navbarMenuContainer {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .navbarWrapper {
+    padding: 0 20px;
+    height: 95px;
+  }
+  .navbarMenuItem {
+    font-size: 13.5px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hide-mobile-meta {
+    display: none;
+  }
+}
 
 @media (max-width: 992px) {
-
-  /* NAVBAR */
-
   .navbarWrapper {
-    height: 80px;
-
+    height: 80px; /* Snaps down cleanly on mobile views */
     padding: 0 16px;
   }
 
-  /* LOGO */
-
   .navbarLogo {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
   }
- body {
-    padding-top: 80px;
+
+  .navbarEmailRibbon {
+    display: none; /* Desktop position hidden to avoid viewport clipping */
   }
-  /* HAMBURGER */
 
   .navbarMobileIcon {
     display: flex;
-
     align-items: center;
     justify-content: center;
-
-    width: 44px;
-    height: 44px;
-
-    border-radius: 12px;
-
-    background: rgba(102, 198, 65, 0.14);
-
-    color: #111827;
-
-    font-size: 20px;
-
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: #1e293b;
+    font-size: 18px;
     cursor: pointer;
-
-    flex-shrink: 0;
   }
 
-  /* MOBILE MENU */
-
+  /* SLIDE OVERLAY PANEL CONFIGURATION */
   .navbarMenuContainer {
     position: fixed;
-
     top: 0;
     left: -100%;
-
-    width: 280px;
-    max-width: 82%;
-
+    width: 290px;
+    max-width: 85%;
     height: 100vh;
-
     background: #ffffff;
-
+    border-right: 1px solid #e2e8f0;
     display: flex;
     flex-direction: column;
-
     align-items: flex-start;
     justify-content: flex-start;
-
-    gap: 22px;
-
-    padding: 90px 22px 40px;
-
+    gap: 12px;
+    padding: 80px 20px 30px;
     overflow-y: auto;
-
-    transition: 0.4s ease;
-
+    margin: 0;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     opacity: 0;
-
     z-index: 999999;
-
-    box-shadow:
-      12px 0 40px rgba(0, 0, 0, 0.14);
+    box-shadow: 15px 0 40px rgba(0, 0, 0, 0.06);
   }
-
-  /* ACTIVE MENU */
 
   .navbarMenuActive {
     left: 0;
     opacity: 1;
   }
 
-  /* CLOSE BUTTON */
-
   .navbarCloseButton {
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     position: absolute;
-
     top: 20px;
-    right: 20px;
-
-    width: 42px;
-    height: 42px;
-
-    border-radius: 12px;
-
-    background: rgba(102, 198, 65, 0.14);
-
-    color: #111827;
-
-    font-size: 18px;
-
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 16px;
     cursor: pointer;
   }
 
-  /* MENU ITEMS */
-
   .navbarMenuItem {
     width: 100%;
-
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-
-    font-size: 17px;
-
-    padding: 4px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 15px;
+    color: #1e293b;
   }
 
   .navbarMenuItem::after {
     display: none;
   }
 
-  /* DROPDOWN */
-
-  .navbarDropdownContainer {
-    width: 100%;
-
-    padding: 0;
-    margin: 0;
-  }
-
   .navbarDropdownMenu {
     position: relative;
-
-    top: 12px;
-    left: 0;
-
-    width: 100%;
-
-    display: none;
-
-    opacity: 1;
-    visibility: visible;
-
-    transform: none;
-
-    pointer-events: auto;
-
-    border-radius: 16px;
-
-    padding: 16px;
-
-    box-shadow:
-      0 8px 25px rgba(0, 0, 0, 0.06);
-  }
- .navbarMainContainer {
     top: 0;
-    z-index: 999999;
+    left: 0;
+    transform: none !important;
+    width: 100%;
+    display: none;
+    box-shadow: none;
+    border: none;
+    padding: 6px 0 6px 12px;
+    background: #f8fafc;
+    border-radius: 6px;
+    margin-top: 4px;
   }
+
   .navbarDropdownContainer:hover .navbarDropdownMenu {
     display: flex;
   }
 
-  .navbarSmallDropdown,
-  .navbarLargeDropdown {
+  .navbarSmallDropdown, .navbarLargeDropdown {
     width: 100%;
-
     flex-direction: column;
-
-    gap: 18px;
-  }
-
-  /* DROPDOWN ITEMS */
-
-  .navbarDropdownItem {
-    width: 100%;
-
-    font-size: 14px;
-
-    padding: 10px 12px;
-  }
-
-  /* DROPDOWN TITLE */
-
-  .navbarDropdownTitle {
-    font-size: 12px;
-  }
-}
-
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
-@media (max-width: 600px) {
-
-  .navbarWrapper {
-    height: 75px;
-
-    padding: 0 14px;
-  }
-
-  .navbarLogo {
-    width: 60px;
-    height: 60px;
-  }
-
-  .navbarMenuContainer {
-    width: 260px;
-
-    padding: 85px 18px 35px;
-  }
-
-  .navbarMenuItem {
-    font-size: 15px;
+    gap: 2px;
   }
 
   .navbarDropdownItem {
     font-size: 13px;
+    padding: 8px 10px;
+    color: #475569;
   }
 
-  .navbarMobileIcon {
-    width: 40px;
-    height: 40px;
+  .navbarDropdownTitle {
+    font-size: 11px;
+    margin-top: 6px;
+    border-bottom: 1px solid #e2e8f0;
+  }
 
-    font-size: 18px;
+  .navbarLoginDropdown {
+    display: none;
+  }
+
+  /* MOBILE-ONLY ACTION DRIVER FOOTERS */
+  .navbarMobileActionGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 20px;
+    gap: 12px;
+    border-top: 1px dashed #e2e8f0;
+  }
+
+  .navbarMobileLoginHeader {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #94a3b8;
+    letter-spacing: 0.5px;
+  }
+
+  .navbarMobileLoginLinks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .navbarMobileLoginOption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px;
+    background: #f1f5f9;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    text-decoration: none;
+  }
+
+  .navbarMobileLoginOption:hover {
+    background: rgba(102, 198, 65, 0.1);
+    color: #66c641;
+  }
+
+  .navbarMobileEmails {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .navbarMobileEmailItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #64748b;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbarBrandMeta {
+    display: none;
+  }
+  .navbarPrimarySubmitButton {
+    padding: 9px 16px;
+    font-size: 13px;
   }
 }

@@ -17,10 +17,15 @@ const {
   getAssignedPapers,
   removeAssignedPaper,
   deleteAssignedPaper,
-  getProfile
+  getProfile,
+  updateProfile
 } = require("../controllers/editor.controller");
 
 const editorAuth = require("../middlewares/editor.middleware");
+const {
+    upload,
+    convertToWebp
+} = require("../middlewares/upload");
 
 /* ================= AUTH ================= */
 
@@ -54,6 +59,13 @@ router.get(
 );
 
 /* ================= UPDATE ================= */
+router.put(
+    "/profile",
+    editorAuth,
+    upload.single("profileImage"),
+    convertToWebp,
+    updateProfile
+);
 
 router.put(
   "/update/:id",

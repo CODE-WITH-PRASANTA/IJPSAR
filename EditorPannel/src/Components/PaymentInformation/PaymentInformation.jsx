@@ -1,391 +1,467 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+
 import {
-  FaPlus,
-  FaReceipt,
+  FaCheck,
   FaChevronLeft,
   FaChevronRight,
+  FaEye,
+  FaMoneyBillWave,
+  FaReceipt,
+  FaSearch,
   FaTimes,
-  FaDollarSign,
-  FaCalendarAlt,
   FaUser,
-  FaCreditCard,
 } from "react-icons/fa";
 
-import API from "../../API/axios";
+import API, { IMG_URL } from "../../API/axios";
+
 import "./PaymentInformation.css";
 
 const PaymentInformation = () => {
- const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState([]);
 
- const [saving, setSaving] = useState(false);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ client: '', date: '', amount: '', method: 'Credit Card', status: 'Completed' });
-  const [currentPage, setCurrentPage] = useState(1);
-  const [editId, setEditId] = useState(null);
-  
   const [loading, setLoading] = useState(false);
+  const [actionLoading, setActionLoading] = useState("");
+
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+
+  const [screenshot, setScreenshot] = useState("");
+
+  const [rejectTransaction, setRejectTransaction] = useState(null);
+
+  const [rejectionReason, setRejectionReason] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+
   const itemsPerPage = 10;
 
- const totalPages = Math.max(
-    1,
-    Math.ceil(transactions.length / itemsPerPage)
-);
+  /* ================= FETCH TRANSACTIONS ================= */
 
-const indexOfLastItem = currentPage * itemsPerPage;
+  const getTransactions = async () => {
+    try {
+      setLoading(true);
 
-const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      const response = await API.get("/transactions/all");
 
-const currentItems = transactions.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-);
+      console.log("EDITOR TRANSACTIONS:", response.data);
 
-useEffect(() => {
-
-    if (
-        currentPage > totalPages &&
-        totalPages > 0
-    ) {
-
-        setCurrentPage(totalPages);
-
+      setTransactions(response.data.data || []);
+    } catch (error) {
+      console.log("TRANSACTION ERROR:", error.response?.data || error.message);
+    } finally {
+      setLoading(false);
     }
+  };
 
-}, [transactions, totalPages]);
+  useEffect(() => {
+    getTransactions();
+  }, []);
 
-   useEffect(() => {
-    getPayments();
-}, []);
+  /* ================= FILTER ================= */
 
+  const filteredTransactions = useMemo(() => {
+    return transactions.filter((item) => {
+      const searchText = search.toLowerCase().trim();
 
+      const paperId = item.paperId?.paperId?.toLowerCase() || "";
 
-  const handleInputChange = (e) => {
-  const { name, value } = e.target;
+      const paperTitle = item.paperId?.paperTitle?.toLowerCase() || "";
 
-  setFormData((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
-};
+      const authorName =
+        item.authorId?.fullName?.toLowerCase() ||
+        item.authorId?.name?.toLowerCase() ||
+        "";
 
-// ==============================
-// GET ALL PAYMENTS
-// ==============================
+      const transactionId = item.transactionId?.toLowerCase() || "";
 
-const getPayments = async () => {
-  try {
-    setLoading(true);
+      const matchesSearch =
+        !searchText ||
+        paperId.includes(searchText) ||
+        paperTitle.includes(searchText) ||
+        authorName.includes(searchText) ||
+        transactionId.includes(searchText);
 
-    const { data } = await API.get("/payment");
+      const matchesStatus =
+        statusFilter === "All" || item.status === statusFilter;
 
-    setTransactions(data.payments);
-  } catch (error) {
-    console.log(error);
-  } finally {
-    setLoading(false);
-  }
-};
- 
-
-  const handleEdit = (item) => {
-
-    setEditId(item._id);
-
-    setFormData({
-
-        client:item.client,
-
-      date: item.date ? item.date.substring(0, 10) : "",
-
-        amount:item.amount,
-
-        method:item.method,
-
-        status:item.status,
-
+      return matchesSearch && matchesStatus;
     });
+  }, [transactions, search, statusFilter]);
 
-    setIsModalOpen(true);
+  /* ================= PAGINATION ================= */
 
-};
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredTransactions.length / itemsPerPage),
+  );
 
- 
+  const indexOfLastItem = currentPage * itemsPerPage;
 
-const handleDelete = async(id)=>{
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-    if(!window.confirm("Delete this payment?")) return;
+  const currentItems = filteredTransactions.slice(
+    indexOfFirstItem,
+    indexOfLastItem,
+  );
 
-    try{
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, statusFilter]);
 
-        await API.delete(`/payment/${id}`);
-
-       await getPayments();
-
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
     }
+  }, [currentPage, totalPages]);
 
-    catch(error){
+  /* ================= RECEIVE ================= */
 
-        console.log(error);
+  const handleReceive = async (id) => {
+    const confirmReceive = window.confirm("Confirm this payment as received?");
 
-    }
-
-};
-
-const handleComplete = async(id)=>{
+    if (!confirmReceive) return;
 
     try {
+      setActionLoading(id);
 
-    setSaving(true);
+      const response = await API.put(`/transactions/receive/${id}`);
 
-    if (editId) {
+      console.log("RECEIVE RESPONSE:", response.data);
 
-        await API.put(`/payment/${editId}`, formData);
+      await getTransactions();
 
-    } else {
-
-        await API.post("/payment", formData);
-
+      setSelectedTransaction(null);
+    } catch (error) {
+      alert(error.response?.data?.message || "Unable to receive payment");
+    } finally {
+      setActionLoading("");
     }
+  };
 
-    resetForm();
+  /* ================= OPEN REJECT ================= */
 
-    setIsModalOpen(false);
+  const openRejectModal = (transaction) => {
+    setRejectTransaction(transaction);
+    setRejectionReason("");
+  };
 
-    await getPayments();
+  /* ================= REJECT ================= */
 
-    setCurrentPage(1);
-
-} catch (error) {
-
-    console.log(error);
-
-} finally {
-
-    setSaving(false);
-
-}
-};
-
-const resetForm = () => {
-
-    setFormData({
-
-        client: "",
-
-        date: "",
-
-        amount: "",
-
-        method: "Credit Card",
-
-        status: "Completed",
-
-    });
-
-    setEditId(null);
-
-};
-
- const handleFormSubmit = async(e)=>{
-
+  const handleReject = async (e) => {
     e.preventDefault();
 
-    try{
-
-        if(editId){
-
-            await API.put(`/payment/${editId}`,formData);
-
-        }
-
-        else{
-
-            await API.post("/payment",formData);
-
-        }
-
-        resetForm();
-
-setIsModalOpen(false);
-
-await getPayments();
-
-setCurrentPage(1);
-
+    if (!rejectionReason.trim()) {
+      alert("Please enter rejection reason");
+      return;
     }
 
-    catch(error){
+    try {
+      setActionLoading(rejectTransaction._id);
 
-        console.log(error);
+      const response = await API.put(
+        `/transactions/reject/${rejectTransaction._id}`,
+        {
+          rejectionReason: rejectionReason.trim(),
+        },
+      );
 
+      console.log("REJECT RESPONSE:", response.data);
+
+      setRejectTransaction(null);
+      setRejectionReason("");
+      setSelectedTransaction(null);
+
+      await getTransactions();
+    } catch (error) {
+      alert(error.response?.data?.message || "Unable to reject payment");
+    } finally {
+      setActionLoading("");
+    }
+  };
+
+  /* ================= SCREENSHOT URL ================= */
+
+  const getScreenshotUrl = (filePath) => {
+    if (!filePath) return "";
+
+    if (filePath.startsWith("http://") || filePath.startsWith("https://")) {
+      return filePath;
     }
 
-};
+    let cleanPath = filePath.replace(/\\/g, "/");
+
+    // Handle absolute backend Windows/Linux paths
+    if (cleanPath.includes("/uploads/")) {
+      cleanPath = cleanPath.substring(cleanPath.indexOf("/uploads/"));
+    }
+
+    if (!cleanPath.startsWith("/")) {
+      cleanPath = `/${cleanPath}`;
+    }
+
+    return `${IMG_URL}${cleanPath}`;
+  };
+
+  /* ================= DASHBOARD DATA ================= */
+
+  const pendingCount = transactions.filter(
+    (item) => item.status === "Pending Verification",
+  ).length;
+
+  const receivedCount = transactions.filter(
+    (item) => item.status === "Received",
+  ).length;
+
+  const rejectedCount = transactions.filter(
+    (item) => item.status === "Rejected",
+  ).length;
+
+  const totalReceivedAmount = transactions
+    .filter((item) => item.status === "Received")
+    .reduce((total, item) => total + Number(item.amount || 0), 0);
+
+  /* ================= STATUS CLASS ================= */
+
+  const getStatusClass = (status = "") => {
+    return status.toLowerCase().replaceAll(" ", "-");
+  };
+
   return (
     <div className="PaymentInformation">
       <div className="PaymentInformation-container">
-        
+        {/* ================= HEADER ================= */}
+
         <div className="PaymentInformation-header">
-          <button className="PaymentInformation-addBtn" onClick={() => setIsModalOpen(true)}>
-            <FaPlus /> Add Payment Receipt
-          </button>
-          <h2 className="PaymentInformation-title">Payment History Panel</h2>
+          <div>
+            <span className="PaymentInformation-label">EDITOR PANEL</span>
+
+            <h2 className="PaymentInformation-title">Payment Verification</h2>
+
+            <p>Review and verify author payment transactions.</p>
+          </div>
+
+          <FaReceipt className="PaymentInformation-headerIcon" />
         </div>
+
+        {/* ================= SUMMARY ================= */}
+
+        <div className="PaymentInformation-summary">
+          <div className="PaymentInformation-summaryCard">
+            <span>Pending Verification</span>
+            <strong>{pendingCount}</strong>
+          </div>
+
+          <div className="PaymentInformation-summaryCard">
+            <span>Received</span>
+            <strong>{receivedCount}</strong>
+          </div>
+
+          <div className="PaymentInformation-summaryCard">
+            <span>Rejected</span>
+            <strong>{rejectedCount}</strong>
+          </div>
+
+          <div className="PaymentInformation-summaryCard">
+            <span>Total Received</span>
+
+            <strong>₹{totalReceivedAmount.toLocaleString("en-IN")}</strong>
+          </div>
+        </div>
+
+        {/* ================= FILTER ================= */}
+
+        <div className="PaymentInformation-filterBar">
+          <div className="PaymentInformation-search">
+            <FaSearch />
+
+            <input
+              type="text"
+              placeholder="Search paper, author or transaction ID..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
+            <option value="All">All Status</option>
+
+            <option value="Pending Verification">Pending Verification</option>
+
+            <option value="Received">Received</option>
+
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+
+        {/* ================= TABLE ================= */}
 
         <div className="PaymentInformation-tableCard">
           <div className="PaymentInformation-tableWrapper">
             <table className="PaymentInformation-table">
-             <thead>
-  <tr>
-    <th>Transaction ID</th>
-    <th>Client Name</th>
-    <th>Date</th>
-    <th>Amount</th>
-    <th>Payment Method</th>
-    <th>Status</th>
-    <th>Action</th>
-  </tr>
-</thead>
-  <tbody>
+              <thead>
+                <tr>
+                  <th>Paper</th>
+                  <th>Author</th>
+                  <th>Amount</th>
+                  <th>Payment</th>
+                  <th>Transaction ID / UTR</th>
+                  <th>Submitted</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
 
-{loading ? (
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td colSpan="8" className="PaymentInformation-loading">
+                      Loading transactions...
+                    </td>
+                  </tr>
+                ) : currentItems.length === 0 ? (
+                  <tr>
+                    <td colSpan="8" className="PaymentInformation-loading">
+                      No transactions found
+                    </td>
+                  </tr>
+                ) : (
+                  currentItems.map((item) => (
+                    <tr key={item._id}>
+                      <td>
+                        <strong>{item.paperId?.paperId || "N/A"}</strong>
 
-<tr>
+                        <small>{item.paperId?.paperTitle || "Paper"}</small>
+                      </td>
 
-<td colSpan="7" className="PaymentInformation-loading">
+                      <td>
+                        <div className="PaymentInformation-author">
+                          <div>
+                            <FaUser />
+                          </div>
 
-Loading...
+                          <span>
+                            <strong>
+                              {item.authorId?.fullName ||
+                                item.authorId?.name ||
+                                "Author"}
+                            </strong>
 
-</td>
+                            <small>{item.authorId?.email || "N/A"}</small>
+                          </span>
+                        </div>
+                      </td>
 
-</tr>
+                      <td className="PaymentInformation-amountCell">
+                        ₹{Number(item.amount || 0).toLocaleString("en-IN")}
+                      </td>
 
-) : currentItems.length === 0 ? (
+                      <td>
+                        <strong>{item.paymentMethod}</strong>
 
-<tr>
+                        <small>{item.paymentMode}</small>
+                      </td>
 
-<td colSpan="7" className="PaymentInformation-loading">
+                      <td className="PaymentInformation-idCell">
+                        {item.transactionId}
+                      </td>
 
-No Payment Found
+                      <td>
+                        {item.createdAt
+                          ? new Date(item.createdAt).toLocaleDateString("en-IN")
+                          : "N/A"}
+                      </td>
 
-</td>
+                      <td>
+                        <span
+                          className={`PaymentInformation-badge PaymentInformation-badge--${getStatusClass(
+                            item.status,
+                          )}`}
+                        >
+                          {item.status}
+                        </span>
+                      </td>
 
-</tr>
+                      <td>
+                        <div className="PaymentInformation-actionButtons">
+                          <button
+                            className="PaymentInformation-viewBtn"
+                            onClick={() => setSelectedTransaction(item)}
+                          >
+                            <FaEye />
+                            View
+                          </button>
 
-) : (
+                          {item.status === "Pending Verification" && (
+                            <>
+                              <button
+                                className="PaymentInformation-completeBtn"
+                                disabled={actionLoading === item._id}
+                                onClick={() => handleReceive(item._id)}
+                              >
+                                <FaCheck />
+                              </button>
 
-currentItems.map((item) => (
-
-<tr key={item._id}>
-
-<td className="PaymentInformation-idCell">
-{item.transactionId}
-</td>
-
-<td>
-{item.client}
-</td>
-
-<td>
-{new Date(item.date).toLocaleDateString()}
-</td>
-
-<td className="PaymentInformation-amountCell">
-
-${Number(item.amount).toFixed(2)}
-
-</td>
-
-<td>
-{item.method}
-</td>
-
-<td>
-
-<span
-className={`PaymentInformation-badge PaymentInformation-badge--${item.status.toLowerCase()}`}
->
-
-{item.status}
-
-</span>
-
-</td>
-
-<td>
-
-<div className="PaymentInformation-actionButtons">
-
-<button
-className="PaymentInformation-editBtn"
-onClick={() => handleEdit(item)}
->
-
-Edit
-
-</button>
-
-<button
-className="PaymentInformation-deleteBtn"
-onClick={() => handleDelete(item._id)}
->
-
-Delete
-
-</button>
-
-{item.status !== "Completed" && (
-
-<button
-className="PaymentInformation-completeBtn"
-onClick={() => handleComplete(item._id)}
->
-
-Complete
-
-</button>
-
-)}
-
-</div>
-
-</td>
-
-</tr>
-
-))
-
-)}
-
-</tbody>
+                              <button
+                                className="PaymentInformation-deleteBtn"
+                                onClick={() => openRejectModal(item)}
+                              >
+                                <FaTimes />
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
             </table>
           </div>
 
-          {totalPages > 1 && (
+          {/* ================= PAGINATION ================= */}
+
+          {filteredTransactions.length > 0 && (
             <div className="PaymentInformation-pagination">
               <span className="PaymentInformation-paginationInfo">
-                Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, transactions.length)} of {transactions.length} entries
+                Showing {indexOfFirstItem + 1} to{" "}
+                {Math.min(indexOfLastItem, filteredTransactions.length)} of{" "}
+                {filteredTransactions.length} entries
               </span>
+
               <div className="PaymentInformation-paginationControls">
-                <button 
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
                   disabled={currentPage === 1}
                   className="PaymentInformation-pageBtn"
                 >
                   <FaChevronLeft />
                 </button>
+
                 {[...Array(totalPages)].map((_, index) => (
                   <button
                     key={index + 1}
                     onClick={() => setCurrentPage(index + 1)}
-                    className={`PaymentInformation-pageBtn ${currentPage === index + 1 ? 'PaymentInformation-pageBtn--active' : ''}`}
+                    className={`PaymentInformation-pageBtn ${
+                      currentPage === index + 1
+                        ? "PaymentInformation-pageBtn--active"
+                        : ""
+                    }`}
                   >
                     {index + 1}
                   </button>
                 ))}
-                <button 
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
                   disabled={currentPage === totalPages}
                   className="PaymentInformation-pageBtn"
                 >
@@ -395,94 +471,239 @@ Complete
             </div>
           )}
         </div>
-
       </div>
 
-      <div className={`PaymentInformation-overlay ${isModalOpen ? 'PaymentInformation-overlay--open' : ''}`}>
-        <div className={`PaymentInformation-modal ${isModalOpen ? 'PaymentInformation-modal--open' : ''}`}>
-       <div className="PaymentInformation-modalHeader">
+      {/* ================= DETAILS MODAL ================= */}
 
-    <h3>
-        <FaReceipt />
-        {editId ? "Update Payment" : "Generate New Receipt"}
-    </h3>
+      {selectedTransaction && (
+        <div className="PaymentInformation-overlay PaymentInformation-overlay--open">
+          <div className="PaymentInformation-modal PaymentInformation-modal--open">
+            <div className="PaymentInformation-modalHeader">
+              <h3>
+                <FaReceipt />
+                Transaction Details
+              </h3>
 
-    <button
-        className="PaymentInformation-closeBtn"
-        onClick={() => {
-
-            resetForm();
-
-            setIsModalOpen(false);
-
-        }}
-    >
-
-        <FaTimes />
-
-    </button>
-
-</div>
-          <form className="PaymentInformation-form" onSubmit={handleFormSubmit}>
-            <div className="PaymentInformation-formGroup">
-              <label><FaUser /> Client Full Name</label>
-              <input type="text" name="client" value={formData.client} onChange={handleInputChange} placeholder="e.g., Jane Doe" required />
+              <button
+                className="PaymentInformation-closeBtn"
+                onClick={() => setSelectedTransaction(null)}
+              >
+                <FaTimes />
+              </button>
             </div>
-            <div className="PaymentInformation-formRow">
-              <div className="PaymentInformation-formGroup">
-                <label><FaCalendarAlt /> Payment Date</label>
-                <input type="date" name="date" value={formData.date} onChange={handleInputChange} required />
+
+            <div className="PaymentInformation-details">
+              <div>
+                <span>Paper ID</span>
+
+                <strong>{selectedTransaction.paperId?.paperId || "N/A"}</strong>
               </div>
-              <div className="PaymentInformation-formGroup">
-                <label><FaDollarSign /> Total Amount</label>
-                <input type="number" step="0.01" name="amount" value={formData.amount} onChange={handleInputChange} placeholder="0.00" required />
+
+              <div>
+                <span>Paper Title</span>
+
+                <strong>
+                  {selectedTransaction.paperId?.paperTitle || "N/A"}
+                </strong>
+              </div>
+
+              <div>
+                <span>Author</span>
+
+                <strong>
+                  {selectedTransaction.authorId?.fullName ||
+                    selectedTransaction.authorId?.name ||
+                    "N/A"}
+                </strong>
+              </div>
+
+              <div>
+                <span>Author Email</span>
+
+                <strong>{selectedTransaction.authorId?.email || "N/A"}</strong>
+              </div>
+
+              <div>
+                <span>Amount</span>
+
+                <strong>
+                  ₹
+                  {Number(selectedTransaction.amount || 0).toLocaleString(
+                    "en-IN",
+                  )}
+                </strong>
+              </div>
+
+              <div>
+                <span>Payment Mode</span>
+
+                <strong>{selectedTransaction.paymentMode}</strong>
+              </div>
+
+              <div>
+                <span>Payment Method</span>
+
+                <strong>{selectedTransaction.paymentMethod}</strong>
+              </div>
+
+              <div>
+                <span>Transaction ID / UTR</span>
+
+                <strong>{selectedTransaction.transactionId}</strong>
               </div>
             </div>
-            <div className="PaymentInformation-formRow">
-              <div className="PaymentInformation-formGroup">
-                <label><FaCreditCard /> Payment Method</label>
-                <select name="method" value={formData.method} onChange={handleInputChange}>
-                  <option value="Credit Card">Credit Card</option>
-                  <option value="Debit Card">Debit Card</option>
-                  <option value="Bank Transfer">Bank Transfer</option>
-                  <option value="PayPal">PayPal</option>
-                </select>
-              </div>
-              <div className="PaymentInformation-formGroup">
-                <label>Payment Status</label>
-                <select name="status" value={formData.status} onChange={handleInputChange}>
-                  <option value="Completed">Completed</option>
-                  <option value="Pending">Pending</option>
-                  <option value="Failed">Failed</option>
-                  <option value="Processing">Processing</option>
-                </select>
-              </div>
-            </div>
-            <div className="PaymentInformation-modalActions">
-              <button type="button" className="PaymentInformation-cancelBtn"onClick={() => {
 
-    resetForm();
-
-    setIsModalOpen(false);
-
-}}>Cancel</button>
             <button
-type="submit"
-className="PaymentInformation-submitBtn"
-disabled={saving}
->
+              className="PaymentInformation-screenshotBtn"
+              onClick={() =>
+                setScreenshot(
+                  getScreenshotUrl(selectedTransaction.paymentScreenshot),
+                )
+              }
+            >
+              <FaEye />
+              View Payment Screenshot
+            </button>
 
-{saving
-? "Saving..."
-: editId
-? "Update Payment"
-: "Submit Record"}
+            {selectedTransaction.status === "Rejected" && (
+              <div className="PaymentInformation-rejection">
+                <strong>Rejection Reason</strong>
 
-</button>
-            </div>
-          </form>
+                <p>{selectedTransaction.rejectionReason}</p>
+              </div>
+            )}
+
+            {selectedTransaction.status === "Pending Verification" && (
+              <div className="PaymentInformation-modalActions">
+                <button
+                  className="PaymentInformation-cancelBtn"
+                  onClick={() => openRejectModal(selectedTransaction)}
+                >
+                  Reject Payment
+                </button>
+
+                <button
+                  className="PaymentInformation-submitBtn"
+                  disabled={actionLoading === selectedTransaction._id}
+                  onClick={() => handleReceive(selectedTransaction._id)}
+                >
+                  <FaCheck />
+
+                  {actionLoading === selectedTransaction._id
+                    ? "Processing..."
+                    : "Receive Payment"}
+                </button>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* ================= REJECT MODAL ================= */}
+
+      {rejectTransaction && (
+        <div className="PaymentInformation-overlay PaymentInformation-overlay--open">
+          <div className="PaymentInformation-rejectModal">
+            <div className="PaymentInformation-modalHeader">
+              <h3>Reject Transaction</h3>
+
+              <button
+                className="PaymentInformation-closeBtn"
+                onClick={() => {
+                  setRejectTransaction(null);
+                  setRejectionReason("");
+                }}
+              >
+                <FaTimes />
+              </button>
+            </div>
+
+            <form onSubmit={handleReject}>
+              <div className="PaymentInformation-formGroup">
+                <label>Rejection Reason</label>
+
+                <textarea
+                  rows="5"
+                  placeholder="Explain why this payment was rejected..."
+                  value={rejectionReason}
+                  onChange={(e) => setRejectionReason(e.target.value)}
+                />
+              </div>
+
+              <div className="PaymentInformation-modalActions">
+                <button
+                  type="button"
+                  className="PaymentInformation-cancelBtn"
+                  onClick={() => {
+                    setRejectTransaction(null);
+                    setRejectionReason("");
+                  }}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  type="submit"
+                  className="PaymentInformation-rejectBtn"
+                  disabled={actionLoading === rejectTransaction._id}
+                >
+                  {actionLoading === rejectTransaction._id
+                    ? "Rejecting..."
+                    : "Reject Payment"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ================= SCREENSHOT MODAL ================= */}
+
+      {screenshot && (
+        <div
+          className="PaymentInformation-overlay PaymentInformation-overlay--open"
+          onClick={() => setScreenshot("")}
+        >
+          <div
+            className="PaymentInformation-imageModal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="PaymentInformation-imageHeader">
+              <div>
+                <span>PAYMENT PROOF</span>
+                <h3>Transaction Screenshot</h3>
+              </div>
+
+              <button type="button" onClick={() => setScreenshot("")}>
+                <FaTimes />
+              </button>
+            </div>
+
+            <div className="PaymentInformation-imageBody">
+              <img
+                src={screenshot}
+                alt="Payment Screenshot"
+                onLoad={() => console.log("IMAGE LOADED:", screenshot)}
+                onError={(e) => {
+                  console.log("IMAGE LOAD FAILED:", e.currentTarget.src);
+
+                  e.currentTarget.style.display = "none";
+
+                  e.currentTarget.nextElementSibling.style.display = "flex";
+                }}
+              />
+
+              <div className="PaymentInformation-imageError">
+                <FaReceipt />
+
+                <strong>Screenshot unavailable</strong>
+
+                <span>Payment proof could not be loaded.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
