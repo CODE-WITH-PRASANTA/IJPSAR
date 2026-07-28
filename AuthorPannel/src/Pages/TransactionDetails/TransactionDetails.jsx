@@ -8,7 +8,7 @@ import {
   FaRedo,
 } from "react-icons/fa";
 
-import API from "../../API/axios";
+import API from "../../api/Axios";
 
 import "./TransactionDetails.css";
 
