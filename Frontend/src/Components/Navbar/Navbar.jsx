@@ -159,9 +159,29 @@ const Navbar = () => {
               <span>Login</span>
             </button>
             <div className="navbarLoginDropdownMenu">
-              <Link to="/login" className="navbarLoginDropdownLink">Author Portal</Link>
-              <a href="https://editor.ijpasr.com/editor-login" className="navbarLoginDropdownLink">Editor Portal</a>
-              <a href="https://admin.ijpasr.com" className="navbarLoginDropdownLink">Admin Portal</a>
+               <a
+                          href="https://author.ijpasr.com"
+                          className="navbarMobileLoginOption"
+                          onClick={closeMobileMenu}
+                        >
+                          Author
+                        </a>
+
+                        <a
+                          href="https://editor.ijpasr.com/editor-login"
+                          className="navbarMobileLoginOption"
+                          onClick={closeMobileMenu}
+                        >
+                          Editor
+                        </a>
+
+                        <a
+                          href="https://admin.ijpasr.com/"
+                          className="navbarMobileLoginOption"
+                          onClick={closeMobileMenu}
+                        >
+                          Admin
+                        </a>
             </div>
           </div>
 
