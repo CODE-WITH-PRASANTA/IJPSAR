@@ -18,6 +18,8 @@ import IncDocPublicationManagement from "./Component/IncDocPublicationManagement
 import Calender from "./Component/Calender/Calender";
 import EditorialBoard from "./Pages/EditorialBoard/EditorialBoard";
 import AuthorManagement from "./Component/AuthorManagement/AuthorManagement";
+import AddManagement from "./Component/AddManagement/AddManagement";
+import AuthorGuidelineManagement from "./Component/AuthorGuidelineManagement/AuthorGuidelineManagement"
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
           <Route path="/calendar-management" element={<Calender />} />
           <Route path="/editorial-board" element={<EditorialBoard/>}/>
           <Route path="/authot-table" element={<AuthorManagement/>}/>
+          <Route path="/add-management" element={<AddManagement/>}/>
+          <Route path="/author-guideline-management" element={<AuthorGuidelineManagement/>}/>
 
 
         </Route>

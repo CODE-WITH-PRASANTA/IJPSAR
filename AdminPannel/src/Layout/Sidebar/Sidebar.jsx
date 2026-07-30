@@ -179,6 +179,28 @@ const Sidebar = () => {
             <FaBook />
             <span>Publication Management</span>
           </NavLink>
+
+            <NavLink
+            to="/add-management"
+            className={({ isActive }) =>
+              isActive ? "sidebarLink active" : "sidebarLink"
+            }
+          >
+            <FaBook />
+            <span>Add Management</span>
+          </NavLink>
+
+            <NavLink
+            to="/author-guideline-management"
+            className={({ isActive }) =>
+              isActive ? "sidebarLink active" : "sidebarLink"
+            }
+          >
+            <FaBook />
+            <span>Author Guideline Management</span>
+          </NavLink>
+
+
           <NavLink
             to="/inc-publication-management"
             className={({ isActive }) =>
