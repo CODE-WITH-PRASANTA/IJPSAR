@@ -3,6 +3,7 @@ import "./Papermanagement.css";
 import { API, IMG_URL } from "../../api/Axios";
 import { FiMoreVertical, FiEdit2, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Papermanagement = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,25 +16,43 @@ const Papermanagement = () => {
   const [openMenu, setOpenMenu] = useState(null);
   const [showHistory, setShowHistory] = useState({});
 
-  const getAllPapers = async () => {
-    try {
-      const token = localStorage.getItem("authorToken");
-
-      const { data } = await API.get("/submitform/my-papers", {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    const getAllPapers = async () => {
+      Swal.fire({
+        title: "Loading Papers...",
+        html: "Please wait while we fetch your papers.",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+          Swal.showLoading();
         },
       });
 
-      if (data.success) {
-        setPaperData(data.data);
+      try {
+        const token = localStorage.getItem("authorToken");
+
+        const { data } = await API.get("/submitform/my-papers", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (data.success) {
+          setPaperData(data.data);
+        }
+
+        Swal.close();
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Failed to load papers.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
  useEffect(() => {
   const updateCardsPerPage = () => {
@@ -55,25 +74,62 @@ const Papermanagement = () => {
 }, []);
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this paper?")) return;
+  const result = await Swal.fire({
+    title: "Delete Paper?",
+    text: "This action cannot be undone.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, Delete",
+    cancelButtonText: "Cancel",
+  });
 
-    try {
-      const token = localStorage.getItem("authorToken");
+  if (!result.isConfirmed) return;
 
-      const { data } = await API.delete(`/submitform/delete/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+  Swal.fire({
+    title: "Deleting...",
+    html: "Please wait...",
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
+    },
+  });
+
+  try {
+    const token = localStorage.getItem("authorToken");
+
+    const { data } = await API.delete(`/submitform/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    Swal.close();
+
+    if (data.success) {
+      setPaperData((prev) => prev.filter((item) => item._id !== id));
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted Successfully",
+        text: "Your paper has been deleted.",
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
       });
-
-      if (data.success) {
-        setPaperData((prev) => prev.filter((item) => item._id !== id));
-        alert("Paper deleted successfully.");
-      }
-    } catch (err) {
-      console.log(err);
     }
-  };
+  } catch (err) {
+    Swal.fire({
+      icon: "error",
+      title: "Delete Failed",
+      text: err.response?.data?.message || "Something went wrong.",
+      timer: 2500,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    });
+  }
+};
 
   const handleEdit = (paper) => {
     navigate("/submit-paper", {
@@ -110,33 +166,33 @@ const Papermanagement = () => {
         </div>
         <div className="paper-dashboard">
 
-  <div className="dashboard-card total">
-    <h3>Total Papers</h3>
-    <h1>{paperData.length}</h1>
-  </div>
+          <div className="dashboard-card total">
+            <h3>Total Papers</h3>
+            <h1>{paperData.length}</h1>
+          </div>
 
-  <div className="dashboard-card submitted">
-    <h3>Submitted</h3>
-    <h1>
-      {paperData.filter(item => item.status === "Submitted").length}
-    </h1>
-  </div>
+          <div className="dashboard-card submitted">
+            <h3>Submitted</h3>
+            <h1>
+              {paperData.filter(item => item.status === "Submitted").length}
+            </h1>
+          </div>
 
-  <div className="dashboard-card revision">
-    <h3>Revision Required</h3>
-    <h1>
-      {paperData.filter(item => item.status === "Revision Required").length}
-    </h1>
-  </div>
+          <div className="dashboard-card revision">
+            <h3>Revision Required</h3>
+            <h1>
+              {paperData.filter(item => item.status === "Revision Required").length}
+            </h1>
+          </div>
 
-  <div className="dashboard-card accepted">
-    <h3>Accepted</h3>
-    <h1>
-      {paperData.filter(item => item.status === "Accepted").length}
-    </h1>
-  </div>
+          <div className="dashboard-card accepted">
+            <h3>Accepted</h3>
+            <h1>
+              {paperData.filter(item => item.status === "Accepted").length}
+            </h1>
+          </div>
 
-</div>
+        </div>
 
       <div className="paper-management-grid two-column">
           {currentCards.map((paper) => {
