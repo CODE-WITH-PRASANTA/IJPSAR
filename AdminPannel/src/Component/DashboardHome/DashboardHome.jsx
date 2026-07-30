@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./DashboardHome.css";
 import {
   FaFileAlt,
@@ -9,57 +9,50 @@ import {
   FaRupeeSign,
 } from "react-icons/fa";
 
-// 1. Array containing all 6 cards configuration data
 const dashboardStats = [
   {
-    id: 1,
+    key: "totalSubmissions",
     title: "Total Submissions",
-    targetValue: 1248,
     isCurrency: false,
     suffix: "",
     icon: <FaFileAlt />,
     color: "blue",
   },
   {
-    id: 2,
+    key: "pendingPapers",
     title: "Pending Papers",
-    targetValue: 186,
     isCurrency: false,
     suffix: "",
     icon: <FaClock />,
     color: "orange",
   },
   {
-    id: 3,
+    key: "pendingPayments",
     title: "Pending Payments",
-    targetValue: 94,
     isCurrency: false,
     suffix: "",
     icon: <FaMoneyCheckAlt />,
     color: "red",
   },
   {
-    id: 4,
+    key: "publishedPapers",
     title: "Published Papers",
-    targetValue: 832,
     isCurrency: false,
     suffix: "",
     icon: <FaCheckCircle />,
     color: "green",
   },
   {
-    id: 5,
-    title: "Team Members",
-    targetValue: 28,
+    key: "activeEditors",
+    title: "Active Editors",
     isCurrency: false,
     suffix: "",
     icon: <FaUsers />,
     color: "purple",
   },
   {
-    id: 6,
+    key: "revenue",
     title: "All-Time Revenue",
-    targetValue: 8.75,
     isCurrency: true,
     suffix: "L",
     icon: <FaRupeeSign />,
@@ -67,7 +60,6 @@ const dashboardStats = [
   },
 ];
 
-// 2. Count-Up Engine Component for smooth text numeric growth on load
 const AnimatedCounter = ({ target, duration = 1000, isCurrency, suffix }) => {
   const [count, setCount] = useState(0);
 
@@ -77,7 +69,7 @@ const AnimatedCounter = ({ target, duration = 1000, isCurrency, suffix }) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / duration, 1);
       const easeOutQuad = progress * (2 - progress);
-      const currentCount = easeOutQuad * target;
+      const currentCount = easeOutQuad * (Number(target) || 0);
       
       setCount(currentCount);
 
@@ -95,24 +87,33 @@ const AnimatedCounter = ({ target, duration = 1000, isCurrency, suffix }) => {
   return Math.floor(count).toLocaleString() + suffix;
 };
 
-const DashboardHome = () => {
+const DashboardHome = ({ stats, loading, error, onRetry }) => {
+  const getTargetValue = (item) => {
+    const value = Number(stats?.[item.key]) || 0;
+
+    return item.isCurrency ? value / 100000 : value;
+  };
+
   return (
     <div className="dashboardHome">
-      {/* Header */}
       <div className="dashboardHomeHeader">
         <div>
           <h2>Dashboard Overview</h2>
           <p>Monitor publications, payments, submissions & revenue.</p>
         </div>
+        {error && (
+          <button className="dashboardRetryButton" onClick={onRetry}>
+            Retry
+          </button>
+        )}
       </div>
 
-      {/* Grid container generating all 6 cards via standard map loop */}
       <div className="dashboardHomeGrid">
         {dashboardStats.map((item, index) => (
           <div
             className={`dashboardCard dashboardCard-${item.color}`}
-            key={item.id}
-            style={{ animationDelay: `${index * 70}ms` }} /* Staggered load entrance */
+            key={item.key}
+            style={{ animationDelay: `${index * 70}ms` }}
           >
             <div className="dashboardCardTop">
               <span className="dashboardCardTitle">{item.title}</span>
@@ -122,13 +123,17 @@ const DashboardHome = () => {
             <div className="dashboardCardBottom">
               <h3>
                 {item.isCurrency && <FaRupeeSign className="currencyIconPrefix" />}
-                <AnimatedCounter 
-                  target={item.targetValue} 
+                <AnimatedCounter
+                  target={getTargetValue(item)}
                   isCurrency={item.isCurrency} 
                   suffix={item.suffix}
                 />
               </h3>
-              <span className="dashboardCardGrowth">+12.8%</span>
+              <span
+                className={`dashboardCardGrowth ${error ? "dashboardCardError" : ""}`}
+              >
+                {loading ? "Loading..." : error ? "Data unavailable" : "Live data"}
+              </span>
             </div>
 
             <div className="dashboardCardGlow"></div>

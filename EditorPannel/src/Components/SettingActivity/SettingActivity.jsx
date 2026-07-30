@@ -1,176 +1,241 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import API from "../../API/axios";
+import Swal from "sweetalert2";
 import {
   FaClock,
   FaCheck,
   FaTimes,
-  FaSmile,
-  FaCommentDots,
+  // FaSmile,
+  // FaCommentDots,
 } from "react-icons/fa";
 import "./SettingActivity.css";
 
 const SettingActivity = () => {
+  const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getNotifications();
+  }, []);
+
+  const getNotifications = async () => {
+    try {
+      const token = localStorage.getItem("editorToken");
+
+      const { data } = await API.get("/notification/editor", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (data.success) {
+        setNotifications(data.data);
+      }
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: err.response?.data?.message || "Something went wrong",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const markRead = async (id) => {
+    try {
+      await API.put(`/notification/read/${id}`);
+
+      setNotifications((prev) =>
+        prev.map((n) => (n._id === id ? { ...n, isRead: true } : n)),
+      );
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title:
+          err.response?.data?.message || "Unable to mark notification as read",
+      });
+    }
+  };
+  const readAll = async () => {
+    try {
+      const token = localStorage.getItem("editorToken");
+
+      await API.put(
+        "/notification/editor/read-all",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      getNotifications();
+
+      Swal.fire({
+        icon: "success",
+        title: "All notifications marked as read",
+        timer: 1200,
+        showConfirmButton: false,
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: err.response?.data?.message || "Unable to mark all as read",
+      });
+    }
+  };
+
+  const deleteNotification = async (id) => {
+    const result = await Swal.fire({
+      title: "Delete Notification?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Delete",
+      confirmButtonColor: "#d33",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      await API.delete(`/notification/${id}`);
+
+      setNotifications((prev) => prev.filter((n) => n._id !== id));
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted",
+        timer: 1200,
+        showConfirmButton: false,
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: err.response?.data?.message || "Delete failed",
+      });
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="SettingActivity">
+        <div className="SettingActivity-container">
+          <div className="SettingActivity-loading">
+            Loading Notifications...
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="SettingActivity">
       <div className="SettingActivity-container">
+        {/* Header */}
 
-        {/* Activity 1 */}
-        <div className="SettingActivity-item">
-          <div className="SettingActivity-avatar">W</div>
+        <div className="SettingActivity-header">
+          <h2>Activity & Notifications</h2>
 
-          <div className="SettingActivity-content">
-            <p className="SettingActivity-text">
-              <span className="SettingActivity-name">Wilson</span> added
-              reaction in
-              <span className="SettingActivity-tag blue">
-                #product website
-              </span>
-              post
-            </p>
-
-            <div className="SettingActivity-time">
-              <FaClock />
-              <span>09.00AM</span>
-            </div>
-          </div>
+          <button className="SettingActivity-readAll" onClick={readAll}>
+            <FaCheck />
+            Mark All Read
+          </button>
         </div>
 
-        {/* Activity 2 */}
-        <div className="SettingActivity-item">
-          <div className="SettingActivity-avatar image">🖼</div>
+        {/* Empty */}
 
-          <div className="SettingActivity-content">
-            <p className="SettingActivity-uploadTitle">
-              2 image files and 2 videos uploaded
-            </p>
+        {notifications.length === 0 && (
+          <div className="SettingActivity-empty">
+            <h3>No Notifications</h3>
 
-            <div className="SettingActivity-gallery">
-              <img
-                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600"
-                alt=""
-              />
-              <img
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600"
-                alt=""
-              />
-              <img
-                src="https://images.unsplash.com/photo-1486946255434-2466348c2166?w=600"
-                alt=""
-              />
-            </div>
-
-            <div className="SettingActivity-time">
-              <FaClock />
-              <span>Updated at 12:45 pm</span>
-            </div>
+            <p>You don't have any activity yet.</p>
           </div>
-        </div>
+        )}
 
-        {/* Activity 3 */}
-        <div className="SettingActivity-item">
-          <div className="SettingActivity-avatar green">D</div>
+        {/* Notifications */}
 
-          <div className="SettingActivity-content">
-            <p className="SettingActivity-text">
-              <span className="SettingActivity-name">Dane Wiza</span>
-              added reaction in
-              <span className="SettingActivity-tag greenTag">
-                #product website
-              </span>
-              post
-            </p>
+        {notifications.map((item) => (
+          <div
+            key={item._id}
+            className={`SettingActivity-item ${item.isRead ? "" : "unread"}`}
+            onClick={() => {
+              if (!item.isRead) {
+                markRead(item._id);
+              }
+            }}
+          >
+            {/* Avatar */}
 
-            <div className="SettingActivity-postCard">
-              <h4>Need a feature</h4>
+            <div className="SettingActivity-avatar">
+              {item.title ? item.title.charAt(0).toUpperCase() : "N"}
+            </div>
 
-              <p>
-                Hello everyone, question on email marketing. What are some
-                tips/tricks to avoid going to promotion spam / junk for
-                automated marketing emails...
-              </p>
+            {/* Content */}
 
-              <div className="SettingActivity-reactions">
-                <button>
-                  <FaSmile /> 10 Reactions
-                </button>
+            <div className="SettingActivity-content">
+              <div className="SettingActivity-top">
+                <h4>{item.title}</h4>
 
-                <button>
-                  <FaCommentDots /> 12 Replies
-                </button>
+                <span
+                  className={`SettingActivity-status ${
+                    item.isRead ? "read" : "unread"
+                  }`}
+                >
+                  {item.isRead ? "Read" : "New"}
+                </span>
+              </div>
+
+              <p>{item.message}</p>
+
+              {item.paperId && (
+                <div className="SettingActivity-paper">
+                  <strong>Paper :</strong>
+
+                  <span>{item.paperId.paperTitle}</span>
+
+                  <small>
+                    Status :<b> {item.paperId.status}</b>
+                  </small>
+                </div>
+              )}
+
+              <div className="SettingActivity-footer">
+                <div className="SettingActivity-time">
+                  <FaClock />
+
+                  <span>{new Date(item.createdAt).toLocaleString()}</span>
+                </div>
+
+                <div className="SettingActivity-actions">
+                  {!item.isRead && (
+                    <button
+                      className="SettingActivity-readBtn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        markRead(item._id);
+                      }}
+                    >
+                      <FaCheck />
+                      Read
+                    </button>
+                  )}
+
+                  <button
+                    className="SettingActivity-deleteBtn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteNotification(item._id);
+                    }}
+                  >
+                    <FaTimes />
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
-
-            <div className="SettingActivity-time">
-              <FaClock />
-              <span>09.00AM</span>
-            </div>
           </div>
-        </div>
-
-        {/* Activity 4 */}
-        <div className="SettingActivity-item">
-          <div className="SettingActivity-avatar pink">B</div>
-
-          <div className="SettingActivity-content">
-            <p className="SettingActivity-text">
-              <span className="SettingActivity-name">Betty Mante</span>
-              Request joined
-              <span className="SettingActivity-tag red">
-                #researchteam
-              </span>
-              groups
-            </p>
-
-            <div className="SettingActivity-actions">
-              <button className="SettingActivity-accept">
-                Accept
-              </button>
-
-              <button className="SettingActivity-reject">
-                Rejects
-              </button>
-            </div>
-
-            <div className="SettingActivity-time">
-              <FaClock />
-              <span>4 days ago</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Activity 5 */}
-        <div className="SettingActivity-item">
-          <div className="SettingActivity-avatar blueLight">P</div>
-
-          <div className="SettingActivity-content">
-            <p className="SettingActivity-text">
-              <span className="SettingActivity-name">Pinkie</span>
-              uploaded
-              <strong> 2 </strong>
-              attachment
-              <span className="SettingActivity-tag blue">
-                #researchteam
-              </span>
-            </p>
-
-            <div className="SettingActivity-actions">
-              <button className="SettingActivity-accept">
-                <FaCheck />
-                Accept
-              </button>
-
-              <button className="SettingActivity-reject">
-                <FaTimes />
-                Rejects
-              </button>
-            </div>
-
-            <div className="SettingActivity-time">
-              <FaClock />
-              <span>4 days ago</span>
-            </div>
-          </div>
-        </div>
-
+        ))}
       </div>
     </div>
   );

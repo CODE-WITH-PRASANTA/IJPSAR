@@ -9,36 +9,36 @@
   --text-main: #0f172a;
   --text-muted: #475569;
   --text-light: #94a3b8;
-  
+
   /* Primary Actions (Sophisticated Violet/Indigo gradient feel) */
   --primary: #4f46e5;
   --primary-hover: #4338ca;
   --primary-glow: rgba(79, 70, 229, 0.15);
   --border-color: #e2e8f0;
   --border-focus: #6366f1;
-  
+
   /* Modern Glassmorphic Shadows */
   --shadow-sm: 0 2px 8px -1px rgba(15, 23, 42, 0.04);
   --shadow-md: 0 12px 34px -4px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
   --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.08), 0 8px 16px -4px rgba(15, 23, 42, 0.04);
-  
+
   /* Enhanced Status Colors */
   --status-editing-bg: #fffbeb;
   --status-editing-text: #b45309;
   --status-editing-border: #fef3c7;
-  
+
   --status-revision-bg: #fff5f5;
   --status-revision-text: #e11d48;
   --status-revision-border: #ffe4e6;
-  
+
   --status-pending-bg: #f0fdf4;
   --status-pending-text: #16a34a;
   --status-pending-border: #dcfce7;
-  
+
   --status-accepted-bg: #e0f2fe;
   --status-accepted-text: #0369a1;
   --status-accepted-border: #bae6fd;
-  
+
   --status-rejected-bg: #fafafa;
   --status-rejected-text: #52525b;
   --status-rejected-border: #e4e4e7;
@@ -480,6 +480,36 @@
   border-top-color: var(--primary);
   border-radius: 50%;
   animation: spin 0.7s cubic-bezier(0.5, 0.1, 0.4, 0.9) infinite;
+}
+
+
+.wordPreview {
+  height: 100%;
+  min-height: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+  padding: 40px;
+  background: #f8fafc;
+}
+
+.wordIcon {
+  font-size: 80px;
+}
+
+.wordPreview h3 {
+  margin: 0;
+  font-size: 24px;
+  color: #1f2937;
+}
+
+.wordPreview p {
+  max-width: 420px;
+  color: #6b7280;
+  line-height: 1.6;
 }
 
 @keyframes spin {

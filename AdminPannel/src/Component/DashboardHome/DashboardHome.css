@@ -30,6 +30,10 @@
 .dashboardHomeHeader {
   margin-bottom: 35px;
   animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
 }
 
 .dashboardHomeHeader h2 {
@@ -220,4 +224,25 @@
   .dashboardCardBottom h3 {
     font-size: 32px;
   }
+}
+
+.dashboardCardError {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.dashboardRetryButton {
+  border: 1px solid var(--border-hover);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-main);
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 14px;
+}
+
+.dashboardRetryButton:hover {
+  background: rgba(255, 255, 255, 0.06);
 }

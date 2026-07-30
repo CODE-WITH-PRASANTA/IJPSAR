@@ -148,7 +148,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             </NavLink>
 
             <NavLink
-              to="/transaction-history"
+              to="/transaction-details"
               className={({ isActive }) =>
                 isActive ? "Sidebar_MenuItem active" : "Sidebar_MenuItem"
               }

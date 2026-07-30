@@ -19,6 +19,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 
 import "./SubmitFrom.css";
+import Swal from 'sweetalert2';
 
 const ALL_COUNTRIES = [
   { code: "AF", name: "Afghanistan", dial: "+93" },
@@ -232,133 +233,85 @@ const SubmitFrom = () => {
     setAuthors(updatedAuthors);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      // Validation
-      if (!formData.paperTitle.trim()) {
-        alert("Paper Title is required");
-        return;
-      }
+  // 1. Basic Validation
+  if (!formData.paperTitle.trim()) {
+    Swal.fire({ icon: "warning", title: "Missing Field", text: "Paper Title is required" });
+    return;
+  }
+  if (!editorText.trim()) {
+    Swal.fire({ icon: "warning", title: "Missing Field", text: "Abstract is required" });
+    return;
+  }
+  if (Number(captchaAnswer) !== (captcha.num1 + captcha.num2)) {
+    Swal.fire({ icon: "error", title: "Invalid Captcha", text: "Please try again." });
+    generateCaptcha();
+    setCaptchaAnswer("");
+    return;
+  }
 
-      if (!editorText.trim()) {
-        alert("Abstract is required");
-        return;
-      }
+  // 2. Show Loading Spinner
+  Swal.fire({
+    title: "Submitting...",
+    allowOutsideClick: false,
+    didOpen: () => { Swal.showLoading(); }
+  });
 
-      const correctAnswer = captcha.num1 + captcha.num2;
+  try {
+    const form = new FormData();
+    form.append("paperTitle", formData.paperTitle);
+    form.append("abstract", editorText);
+    form.append("keywords", JSON.stringify(keywords));
+    form.append("authors", JSON.stringify(authors));
+    form.append("mobileCountryCode", formData.mobileCountryCode);
+    form.append("researchArea", formData.researchArea);
+    form.append("authorCategory", formData.authorCategory);
+    form.append("address1", formData.address1);
+    form.append("address2", formData.address2);
+    form.append("city", formData.city);
+    form.append("state", formData.state);
+    form.append("country", formData.country);
+    form.append("pincode", formData.pincode);
+    form.append("referralCode", formData.referralCode);
+    form.append("editorMessage", formData.editorMessage);
+    if (uploadedFile) form.append("paperFile", uploadedFile);
 
-      if (Number(captchaAnswer) !== correctAnswer) {
-        alert("Invalid Captcha");
-        generateCaptcha();
-        setCaptchaAnswer("");
-        return;
-      }
+    const token = localStorage.getItem("authorToken");
+    const config = { headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" } };
 
-      const form = new FormData();
+    const response = isEdit 
+      ? await API.put(`/submitform/revision/${editPaper._id}`, form, config)
+      : await API.post("/submitform/create", form, config);
 
-      form.append("paperTitle", formData.paperTitle);
-      form.append("abstract", editorText);
-      form.append("keywords", JSON.stringify(keywords));
-      form.append("authors", JSON.stringify(authors));
-      form.append("mobileCountryCode", formData.mobileCountryCode);
-      form.append("researchArea", formData.researchArea);
-      form.append("authorCategory", formData.authorCategory);
-      form.append("address1", formData.address1);
-      form.append("address2", formData.address2);
-      form.append("city", formData.city);
-      form.append("state", formData.state);
-      form.append("country", formData.country);
-      form.append("pincode", formData.pincode);
-      form.append("referralCode", formData.referralCode);
-      form.append("editorMessage", formData.editorMessage);
-
-      // Upload new file only if selected
-      if (uploadedFile) {
-        form.append("paperFile", uploadedFile);
-      }
-
-      const token = localStorage.getItem("authorToken");
-
-      let response;
-
-      if (isEdit) {
-        response = await API.put(
-          `/submitform/revision/${editPaper._id}`,
-          form,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "multipart/form-data",
-            },
-          },
-        );
-      } else {
-        response = await API.post("/submitform/create", form, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
-      }
-
-      if (response.data.success) {
-        if (isEdit) {
-          alert("Paper Updated Successfully");
-        } else {
-          const generatedPaperId = response.data.data.paperId;
-
-          alert(
-            `Paper Submitted Successfully\n\nPaper ID: ${generatedPaperId}`,
-          );
-
-          setPaperId(generatedPaperId);
-        }
-
-        // Reset Form
-        setFormData({
-          paperTitle: "",
-          abstract: "",
-          mobileCountryCode: "",
-          researchArea: "",
-          authorCategory: "",
-          address1: "",
-          address2: "",
-          city: "",
-          state: "",
-          country: "",
-          pincode: "",
-          referralCode: "",
-          editorMessage: "",
-        });
-
-        setAuthors([
-          {
-            fullName: "",
-            designation: "",
-            organization: "",
-            contactNumber: "",
-            email: "",
-          },
-        ]);
-
+    if (response.data.success) {
+      // 3. Success Alert
+      Swal.fire({
+        icon: "success",
+        title: isEdit ? "Updated Successfully!" : "Submitted Successfully!",
+        text: !isEdit ? `Your Paper ID: ${response.data.data.paperId}` : "Changes saved.",
+        confirmButtonText: "Okay"
+      }).then(() => {
+        // Reset form and navigate
+        setFormData({ /* ... initial state object ... */ });
+        setAuthors([{ fullName: "", designation: "", organization: "", contactNumber: "", email: "" }]);
         setKeywords(["Research", "Innovation"]);
         setUploadedFile(null);
         setEditorText("");
-        setTotalAuthors(1);
-
-        generateCaptcha();
-        setCaptchaAnswer("");
-
         navigate("/paper-management");
-      }
-    } catch (error) {
-      console.error(error);
-
-      alert(error?.response?.data?.message || "Submission Failed");
+      });
     }
-  };
+  } catch (error) {
+    console.error(error);
+    // 4. Error Alert
+    Swal.fire({
+      icon: "error",
+      title: "Submission Failed",
+      text: error?.response?.data?.message || "An unexpected error occurred."
+    });
+  }
+};
 
   const toggleSection = (section) => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
@@ -595,37 +548,113 @@ const SubmitFrom = () => {
                         ))}
                       </select>
                     </div>
+                        <div className="input-field-group">
+                          <label className="field-label-text">Research Area</label>
 
-                    <div className="input-field-group">
-                      <label className="field-label-text">Research Area</label>
+                          <select
+                            name="researchArea"
+                            value={formData.researchArea}
+                            onChange={handleChange}
+                            className="premium-select-dropdown"
+                          >
+                            <option value="">
+                              (Please select your research area)
+                            </option>
 
-                      <select
-                        name="researchArea"
-                        value={formData.researchArea}
-                        onChange={handleChange}
-                        className="premium-select-dropdown"
-                      >
-                        <option value="">
-                          (Please select your research area)
-                        </option>
+                            {/* Engineering & Technology */}
+                            <option value="Computer Science & Engineering">
+                              Computer Science & Engineering
+                            </option>
+                            <option value="Information Technology">
+                              Information Technology
+                            </option>
+                            <option value="Electrical & Electronics">
+                              Electrical & Electronics
+                            </option>
+                            <option value="Mechanical Systems">
+                              Mechanical Systems
+                            </option>
 
-                        <option value="Computer Science & Engineering">
-                          Computer Science & Engineering
-                        </option>
+                            {/* Pharmacy */}
+                            <option value="Pharmacy (All Branch)">
+                              Pharmacy (All Branch)
+                            </option>
+                            <option value="Pharmaceutics">
+                              Pharmaceutics
+                            </option>
+                            <option value="Pharmacognosy">
+                              Pharmacognosy
+                            </option>
+                            <option value="Pharmacology">
+                              Pharmacology
+                            </option>
+                            <option value="Pharma Chemistry">
+                              Pharma Chemistry
+                            </option>
+                            <option value="Analysis and Analytical Chemistry">
+                              Analysis and Analytical Chemistry
+                            </option>
+                            <option value="Quality Assurance">
+                              Quality Assurance
+                            </option>
 
-                        <option value="Information Technology">
-                          Information Technology
-                        </option>
+                            {/* Industry & Development */}
+                            <option value="Industry Development (All Area)">
+                              Industry Development (All Area)
+                            </option>
+                            <option value="Product Development">
+                              Product Development
+                            </option>
 
-                        <option value="Electrical & Electronics">
-                          Electrical & Electronics
-                        </option>
+                            {/* General Sciences & Life Sciences */}
+                            <option value="Science (All Branch)">
+                              Science (All Branch)
+                            </option>
+                            <option value="Life Science (All Branch)">
+                              Life Science (All Branch)
+                            </option>
+                            <option value="Health Science (All Branch)">
+                              Health Science (All Branch)
+                            </option>
+                            <option value="Biological Science (All Branch)">
+                              Biological Science (All Branch)
+                            </option>
+                            <option value="Applied Science">
+                              Applied Science
+                            </option>
+                            <option value="Applied Mathematics">
+                              Applied Mathematics
+                            </option>
+                            <option value="Applied Instrumentation">
+                              Applied Instrumentation
+                            </option>
 
-                        <option value="Mechanical Systems">
-                          Mechanical Systems
-                        </option>
-                      </select>
-                    </div>
+                            {/* Arts, Social Sciences & Humanities */}
+                            <option value="Arts and Social Science (All Branch)">
+                              Arts and Social Science (All Branch)
+                            </option>
+                            <option value="Social Science (All Branch)">
+                              Social Science (All Branch)
+                            </option>
+                            <option value="Humanities (All Branch)">
+                              Humanities (All Branch)
+                            </option>
+                            <option value="Commerce">
+                              Commerce
+                            </option>
+                            <option value="Language (All Branch)">
+                              Language (All Branch)
+                            </option>
+
+                            {/* Other Options */}
+                            <option value="Other Research Area Not in the list above">
+                              Other Research Area Not in the list above
+                            </option>
+                            <option value="Other">
+                              Other
+                            </option>
+                          </select>
+                        </div>
                   </div>
 
                   <div className="form-field-grid-row universal-one-column">

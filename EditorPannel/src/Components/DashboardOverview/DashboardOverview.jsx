@@ -70,9 +70,9 @@ const DashboardOverview = ({
   const cards = [
     {
       id: 1,
-      title: "Total Papers",
+      title: "Total Assigned",
       value: totalPapers,
-      growth: `${allPapers.length} all`,
+      growth: `${totalPapers} assigned`,
       progress: getPercent(totalPapers, allPapers.length || totalPapers),
       color: "#2563eb",
       icon: <FiFileText />,

@@ -30,6 +30,7 @@ const Topbar = ({
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   const [notifications, setNotifications] = useState([]);
+  const [editor, setEditor] = useState(null);
 
   // ===========================
   // Sidebar
@@ -37,7 +38,26 @@ const Topbar = ({
 
   useEffect(() => {
     fetchNotifications();
+    fetchProfile();
   }, []);
+
+  const fetchProfile = async () => {
+    try {
+      const token = localStorage.getItem("editorToken");
+
+      const { data } = await API.get("/editor/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (data.success) {
+        setEditor(data.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const fetchNotifications = async () => {
     try {
@@ -98,7 +118,7 @@ const Topbar = ({
   const handleProfileSettings = () => {
     setShowProfileMenu(false);
 
-    navigate("/editor-login");
+    navigate("/editor-profile");
 
     // Change "/profile"
     // if your profile route is different.
@@ -186,12 +206,20 @@ const Topbar = ({
             className="Topbar_ProfileInfoWrapper"
             onClick={toggleProfileMenu}
           >
-            <img src={profileImg} alt="Admin" className="Topbar_ProfileImage" />
+            <img
+              src={
+                editor?.profileImage
+                  ? `http://localhost:5000/${editor.profileImage}`
+                  : profileImg
+              }
+              alt={editor?.name}
+              className="Topbar_ProfileImage"
+            />
 
             <div className="Topbar_ProfileInfo">
-              <h4>Ann Adame</h4>
+              <h4>{editor?.name || "Editor"}</h4>
 
-              <p>Administrator</p>
+              <p>{editor?.role || "Editor"}</p>
             </div>
           </div>
 
@@ -201,13 +229,17 @@ const Topbar = ({
             <div className="Topbar_ProfileDropdown">
               <div className="Topbar_ProfileHeader">
                 <img
-                  src={profileImg}
+                  src={
+                    editor?.profileImage
+                      ? `http://localhost:5000/${editor.profileImage}`
+                      : profileImg
+                  }
                   alt=""
                   className="Topbar_ProfilePopupImage"
                 />
 
                 <div>
-                  <h4>Ann Adame</h4>
+                  <h4>{editor?.name || "Editor"}</h4>
 
                   <p>Administrator</p>
                 </div>

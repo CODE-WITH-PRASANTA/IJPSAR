@@ -1,7 +1,7 @@
 import React from "react";
 import "./IJwelcomes.css";
 import { FaArrowRight } from "react-icons/fa";
-import welcomeImage from  '../../assets/Chemical-1.jpg'
+import welcomeImage from  '../../assets/FRONT-1.webp'
 
 const IJwelcomes = () => {
   return (
