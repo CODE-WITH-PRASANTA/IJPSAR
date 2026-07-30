@@ -15,12 +15,13 @@ exports.createAdmin = async (req, res) => {
       });
     }
 
-    const existingAdmin = await Admin.findOne({ email });
+    // Allow only one admin
+    const existingAdmin = await Admin.findOne();
 
     if (existingAdmin) {
       return res.status(400).json({
         success: false,
-        message: "Admin already exists",
+        message: "Admin account already exists. Only one admin is allowed.",
       });
     }
 
@@ -163,6 +164,22 @@ exports.getAdminProfile = async (req, res) => {
     res.status(200).json({
       success: true,
       admin,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
+
+exports.adminExists = async (req, res) => {
+  try {
+    const admin = await Admin.findOne();
+
+    res.status(200).json({
+      success: true,
+      exists: !!admin,
     });
   } catch (error) {
     res.status(500).json({

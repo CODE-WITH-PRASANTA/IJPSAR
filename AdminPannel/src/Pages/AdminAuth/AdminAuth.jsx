@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaArrowRight,
@@ -13,7 +13,7 @@ import api from "../../api/axios";
 import { useAuth } from "../../Context/AuthContext";
 
 import "./AdminAuth.css";
-import logo from "../../assets/p-2.jpeg"
+import logo from "../../assets/p-2.jpeg";
 
 const AdminAuth = () => {
   const navigate = useNavigate();
@@ -21,8 +21,7 @@ const AdminAuth = () => {
 
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -34,6 +33,29 @@ const AdminAuth = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [adminExists, setAdminExists] = useState(false);
+  const [checkingAdmin, setCheckingAdmin] = useState(true);
+
+  useEffect(() => {
+    checkAdminExists();
+  }, []);
+
+  const checkAdminExists = async () => {
+    try {
+      const res = await api.get("/admin/exists");
+
+      setAdminExists(res.data.exists);
+
+      // If admin already exists, always show login form
+      if (res.data.exists) {
+        setIsLogin(true);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setCheckingAdmin(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,6 +70,8 @@ const AdminAuth = () => {
   };
 
   const switchForm = () => {
+    if (adminExists) return;
+
     setIsLogin((prev) => !prev);
 
     setFormData({
@@ -85,8 +109,7 @@ const AdminAuth = () => {
         });
       } catch (error) {
         setError(
-          error.response?.data?.message ||
-            "Unable to login. Please try again."
+          error.response?.data?.message || "Unable to login. Please try again.",
         );
       } finally {
         setLoading(false);
@@ -128,19 +151,34 @@ const AdminAuth = () => {
         confirmPassword: "",
       });
 
+      setAdminExists(true);
+
       setTimeout(() => {
         setIsLogin(true);
         setSuccess("");
       }, 1200);
     } catch (error) {
-      setError(
-        error.response?.data?.message ||
-          "Unable to create account"
-      );
+      setError(error.response?.data?.message || "Unable to create account");
     } finally {
       setLoading(false);
     }
   };
+
+  if (checkingAdmin) {
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "grid",
+          placeItems: "center",
+          fontSize: "20px",
+          fontWeight: 600,
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <main className="premiumAuthPage">
@@ -153,7 +191,7 @@ const AdminAuth = () => {
         <div className="authBrandSection">
           <div className="authBrandContent">
             <div className="authLogo">
-             <img src={logo} alt="" />
+              <img src={logo} alt="" />
             </div>
 
             <span className="authBrandName">IJPASR</span>
@@ -164,9 +202,8 @@ const AdminAuth = () => {
             </h1>
 
             <p>
-              A powerful administration workspace designed for
-              editorial management, publications and academic
-              operations.
+              A powerful administration workspace designed for editorial
+              management, publications and academic operations.
             </p>
 
             <div className="authFeatures">
@@ -187,9 +224,7 @@ const AdminAuth = () => {
             </div>
           </div>
 
-          <p className="authCopyright">
-            © 2026 IJPASR. All rights reserved.
-          </p>
+          <p className="authCopyright">© 2026 IJPASR. All rights reserved.</p>
         </div>
 
         {/* RIGHT FORM */}
@@ -202,9 +237,11 @@ const AdminAuth = () => {
               </span>
 
               <h2>
-                {isLogin
-                  ? "Sign in to your account"
-                  : "Create admin account"}
+                {adminExists
+                  ? "Admin Login"
+                  : isLogin
+                    ? "Sign in to your account"
+                    : "Create admin account"}
               </h2>
 
               <p>
@@ -214,23 +251,14 @@ const AdminAuth = () => {
               </p>
             </div>
 
-            {error && (
-              <div className="premiumAuthMessage error">
-                {error}
-              </div>
-            )}
+            {error && <div className="premiumAuthMessage error">{error}</div>}
 
             {success && (
-              <div className="premiumAuthMessage success">
-                {success}
-              </div>
+              <div className="premiumAuthMessage success">{success}</div>
             )}
 
-            <form
-              className="premiumAuthForm"
-              onSubmit={handleSubmit}
-            >
-              {!isLogin && (
+            <form className="premiumAuthForm" onSubmit={handleSubmit}>
+              {!isLogin && !adminExists && (
                 <div className="premiumInputGroup">
                   <label>Full name</label>
 
@@ -281,9 +309,7 @@ const AdminAuth = () => {
                   <button
                     type="button"
                     className="passwordToggle"
-                    onClick={() =>
-                      setShowPassword((prev) => !prev)
-                    }
+                    onClick={() => setShowPassword((prev) => !prev)}
                     aria-label="Toggle password visibility"
                   >
                     {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -291,7 +317,7 @@ const AdminAuth = () => {
                 </div>
               </div>
 
-              {!isLogin && (
+              {!isLogin && !adminExists && (
                 <div className="premiumInputGroup">
                   <label>Confirm password</label>
 
@@ -299,11 +325,7 @@ const AdminAuth = () => {
                     <FaLock />
 
                     <input
-                      type={
-                        showConfirmPassword
-                          ? "text"
-                          : "password"
-                      }
+                      type={showConfirmPassword ? "text" : "password"}
                       name="confirmPassword"
                       placeholder="Confirm your password"
                       value={formData.confirmPassword}
@@ -313,16 +335,10 @@ const AdminAuth = () => {
                     <button
                       type="button"
                       className="passwordToggle"
-                      onClick={() =>
-                        setShowConfirmPassword((prev) => !prev)
-                      }
+                      onClick={() => setShowConfirmPassword((prev) => !prev)}
                       aria-label="Toggle confirm password visibility"
                     >
-                      {showConfirmPassword ? (
-                        <FaEyeSlash />
-                      ) : (
-                        <FaEye />
-                      )}
+                      {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                     </button>
                   </div>
                 </div>
@@ -347,17 +363,17 @@ const AdminAuth = () => {
               </button>
             </form>
 
-            <div className="premiumAuthFooter" >
-              <span>
-                {isLogin
-                  ? "New to IJPASR?"
-                  : "Already have an account?"}
-              </span>
+            {!adminExists && (
+              <div className="premiumAuthFooter">
+                <span>
+                  {isLogin ? "New to IJPASR?" : "Already have an account?"}
+                </span>
 
-              <button type="button" onClick={switchForm}>
-                {isLogin ? "Create account" : "Sign in"}
-              </button>
-            </div>
+                <button type="button" onClick={switchForm}>
+                  {isLogin ? "Create account" : "Sign in"}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>

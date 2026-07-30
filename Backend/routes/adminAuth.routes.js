@@ -7,6 +7,7 @@ const {
   adminLogin,
   adminLogout,
   getAdminProfile,
+  adminExists
 } = require("../controllers/adminAuth.controller");
 
 const adminAuth = require("../middlewares/adminAuth.middleware");
@@ -18,5 +19,7 @@ router.post("/login", adminLogin);
 router.post("/logout", adminLogout);
 
 router.get("/profile", adminAuth, getAdminProfile);
+
+router.get("/exists", adminExists);
 
 module.exports = router;
