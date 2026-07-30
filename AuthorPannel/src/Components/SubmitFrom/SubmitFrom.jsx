@@ -548,37 +548,113 @@ const handleSubmit = async (e) => {
                         ))}
                       </select>
                     </div>
+                        <div className="input-field-group">
+                          <label className="field-label-text">Research Area</label>
 
-                    <div className="input-field-group">
-                      <label className="field-label-text">Research Area</label>
+                          <select
+                            name="researchArea"
+                            value={formData.researchArea}
+                            onChange={handleChange}
+                            className="premium-select-dropdown"
+                          >
+                            <option value="">
+                              (Please select your research area)
+                            </option>
 
-                      <select
-                        name="researchArea"
-                        value={formData.researchArea}
-                        onChange={handleChange}
-                        className="premium-select-dropdown"
-                      >
-                        <option value="">
-                          (Please select your research area)
-                        </option>
+                            {/* Engineering & Technology */}
+                            <option value="Computer Science & Engineering">
+                              Computer Science & Engineering
+                            </option>
+                            <option value="Information Technology">
+                              Information Technology
+                            </option>
+                            <option value="Electrical & Electronics">
+                              Electrical & Electronics
+                            </option>
+                            <option value="Mechanical Systems">
+                              Mechanical Systems
+                            </option>
 
-                        <option value="Computer Science & Engineering">
-                          Computer Science & Engineering
-                        </option>
+                            {/* Pharmacy */}
+                            <option value="Pharmacy (All Branch)">
+                              Pharmacy (All Branch)
+                            </option>
+                            <option value="Pharmaceutics">
+                              Pharmaceutics
+                            </option>
+                            <option value="Pharmacognosy">
+                              Pharmacognosy
+                            </option>
+                            <option value="Pharmacology">
+                              Pharmacology
+                            </option>
+                            <option value="Pharma Chemistry">
+                              Pharma Chemistry
+                            </option>
+                            <option value="Analysis and Analytical Chemistry">
+                              Analysis and Analytical Chemistry
+                            </option>
+                            <option value="Quality Assurance">
+                              Quality Assurance
+                            </option>
 
-                        <option value="Information Technology">
-                          Information Technology
-                        </option>
+                            {/* Industry & Development */}
+                            <option value="Industry Development (All Area)">
+                              Industry Development (All Area)
+                            </option>
+                            <option value="Product Development">
+                              Product Development
+                            </option>
 
-                        <option value="Electrical & Electronics">
-                          Electrical & Electronics
-                        </option>
+                            {/* General Sciences & Life Sciences */}
+                            <option value="Science (All Branch)">
+                              Science (All Branch)
+                            </option>
+                            <option value="Life Science (All Branch)">
+                              Life Science (All Branch)
+                            </option>
+                            <option value="Health Science (All Branch)">
+                              Health Science (All Branch)
+                            </option>
+                            <option value="Biological Science (All Branch)">
+                              Biological Science (All Branch)
+                            </option>
+                            <option value="Applied Science">
+                              Applied Science
+                            </option>
+                            <option value="Applied Mathematics">
+                              Applied Mathematics
+                            </option>
+                            <option value="Applied Instrumentation">
+                              Applied Instrumentation
+                            </option>
 
-                        <option value="Mechanical Systems">
-                          Mechanical Systems
-                        </option>
-                      </select>
-                    </div>
+                            {/* Arts, Social Sciences & Humanities */}
+                            <option value="Arts and Social Science (All Branch)">
+                              Arts and Social Science (All Branch)
+                            </option>
+                            <option value="Social Science (All Branch)">
+                              Social Science (All Branch)
+                            </option>
+                            <option value="Humanities (All Branch)">
+                              Humanities (All Branch)
+                            </option>
+                            <option value="Commerce">
+                              Commerce
+                            </option>
+                            <option value="Language (All Branch)">
+                              Language (All Branch)
+                            </option>
+
+                            {/* Other Options */}
+                            <option value="Other Research Area Not in the list above">
+                              Other Research Area Not in the list above
+                            </option>
+                            <option value="Other">
+                              Other
+                            </option>
+                          </select>
+                        </div>
                   </div>
 
                   <div className="form-field-grid-row universal-one-column">
