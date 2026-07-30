@@ -1,9 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // 1. Import useNavigate
 import "./IJwelcomes.css";
 import { FaArrowRight } from "react-icons/fa";
-import welcomeImage from  '../../assets/FRONT-1.webp'
+import welcomeImage from '../../assets/FRONT-1.webp';
 
 const IJwelcomes = () => {
+  const navigate = useNavigate(); // 2. Initialize navigate function
+
   return (
     <section className="ijwelcome">
       <div className="ijwelcome-container">
@@ -38,7 +41,10 @@ const IJwelcomes = () => {
             />
 
             {/* BUTTON */}
-            <button className="ijwelcome-btn">
+            <button 
+              className="ijwelcome-btn"
+              onClick={() => navigate("/submit-manuscript")} // 3. Added navigate onClick
+            >
               Submit Manuscript
               <FaArrowRight className="ijwelcome-btn-icon" />
             </button>

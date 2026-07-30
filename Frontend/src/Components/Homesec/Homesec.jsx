@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // 1. Import useNavigate
 import "./Homesec.css";
 import {
   FaArrowRight,
@@ -12,6 +13,8 @@ import logo from "../../assets/p-2.jpeg";
 import { motion } from "framer-motion";
 
 const PharmaHero = () => {
+  const navigate = useNavigate(); // 2. Initialize navigate function
+
   return (
     <motion.section
       className="pharmaHero"
@@ -90,8 +93,10 @@ const PharmaHero = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
+            {/* 3. Added onClick for /submit-paper */}
             <motion.button
               className="submitBtn"
+              onClick={() => navigate("/submit-paper")} 
               whileHover={{
                 scale: 1.05,
               }}
@@ -103,8 +108,10 @@ const PharmaHero = () => {
               <FaArrowRight />
             </motion.button>
 
+            {/* 4. Added onClick for /current-issue */}
             <motion.button
               className="issueBtn"
+              onClick={() => navigate("/current-issue")} 
               whileHover={{
                 scale: 1.05,
               }}

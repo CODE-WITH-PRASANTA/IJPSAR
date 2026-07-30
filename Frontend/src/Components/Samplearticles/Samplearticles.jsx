@@ -13,11 +13,18 @@ import {
   FaFilePdf,
   FaChevronLeft,
   FaChevronRight,
+  FaWhatsapp,
 } from "react-icons/fa";
 
 const Samplearticles = () => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Phone number formatted for WhatsApp API (no spaces or plus sign)
+  const whatsappNumber = "918868855677";
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    "Hello, I would like to learn more about the published articles."
+  )}`;
 
   useEffect(() => {
     fetchArticles();
@@ -70,9 +77,22 @@ const Samplearticles = () => {
             <h2>Sample articles from recent issues</h2>
           </div>
 
-          <button className="samplearticles-view-btn">
-            View all <FaArrowRight />
-          </button>
+          {/* WHATSAPP LEARN MORE BUTTON */}
+         <a
+  href="https://wa.me/918868855677?text=Hello%2C%20I%20would%20like%20to%20learn%20more"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="samplearticles-view-btn"
+  style={{
+    textDecoration: "none",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "8px",
+  }}
+>
+  <FaWhatsapp style={{ fontSize: "1.2rem" }} />
+  Learn More <FaArrowRight />
+</a>
         </div>
 
         {/* MOBILE NAV */}
@@ -94,7 +114,7 @@ const Samplearticles = () => {
             <h3>Loading...</h3>
           ) : (
             articles.map((item) => (
-              <div className="samplearticles-card" key={item.id}>
+              <div className="samplearticles-card" key={item.id || item._id}>
                 {/* TOP INFO */}
 
                 <div className="samplearticles-meta-top">

@@ -53,7 +53,7 @@ const ContactHome = () => {
 
               <div>
                 <h4>Support Contact</h4>
-                <p>+91 9876543210</p>
+                <p>+91 8868855677</p>
               </div>
             </div>
 
