@@ -112,7 +112,7 @@ const Navbar = () => {
             <div className="navbarMobileActionGroup">
               <div className="navbarMobileLoginHeader">Portal Access</div>
               <div className="navbarMobileLoginLinks">
-                <Link to="/login" className="navbarMobileLoginOption" onClick={closeMobileMenu}>Author</Link>
+                <Link to="/https://author.ijpasr.com" className="navbarMobileLoginOption" onClick={closeMobileMenu}>Author</Link>
                 <a href="https://editor.ijpasr.com/editor-login" className="navbarMobileLoginOption" onClick={closeMobileMenu}>Editor</a>
                 <a href="https://admin.ijpasr.com/" className="navbarMobileLoginOption" onClick={closeMobileMenu}>Admin</a>
               </div>

@@ -7,27 +7,20 @@ export const API = axios.create({
   baseURL: `${BASE_URL}/api`,
 });
 
-/* ================= REQUEST ================= */
-
 API.interceptors.request.use(
   (config) => {
-    const authorToken =
-      localStorage.getItem("authorToken");
+    const authorToken = localStorage.getItem("authorToken");
 
     if (authorToken) {
-      config.headers.Authorization =
-        `Bearer ${authorToken}`;
+      config.headers.Authorization = `Bearer ${authorToken}`;
     }
 
     console.log("API URL:", config.url);
-    console.log(
-      "TOKEN SENT:",
-      authorToken ? "YES" : "NO"
-    );
+    console.log("TOKEN SENT:", authorToken ? "YES" : "NO");
 
     return config;
   },
   (error) => Promise.reject(error)
 );
 
-export default API;cd 
+export default API;
