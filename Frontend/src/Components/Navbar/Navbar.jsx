@@ -44,7 +44,7 @@ const Navbar = () => {
         {/* MIDDLE COMBINED STACK (EMAILS ON TOP, TITLES UNDERNEATH) */}
         <div className="navbarMiddleStack">
           
-          {/* DESKTOP EMAIL STRIP (PLACED DIRECTLY ABOVE TITLES) */}
+          {/* DESKTOP EMAIL STRIP */}
           <div className="navbarEmailRibbon">
             <a href="mailto:editor@ijpasr.com" className="navbarEmailLink">
               <HiOutlineMail className="navbarEmailIcon" />
@@ -108,33 +108,13 @@ const Navbar = () => {
             <Link to="/archives" className="navbarMenuItem" onClick={closeMobileMenu}>Archives</Link>
             <Link to="/contact" className="navbarMenuItem" onClick={closeMobileMenu}>Contact</Link>
 
-            {/* MOBILE ONLY ACTION BLOCK INSIDE DRAWER */}
+            {/* MOBILE ONLY ACTION BLOCK */}
             <div className="navbarMobileActionGroup">
               <div className="navbarMobileLoginHeader">Portal Access</div>
               <div className="navbarMobileLoginLinks">
-               <a
-                          href="https://author.ijpasr.com"
-                          className="navbarMobileLoginOption"
-                          onClick={closeMobileMenu}
-                        >
-                          Author
-                        </a>
-
-                        <a
-                          href="https://editor.ijpasr.com/editor-login"
-                          className="navbarMobileLoginOption"
-                          onClick={closeMobileMenu}
-                        >
-                          Editor
-                        </a>
-
-                        <a
-                          href="https://admin.ijpasr.com/"
-                          className="navbarMobileLoginOption"
-                          onClick={closeMobileMenu}
-                        >
-                          Admin
-                        </a>
+                <a href="https://author.ijpasr.com" className="navbarMobileLoginOption" onClick={closeMobileMenu}>Author</a>
+                <a href="https://editor.ijpasr.com/editor-login" className="navbarMobileLoginOption" onClick={closeMobileMenu}>Editor</a>
+                <a href="https://admin.ijpasr.com/" className="navbarMobileLoginOption" onClick={closeMobileMenu}>Admin</a>
               </div>
               <div className="navbarMobileEmails">
                 <div className="navbarMobileEmailItem">
@@ -154,34 +134,21 @@ const Navbar = () => {
           
           {/* DESKTOP INTEGRATED LOGIN DROPDOWN */}
           <div className="navbarLoginDropdown">
-            <button className="navbarLoginButton">
+            <button className="navbarLoginButton" type="button">
               <HiOutlineUser className="navbarLoginIcon" />
               <span>Login</span>
+              <FaChevronDown className="navbarLoginArrow" />
             </button>
             <div className="navbarLoginDropdownMenu">
-               <a
-                          href="https://author.ijpasr.com"
-                          className="navbarMobileLoginOption"
-                          onClick={closeMobileMenu}
-                        >
-                          Author
-                        </a>
-
-                        <a
-                          href="https://editor.ijpasr.com/editor-login"
-                          className="navbarMobileLoginOption"
-                          onClick={closeMobileMenu}
-                        >
-                          Editor
-                        </a>
-
-                        <a
-                          href="https://admin.ijpasr.com/"
-                          className="navbarMobileLoginOption"
-                          onClick={closeMobileMenu}
-                        >
-                          Admin
-                        </a>
+              <a href="https://author.ijpasr.com" className="navbarDesktopLoginOption">
+                Author Portal
+              </a>
+              <a href="https://editor.ijpasr.com/editor-login" className="navbarDesktopLoginOption">
+                Editor Portal
+              </a>
+              <a href="https://admin.ijpasr.com/" className="navbarDesktopLoginOption">
+                Admin Portal
+              </a>
             </div>
           </div>
 
