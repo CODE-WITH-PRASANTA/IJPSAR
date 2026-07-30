@@ -19,6 +19,7 @@ const editorialboardRoutes = require("./routes/editorialboard.routes");
 const notificationRoutes = require("./routes/notification.routes");
 const paymentRoutes = require("./routes/payment.routes");
 const dashboardRoutes = require("./routes/dashboard.routes");
+const calendarRoutes = require("./routes/calendar.routes");
 
 dotenv.config();
 const app = express();
@@ -77,6 +78,7 @@ app.use("/api/transactions", transactionRoutes);
 app.use("/api/editorialboard", editorialboardRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/calendar", calendarRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend Server Running Successfully");
