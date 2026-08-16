@@ -1947,31 +1947,62 @@ const EditPaper = () => {
 
               <div>
                 <span>MANUSCRIPT</span>
-
                 <h3>Paper Information</h3>
               </div>
             </div>
 
             <div className="sidebar-info-list">
+              {/* PAPER ID */}
               <InfoRow
                 icon={<Hash size={14} />}
                 label="Paper ID"
-                value={paper.paperId || "—"}
+                value={paper.paperId || paper._id || "—"}
                 valueClass="highlight"
               />
 
+              {/* PAPER TITLE */}
+              <InfoRow
+                icon={<FileText size={14} />}
+                label="Paper Title"
+                value={paper.paperTitle || "—"}
+              />
+
+              {/* AUTHOR */}
               <InfoRow
                 icon={<User size={14} />}
                 label="Author"
-                value={paper.authorName || paper.name || "—"}
+                value={paper.authors?.[0]?.fullName || "—"}
               />
 
+              {/* EMAIL */}
               <InfoRow
                 icon={<Mail size={14} />}
                 label="Email"
-                value={paper.email || "—"}
+                value={paper.authors?.[0]?.email || "—"}
               />
 
+              {/* CONTACT */}
+              <InfoRow
+                icon={<MessageSquareText size={14} />}
+                label="Contact"
+                value={paper.authors?.[0]?.contactNumber || "—"}
+              />
+
+              {/* RESEARCH AREA */}
+              <InfoRow
+                icon={<BookOpen size={14} />}
+                label="Research Area"
+                value={paper.researchArea || "—"}
+              />
+
+              {/* AUTHOR CATEGORY */}
+              <InfoRow
+                icon={<User size={14} />}
+                label="Category"
+                value={paper.authorCategory || "—"}
+              />
+
+              {/* SUBMITTED */}
               <InfoRow
                 icon={<CalendarDays size={14} />}
                 label="Submitted"

@@ -579,3 +579,255 @@
     right: -15px;
   }
 }
+
+
+
+/* ==========================================
+   NOTIFICATION WRAPPER
+========================================== */
+
+.Topbar_NotificationWrapper {
+  position: relative;
+}
+
+
+/* ==========================================
+   NOTIFICATION DROPDOWN
+========================================== */
+
+.Topbar_NotificationDropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+
+  width: 360px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+
+  overflow: hidden;
+
+  z-index: 9999;
+}
+
+
+/* ==========================================
+   HEADER - FIXED
+========================================== */
+
+.Topbar_NotificationHeader {
+  height: 52px;
+
+  padding: 0 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  flex-shrink: 0;
+}
+
+.Topbar_NotificationHeader h4 {
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: #111827;
+}
+
+
+/* ==========================================
+   CLOSE BUTTON
+========================================== */
+
+.Topbar_CloseNotification {
+  font-size: 17px;
+
+  color: #6b7280;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.Topbar_CloseNotification:hover {
+  color: #ef4444;
+}
+
+
+/* ==========================================
+   NOTIFICATION BODY
+   ONLY THIS AREA SCROLLS
+========================================== */
+
+.Topbar_NotificationBody {
+  max-height: 350px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  background: #ffffff;
+
+  overscroll-behavior: contain;
+}
+
+
+/* ==========================================
+   CUSTOM SCROLLBAR
+========================================== */
+
+.Topbar_NotificationBody::-webkit-scrollbar {
+  width: 6px;
+}
+
+.Topbar_NotificationBody::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+.Topbar_NotificationBody::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.Topbar_NotificationBody::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+
+/* Firefox */
+
+.Topbar_NotificationBody {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f8fafc;
+}
+
+
+/* ==========================================
+   NOTIFICATION ITEM
+========================================== */
+
+.Topbar_NotificationItem {
+  padding: 13px 15px;
+
+  border-bottom: 1px solid #f1f5f9;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+
+  background: #ffffff;
+}
+
+.Topbar_NotificationItem:last-child {
+  border-bottom: none;
+}
+
+.Topbar_NotificationItem:hover {
+  background: #f8fafc;
+}
+
+
+/* ==========================================
+   UNREAD NOTIFICATION
+========================================== */
+
+.Topbar_NotificationItem.unread {
+  background: #eff6ff;
+
+  border-left: 3px solid #3b82f6;
+
+  padding-left: 12px;
+}
+
+.Topbar_NotificationItem.unread:hover {
+  background: #dbeafe;
+}
+
+
+/* ==========================================
+   TITLE
+========================================== */
+
+.Topbar_NotificationItem h5 {
+  margin: 0 0 5px 0;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  color: #111827;
+}
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+.Topbar_NotificationItem p {
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  color: #4b5563;
+
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================
+   DATE / TIME
+========================================== */
+
+.Topbar_NotificationItem small {
+  display: block;
+
+  margin-top: 7px;
+
+  font-size: 10px;
+
+  color: #9ca3af;
+}
+
+
+/* ==========================================
+   NO NOTIFICATION
+========================================== */
+
+.Topbar_NoNotification {
+  padding: 40px 15px;
+
+  text-align: center;
+
+  font-size: 13px;
+
+  color: #9ca3af;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 576px) {
+  .Topbar_NotificationDropdown {
+    width: calc(100vw - 30px);
+
+    right: -10px;
+
+    max-width: 360px;
+  }
+
+  .Topbar_NotificationBody {
+    max-height: 300px;
+  }
+}

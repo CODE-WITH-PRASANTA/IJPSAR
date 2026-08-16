@@ -163,7 +163,6 @@ const Topbar = ({
 
       <div className="Topbar_Right">
         {/* Notification */}
-
         <div className="Topbar_NotificationWrapper">
           <button
             className="Topbar_NotificationBtn"
@@ -178,6 +177,7 @@ const Topbar = ({
 
           {showNotifications && (
             <div className="Topbar_NotificationDropdown">
+              {/* HEADER - FIXED */}
               <div className="Topbar_NotificationHeader">
                 <h4>Notifications</h4>
 
@@ -187,14 +187,27 @@ const Topbar = ({
                 />
               </div>
 
-              {notifications.map((item) => (
-                <div key={item._id} className="Topbar_NotificationItem">
-                  <h5>{item.title}</h5>
-                  <p>{item.message}</p>
+              {/* NOTIFICATIONS - SCROLLABLE */}
+              <div className="Topbar_NotificationBody">
+                {notifications.length === 0 ? (
+                  <div className="Topbar_NoNotification">No notifications</div>
+                ) : (
+                  notifications.map((item) => (
+                    <div
+                      key={item._id}
+                      className={`Topbar_NotificationItem ${
+                        !item.isRead ? "unread" : ""
+                      }`}
+                    >
+                      <h5>{item.title}</h5>
 
-                  <small>{new Date(item.createdAt).toLocaleString()}</small>
-                </div>
-              ))}
+                      <p>{item.message}</p>
+
+                      <small>{new Date(item.createdAt).toLocaleString()}</small>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           )}
         </div>
