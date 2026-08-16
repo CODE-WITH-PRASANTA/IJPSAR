@@ -1,6 +1,7 @@
 // ImportantDates.jsx
 
 import React from "react";
+import { useNavigate } from "react-router-dom"; // 1. Import useNavigate
 import "./ImportantDates.css";
 
 import {
@@ -52,6 +53,8 @@ const timelineData = [
 ];
 
 const ImportantDates = () => {
+  const navigate = useNavigate(); // 2. Initialize navigate function
+
   return (
     <section className="importantdates">
 
@@ -77,7 +80,11 @@ const ImportantDates = () => {
             publication process.
           </p>
 
-          <button className="importantdates-btn">
+          {/* 3. Added onClick event for /author-guidelines */}
+          <button 
+            className="importantdates-btn"
+            onClick={() => navigate("/author-guidelines")}
+          >
             <FaBookOpen />
             Author Guidelines
             <FaArrowRight />

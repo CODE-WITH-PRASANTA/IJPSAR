@@ -4,6 +4,7 @@ import React from "react";
 import {
   FaFacebookF,
   FaLinkedinIn,
+  FaInstagram,
   FaXTwitter,
 } from "react-icons/fa6";
 import {
@@ -43,25 +44,36 @@ const Footer = () => {
           </p>
 
           <div className="footerSocialIconsContainer">
-            <a href="/">
-              <FaXTwitter />
-            </a>
-
-            <a href="/">
-              <FaLinkedinIn />
-            </a>
-
-            <a href="/">
+            {/* FACEBOOK */}
+            <a
+              href="https://www.facebook.com/profile.php?id=61589518246374"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+            >
               <FaFacebookF />
             </a>
 
-            <a href="/">
-              R
+            {/* INSTAGRAM */}
+            <a
+              href="https://www.instagram.com/ijpasrjournal/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <FaInstagram />
             </a>
 
-            <a href="/">
-              iD
+            {/* LINKEDIN */}
+            <a
+              href="https://www.linkedin.com/in/ijpasr-journal-2043b2410/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <FaLinkedinIn />
             </a>
+            
           </div>
         </div>
 

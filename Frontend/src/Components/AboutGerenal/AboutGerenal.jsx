@@ -11,9 +11,15 @@ import {
   FaCheck,
   FaChevronLeft,
   FaChevronRight,
+  FaWhatsapp,
 } from "react-icons/fa";
 
 const AboutGerenal = () => {
+  // WhatsApp configuration
+  const whatsappNumber = "918868855677";
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    "Hello, I would like to learn more about the journal."
+  )}`;
 
   const cards = [
     {
@@ -112,9 +118,22 @@ const AboutGerenal = () => {
 
           </div>
 
-          <button className="aboutgeneral-btn">
+          {/* WHATSAPP LINK BUTTON */}
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="aboutgeneral-btn"
+            style={{
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <FaWhatsapp style={{ fontSize: "1.2rem" }} />
             Learn More
-          </button>
+          </a>
 
         </div>
 

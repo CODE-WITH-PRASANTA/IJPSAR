@@ -19,6 +19,8 @@ import IncDocPublicationManagement from "./Component/IncDocPublicationManagement
 import Calender from "./Component/Calender/Calender";
 import EditorialBoard from "./Pages/EditorialBoard/EditorialBoard";
 import AuthorManagement from "./Component/AuthorManagement/AuthorManagement";
+import AddManagement from "./Component/AddManagement/AddManagement";
+import AuthorGuidelineManagement from "./Component/AuthorGuidelineManagement/AuthorGuidelineManagement";
 
 import AdminAuth from "./Pages/AdminAuth/AdminAuth";
 
@@ -29,8 +31,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* AUTH */}
-
+        {/* PUBLIC ROUTES (No MainLayout wrapper) */}
         <Route
           path="/login"
           element={
@@ -41,92 +42,29 @@ function App() {
         />
 
         {/* PROTECTED ROUTES */}
-
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<MainLayout />}>
-            <Route
-              index
-              element={
-                <Navigate
-                  to="/dashboard"
-                  replace
-                />
-              }
-            />
-
-            <Route
-              path="dashboard"
-              element={<Dashboard />}
-            />
-
-            <Route
-              path="testimonial-management"
-              element={<Testimonial />}
-            />
-
-            <Route
-              path="new-editor"
-              element={<NewUser />}
-            />
-
-            <Route
-              path="newsprofile"
-              element={<NewsProfile />}
-            />
-
-            <Route
-              path="manage-editor"
-              element={<ManageEditior />}
-            />
-
-            <Route
-              path="cold-lead-management"
-              element={<LeadManagementHub />}
-            />
-
-            <Route
-              path="contact-management"
-              element={<ContactManagement />}
-            />
-
-            <Route
-              path="index-abstracting-management"
-              element={<IndexAbstracte />}
-            />
-
-            <Route
-              path="publication-management"
-              element={<PublicationManagement />}
-            />
-
-            <Route
-              path="inc-publication-management"
-              element={
-                <IncDocPublicationManagement />
-              }
-            />
-
-            <Route
-              path="calendar-management"
-              element={<Calender />}
-            />
-
-            <Route
-              path="editorial-board"
-              element={<EditorialBoard />}
-            />
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="testimonial-management" element={<Testimonial />} />
+            <Route path="new-editor" element={<NewUser />} />
+            <Route path="newsprofile" element={<NewsProfile />} />
+            <Route path="manage-editor" element={<ManageEditior />} />
+            <Route path="cold-lead-management" element={<LeadManagementHub />} />
+            <Route path="contact-management" element={<ContactManagement />} />
+            <Route path="index-abstracting-management" element={<IndexAbstracte />} />
+            <Route path="publication-management" element={<PublicationManagement />} />
+            <Route path="inc-publication-management" element={<IncDocPublicationManagement />} />
+            <Route path="calendar-management" element={<Calender />} />
+            <Route path="editorial-board" element={<EditorialBoard />} />
+            <Route path="author-table" element={<AuthorManagement />} />
+            <Route path="add-management" element={<AddManagement />} />
+            <Route path="author-guideline-management" element={<AuthorGuidelineManagement />} />
           </Route>
         </Route>
 
-        <Route
-          path="*"
-          element={
-            <Navigate
-              to="/login"
-              replace
-            />
-          }
-        />
+        {/* WILDCARD / CATCH-ALL */}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </BrowserRouter>
   );
