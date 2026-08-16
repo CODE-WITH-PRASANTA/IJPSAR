@@ -265,7 +265,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <div className="Notification_Header_Left">
                   <h5>Recent Notifications</h5>
 
-                  {notifications.length > 0 && (
+                  {/* {notifications.length > 0 && (
                     <button
                       className="markAllBtn"
                       onClick={async () => {
@@ -286,7 +286,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     >
                       Mark All Read
                     </button>
-                  )}
+                  )} */}
                 </div>{" "}
                 <button onClick={() => setShowNotificationPopup(false)}>
                   <FiX />

@@ -2,7 +2,21 @@ const jwt = require("jsonwebtoken");
 
 const adminAuth = (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization;
+    console.log(
+      "========== ADMIN AUTH =========="
+    );
+
+    const authHeader =
+      req.headers.authorization;
+
+    console.log(
+      "AUTHORIZATION HEADER EXISTS:",
+      Boolean(authHeader)
+    );
+
+    /* =====================================================
+       GET BEARER TOKEN
+    ===================================================== */
 
     const token =
       authHeader &&
@@ -11,24 +25,58 @@ const adminAuth = (req, res, next) => {
         : null;
 
     if (!token) {
+      console.log(
+        "ADMIN TOKEN NOT FOUND"
+      );
+
       return res.status(401).json({
         success: false,
-        message: "Token not available",
+        message:
+          "Admin authentication token not available.",
       });
     }
 
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET
+    /* =====================================================
+       VERIFY TOKEN
+    ===================================================== */
+
+    const decoded =
+      jwt.verify(
+        token,
+        process.env.JWT_SECRET
+      );
+
+    console.log(
+      "ADMIN TOKEN VERIFIED"
     );
+
+    console.log(
+      "ADMIN ID:",
+      decoded.adminId
+    );
+
+    console.log(
+      "ADMIN ROLE:",
+      decoded.role
+    );
+
+    /* =====================================================
+       SAVE ADMIN INFORMATION
+    ===================================================== */
 
     req.admin = decoded;
 
     next();
   } catch (error) {
+    console.error(
+      "ADMIN AUTH ERROR:",
+      error.message
+    );
+
     return res.status(401).json({
       success: false,
-      message: "Invalid or expired token",
+      message:
+        "Invalid or expired admin token.",
     });
   }
 };

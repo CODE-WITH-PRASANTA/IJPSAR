@@ -1,682 +1,2033 @@
-import React, { useState } from "react";
-import API from "../../api/axios"; // ✅ Imported custom Axios instance
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+
+import {
+  Search,
+  RefreshCw,
+  FileText,
+  FileCheck2,
+  Eye,
+  ExternalLink,
+  CheckCircle2,
+  Upload,
+  User,
+  Mail,
+  Globe2,
+  BookOpen,
+  X,
+  AlertCircle,
+  Loader2,
+  Layers3,
+} from "lucide-react";
+
+import API, { BASE_URL } from "../../api/axios";
+
 import "./PublicationManagement.css";
-import { useEffect } from "react";
 
 const PublicationManagement = () => {
-  const [publications, setPublications] = useState([]);
+  /* =========================================================
+     STATE
+  ========================================================= */
 
-  const fetchData = async () => {
-    try {
-      const res = await API.get("/submitform/all");
+  const [papers, setPapers] = useState([]);
 
-      const data = res.data.data || [];
+  const [loading, setLoading] = useState(false);
 
-      setPublications(
-        data.filter(
-          (paper) =>
-            paper.status === "Completed" || paper.status === "Published",
-        ),
-      );
-    } catch (err) {
-      console.log("Fetch error:", err);
-      setPublications([]);
+  const [search, setSearch] = useState("");
+
+  const [statusFilter, setStatusFilter] = useState("All");
+
+  /*
+    all         = all submitted papers
+    publication = only papers having publication data
+  */
+  const [viewMode, setViewMode] = useState("publication");
+
+  const [selectedPaper, setSelectedPaper] = useState(null);
+
+  const [actionLoading, setActionLoading] = useState("");
+
+  /* =========================================================
+     FILE URL
+  ========================================================= */
+
+  const getFileUrl = useCallback((filePath) => {
+    if (!filePath) {
+      return "";
     }
-  };
-  const fetchAuthors = async () => {
-    try {
-      const { data } = await API.get("/author/all");
 
-      if (data.success) {
-        setAuthors(data.data);
-      }
-    } catch (err) {
-      console.log(err);
+    if (
+      filePath.startsWith("http://") ||
+      filePath.startsWith("https://")
+    ) {
+      return filePath;
     }
-  };
 
-  useEffect(() => {
-    fetchData();
-    fetchAuthors();
+    return `${BASE_URL}${filePath}`;
   }, []);
 
-  const [authors, setAuthors] = useState([]);
-  const [search, setSearch] = useState("");
-  const [selectedPublication, setSelectedPublication] = useState(null);
+  /* =========================================================
+     FORMAT DATE
+  ========================================================= */
 
-  // ✅ POP FORM STATE (EDIT)
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editData, setEditData] = useState(null);
-
-  // ✅ NEW PUBLICATION STATE (SUBMIT FORM)
-  const [isCreateOpen, setIsCreateOpen] = useState(false);
-  const [newTitle, setNewTitle] = useState("");
-  const [newAbstract, setNewAbstract] = useState("");
-  const [newTags, setNewTags] = useState("");
-  const [newCountry, setNewCountry] = useState("");
-  const [newResearchArea, setNewResearchArea] = useState("");
-  const [selectedAuthor, setSelectedAuthor] = useState(null);
-  const [file, setFile] = useState(null);
-
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure?")) return;
-
-    try {
-      await API.delete(`/submitform/delete/${id}`);
-
-      setPublications((prev) => prev.filter((item) => item._id !== id));
-    } catch (err) {
-      console.log(err);
+  const formatDate = (date) => {
+    if (!date) {
+      return "-";
     }
-  };
-  const handleView = (item) => setSelectedPublication(item);
 
-  // ✅ OPEN FORM ON TITLE CLICK
-  const openEditForm = (item) => {
-    setEditData(item);
-    setIsFormOpen(true);
-  };
+    const parsedDate = new Date(date);
 
-  // HANDLE CHANGE
-  const handleChange = (e) => {
-    setEditData({ ...editData, [e.target.name]: e.target.value });
-  };
+    if (Number.isNaN(parsedDate.getTime())) {
+      return "-";
+    }
 
-  // AUTHOR CHANGE
-  const handleAuthorChange = (e) => {
-    const selected = authors.find((a) => a._id === e.target.value);
-    setEditData({
-      ...editData,
-      author: selected,
+    return parsedDate.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
     });
   };
 
-  // MODIFY SAVE
-  const handleModify = async () => {
-    try {
-      const res = await API.put(`/submitform/update/${editData._id}`, {
-        paperTitle: editData.paperTitle,
-        abstract: editData.abstract,
-        image: editData.image,
-        authorId: editData.authorId,
-        authorName: editData.authorName,
-        authorEmail: editData.authorEmail,
-      });
+  /* =========================================================
+     NORMALIZE DOCUMENT
+  ========================================================= */
 
-      const updated = res.data.data;
+  const normalizeDocument = useCallback(
+    (document, documentType) => {
+      if (!document) {
+        return [];
+      }
 
-      setPublications((prev) =>
-        prev.map((p) => (p._id === updated._id ? updated : p)),
+      const documents = Array.isArray(document)
+        ? document
+        : [document];
+
+      return documents
+        .filter((item) => item && item.file)
+        .map((item, index) => ({
+          ...item,
+
+          documentType,
+
+          uniqueKey:
+            item._id ||
+            `${documentType}-${item.version || 1}-${index}`,
+
+          version: item.version || 1,
+
+          originalName:
+            item.originalName ||
+            item.file?.split("/")?.pop() ||
+            "Document",
+
+          fileUrl: getFileUrl(item.file),
+
+          uploadedByRole:
+            item.uploadedByRole || "Unknown",
+
+          uploadedAt:
+            item.uploadedAt ||
+            item.createdAt ||
+            null,
+        }));
+    },
+    [getFileUrl]
+  );
+
+  /* =========================================================
+     GET PUBLICATION DOCUMENTS
+  ========================================================= */
+
+  const getPublicationDocuments = useCallback(
+    (paper) => {
+      const publicationDocuments =
+        paper?.publicationDocuments;
+
+      if (!publicationDocuments) {
+        return [];
+      }
+
+      const documents = [];
+
+      /* Corrected Galley Proof */
+      documents.push(
+        ...normalizeDocument(
+          publicationDocuments.correctedGalleyProof,
+          "Corrected Galley Proof"
+        )
       );
 
-      setIsFormOpen(false);
-    } catch (err) {
-      console.log(err);
-      alert("Update failed");
-    }
-  };
+      /* Copyright Transfer Form */
+      documents.push(
+        ...normalizeDocument(
+          publicationDocuments.copyrightTransferForm,
+          "Copyright Transfer Form"
+        )
+      );
 
-  // ✅ FRONTEND POST FUNCTION (FIXED FOR MULTIPART)
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+      /* Publication Fee Payment Proof */
+      documents.push(
+        ...normalizeDocument(
+          publicationDocuments.publicationFeePaymentProof,
+          "Publication Fee Payment Proof"
+        )
+      );
 
-    if (!file) {
-      alert("Please upload a paper file.");
-      return;
-    }
+      /* Old property support */
+      documents.push(
+        ...normalizeDocument(
+          publicationDocuments.publicationFeeProof,
+          "Publication Fee Payment Proof"
+        )
+      );
 
-    if (!selectedAuthor) {
-      alert("Please select an author.");
-      return;
-    }
+      /* Author Photographs */
+      documents.push(
+        ...normalizeDocument(
+          publicationDocuments.authorPhotographs,
+          "Author Photograph"
+        )
+      );
 
-    try {
-      const token = localStorage.getItem("adminToken");
+      /* Additional Supporting Files */
+      documents.push(
+        ...normalizeDocument(
+          publicationDocuments.additionalSupportingFiles,
+          "Additional Supporting File"
+        )
+      );
 
-      const formData = new FormData();
+      /* Sort newest version first */
+      return documents.sort((a, b) => {
+        const versionA = Number(a.version) || 0;
+        const versionB = Number(b.version) || 0;
 
-      // Paper Details
-      formData.append("paperTitle", newTitle);
-      formData.append("abstract", newAbstract);
-      formData.append("researchArea", newResearchArea);
-      formData.append("country", newCountry);
+        if (versionA !== versionB) {
+          return versionB - versionA;
+        }
 
-      // Keywords
-      formData.append("keywords", newTags);
+        const dateA = a.uploadedAt
+          ? new Date(a.uploadedAt).getTime()
+          : 0;
 
-      // Author Details
-      formData.append("authorId", selectedAuthor._id);
-      formData.append("authorName", selectedAuthor.fullName);
-      formData.append("authorEmail", selectedAuthor.email);
-      formData.append("authorCategory", selectedAuthor.authorCategory || "");
+        const dateB = b.uploadedAt
+          ? new Date(b.uploadedAt).getTime()
+          : 0;
 
-      // Paper File
-      formData.append("paperFile", file);
-
-      const { data } = await API.post("/submitform/create", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
+        return dateB - dateA;
       });
+    },
+    [normalizeDocument]
+  );
 
-      if (data.success) {
-        alert("Publication created successfully.");
+  /* =========================================================
+     HAS PUBLICATION DATA
 
-        setPublications((prev) => [...prev, data.data]);
+     IMPORTANT:
+     Publication Data depends on documents,
+     NOT on Published status.
 
-        // Reset Form
-        setNewTitle("");
-        setNewAbstract("");
-        setNewTags("");
-        setNewCountry("");
-        setNewResearchArea("");
-        setSelectedAuthor(null);
-        setFile(null);
-        setIsCreateOpen(false);
-      }
-    } catch (err) {
-      console.log(err);
+     Therefore after Unpublish the paper will
+     remain inside Publication Data.
+  ========================================================= */
 
-      alert(err.response?.data?.message || "Failed to create publication.");
+  const hasPublicationData = useCallback((paper) => {
+    if (!paper) {
+      return false;
     }
-  };
 
-  const filteredData = publications.filter((item) => {
-    const q = search.toLowerCase();
+    const publicationDocuments =
+      paper.publicationDocuments;
+
+    if (!publicationDocuments) {
+      return false;
+    }
 
     return (
-      item.paperTitle?.toLowerCase().includes(q) ||
-      item.paperId?.toLowerCase().includes(q)
+      (Array.isArray(
+        publicationDocuments.correctedGalleyProof
+      )
+        ? publicationDocuments.correctedGalleyProof.length >
+          0
+        : !!publicationDocuments.correctedGalleyProof) ||
+
+      (Array.isArray(
+        publicationDocuments.copyrightTransferForm
+      )
+        ? publicationDocuments.copyrightTransferForm.length >
+          0
+        : !!publicationDocuments.copyrightTransferForm) ||
+
+      (Array.isArray(
+        publicationDocuments.publicationFeePaymentProof
+      )
+        ? publicationDocuments.publicationFeePaymentProof.length >
+          0
+        : !!publicationDocuments.publicationFeePaymentProof) ||
+
+      (Array.isArray(
+        publicationDocuments.publicationFeeProof
+      )
+        ? publicationDocuments.publicationFeeProof.length >
+          0
+        : !!publicationDocuments.publicationFeeProof) ||
+
+      (Array.isArray(
+        publicationDocuments.authorPhotographs
+      )
+        ? publicationDocuments.authorPhotographs.length > 0
+        : !!publicationDocuments.authorPhotographs) ||
+
+      (Array.isArray(
+        publicationDocuments.additionalSupportingFiles
+      )
+        ? publicationDocuments.additionalSupportingFiles.length >
+          0
+        : !!publicationDocuments.additionalSupportingFiles)
     );
-  });
+  }, []);
 
-  const handlePublish = async (paperId) => {
+  /* =========================================================
+     PUBLISHABLE STATUS
+
+     Both statuses can publish:
+
+     1. Complete
+     2. Approved and Forwarded to Admin
+  ========================================================= */
+
+  const isPublishReady = useCallback((paper) => {
+    if (!paper) {
+      return false;
+    }
+
+    return (
+      paper.status === "Complete" ||
+      paper.status === "Approved and Forwarded to Admin"
+    );
+  }, []);
+
+  /* =========================================================
+     FETCH PAPERS
+  ========================================================= */
+
+  const fetchPapers = useCallback(async () => {
     try {
-      const { data } = await API.put(`/submitform/publish/${paperId}`);
+      setLoading(true);
 
-      if (data.success) {
-        alert("Paper Published Successfully");
+      const response = await API.get(
+        "/submitform/all"
+      );
 
-        fetchData();
+      const data = Array.isArray(
+        response.data?.data
+      )
+        ? response.data.data
+        : [];
+
+      setPapers(data);
+
+      console.log(
+        "PUBLICATION MANAGEMENT DATA:",
+        data
+      );
+    } catch (error) {
+      console.error(
+        "FETCH PAPERS ERROR:",
+        error?.response?.data ||
+          error?.message
+      );
+
+      console.error(
+        "STATUS:",
+        error?.response?.status
+      );
+
+      console.error(
+        "MESSAGE:",
+        error?.message
+      );
+
+      setPapers([]);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  /* =========================================================
+     INITIAL LOAD
+  ========================================================= */
+
+  useEffect(() => {
+    fetchPapers();
+  }, [fetchPapers]);
+
+  /* =========================================================
+     REFRESH WHEN TAB BECOMES ACTIVE
+  ========================================================= */
+
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (
+        document.visibilityState === "visible"
+      ) {
+        fetchPapers();
       }
-    } catch (err) {
-      console.log(err);
-      alert("Publish failed");
+    };
+
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibility
+    );
+
+    return () => {
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibility
+      );
+    };
+  }, [fetchPapers]);
+
+  /* =========================================================
+     REFRESH WINDOW FOCUS
+  ========================================================= */
+
+  useEffect(() => {
+    const handleFocus = () => {
+      fetchPapers();
+    };
+
+    window.addEventListener(
+      "focus",
+      handleFocus
+    );
+
+    return () => {
+      window.removeEventListener(
+        "focus",
+        handleFocus
+      );
+    };
+  }, [fetchPapers]);
+
+  /* =========================================================
+     PUBLISH PAPER
+  ========================================================= */
+
+  const publishPaper = async (id) => {
+    try {
+      setActionLoading(`publish-${id}`);
+
+      const response = await API.put(
+        `/submitform/publish/${id}`
+      );
+
+      if (!response.data?.success) {
+        throw new Error(
+          response.data?.message ||
+            "Unable to publish the paper."
+        );
+      }
+
+      await fetchPapers();
+
+      /*
+        Update opened modal
+      */
+      if (selectedPaper?._id === id) {
+        setSelectedPaper((previous) => ({
+          ...previous,
+
+          status:
+            response.data?.data?.status ||
+            "Published",
+
+          isPublished: true,
+        }));
+      }
+    } catch (error) {
+      console.error(
+        "PUBLISH ERROR:",
+        error
+      );
+
+      alert(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Unable to publish the paper."
+      );
+    } finally {
+      setActionLoading("");
     }
   };
 
-  const handleUnPublish = async (paperId) => {
+  /* =========================================================
+     UNPUBLISH PAPER
+
+     After unpublish the backend should normally return:
+
+     Approved and Forwarded to Admin
+
+     OR
+
+     Complete
+
+     The returned status is used directly.
+  ========================================================= */
+
+  const unpublishPaper = async (id) => {
     try {
-      const { data } = await API.put(`/submitform/unpublish/${paperId}`);
+      setActionLoading(`unpublish-${id}`);
 
-      if (data.success) {
-        alert("Paper Unpublished");
+      const response = await API.put(
+        `/submitform/unpublish/${id}`
+      );
 
-        fetchData();
+      if (!response.data?.success) {
+        throw new Error(
+          response.data?.message ||
+            "Unable to unpublish the paper."
+        );
       }
-    } catch (err) {
-      console.log(err);
 
-      alert("Unpublish failed");
+      await fetchPapers();
+
+      if (selectedPaper?._id === id) {
+        setSelectedPaper((previous) => ({
+          ...previous,
+
+          status:
+            response.data?.data?.status ||
+            "Complete",
+
+          isPublished: false,
+        }));
+      }
+    } catch (error) {
+      console.error(
+        "UNPUBLISH ERROR:",
+        error
+      );
+
+      alert(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Unable to unpublish the paper."
+      );
+    } finally {
+      setActionLoading("");
     }
   };
+
+  /* =========================================================
+     SEARCH + VIEW MODE + STATUS
+  ========================================================= */
+
+  const filteredPapers = useMemo(() => {
+    const query = search
+      .trim()
+      .toLowerCase();
+
+    return papers.filter((paper) => {
+      /* SEARCH */
+
+      const matchesSearch =
+        !query ||
+        paper.paperTitle
+          ?.toLowerCase()
+          .includes(query) ||
+        paper.paperId
+          ?.toLowerCase()
+          .includes(query) ||
+        paper.authorName
+          ?.toLowerCase()
+          .includes(query) ||
+        paper.authorEmail
+          ?.toLowerCase()
+          .includes(query) ||
+        paper.authors?.[0]?.fullName
+          ?.toLowerCase()
+          .includes(query);
+
+      /* STATUS */
+
+      const matchesStatus =
+        statusFilter === "All" ||
+        paper.status === statusFilter;
+
+      /* VIEW */
+
+      const matchesViewMode =
+        viewMode === "all" ||
+        hasPublicationData(paper);
+
+      return (
+        matchesSearch &&
+        matchesStatus &&
+        matchesViewMode
+      );
+    });
+  }, [
+    papers,
+    search,
+    statusFilter,
+    viewMode,
+    hasPublicationData,
+  ]);
+
+  /* =========================================================
+     STATISTICS
+  ========================================================= */
+
+  const totalPapers = papers.length;
+
+  const publicationDataCount =
+    papers.filter(hasPublicationData).length;
+
+  const publishedCount =
+    papers.filter(
+      (paper) =>
+        paper.status === "Published" ||
+        paper.isPublished === true
+    ).length;
+
+  const completeCount =
+    papers.filter(
+      (paper) =>
+        paper.status === "Complete"
+    ).length;
+
+  const adminReadyCount =
+    papers.filter(
+      (paper) =>
+        paper.status ===
+        "Approved and Forwarded to Admin"
+    ).length;
+
+  const documentsSubmittedCount =
+    papers.filter(
+      (paper) =>
+        paper.status ===
+        "Documents Submitted"
+    ).length;
+
+  /* =========================================================
+     STATUS CLASS
+  ========================================================= */
+
+  const getStatusClass = (status) => {
+    const value =
+      (status || "").toLowerCase();
+
+    if (
+      value.includes("published")
+    ) {
+      return "status-published";
+    }
+
+    if (
+      value.includes("complete")
+    ) {
+      return "status-complete";
+    }
+
+    if (
+      value.includes("approved")
+    ) {
+      return "status-approved";
+    }
+
+    if (
+      value.includes(
+        "documents submitted"
+      )
+    ) {
+      return "status-documents";
+    }
+
+    if (
+      value.includes(
+        "documents required"
+      )
+    ) {
+      return "status-required";
+    }
+
+    if (
+      value.includes("accepted")
+    ) {
+      return "status-accepted";
+    }
+
+    if (
+      value.includes("rejected")
+    ) {
+      return "status-rejected";
+    }
+
+    if (
+      value.includes("review")
+    ) {
+      return "status-review";
+    }
+
+    return "status-default";
+  };
+
+  /* =========================================================
+     GET AUTHOR
+  ========================================================= */
+
+  const getAuthorName = (paper) => {
+    return (
+      paper.authorName ||
+      paper.authors?.[0]?.fullName ||
+      "-"
+    );
+  };
+
+  const getAuthorEmail = (paper) => {
+    return (
+      paper.authorEmail ||
+      paper.authors?.[0]?.email ||
+      "-"
+    );
+  };
+
+  /* =========================================================
+     DOCUMENT CARD
+  ========================================================= */
+
+  const DocumentCard = ({
+    document,
+  }) => {
+    if (!document) {
+      return null;
+    }
+
+    return (
+      <div className="document-card">
+        <div className="document-left">
+          <div className="document-icon">
+            <FileText size={20} />
+          </div>
+
+          <div className="document-info">
+            <strong
+              title={document.originalName}
+            >
+              {document.originalName}
+            </strong>
+
+            <span>
+              {document.documentType}
+            </span>
+
+            <small>
+              Version {document.version}
+              {" • "}
+              {document.uploadedByRole}
+            </small>
+
+            {document.uploadedAt && (
+              <small>
+                Uploaded{" "}
+                {formatDate(
+                  document.uploadedAt
+                )}
+              </small>
+            )}
+          </div>
+        </div>
+
+        <a
+          href={document.fileUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="document-view-btn"
+          title="Open document"
+        >
+          <ExternalLink size={16} />
+        </a>
+      </div>
+    );
+  };
+
+  /* =========================================================
+     ACTION BUTTONS
+  ========================================================= */
+
+  const renderActions = (paper) => {
+    const isPublished =
+      paper.isPublished === true ||
+      paper.status === "Published";
+
+    const isAdminReady =
+      isPublishReady(paper);
+
+    const publishing =
+      actionLoading ===
+      `publish-${paper._id}`;
+
+    const unpublishing =
+      actionLoading ===
+      `unpublish-${paper._id}`;
+
+    return (
+      <div className="action-group">
+        {/* VIEW */}
+
+        <button
+          type="button"
+          className="view-btn"
+          onClick={() =>
+            setSelectedPaper(paper)
+          }
+        >
+          <Eye size={15} />
+          View
+        </button>
+
+        {/* ORIGINAL PAPER */}
+
+        {paper.paperFile && (
+          <a
+            href={getFileUrl(
+              paper.paperFile
+            )}
+            target="_blank"
+            rel="noreferrer"
+            className="original-btn"
+          >
+            <FileText size={15} />
+            Paper
+          </a>
+        )}
+
+        {/* UNPUBLISH */}
+
+        {isPublished ? (
+          <button
+            type="button"
+            className="unpublish-btn"
+            disabled={unpublishing}
+            onClick={() =>
+              unpublishPaper(
+                paper._id
+              )
+            }
+          >
+            {unpublishing ? (
+              <Loader2
+                size={15}
+                className="spin"
+              />
+            ) : (
+              <RefreshCw size={15} />
+            )}
+
+            {unpublishing
+              ? "..."
+              : "Unpublish"}
+          </button>
+        ) : isAdminReady ? (
+          /* PUBLISH */
+
+          <button
+            type="button"
+            className="publish-btn"
+            disabled={publishing}
+            onClick={() =>
+              publishPaper(
+                paper._id
+              )
+            }
+          >
+            {publishing ? (
+              <Loader2
+                size={15}
+                className="spin"
+              />
+            ) : (
+              <CheckCircle2
+                size={15}
+              />
+            )}
+
+            {publishing
+              ? "..."
+              : "Publish"}
+          </button>
+        ) : null}
+      </div>
+    );
+  };
+
+  /* =========================================================
+     RENDER
+  ========================================================= */
 
   return (
-    <div className="publicationManagement">
+    <div className="pub-management">
       {/* HEADER */}
-      <div className="publicationHeader">
+
+      <div className="pub-header">
         <div>
-          <h1>Publication Management</h1>
-          <p>Manage Research Papers & Publications</p>
-        </div>
-        {/* ADD NEW PAPER TRIGGER BUTTON */}
-        <button
-          className="viewBtn"
-          onClick={() => setIsCreateOpen(true)}
-          style={{ background: "linear-gradient(135deg, #10b881, #059669)" }}
-        >
-          + Add New Paper
-        </button>
-      </div>
-
-      {/* SEARCH */}
-      <div className="publicationSearchWrapper">
-        <input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="publicationSearch"
-          placeholder="Search..."
-        />
-      </div>
-
-      {/* TABLE */}
-      <div className="publicationTableWrapper">
-        <table className="publicationTable">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>ID</th>
-              <th>Paper Title (CLICK)</th>
-              <th>Abstract</th>
-              <th>Author</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {filteredData.map((item) => (
-              <tr key={item._id}>
-                <td>
-                  <img
-                    src={item.image || "/no-image.png"}
-                    className="paperImage"
-                  />
-                </td>
-                <td>
-                  <span className="idBadge">{item.paperId}</span>
-                </td>
-
-                {/* ✅ CLICK TITLE OPEN FORM */}
-                <td
-                  className="paperTitle"
-                  style={{ cursor: "pointer", color: "#3b82f6" }}
-                  onClick={() => openEditForm(item)}
-                >
-                  {item.paperTitle}
-                </td>
-
-                <td className="paperAbstract">{item.abstract}</td>
-
-                <td>
-                  <div>
-                    <strong>{item.authorName}</strong>
-                    <br />
-                    <small>{item.authorEmail}</small>
-                  </div>
-                </td>
-
-                <td>
-                  <div className="actionButtons">
-                    <a
-                      href={`http://localhost:5000${item.paperFile}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="viewBtn"
-                    >
-                      View PDF
-                    </a>
-                    {item.isPublished ? (
-                      <button
-                        className="unpublishBtn"
-                        onClick={() => handleUnPublish(item._id)}
-                      >
-                        Unpublish
-                      </button>
-                    ) : (
-                      <button
-                        className="publishBtn"
-                        onClick={() => handlePublish(item._id)}
-                      >
-                        Publish
-                      </button>
-                    )}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* MOBILE CARDS */}
-      <div className="publicationCards">
-        {filteredData.map((item) => (
-          <div className="publicationCard" key={item.paperId}>
-            <img
-              src={item.image || "/no-image.png"}
-              className="mobilePaperImage"
-              alt={item.paperTitle}
-            />
-            <div className="cardContent">
-              <span className="idBadge" style={{ marginBottom: "10px" }}>
-                {item.paperId}
-              </span>
-              <h3
-                style={{ cursor: "pointer", color: "#3b82f6" }}
-                onClick={() => openEditForm(item)}
-              >
-                {item.paperTitle}
-              </h3>
-              <p className="mobileAbstract">{item.abstract}</p>
-
-              <p style={{ fontSize: "14px", color: "#aaaaaa" }}>
-                <strong>Author:</strong>
-
-                <br />
-
-                {item.authorName}
-
-                <br />
-
-                {item.authorEmail}
-              </p>
-            <div className="cardActions">
-    <a
-        href={`http://localhost:5000${item.paperFile}`}
-        target="_blank"
-        rel="noreferrer"
-        className="viewBtn"
-    >
-        View PDF
-    </a>
-
-    {item.isPublished ? (
-        <button
-            className="unpublishBtn"
-            onClick={() => handleUnPublish(item._id)}
-        >
-            Unpublish
-        </button>
-    ) : (
-        <button
-            className="publishBtn"
-            onClick={() => handlePublish(item._id)}
-        >
-            Publish
-        </button>
-    )}
-</div>
-            </div>
+          <div className="header-label">
+            <Layers3 size={15} />
+            ADMIN CONTROL
           </div>
-        ))}
-        {filteredData.length === 0 && (
-          <div className="noResults">No records found.</div>
-        )}
+
+          <h1>
+            Publication Management
+          </h1>
+
+          <p>
+            Manage submitted papers,
+            publication documents and
+            publishing workflow.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          className="refresh-btn"
+          onClick={fetchPapers}
+          disabled={loading}
+        >
+          <RefreshCw
+            size={17}
+            className={
+              loading ? "spin" : ""
+            }
+          />
+
+          {loading
+            ? "Refreshing..."
+            : "Refresh"}
+        </button>
       </div>
 
-      {/* VIEW MODAL */}
-      {selectedPublication && (
-        <div
-          className="modalOverlay"
-          onClick={() => setSelectedPublication(null)}
-        >
-          <div className="modalContent" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="closeModalBtn"
-              onClick={() => setSelectedPublication(null)}
-            >
-              &times;
-            </button>
-            <div className="modalHeader">
-              <span className="modalIdBadge">
-                {selectedPublication.paperId}
-              </span>
+      {/* STATS */}
 
-              <h2>{selectedPublication.paperTitle}</h2>
-              
-            </div>
-            <img
-              src={selectedPublication.image || "/no-image.png"}
-              className="modalImage"
-              alt="paper preview"
-            />
-            <div className="modalBody">
-              <div className="modalMetaRow">
-                <div>
-                  <strong>Author</strong>
-                  <p>{selectedPublication.authorName || "N/A"}</p>
+      <div className="stats-grid">
+        <div className="stat-card">
+          <div className="stat-icon blue">
+            <FileText size={21} />
+          </div>
 
-                  <p>{selectedPublication.authorEmail}</p>
-                </div>
-                <div>
-                  <strong>Country</strong>
-                  <p>{selectedPublication.country || "N/A"}</p>
-                </div>
-                <div>
-                  <strong>Domain</strong>
-                  <p>{selectedPublication.researchArea || "N/A"}</p>
-                </div>
-              </div>
-              <div className="modalAbstractSection">
-                <strong>Abstract</strong>
-                <p>{selectedPublication.abstract}</p>
-              </div>
-            </div>
+          <div>
+            <h4>
+              Total Papers
+            </h4>
+
+            <h2>
+              {totalPapers}
+            </h2>
           </div>
         </div>
-      )}
 
-      {/* ✅ POPUP FORM (EDIT PAPER TYPE) */}
-      {isFormOpen && editData && (
-        <div className="modalOverlay" onClick={() => setIsFormOpen(false)}>
-          <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+        <div className="stat-card accepted-card">
+          <div className="stat-icon green">
+            <FileCheck2 size={21} />
+          </div>
+
+          <div>
+            <h4>
+              Publication Data
+            </h4>
+
+            <h2>
+              {publicationDataCount}
+            </h2>
+          </div>
+        </div>
+
+        <div className="stat-card review-card">
+          <div className="stat-icon orange">
+            <Upload size={21} />
+          </div>
+
+          <div>
+            <h4>
+              Documents Submitted
+            </h4>
+
+            <h2>
+              {documentsSubmittedCount}
+            </h2>
+          </div>
+        </div>
+
+        <div className="stat-card published-card">
+          <div className="stat-icon cyan">
+            <Globe2 size={21} />
+          </div>
+
+          <div>
+            <h4>
+              Published
+            </h4>
+
+            <h2>
+              {publishedCount}
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      {/* TOGGLE */}
+
+      <div className="view-toggle-wrapper">
+        <div className="view-toggle">
+          <button
+            type="button"
+            className={
+              viewMode === "all"
+                ? "active"
+                : ""
+            }
+            onClick={() =>
+              setViewMode("all")
+            }
+          >
+            <FileText size={16} />
+
+            All Papers
+
+            <span>
+              {totalPapers}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            className={
+              viewMode ===
+              "publication"
+                ? "active"
+                : ""
+            }
+            onClick={() =>
+              setViewMode(
+                "publication"
+              )
+            }
+          >
+            <FileCheck2 size={16} />
+
+            Publication Data
+
+            <span>
+              {publicationDataCount}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* TOOLBAR */}
+
+      <div className="toolbar">
+        <div className="search-wrapper">
+          <Search size={18} />
+
+          <input
+            type="text"
+            className="search-box"
+            placeholder="Search by title, paper ID or author..."
+            value={search}
+            onChange={(event) =>
+              setSearch(
+                event.target.value
+              )
+            }
+          />
+
+          {search && (
             <button
-              className="closeModalBtn"
-              onClick={() => setIsFormOpen(false)}
+              type="button"
+              className="clear-search"
+              onClick={() =>
+                setSearch("")
+              }
             >
-              &times;
+              <X size={15} />
             </button>
+          )}
+        </div>
 
-            <div className="modalHeader">
-              <h2>Edit Paper</h2>
-              <span className="idBadge" style={{ marginTop: "8px" }}>
-                {editData.paperId}
-              </span>
-            </div>
+        <select
+          className="filter-select"
+          value={statusFilter}
+          onChange={(event) =>
+            setStatusFilter(
+              event.target.value
+            )
+          }
+        >
+          <option value="All">
+            All Status
+          </option>
 
-            <div
-              className="modalBody"
-              style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+          <option value="Submitted">
+            Submitted
+          </option>
+
+          <option value="Review Pending">
+            Review Pending
+          </option>
+
+          <option value="Accepted">
+            Accepted
+          </option>
+
+          <option value="Rejected">
+            Rejected
+          </option>
+
+          <option value="Documents Required">
+            Documents Required
+          </option>
+
+          <option value="Documents Submitted">
+            Documents Submitted
+          </option>
+
+          <option value="Complete">
+            Complete
+          </option>
+
+          <option value="Approved and Forwarded to Admin">
+            Approved and Forwarded to Admin
+          </option>
+
+          <option value="Published">
+            Published
+          </option>
+        </select>
+
+        <div className="result-count">
+          Showing{" "}
+          <strong>
+            {filteredPapers.length}
+          </strong>{" "}
+          /{" "}
+          <strong>
+            {viewMode ===
+            "publication"
+              ? publicationDataCount
+              : totalPapers}
+          </strong>
+        </div>
+      </div>
+
+      {/* LOADING */}
+
+      {loading &&
+      papers.length === 0 ? (
+        <div className="loading-box">
+          <Loader2
+            size={34}
+            className="spin"
+          />
+
+          <h3>
+            Loading papers...
+          </h3>
+
+          <p>
+            Fetching latest
+            publication data.
+          </p>
+        </div>
+      ) : filteredPapers.length ===
+        0 ? (
+        <div className="empty-box">
+          <div className="empty-icon">
+            <FileText size={30} />
+          </div>
+
+          <h3>
+            No papers found
+          </h3>
+
+          <p>
+            No papers match the
+            selected view, search or
+            status filter.
+          </p>
+
+          {viewMode ===
+            "publication" && (
+            <button
+              type="button"
+              onClick={() =>
+                setViewMode("all")
+              }
             >
-              {/* IMAGE */}
-              <div>
-                <label className="formLabel">Paper Image URL</label>
-                <input
-                  name="image"
-                  value={editData.image || ""}
-                  onChange={handleChange}
-                  placeholder="Paper Image URL"
-                  className="publicationSearch"
-                />
-              </div>
+              Show All Papers
+            </button>
+          )}
+        </div>
+      ) : (
+        <>
+          {/* =================================================
+              DESKTOP TABLE
+          ================================================= */}
 
-              {/* TITLE */}
-              <div>
-                <label className="formLabel">Paper Title</label>
-                <input
-                  name="paperTitle"
-                  value={editData.paperTitle}
-                  onChange={handleChange}
-                  placeholder="Paper Title"
-                  className="publicationSearch"
-                />
-              </div>
+          <div className="table-wrapper">
+            <table className="publication-table">
+              <thead>
+                <tr>
+                  <th>
+                    Paper ID
+                  </th>
 
-              {/* ABSTRACT EDITOR */}
-              <div>
-                <label className="formLabel">Abstract</label>
-                <textarea
-                  name="abstract"
-                  value={editData.abstract || ""}
-                  onChange={handleChange}
-                  className="publicationSearch"
-                  style={{ height: "120px", resize: "vertical" }}
-                />
-              </div>
+                  <th>
+                    Title
+                  </th>
 
-              {/* AUTHOR DROPDOWN */}
-              <div>
-                <label className="formLabel">Assign Author</label>
-                <select
-                  required
-                  value={editData.authorId || ""}
-                  onChange={(e) => {
-                    const author = authors.find(
-                      (a) => a._id === e.target.value,
+                  <th>
+                    Author
+                  </th>
+
+                  <th>
+                    Status
+                  </th>
+
+                  {viewMode ===
+                    "publication" && (
+                    <th>
+                      Publication Data
+                    </th>
+                  )}
+
+                  <th>
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {filteredPapers.map(
+                  (paper) => {
+                    const documents =
+                      getPublicationDocuments(
+                        paper
+                      );
+
+                    const latestDocument =
+                      documents[0];
+
+                    return (
+                      <tr
+                        key={
+                          paper._id
+                        }
+                      >
+                        {/* PAPER ID */}
+
+                        <td>
+                          <span className="paper-id">
+                            {paper.paperId ||
+                              paper._id}
+                          </span>
+                        </td>
+
+                        {/* TITLE */}
+
+                        <td>
+                          <div className="title-cell">
+                            <strong>
+                              {
+                                paper.paperTitle
+                              }
+                            </strong>
+
+                            <small>
+                              Version{" "}
+                              {paper.version ||
+                                1}
+                            </small>
+                          </div>
+                        </td>
+
+                        {/* AUTHOR */}
+
+                        <td>
+                          <div className="author-cell">
+                            <div className="author-avatar">
+                              <User
+                                size={
+                                  15
+                                }
+                              />
+                            </div>
+
+                            <div>
+                              <strong>
+                                {getAuthorName(
+                                  paper
+                                )}
+                              </strong>
+
+                              <span>
+                                {getAuthorEmail(
+                                  paper
+                                )}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* STATUS */}
+
+                        <td>
+                          <span
+                            className={`status-badge ${getStatusClass(
+                              paper.status
+                            )}`}
+                          >
+                            <span className="status-dot" />
+
+                            {paper.status ||
+                              "Unknown"}
+                          </span>
+                        </td>
+
+                        {/* PUBLICATION DATA */}
+
+                        {viewMode ===
+                          "publication" && (
+                          <td>
+                            {documents.length >
+                            0 ? (
+                              <div className="publication-data-cell">
+                                <div className="publication-data-count">
+                                  <FileCheck2
+                                    size={
+                                      15
+                                    }
+                                  />
+
+                                  <strong>
+                                    {
+                                      documents.length
+                                    }
+                                  </strong>
+
+                                  <span>
+                                    document
+                                    {documents.length !==
+                                    1
+                                      ? "s"
+                                      : ""}
+                                  </span>
+                                </div>
+
+                                {latestDocument && (
+                                  <div className="latest-document">
+                                    <span>
+                                      {
+                                        latestDocument.documentType
+                                      }
+                                    </span>
+
+                                    <small>
+                                      {
+                                        latestDocument.originalName
+                                      }
+                                    </small>
+                                  </div>
+                                )}
+                              </div>
+                            ) : (
+                              <span className="no-publication">
+                                <AlertCircle
+                                  size={
+                                    14
+                                  }
+                                />
+                                No documents
+                              </span>
+                            )}
+                          </td>
+                        )}
+
+                        {/* ACTIONS */}
+
+                        <td>
+                          {renderActions(
+                            paper
+                          )}
+                        </td>
+                      </tr>
                     );
-
-                    setEditData({
-                      ...editData,
-                      authorId: author._id,
-                      authorName: author.fullName,
-                      authorEmail: author.email,
-                    });
-                  }}
-                  className="publicationSearch"
-                >
-                  <option value="">Choose Author...</option>
-
-                  {authors.map((author, index) => (
-                    <option key={author._id} value={author._id}>
-                      {index + 1}. {author.fullName} ({author.email})
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* MODIFY BUTTON */}
-              <button
-                className="viewBtn"
-                onClick={handleModify}
-                style={{ marginTop: "10px", width: "100%" }}
-              >
-                Modify Paper
-              </button>
-            </div>
+                  }
+                )}
+              </tbody>
+            </table>
           </div>
-        </div>
+
+          {/* =================================================
+              MOBILE CARDS
+          ================================================= */}
+
+          <div className="mobile-paper-list">
+            {filteredPapers.map(
+              (paper) => {
+                const documents =
+                  getPublicationDocuments(
+                    paper
+                  );
+
+                const latestDocument =
+                  documents[0];
+
+                const isPublished =
+                  paper.isPublished ===
+                    true ||
+                  paper.status ===
+                    "Published";
+
+                const isAdminReady =
+                  isPublishReady(
+                    paper
+                  );
+
+                return (
+                  <article
+                    className="mobile-paper-card"
+                    key={paper._id}
+                  >
+                    <div className="mobile-card-header">
+                      <span className="paper-id">
+                        {paper.paperId ||
+                          paper._id}
+                      </span>
+
+                      <span
+                        className={`status-badge ${getStatusClass(
+                          paper.status
+                        )}`}
+                      >
+                        <span className="status-dot" />
+
+                        {paper.status}
+                      </span>
+                    </div>
+
+                    <h3>
+                      {
+                        paper.paperTitle
+                      }
+                    </h3>
+
+                    <div className="mobile-author">
+                      <div className="author-avatar">
+                        <User
+                          size={15}
+                        />
+                      </div>
+
+                      <div>
+                        <strong>
+                          {getAuthorName(
+                            paper
+                          )}
+                        </strong>
+
+                        <span>
+                          {getAuthorEmail(
+                            paper
+                          )}
+                        </span>
+                      </div>
+                    </div>
+
+                    {viewMode ===
+                      "publication" && (
+                      <div className="mobile-publication-box">
+                        <div className="mobile-publication-header">
+                          <span>
+                            <FileCheck2
+                              size={
+                                16
+                              }
+                            />
+
+                            Publication
+                            Data
+                          </span>
+
+                          <strong>
+                            {
+                              documents.length
+                            }
+                          </strong>
+                        </div>
+
+                        {latestDocument ? (
+                          <DocumentCard
+                            document={
+                              latestDocument
+                            }
+                          />
+                        ) : (
+                          <div className="no-publication">
+                            <AlertCircle
+                              size={
+                                15
+                              }
+                            />
+                            No publication
+                            documents
+                          </div>
+                        )}
+
+                        {documents.length >
+                          1 && (
+                          <button
+                            type="button"
+                            className="view-more-documents"
+                            onClick={() =>
+                              setSelectedPaper(
+                                paper
+                              )
+                            }
+                          >
+                            View all{" "}
+                            {
+                              documents.length
+                            }{" "}
+                            documents
+                          </button>
+                        )}
+                      </div>
+                    )}
+
+                    <div className="mobile-actions">
+                      <button
+                        type="button"
+                        className="view-btn"
+                        onClick={() =>
+                          setSelectedPaper(
+                            paper
+                          )
+                        }
+                      >
+                        <Eye
+                          size={15}
+                        />
+                        View
+                      </button>
+
+                      {paper.paperFile && (
+                        <a
+                          href={getFileUrl(
+                            paper.paperFile
+                          )}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="original-btn"
+                        >
+                          <FileText
+                            size={
+                              15
+                            }
+                          />
+                          Paper
+                        </a>
+                      )}
+
+                      {isPublished ? (
+                        <button
+                          type="button"
+                          className="unpublish-btn"
+                          disabled={
+                            actionLoading ===
+                            `unpublish-${paper._id}`
+                          }
+                          onClick={() =>
+                            unpublishPaper(
+                              paper._id
+                            )
+                          }
+                        >
+                          <RefreshCw
+                            size={
+                              15
+                            }
+                          />
+                          Unpublish
+                        </button>
+                      ) : isAdminReady ? (
+                        <button
+                          type="button"
+                          className="publish-btn"
+                          disabled={
+                            actionLoading ===
+                            `publish-${paper._id}`
+                          }
+                          onClick={() =>
+                            publishPaper(
+                              paper._id
+                            )
+                          }
+                        >
+                          <CheckCircle2
+                            size={
+                              15
+                            }
+                          />
+                          Publish
+                        </button>
+                      ) : null}
+                    </div>
+                  </article>
+                );
+              }
+            )}
+          </div>
+        </>
       )}
 
-      {/* ✅ NEW FORM SUBMISSION MODAL (POST FUNCTION TO BACKEND) */}
-      {isCreateOpen && (
-        <div className="modalOverlay" onClick={() => setIsCreateOpen(false)}>
-          <div className="modalContent" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="closeModalBtn"
-              onClick={() => setIsCreateOpen(false)}
-            >
-              &times;
-            </button>
+      {/* =====================================================
+          DETAILS MODAL
+      ===================================================== */}
 
-            <div className="modalHeader">
-              <h2>Upload New Research Paper</h2>
-            </div>
+      {selectedPaper && (
+        <div
+          className="modal-overlay"
+          onClick={() =>
+            setSelectedPaper(null)
+          }
+        >
+          <div
+            className="modal-box"
+            onClick={(event) =>
+              event.stopPropagation()
+            }
+          >
+            {/* MODAL HEADER */}
 
-            <form
-              onSubmit={handleSubmit}
-              className="modalBody"
-              style={{ display: "flex", flexDirection: "column", gap: "16px" }}
-            >
+            <div className="modal-header">
               <div>
-                <label className="formLabel">Paper Title</label>
-                <input
-                  type="text"
-                  required
-                  value={newTitle}
-                  onChange={(e) => setNewTitle(e.target.value)}
-                  placeholder="Enter paper title"
-                  className="publicationSearch"
-                />
-              </div>
+                <span className="modal-label">
+                  PAPER DETAILS
+                </span>
 
-              <div>
-                <label className="formLabel">Abstract Description</label>
-                <textarea
-                  required
-                  value={newAbstract}
-                  onChange={(e) => setNewAbstract(e.target.value)}
-                  placeholder="Enter abstract data..."
-                  className="publicationSearch"
-                  style={{ height: "100px", resize: "vertical" }}
-                />
-              </div>
+                <h2>
+                  {
+                    selectedPaper.paperTitle
+                  }
+                </h2>
 
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "12px",
-                }}
-              >
-                <div>
-                  <label className="formLabel">Tags (Comma Separated)</label>
-                  <input
-                    type="text"
-                    value={newTags}
-                    onChange={(e) => setNewTags(e.target.value)}
-                    placeholder="AI, ML, Cloud"
-                    className="publicationSearch"
-                  />
+                <div className="modal-meta">
+                  <span>
+                    <FileText
+                      size={14}
+                    />
+
+                    {selectedPaper.paperId ||
+                      selectedPaper._id}
+                  </span>
+
+                  <span>
+                    Version{" "}
+                    {selectedPaper.version ||
+                      1}
+                  </span>
+
+                  <span
+                    className={`status-badge ${getStatusClass(
+                      selectedPaper.status
+                    )}`}
+                  >
+                    <span className="status-dot" />
+
+                    {
+                      selectedPaper.status
+                    }
+                  </span>
                 </div>
-                <div>
-                  <label className="formLabel">Country</label>
-                  <input
-                    type="text"
-                    value={newCountry}
-                    onChange={(e) => setNewCountry(e.target.value)}
-                    placeholder="e.g. USA, India"
-                    className="publicationSearch"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="formLabel">Research Domain / Area</label>
-                <input
-                  type="text"
-                  value={newResearchArea}
-                  onChange={(e) => setNewResearchArea(e.target.value)}
-                  placeholder="e.g. Data Science"
-                  className="publicationSearch"
-                />
-              </div>
-
-              <div>
-                <label className="formLabel">Select Author</label>
-                <select
-                  required
-                 value={selectedAuthor?._id || ""}
-                  onChange={(e) => {
-                    const found = authors.find((a) => a._id === e.target.value);
-                    setSelectedAuthor(found || null);
-                  }}
-                  className="publicationSearch"
-                  style={{ width: "100%" }}
-                >
-                  <option value="">Choose Author...</option>
-                  {authors.map((a, i) => (
-                    <option key={a._id} value={a._id}>
-                      {i + 1} {a.fullName} ({a.email})
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="formLabel">
-                  Upload Paper Document (PDF / DOCX)
-                </label>
-                <input
-                  type="file"
-                  required
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ color: "#888888", fontSize: "14px" }}
-                />
               </div>
 
               <button
-                type="submit"
-                className="viewBtn"
-                style={{
-                  marginTop: "12px",
-                  width: "100%",
-                  background: "linear-gradient(135deg, #10b881, #059669)",
-                }}
+                type="button"
+                className="modal-close"
+                onClick={() =>
+                  setSelectedPaper(
+                    null
+                  )
+                }
               >
-                Submit to Backend Server
+                <X size={20} />
               </button>
-            </form>
+            </div>
+
+            <div className="modal-content">
+              {/* PAPER INFORMATION */}
+
+              <section className="modal-section">
+                <div className="section-title">
+                  <BookOpen
+                    size={18}
+                  />
+
+                  <div>
+                    <h3>
+                      Paper Information
+                    </h3>
+
+                    <p>
+                      Research paper
+                      details.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="details-grid">
+                  <div>
+                    <span>
+                      Paper ID
+                    </span>
+
+                    <strong>
+                      {selectedPaper.paperId ||
+                        selectedPaper._id}
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      Version
+                    </span>
+
+                    <strong>
+                      V
+                      {selectedPaper.version ||
+                        1}
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      Research Area
+                    </span>
+
+                    <strong>
+                      {selectedPaper.researchArea ||
+                        "-"}
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      Country
+                    </span>
+
+                    <strong>
+                      {selectedPaper.country ||
+                        selectedPaper.address
+                          ?.country ||
+                        "-"}
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      Submitted
+                    </span>
+
+                    <strong>
+                      {formatDate(
+                        selectedPaper.createdAt
+                      )}
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      Updated
+                    </span>
+
+                    <strong>
+                      {formatDate(
+                        selectedPaper.updatedAt
+                      )}
+                    </strong>
+                  </div>
+                </div>
+
+                <div className="abstract-box">
+                  <span>
+                    Abstract
+                  </span>
+
+                  <p>
+                    {selectedPaper.abstract ||
+                      "No abstract available."}
+                  </p>
+                </div>
+              </section>
+
+              {/* AUTHOR */}
+
+              <section className="modal-section">
+                <div className="section-title">
+                  <User size={18} />
+
+                  <div>
+                    <h3>
+                      Author
+                    </h3>
+
+                    <p>
+                      Author information.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="author-detail">
+                  <div className="author-avatar large">
+                    <User
+                      size={22}
+                    />
+                  </div>
+
+                  <div>
+                    <strong>
+                      {getAuthorName(
+                        selectedPaper
+                      )}
+                    </strong>
+
+                    <span>
+                      <Mail
+                        size={14}
+                      />
+
+                      {getAuthorEmail(
+                        selectedPaper
+                      )}
+                    </span>
+
+                    <span>
+                      <Globe2
+                        size={14}
+                      />
+
+                      {selectedPaper.country ||
+                        selectedPaper.address
+                          ?.country ||
+                        "Country not available"}
+                    </span>
+                  </div>
+                </div>
+              </section>
+
+              {/* PUBLICATION DOCUMENTS */}
+
+              <section className="modal-section">
+                <div className="section-title publication-section-heading">
+                  <div className="section-title-left">
+                    <FileCheck2
+                      size={18}
+                    />
+
+                    <div>
+                      <h3>
+                        Publication Data
+                      </h3>
+
+                      <p>
+                        Current publication
+                        documents.
+                      </p>
+                    </div>
+                  </div>
+
+                  <span className="document-count">
+                    {
+                      getPublicationDocuments(
+                        selectedPaper
+                      ).length
+                    }{" "}
+                    Files
+                  </span>
+                </div>
+
+                <div className="document-list">
+                  {getPublicationDocuments(
+                    selectedPaper
+                  ).length === 0 ? (
+                    <div className="empty-documents">
+                      <AlertCircle
+                        size={25}
+                      />
+
+                      <h4>
+                        No publication
+                        documents
+                      </h4>
+
+                      <p>
+                        No publication
+                        documents are
+                        available for
+                        this paper.
+                      </p>
+                    </div>
+                  ) : (
+                    getPublicationDocuments(
+                      selectedPaper
+                    ).map(
+                      (document) => (
+                        <DocumentCard
+                          key={
+                            document.uniqueKey
+                          }
+                          document={
+                            document
+                          }
+                        />
+                      )
+                    )
+                  )}
+                </div>
+              </section>
+
+              {/* ORIGINAL PAPER */}
+
+              <section className="modal-section">
+                <div className="section-title">
+                  <FileText
+                    size={18}
+                  />
+
+                  <div>
+                    <h3>
+                      Original Paper
+                    </h3>
+
+                    <p>
+                      Original submitted
+                      research paper.
+                    </p>
+                  </div>
+                </div>
+
+                {selectedPaper.paperFile ? (
+                  <a
+                    href={getFileUrl(
+                      selectedPaper.paperFile
+                    )}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="open-original"
+                  >
+                    <FileText
+                      size={18}
+                    />
+
+                    Open Original Paper
+
+                    <ExternalLink
+                      size={16}
+                    />
+                  </a>
+                ) : (
+                  <div className="no-publication">
+                    <AlertCircle
+                      size={15}
+                    />
+
+                    Original paper
+                    not available.
+                  </div>
+                )}
+              </section>
+            </div>
+
+            {/* MODAL ACTIONS */}
+
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="close-btn"
+                onClick={() =>
+                  setSelectedPaper(
+                    null
+                  )
+                }
+              >
+                Close
+              </button>
+
+              {/* PUBLISH */}
+
+              {isPublishReady(
+                selectedPaper
+              ) &&
+                !selectedPaper.isPublished && (
+                  <button
+                    type="button"
+                    className="publish-btn modal-publish"
+                    disabled={
+                      actionLoading ===
+                      `publish-${selectedPaper._id}`
+                    }
+                    onClick={() =>
+                      publishPaper(
+                        selectedPaper._id
+                      )
+                    }
+                  >
+                    <CheckCircle2
+                      size={16}
+                    />
+
+                    {actionLoading ===
+                    `publish-${selectedPaper._id}`
+                      ? "Publishing..."
+                      : "Publish Paper"}
+                  </button>
+                )}
+
+              {/* UNPUBLISH */}
+
+              {(selectedPaper.isPublished ||
+                selectedPaper.status ===
+                  "Published") && (
+                <button
+                  type="button"
+                  className="unpublish-btn"
+                  disabled={
+                    actionLoading ===
+                    `unpublish-${selectedPaper._id}`
+                  }
+                  onClick={() =>
+                    unpublishPaper(
+                      selectedPaper._id
+                    )
+                  }
+                >
+                  <RefreshCw
+                    size={16}
+                  />
+
+                  {actionLoading ===
+                  `unpublish-${selectedPaper._id}`
+                    ? "Unpublishing..."
+                    : "Unpublish"}
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}

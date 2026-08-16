@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 const Papermanagement = () => {
   const [currentPage, setCurrentPage] = useState(1);
- const [cardsPerPage, setCardsPerPage] = useState(2);
+  const [cardsPerPage, setCardsPerPage] = useState(2);
 
   const [paperData, setPaperData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,120 +16,120 @@ const Papermanagement = () => {
   const [openMenu, setOpenMenu] = useState(null);
   const [showHistory, setShowHistory] = useState({});
 
-    const getAllPapers = async () => {
-      Swal.fire({
-        title: "Loading Papers...",
-        html: "Please wait while we fetch your papers.",
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        didOpen: () => {
-          Swal.showLoading();
-        },
-      });
-
-      try {
-        const token = localStorage.getItem("authorToken");
-
-        const { data } = await API.get("/submitform/my-papers", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (data.success) {
-          setPaperData(data.data);
-        }
-
-        Swal.close();
-      } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Failed to load papers.",
-          timer: 2000,
-          showConfirmButton: false,
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
- useEffect(() => {
-  const updateCardsPerPage = () => {
-    if (window.innerWidth <= 768) {
-      setCardsPerPage(1);
-    } else {
-      setCardsPerPage(2);
-    }
-  };
-
-  updateCardsPerPage();
-  getAllPapers();
-
-  window.addEventListener("resize", updateCardsPerPage);
-
-  return () => {
-    window.removeEventListener("resize", updateCardsPerPage);
-  };
-}, []);
-
-  const handleDelete = async (id) => {
-  const result = await Swal.fire({
-    title: "Delete Paper?",
-    text: "This action cannot be undone.",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#d33",
-    cancelButtonColor: "#3085d6",
-    confirmButtonText: "Yes, Delete",
-    cancelButtonText: "Cancel",
-  });
-
-  if (!result.isConfirmed) return;
-
-  Swal.fire({
-    title: "Deleting...",
-    html: "Please wait...",
-    allowOutsideClick: false,
-    didOpen: () => {
-      Swal.showLoading();
-    },
-  });
-
-  try {
-    const token = localStorage.getItem("authorToken");
-
-    const { data } = await API.delete(`/submitform/delete/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  const getAllPapers = async () => {
+    Swal.fire({
+      title: "Loading Papers...",
+      html: "Please wait while we fetch your papers.",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      didOpen: () => {
+        Swal.showLoading();
       },
     });
 
-    Swal.close();
+    try {
+      const token = localStorage.getItem("authorToken");
 
-    if (data.success) {
-      setPaperData((prev) => prev.filter((item) => item._id !== id));
+      const { data } = await API.get("/submitform/my-papers", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
+      if (data.success) {
+        setPaperData(data.data);
+      }
+
+      Swal.close();
+    } catch (error) {
       Swal.fire({
-        icon: "success",
-        title: "Deleted Successfully",
-        text: "Your paper has been deleted.",
+        icon: "error",
+        title: "Oops...",
+        text: "Failed to load papers.",
         timer: 2000,
+        showConfirmButton: false,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const updateCardsPerPage = () => {
+      if (window.innerWidth <= 768) {
+        setCardsPerPage(1);
+      } else {
+        setCardsPerPage(2);
+      }
+    };
+
+    updateCardsPerPage();
+    getAllPapers();
+
+    window.addEventListener("resize", updateCardsPerPage);
+
+    return () => {
+      window.removeEventListener("resize", updateCardsPerPage);
+    };
+  }, []);
+
+  const handleDelete = async (id) => {
+    const result = await Swal.fire({
+      title: "Delete Paper?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, Delete",
+      cancelButtonText: "Cancel",
+    });
+
+    if (!result.isConfirmed) return;
+
+    Swal.fire({
+      title: "Deleting...",
+      html: "Please wait...",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    try {
+      const token = localStorage.getItem("authorToken");
+
+      const { data } = await API.delete(`/submitform/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      Swal.close();
+
+      if (data.success) {
+        setPaperData((prev) => prev.filter((item) => item._id !== id));
+
+        Swal.fire({
+          icon: "success",
+          title: "Deleted Successfully",
+          text: "Your paper has been deleted.",
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+      }
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Delete Failed",
+        text: err.response?.data?.message || "Something went wrong.",
+        timer: 2500,
         timerProgressBar: true,
         showConfirmButton: false,
       });
     }
-  } catch (err) {
-    Swal.fire({
-      icon: "error",
-      title: "Delete Failed",
-      text: err.response?.data?.message || "Something went wrong.",
-      timer: 2500,
-      timerProgressBar: true,
-      showConfirmButton: false,
-    });
-  }
-};
+  };
 
   const handleEdit = (paper) => {
     navigate("/submit-paper", {
@@ -165,7 +165,6 @@ const Papermanagement = () => {
           <p>Manage and review all submitted research papers.</p>
         </div>
         <div className="paper-dashboard">
-
           <div className="dashboard-card total">
             <h3>Total Papers</h3>
             <h1>{paperData.length}</h1>
@@ -174,27 +173,29 @@ const Papermanagement = () => {
           <div className="dashboard-card submitted">
             <h3>Submitted</h3>
             <h1>
-              {paperData.filter(item => item.status === "Submitted").length}
+              {paperData.filter((item) => item.status === "Submitted").length}
             </h1>
           </div>
 
           <div className="dashboard-card revision">
             <h3>Revision Required</h3>
             <h1>
-              {paperData.filter(item => item.status === "Revision Required").length}
+              {
+                paperData.filter((item) => item.status === "Revision Required")
+                  .length
+              }
             </h1>
           </div>
 
           <div className="dashboard-card accepted">
             <h3>Accepted</h3>
             <h1>
-              {paperData.filter(item => item.status === "Accepted").length}
+              {paperData.filter((item) => item.status === "Accepted").length}
             </h1>
           </div>
-
         </div>
 
-      <div className="paper-management-grid two-column">
+        <div className="paper-management-grid two-column">
           {currentCards.map((paper) => {
             const feedbacks = [...(paper.feedbackHistory || [])].reverse();
             const latestFeedback = feedbacks[0];
@@ -268,27 +269,21 @@ const Papermanagement = () => {
 
                   <p>{paper.paperId}</p>
                 </div>
-<div className="paper-meta">
+                <div className="paper-meta">
+                  <div className="meta-card version">
+                    <span>Version</span>
 
-<div className="meta-card version">
+                    <h4>V{paper.version}</h4>
+                  </div>
 
-<span>Version</span>
+                  <div
+                    className={`meta-card status ${paper.status.replace(/\s+/g, "-").toLowerCase()}`}
+                  >
+                    <span>Status</span>
 
-<h4>V{paper.version}</h4>
-
-</div>
-
-<div
-className={`meta-card status ${paper.status.replace(/\s+/g,"-").toLowerCase()}`}
->
-
-<span>Status</span>
-
-<h4>{paper.status}</h4>
-
-</div>
-
-</div>
+                    <h4>{paper.status}</h4>
+                  </div>
+                </div>
                 {/* Feedback */}
                 <div className="paper-feedback">
                   <h3 className="feedback-heading">📝 Editor Feedback</h3>
@@ -365,47 +360,37 @@ className={`meta-card status ${paper.status.replace(/\s+/g,"-").toLowerCase()}`}
         </div>
 
         {/* Pagination */}
-       
-          <div className="paper-pagination">
 
-<button
-disabled={currentPage===1}
-onClick={()=>setCurrentPage(currentPage-1)}
->
-Previous
-</button>
+        <div className="paper-pagination">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(currentPage - 1)}
+          >
+            Previous
+          </button>
 
-{
-Array.from({length:totalPages},(_,index)=>(
-<button
-key={index}
-className={
-currentPage===index+1
-?
-"page-number active"
-:
-"page-number"
-}
-onClick={()=>setCurrentPage(index+1)}
->
-{index+1}
-</button>
-))
-}
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              className={
+                currentPage === index + 1 ? "page-number active" : "page-number"
+              }
+              onClick={() => setCurrentPage(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
 
-<button
-disabled={currentPage===totalPages}
-onClick={()=>setCurrentPage(currentPage+1)}
->
-Next
-</button>
-
-</div>
-
-</div>
-</section>
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage(currentPage + 1)}
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </section>
   );
 };
-
 
 export default Papermanagement;

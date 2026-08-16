@@ -10,7 +10,9 @@ import api from "../api/axios";
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  /* ================= GET SAVED ADMIN ================= */
+  /* =====================================================
+     GET SAVED ADMIN
+  ===================================================== */
 
   const [admin, setAdmin] = useState(() => {
     try {
@@ -20,19 +22,34 @@ export const AuthProvider = ({ children }) => {
         ? JSON.parse(savedAdmin)
         : null;
     } catch (error) {
+      console.error(
+        "SAVED ADMIN PARSE ERROR:",
+        error
+      );
+
       return null;
     }
   });
 
   const [loading, setLoading] = useState(true);
 
-  /* ================= CHECK ADMIN ================= */
+  /* =====================================================
+     CHECK ADMIN
+  ===================================================== */
 
   const checkAdmin = async () => {
     try {
-      const response = await api.get("/admin/profile");
+      const response =
+        await api.get("/admin/profile");
 
-      const adminData = response.data.admin;
+      const adminData =
+        response?.data?.admin;
+
+      if (!adminData) {
+        throw new Error(
+          "Admin profile data not found."
+        );
+      }
 
       setAdmin(adminData);
 
@@ -43,12 +60,14 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log(
         "PROFILE ERROR:",
-        error.response?.data || error.message
+        error.response?.data ||
+          error.message
       );
 
       /*
-        Only logout when backend confirms
-        authentication failed
+      ===================================================
+      ONLY CLEAR ADMIN STATE WHEN AUTH FAILED
+      ===================================================
       */
 
       if (
@@ -57,57 +76,179 @@ export const AuthProvider = ({ children }) => {
       ) {
         setAdmin(null);
 
-        // localStorage.removeItem("admin");
+        /*
+        Do not remove adminToken here immediately.
+        Axios/backend may be handling the session.
+        */
       }
     } finally {
       setLoading(false);
     }
   };
 
-  /* ================= LOGIN ================= */
+  /* =====================================================
+     LOGIN
+  ===================================================== */
 
- const login = async (email, password) => {
-  const response = await api.post("/admin/login", {
+  const login = async (
     email,
-    password,
-  });
+    password
+  ) => {
+    try {
+      console.log(
+        "========== ADMIN LOGIN =========="
+      );
 
-  const { admin, token } = response.data;
+      const response =
+        await api.post(
+          "/admin/login",
+          {
+            email,
+            password,
+          }
+        );
 
-  setAdmin(admin);
+      console.log(
+        "ADMIN LOGIN RESPONSE:",
+        response.data
+      );
 
-  localStorage.setItem("admin", token);
+      /*
+      ===================================================
+      GET LOGIN DATA
+      ===================================================
+      */
 
-  localStorage.setItem(
-    "admin",
-    JSON.stringify(admin)
-  );
+      const adminData =
+        response?.data?.admin;
 
-  return response.data;
-};
+      const token =
+        response?.data?.token ||
+        response?.data?.accessToken ||
+        response?.data?.data?.token ||
+        response?.data?.data?.accessToken;
 
-  /* ================= LOGOUT ================= */
+      /*
+      ===================================================
+      TOKEN VALIDATION
+      ===================================================
+      */
 
-const logout = async () => {
-  try {
-    await api.post("/admin/logout");
-  } catch (error) {
-    console.log("Logout error:", error);
-  } finally {
-    setAdmin(null);
+      if (!token) {
+        console.error(
+          "ADMIN TOKEN NOT FOUND:",
+          response.data
+        );
 
-    localStorage.removeItem("adminToken");
-    localStorage.removeItem("admin");
-  }
-};
+        throw new Error(
+          "Login successful, but authentication token was not returned."
+        );
+      }
 
-  /* ================= PAGE RELOAD ================= */
+      /*
+      ===================================================
+      ADMIN STATE
+      ===================================================
+      */
+
+      setAdmin(adminData || null);
+
+      /*
+      ===================================================
+      SAVE ADMIN TOKEN
+      ===================================================
+      */
+
+      localStorage.setItem(
+        "adminToken",
+        token
+      );
+
+      /*
+      ===================================================
+      SAVE ADMIN DATA
+      ===================================================
+      */
+
+      if (adminData) {
+        localStorage.setItem(
+          "admin",
+          JSON.stringify(adminData)
+        );
+      }
+
+      console.log(
+        "ADMIN TOKEN SAVED:",
+        Boolean(
+          localStorage.getItem(
+            "adminToken"
+          )
+        )
+      );
+
+      console.log(
+        "ADMIN SAVED:",
+        Boolean(
+          localStorage.getItem("admin")
+        )
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error(
+        "ADMIN LOGIN ERROR:",
+        error
+      );
+
+      throw error;
+    }
+  };
+
+  /* =====================================================
+     LOGOUT
+  ===================================================== */
+
+  const logout = async () => {
+    try {
+      await api.post(
+        "/admin/logout"
+      );
+    } catch (error) {
+      console.log(
+        "Logout error:",
+        error
+      );
+    } finally {
+      setAdmin(null);
+
+      localStorage.removeItem(
+        "adminToken"
+      );
+
+      localStorage.removeItem(
+        "admin"
+      );
+    }
+  };
+
+  /* =====================================================
+     PAGE RELOAD
+  ===================================================== */
 
   useEffect(() => {
     checkAdmin();
   }, []);
 
-  const isAuthenticated = Boolean(admin);
+  /* =====================================================
+     AUTH STATUS
+  ===================================================== */
+
+  const isAuthenticated =
+    Boolean(admin);
+
+  /* =====================================================
+     PROVIDER
+  ===================================================== */
 
   return (
     <AuthContext.Provider
@@ -125,10 +266,13 @@ const logout = async () => {
   );
 };
 
-/* ================= CUSTOM HOOK ================= */
+/* =====================================================
+   CUSTOM HOOK
+===================================================== */
 
 export const useAuth = () => {
-  const context = useContext(AuthContext);
+  const context =
+    useContext(AuthContext);
 
   if (!context) {
     throw new Error(

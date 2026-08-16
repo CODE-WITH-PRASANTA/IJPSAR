@@ -1,6 +1,7 @@
 /* ==========================================
-    SIDEBAR MAIN
+   SIDEBAR MAIN
 ========================================== */
+
 .Sidebar {
   width: 310px;
   min-width: 310px;
@@ -30,9 +31,11 @@
   border-radius: 20px;
 }
 
+
 /* ==========================================
-    HEADER
+   HEADER
 ========================================== */
+
 .Sidebar_Header {
   display: flex;
   align-items: center;
@@ -82,9 +85,11 @@
   font-size: 24px;
 }
 
+
 /* ==========================================
-    MENU
+   MENU
 ========================================== */
+
 .Sidebar_Menu {
   display: flex;
   flex-direction: column;
@@ -125,9 +130,11 @@
   color: #4f46e5;
 }
 
+
 /* ==========================================
-    PROFILE SECTION
+   PROFILE SECTION
 ========================================== */
+
 .Sidebar_Profile {
   height: 90px;
   padding: 0 18px;
@@ -171,9 +178,11 @@
   text-overflow: ellipsis;
 }
 
+
 /* ==========================================
-    PROFILE BUTTON
+   PROFILE BUTTON
 ========================================== */
+
 .Sidebar_ProfileButton {
   width: 38px;
   height: 38px;
@@ -200,9 +209,11 @@
   color: #4f46e5;
 }
 
+
 /* ==========================================
-    POPUPS & INTERACTIVE NOTIFICATIONS
+   POPUPS & INTERACTIVE NOTIFICATIONS
 ========================================== */
+
 .Sidebar_ProfilePopup,
 .Ticket_NotificationBox {
   position: absolute;
@@ -222,6 +233,7 @@
     opacity: 0;
     transform: translateY(10px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -259,7 +271,11 @@
   color: #ef4444;
 }
 
-/* Mini Message Alert Window */
+
+/* ==========================================
+   TICKET NOTIFICATION
+========================================== */
+
 .Ticket_NotificationHeader {
   display: flex;
   align-items: center;
@@ -312,9 +328,11 @@
   background: #4338ca;
 }
 
+
 /* ==========================================
-    COMPLAINT FORM STANDALONE MODAL
+   COMPLAINT FORM STANDALONE MODAL
 ========================================== */
+
 .Complaint_ModalOverlay {
   position: fixed;
   inset: 0;
@@ -328,8 +346,13 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .Complaint_ModalCard {
@@ -348,6 +371,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -416,6 +440,7 @@
   color: #111827;
   background: #ffffff;
   transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
 }
 
 .Form_Group input:focus,
@@ -464,6 +489,10 @@
 }
 
 
+/* ==========================================
+   NOTIFICATION BADGE
+========================================== */
+
 .notificationBadge {
   margin-left: auto;
   background: #ef4444;
@@ -478,9 +507,283 @@
   font-weight: 600;
 }
 
+
 /* ==========================================
-    OVERLAY & RESPONSIVE LAYOUTS
+   NOTIFICATION POPUP
 ========================================== */
+
+.Notification_PopBox {
+  position: absolute;
+  bottom: 80px;
+  left: 20px;
+  width: 320px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+  z-index: 10000;
+
+  /*
+    Important:
+    The popup itself does NOT scroll.
+    Only Notification_PopBody scrolls.
+  */
+  overflow: hidden;
+
+  padding: 0;
+}
+
+
+/* ==========================================
+   NOTIFICATION HEADER
+   HEADER STAYS FIXED
+========================================== */
+
+.Notification_PopHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  min-height: 52px;
+  padding: 10px 14px;
+
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+
+  position: relative;
+  z-index: 2;
+}
+
+.Notification_Header_Left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.Notification_PopHeader h5 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  white-space: nowrap;
+}
+
+.Notification_PopHeader button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+  transition: all 0.2s ease;
+}
+
+.Notification_PopHeader button:hover {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+
+/* ==========================================
+   MARK ALL READ BUTTON
+========================================== */
+
+.markAllBtn {
+  border: none;
+  background: transparent;
+  color: #4f46e5;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 5px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.markAllBtn:hover {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+
+/* ==========================================
+   NOTIFICATION BODY
+   ONLY THIS AREA IS SCROLLABLE
+========================================== */
+
+.Notification_PopBody {
+  /*
+    Maximum height of notification list.
+    Change to 400px / 450px if required.
+  */
+  max-height: 350px;
+
+  /*
+    Vertical scrolling only.
+  */
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /*
+    Prevent the notification body from expanding
+    the popup indefinitely.
+  */
+  overscroll-behavior: contain;
+
+  background: #ffffff;
+}
+
+
+/* ==========================================
+   CUSTOM SCROLLBAR
+========================================== */
+
+.Notification_PopBody::-webkit-scrollbar {
+  width: 6px;
+}
+
+.Notification_PopBody::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+.Notification_PopBody::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 20px;
+}
+
+.Notification_PopBody::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+
+/* Firefox scrollbar */
+
+.Notification_PopBody {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f8fafc;
+}
+
+
+/* ==========================================
+   NOTIFICATION ITEM
+========================================== */
+
+.Notification_Item {
+  padding: 12px 14px;
+  font-size: 12px;
+  color: #475569;
+
+  border-bottom: 1px solid #f1f5f9;
+
+  cursor: pointer;
+
+  background: #ffffff;
+
+  transition:
+    background 0.2s ease,
+    border-left 0.2s ease;
+}
+
+.Notification_Item:last-child {
+  border-bottom: none;
+}
+
+.Notification_Item:hover {
+  background: #f8fafc;
+}
+
+
+/* ==========================================
+   UNREAD NOTIFICATION
+========================================== */
+
+.Notification_Item.unread {
+  border-left: 3px solid #3b82f6;
+  padding-left: 11px;
+  background: #eff6ff;
+}
+
+.Notification_Item.unread:hover {
+  background: #dbeafe;
+}
+
+
+/* ==========================================
+   NOTIFICATION TITLE
+========================================== */
+
+.Notification_Item p {
+  margin: 0;
+}
+
+.Notification_Item p:first-child {
+  margin-bottom: 5px;
+}
+
+.Notification_Item strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+
+/* ==========================================
+   NOTIFICATION MESSAGE
+========================================== */
+
+.Notification_Item p:nth-child(2) {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #475569;
+
+  margin: 0;
+
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================
+   NOTIFICATION TIME
+========================================== */
+
+.Notification_Time {
+  display: block;
+  font-size: 10px;
+  color: #94a3b8;
+  margin-top: 6px;
+  line-height: 1.3;
+}
+
+
+/* ==========================================
+   NO NOTIFICATION
+========================================== */
+
+.noNotification {
+  margin: 0;
+  padding: 35px 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+
+/* ==========================================
+   OVERLAY & RESPONSIVE LAYOUTS
+========================================== */
+
 .Sidebar_Overlay {
   display: none;
 }
@@ -523,6 +826,11 @@
   }
 }
 
+
+/* ==========================================
+   MOBILE
+========================================== */
+
 @media (max-width: 576px) {
   .Sidebar {
     width: 290px;
@@ -536,57 +844,200 @@
   .Sidebar_MenuItem {
     font-size: 14px;
   }
-}
-.Notification_PopBox {
-  position: absolute;
-  bottom: 80px;
-  left: 20px;
-  width: 260px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-  padding: 12px;
+
+  /*
+    Notification popup responsive width
+  */
+  .Notification_PopBox {
+    width: calc(100vw - 30px);
+    max-width: 320px;
+    left: 15px;
+    bottom: 80px;
+  }
+
+  .Notification_PopBody {
+    max-height: 300px;
+  }
 }
 
-.Notification_PopHeader {
+
+
+/* ==========================================
+   NOTIFICATION HEADER BUTTONS
+========================================== */
+
+.Notification_Header_Left {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #f1f5f9;
-  padding-bottom: 6px;
-  margin-bottom: 8px;
+  gap: 6px;
+  min-width: 0;
 }
 
-.Notification_PopHeader h5 {
-  margin: 0;
-  font-size: 14px;
-  color: #1e293b;
+.Notification_Header_Left h5 {
+  margin-right: 4px;
 }
 
-.Notification_PopHeader button {
-  background: none;
+.markAllBtn,
+.clearAllBtn {
   border: none;
+  background: transparent;
+  font-size: 10px;
+  font-weight: 600;
   cursor: pointer;
-  color: #94a3b8;
+  padding: 5px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
 }
+
+.markAllBtn {
+  color: #4f46e5;
+}
+
+.markAllBtn:hover {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+.clearAllBtn {
+  color: #ef4444;
+}
+
+.clearAllBtn:hover {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+
+/* ==========================================
+   NOTIFICATION ITEM
+========================================== */
 
 .Notification_Item {
-  padding: 6px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+
+  padding: 12px 14px;
+
   font-size: 12px;
   color: #475569;
-  border-bottom: 1px dashed #f1f5f9;
+
+  border-bottom: 1px solid #f1f5f9;
+
+  background: #ffffff;
+
+  transition: background 0.2s ease;
+}
+
+.Notification_Item:hover {
+  background: #f8fafc;
 }
 
 .Notification_Item.unread {
-  border-left: 2px solid #3b82f6;
-  padding-left: 4px;
+  border-left: 3px solid #3b82f6;
+  padding-left: 11px;
+  background: #eff6ff;
 }
+
+
+/* ==========================================
+   NOTIFICATION CONTENT
+========================================== */
+
+.Notification_Content {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.Notification_Content p {
+  margin: 0;
+}
+
+.Notification_Content p:first-child {
+  margin-bottom: 5px;
+}
+
+.Notification_Content strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+.Notification_Content p:nth-child(2) {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #475569;
+  word-break: break-word;
+}
+
+
+/* ==========================================
+   SINGLE DELETE BUTTON
+========================================== */
+
+.deleteNotificationBtn {
+  width: 26px;
+  height: 26px;
+
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 6px;
+
+  background: transparent;
+  color: #94a3b8;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.deleteNotificationBtn svg {
+  font-size: 14px;
+}
+
+.deleteNotificationBtn:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+
+/* ==========================================
+   NOTIFICATION TIME
+========================================== */
 
 .Notification_Time {
   display: block;
   font-size: 10px;
   color: #94a3b8;
-  margin-top: 2px;
+  margin-top: 6px;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 576px) {
+  .Notification_Header_Left {
+    gap: 3px;
+  }
+
+  .Notification_Header_Left h5 {
+    font-size: 12px;
+  }
+
+  .markAllBtn,
+  .clearAllBtn {
+    font-size: 9px;
+    padding: 4px;
+  }
 }

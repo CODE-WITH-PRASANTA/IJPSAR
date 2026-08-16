@@ -1,344 +1,1058 @@
-* {
+/* =========================================================
+   PAPER MANAGEMENT
+   PREMIUM JOURNAL / EDITORIAL UI
+========================================================= */
+
+.paperManagement {
+  width: 100%;
+  min-height: 100%;
+  padding: 28px;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(79, 70, 229, 0.06),
+      transparent 30%
+    ),
+    #f7f8fc;
+
+  color: #172033;
+
   box-sizing: border-box;
 }
 
-.paperManagement {
-  padding: 25px;
-  background: #f8fafc;
-  min-height: 100vh;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-/* Header */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .paperHeader {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
-  gap: 16px;
-  flex-wrap: wrap;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  padding: 28px 30px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.96);
+
+  box-shadow:
+    0 10px 35px rgba(15, 23, 42, 0.06);
+
+  margin-bottom: 18px;
+}
+
+.paperHeaderText {
+  min-width: 0;
+}
+
+.paperEyebrow {
+  margin-bottom: 7px;
+
+  color: #4f46e5;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
 }
 
 .paperHeaderText h1 {
-  font-size: 28px;
-  font-weight: 700;
+  margin: 0;
+
   color: #111827;
-  margin: 0 0 4px 0;
-  letter-spacing: -0.02em;
+
+  font-size: 28px;
+  line-height: 1.2;
+
+  font-weight: 800;
+  letter-spacing: -0.025em;
 }
 
 .paperHeaderText p {
-  color: #64748b;
-  font-size: 14px;
-  margin: 0;
+  margin: 8px 0 0;
+
+  color: #6b7280;
+
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .paperCount {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 12px;
-  font-weight: 600;
+  min-width: 125px;
+
+  padding: 15px 18px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  line-height: 1.3;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
-  min-width: 140px;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #eef2ff,
+      #f5f3ff
+    );
+
+  border: 1px solid #ddd6fe;
 }
 
 .paperCountNum {
-  font-size: 22px;
+  color: #4338ca;
+
+  font-size: 26px;
+  line-height: 1;
+
   font-weight: 800;
 }
 
-/* Stats */
+.paperCount span:last-child {
+  margin-top: 5px;
+
+  color: #6366f1;
+
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* =========================================================
+   WORKFLOW BANNER
+========================================================= */
+
+.workflowBanner {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  margin-bottom: 20px;
+  padding: 15px 18px;
+
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      100deg,
+      #eff6ff,
+      #f5f3ff
+    );
+}
+
+.workflowBannerIcon {
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #4f46e5;
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.workflowBannerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.workflowBannerContent strong {
+  color: #1e1b4b;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.workflowBannerContent span {
+  color: #4b5563;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.workflowBannerContent b {
+  color: #4338ca;
+}
+
+/* =========================================================
+   STATS
+========================================================= */
 
 .paperStats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-bottom: 25px;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 15px;
+
+  margin-bottom: 20px;
 }
 
 .statCard {
-  background: white;
+  position: relative;
+
+  overflow: hidden;
+
   padding: 20px;
+
+  border: 1px solid #e5e7eb;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  border-left: 4px solid #cbd5e1;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 5px 20px rgba(15, 23, 42, 0.045);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
+.statCard:hover {
+  transform: translateY(-2px);
 
-.statCard h4 {
-  color: #64748b;
-  font-size: 13px;
-  font-weight: 600;
-  margin: 0 0 8px 0;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  box-shadow:
+    0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.statCard::after {
+  content: "";
+
+  position: absolute;
+
+  right: -28px;
+  bottom: -35px;
+
+  width: 100px;
+  height: 100px;
+
+  border-radius: 50%;
+
+  background: rgba(79, 70, 229, 0.05);
+}
+
+.statCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.statCardTop > span {
+  color: #6b7280;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.11em;
+}
+
+.statIcon {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #eef2ff;
+
+  color: #4f46e5;
+
+  font-size: 14px;
 }
 
 .statCard h2 {
+  position: relative;
+  z-index: 1;
+
+  margin: 13px 0 3px;
+
   color: #111827;
-  font-size: 30px;
+
+  font-size: 27px;
+  line-height: 1;
+
+  font-weight: 800;
+}
+
+.statCard p {
   margin: 0;
+
+  color: #9ca3af;
+
+  font-size: 10px;
 }
 
-.statEditing {
-  border-left-color: #f59e0b;
-}
-.statPending {
-  border-left-color: #3b82f6;
-}
-.statAccepted {
-  border-left-color: #10b981;
+.statEditing .statIcon {
+  background: #eff6ff;
+  color: #2563eb;
 }
 
-/* Search */
+.statPending .statIcon {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.statAccepted .statIcon {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.searchSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-bottom: 14px;
+}
 
 .searchWrapper {
   position: relative;
-  margin-bottom: 20px;
+
+  width: min(560px, 100%);
 }
 
 .searchIcon {
   position: absolute;
-  left: 16px;
+
+  left: 15px;
   top: 50%;
+
   transform: translateY(-50%);
-  color: #94a3b8;
+
+  color: #9ca3af;
+
   pointer-events: none;
 }
 
 .paperSearch {
   width: 100%;
-  padding: 14px 42px;
+  height: 45px;
+
+  box-sizing: border-box;
+
+  padding:
+    0 42px
+    0 43px;
+
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
-  border: 1px solid #dbe2ea;
+
   outline: none;
-  font-size: 15px;
-  background: white;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  background: #ffffff;
+
+  color: #1f2937;
+
+  font-size: 12px;
+
+  box-shadow:
+    0 3px 12px rgba(15, 23, 42, 0.035);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .paperSearch:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  border-color: #818cf8;
+
+  box-shadow:
+    0 0 0 4px
+      rgba(99, 102, 241, 0.08);
+}
+
+.paperSearch::placeholder {
+  color: #a1a1aa;
 }
 
 .clearSearch {
   position: absolute;
-  right: 12px;
+
+  right: 10px;
   top: 50%;
+
   transform: translateY(-50%);
-  background: #f1f5f9;
-  border: none;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  color: #64748b;
-  font-size: 12px;
+
+  width: 27px;
+  height: 27px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  border: none;
+  border-radius: 7px;
+
+  background: #f1f5f9;
+
+  color: #64748b;
+
+  cursor: pointer;
+
+  font-size: 15px;
 }
 
+.clearSearch:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
 
+.searchResultCount {
+  color: #94a3b8;
 
-/* Table */
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
 
 .paperTableWrapper {
-  background: white;
-  border-radius: 20px;
+  width: 100%;
+
   overflow: hidden;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 30px rgba(15, 23, 42, 0.055);
 }
+
+/* =========================================================
+   TABLE
+========================================================= */
 
 .paperTable {
   width: 100%;
+
   border-collapse: collapse;
+
+  table-layout: auto;
 }
 
 .paperTable thead {
-  background: #0f172a;
-  color: white;
+  background:
+    linear-gradient(
+      180deg,
+      #fafbff,
+      #f7f8fc
+    );
 }
 
 .paperTable th {
-  padding: 16px;
+  padding: 14px 16px;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  color: #64748b;
+
+  font-size: 9px;
+  font-weight: 800;
+
   text-align: left;
-  font-size: 13px;
-  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+
+  letter-spacing: 0.08em;
+
+  white-space: nowrap;
 }
 
 .paperTable td {
   padding: 16px;
+
   border-bottom: 1px solid #f1f5f9;
-  color: #1e293b;
-  font-size: 14px;
+
+  color: #475569;
+
+  font-size: 12px;
+
+  vertical-align: middle;
 }
 
-.paperTable tr:last-child td {
+.paperTable tbody tr {
+  transition:
+    background 0.18s ease;
+}
+
+.paperTable tbody tr:hover {
+  background: #fafbff;
+}
+
+.paperTable tbody tr:last-child td {
   border-bottom: none;
 }
 
-
+/* =========================================================
+   PAPER ID
+========================================================= */
 
 .paperIdCell {
-  font-weight: 600;
-  color: #2563eb;
+  display: inline-flex;
+
+  padding: 6px 9px;
+
+  border-radius: 7px;
+
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+
+  color: #475569;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.04em;
+}
+
+/* =========================================================
+   PAPER TITLE
+========================================================= */
+
+.paperTitleWrapper {
+  min-width: 180px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .paperTitleCell {
-  font-weight: 500;
+  display: block;
+
+  max-width: 280px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  color: #1e293b;
+
+  font-size: 12px;
+  line-height: 1.45;
+
+  font-weight: 700;
 }
 
-/* Status badges */
+.paperVersion {
+  color: #94a3b8;
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.researchAreaCell {
+  color: #64748b;
+  font-size: 11px;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
 
 .statusBadge {
-  display: inline-block;
-  padding: 6px 14px;
-  border-radius: 30px;
-  font-size: 12px;
-  font-weight: 600;
-  background: #dbeafe;
-  color: #2563eb;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 9px;
+
+  border: 1px solid transparent;
+  border-radius: 20px;
+
+  font-size: 9px;
+  font-weight: 800;
+
   white-space: nowrap;
 }
 
+.statusDot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+}
+
+/* Submitted */
+
+.status-submitted {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #64748b;
+}
+
+/* Editor Assigned */
+
+.status-assigned {
+  background: #f5f3ff;
+  border-color: #ddd6fe;
+  color: #7c3aed;
+}
+
+/* Editing */
+
 .status-editing {
-  background: #fef3c7;
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #2563eb;
+}
+
+/* Review Pending */
+
+.status-pending {
+  background: #fffbeb;
+  border-color: #fde68a;
   color: #b45309;
 }
 
-.status-pending {
-  background: #dbeafe;
-  color: #1d4ed8;
+/* Revision Required */
+
+.status-revision {
+  background: #fff7ed;
+  border-color: #fed7aa;
+  color: #c2410c;
 }
 
+/* Accepted */
+
 .status-accepted {
-  background: #d1fae5;
+  background: #ecfdf5;
+  border-color: #a7f3d0;
   color: #047857;
 }
 
+/* Rejected */
+
 .status-rejected {
-  background: #fee2e2;
-  color: #b91c1c;
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
 }
 
-/* Buttons */
+/* Completed */
+
+.status-completed {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #15803d;
+}
+
+/* Published */
+
+.status-published {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  color: #4338ca;
+}
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.dateCell {
+  color: #64748b;
+
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
 
 .actionBtns {
   display: flex;
-  gap: 10px;
+  align-items: center;
   flex-wrap: wrap;
+
+  gap: 6px;
+
+  min-width: 245px;
 }
 
-.viewBtn,
-.removeBtn {
-  border: none;
-  padding: 9px 16px;
-  border-radius: 8px;
+.actionBtns button {
+  height: 30px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  padding: 0 10px;
+
+  border-radius: 7px;
+
+  font-size: 10px;
+  font-weight: 700;
+
   cursor: pointer;
-  font-weight: 600;
-  font-size: 13px;
-  transition: background 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    background 0.16s ease;
 }
 
-.viewBtn {
-  background: #10b981;
-  color: white;
+.actionBtns button:hover:not(:disabled) {
+  transform: translateY(-1px);
 }
 
-
-
-.viewBtn:active {
-  transform: scale(0.97);
-}
-
-.removeBtn {
-  background: #ef4444;
-  color: white;
-}
-
-
-
-.removeBtn:active:not(:disabled) {
-  transform: scale(0.97);
-}
-
-.removeBtn:disabled {
-  opacity: 0.6;
+.actionBtns button:disabled {
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
-/* Loading */
-
-.loadingState {
-  background: white;
-  padding: 60px 20px;
-  text-align: center;
-  border-radius: 16px;
-  color: #64748b;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+.actionIcon {
+  font-size: 12px;
+  line-height: 1;
 }
 
-.spinner {
-  width: 36px;
-  height: 36px;
-  border: 3px solid #e2e8f0;
-  border-top-color: #2563eb;
+/* View */
+
+.viewBtn {
+  border: 1px solid #c7d2fe;
+
+  background: #eef2ff;
+
+  color: #4338ca;
+}
+
+.viewBtn:hover:not(:disabled) {
+  background: #e0e7ff;
+
+  box-shadow:
+    0 4px 12px
+      rgba(79, 70, 229, 0.12);
+}
+
+/* Edit */
+
+.editBtn {
+  border: 1px solid #bae6fd;
+
+  background: #f0f9ff;
+
+  color: #0369a1;
+}
+
+.editBtn:hover:not(:disabled) {
+  background: #e0f2fe;
+
+  box-shadow:
+    0 4px 12px
+      rgba(14, 165, 233, 0.12);
+}
+
+/* =========================================================
+   ACCEPT BUTTON
+========================================================= */
+
+.acceptBtn {
+  position: relative;
+
+  border: 1px solid #a7f3d0;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ecfdf5,
+      #d1fae5
+    );
+
+  color: #047857;
+}
+
+.acceptBtn:hover:not(:disabled) {
+  background:
+    linear-gradient(
+      135deg,
+      #d1fae5,
+      #a7f3d0
+    );
+
+  border-color: #6ee7b7;
+
+  box-shadow:
+    0 5px 14px
+      rgba(5, 150, 105, 0.15);
+}
+
+.acceptBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   ACCEPTED LABEL
+========================================================= */
+
+.acceptedLabel {
+  display: inline-flex;
+  align-items: center;
+
+  height: 30px;
+
+  padding: 0 9px;
+
+  border-radius: 7px;
+
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+
+  color: #047857;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   REMOVE
+========================================================= */
+
+.removeBtn {
+  border: 1px solid #fecaca;
+
+  background: #ffffff;
+
+  color: #dc2626;
+}
+
+.removeBtn:hover:not(:disabled) {
+  background: #fef2f2;
+
+  box-shadow:
+    0 4px 12px
+      rgba(220, 38, 38, 0.09);
+}
+
+/* =========================================================
+   BUTTON SPINNER
+========================================================= */
+
+.buttonSpinner {
+  width: 11px;
+  height: 11px;
+
+  border: 2px solid
+    rgba(4, 120, 87, 0.25);
+
+  border-top-color: #047857;
+
   border-radius: 50%;
-  margin: 0 auto 14px;
-  animation: spin 0.8s linear infinite;
+
+  animation:
+    buttonSpin 0.7s linear infinite;
 }
 
-@keyframes spin {
+.buttonSpinner.dark {
+  border-color:
+    rgba(220, 38, 38, 0.2);
+
+  border-top-color: #dc2626;
+}
+
+@keyframes buttonSpin {
   to {
     transform: rotate(360deg);
   }
 }
 
-/* Empty */
+/* =========================================================
+   LOADING
+========================================================= */
 
-.emptyPaper {
-  background: white;
-  padding: 50px 20px;
-  text-align: center;
-  border-radius: 16px;
-  color: #64748b;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+.paperLoadingCard {
+  min-height: 380px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 10px 35px
+      rgba(15, 23, 42, 0.05);
 }
 
-.emptyIcon {
-  font-size: 40px;
-  margin: 0 0 10px 0;
+.paperLoadingSpinner {
+  width: 38px;
+  height: 38px;
+
+  margin-bottom: 16px;
+
+  border: 3px solid #e0e7ff;
+  border-top-color: #4f46e5;
+
+  border-radius: 50%;
+
+  animation:
+    buttonSpin 0.8s linear infinite;
+}
+
+.paperLoadingCard h3 {
+  margin: 0 0 5px;
+
+  color: #1e293b;
+
+  font-size: 16px;
+}
+
+.paperLoadingCard p {
+  margin: 0;
+
+  color: #94a3b8;
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.emptyPaper {
+  min-height: 350px;
+
+  padding: 40px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 30px
+      rgba(15, 23, 42, 0.045);
+}
+
+.emptyPaperIcon {
+  width: 58px;
+  height: 58px;
+
+  margin-bottom: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background: #f1f5f9;
+
+  font-size: 25px;
 }
 
 .emptyPaper h3 {
-  color: #111827;
-  margin: 0 0 6px 0;
-  font-size: 18px;
+  margin: 0 0 6px;
+
+  color: #334155;
+
+  font-size: 17px;
 }
 
 .emptyPaper p {
   margin: 0;
-  font-size: 14px;
+
+  color: #94a3b8;
+
+  font-size: 12px;
 }
 
-/* Responsive */
+.clearSearchButton {
+  margin-top: 17px;
 
-@media (max-width: 992px) {
+  padding: 9px 14px;
+
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+
+  background: #eef2ff;
+
+  color: #4338ca;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   MOBILE CARDS
+========================================================= */
+
+.mobilePaperCards {
+  display: none;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+  .paperManagement {
+    padding: 22px;
+  }
+
   .paperStats {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .paperTable {
+    min-width: 1050px;
+  }
+
+  .paperTableWrapper {
+    overflow-x: auto;
   }
 }
+
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media (max-width: 768px) {
   .paperManagement {
@@ -346,96 +1060,633 @@
   }
 
   .paperHeader {
-    flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
+    flex-direction: column;
+
+    padding: 21px;
+  }
+
+  .paperHeaderText h1 {
+    font-size: 23px;
   }
 
   .paperCount {
-    align-self: stretch;
+    width: 100%;
+    box-sizing: border-box;
+
     flex-direction: row;
-    justify-content: space-between;
-    padding: 12px 18px;
+
+    justify-content: flex-start;
+
+    gap: 10px;
+  }
+
+  .paperCountNum {
+    font-size: 22px;
+  }
+
+  .paperCount span:last-child {
+    margin-top: 0;
+  }
+
+  .workflowBanner {
+    align-items: flex-start;
   }
 
   .paperStats {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .searchSection {
+    align-items: stretch;
+    flex-direction: column;
+
+    gap: 8px;
+  }
+
+  .searchWrapper {
+    width: 100%;
+  }
+
+  .searchResultCount {
+    text-align: right;
+  }
+
+  .paperTable {
+    display: none;
+  }
+
+  .paperTableWrapper {
+    overflow: visible;
+
+    border: none;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .mobilePaperCards {
+    display: flex;
+
+    flex-direction: column;
+
     gap: 12px;
   }
 
+  .mobilePaperCard {
+    padding: 16px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 15px;
+
+    background: #ffffff;
+
+    box-shadow:
+      0 5px 18px
+        rgba(15, 23, 42, 0.045);
+  }
+
+  .mobilePaperCardTop {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 15px;
+  }
+
+  .mobilePaperId {
+    color: #6366f1;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 0.07em;
+  }
+
+  .mobilePaperCard h3 {
+    max-width: 100%;
+
+    margin: 5px 0 0;
+
+    color: #1e293b;
+
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .mobilePaperMeta {
+    display: grid;
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    gap: 8px;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+  }
+
+  .mobilePaperMeta div {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mobilePaperMeta span {
+    color: #94a3b8;
+
+    font-size: 8px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .mobilePaperMeta strong {
+    overflow: hidden;
+
+    color: #475569;
+
+    font-size: 10px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobileActionBtns {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 7px;
+
+    margin-top: 12px;
+  }
+
+  .mobileActionBtns button {
+    min-height: 34px;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .mobileActionBtns .acceptedLabel {
+    min-height: 34px;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+  .paperManagement {
+    padding: 11px;
+  }
+
+  .paperHeader {
+    padding: 18px;
+
+    border-radius: 14px;
+  }
+
+  .paperHeaderText h1 {
+    font-size: 21px;
+  }
+
+  .paperHeaderText p {
+    font-size: 11px;
+  }
+
+  .paperCount {
+    padding: 12px 14px;
+  }
+
+  .workflowBanner {
+    padding: 12px;
+  }
+
+  .workflowBannerIcon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .workflowBannerContent span {
+    font-size: 10px;
+  }
+
+  .paperStats {
+    grid-template-columns: 1fr;
+  }
+
   .statCard {
-    padding: 14px;
+    padding: 16px;
   }
 
   .statCard h2 {
     font-size: 24px;
   }
 
-  /* Convert table to stacked cards */
-  .paperTable thead {
-    display: none;
+  .paperSearch {
+    height: 42px;
+
+    font-size: 11px;
   }
 
-  .paperTable,
-  .paperTable tbody,
-  .paperTable tr,
-  .paperTable td {
-    display: block;
-    width: 100%;
+  .mobilePaperCard {
+    padding: 13px;
   }
 
-  .paperTableWrapper {
-    box-shadow: none;
-    background: transparent;
-    border-radius: 0;
+  .mobilePaperCardTop {
+    flex-direction: column;
   }
 
-  .paperTable tr {
-    background: white;
-    border-radius: 14px;
-    margin-bottom: 14px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    padding: 6px 0;
+  .mobilePaperCardTop .statusBadge {
+    align-self: flex-start;
   }
 
-  .paperTable td {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 16px;
-    border-bottom: 1px solid #f1f5f9;
-    text-align: right;
-    gap: 12px;
+  .mobilePaperMeta {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .paperTable td::before {
-    content: attr(data-label);
-    font-weight: 600;
-    color: #64748b;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    text-align: left;
+  .mobilePaperMeta div:last-child {
+    grid-column: 1 / -1;
   }
 
-  .paperTable tr td:last-child {
-    border-bottom: none;
+  .mobileActionBtns {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 
-  .actionBtns {
-    justify-content: flex-end;
+  .mobileActionBtns .acceptBtn,
+  .mobileActionBtns .removeBtn {
+    grid-column: span 1;
+  }
+}
+
+/* =========================================================
+   VERY SMALL DEVICES
+========================================================= */
+
+@media (max-width: 350px) {
+  .paperManagement {
+    padding: 8px;
+  }
+
+  .paperHeaderText h1 {
+    font-size: 19px;
+  }
+
+  .mobileActionBtns {
+    grid-template-columns: 1fr;
+  }
+
+  .mobileActionBtns button,
+  .mobileActionBtns .acceptedLabel {
     width: 100%;
   }
 }
 
-@media (max-width: 480px) {
-  .paperStats {
-    grid-template-columns: 1fr;
+
+
+/* =========================================================
+   PAPER MANAGEMENT - LARGER TYPOGRAPHY
+========================================================= */
+
+.paperManagement {
+  font-size: 14px;
+}
+
+/* HEADER */
+
+.paperEyebrow {
+  font-size: 12px;
+}
+
+.paperHeaderText h1 {
+  font-size: 32px;
+}
+
+.paperHeaderText p {
+  font-size: 15px;
+}
+
+.paperCountNum {
+  font-size: 30px;
+}
+
+.paperCount span:last-child {
+  font-size: 12px;
+}
+
+/* WORKFLOW */
+
+.workflowBannerContent strong {
+  font-size: 14px;
+}
+
+.workflowBannerContent span {
+  font-size: 14px;
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.statCardTop > span {
+  font-size: 11px;
+}
+
+.statIcon {
+  font-size: 16px;
+}
+
+.statCard h2 {
+  font-size: 32px;
+}
+
+.statCard p {
+  font-size: 12px;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.paperSearch {
+  height: 50px;
+  font-size: 14px;
+}
+
+.clearSearch {
+  font-size: 17px;
+}
+
+.searchResultCount {
+  font-size: 13px;
+}
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.paperTable th {
+  padding: 16px 18px;
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   TABLE CONTENT
+========================================================= */
+
+.paperTable td {
+  padding: 18px;
+
+  font-size: 14px;
+}
+
+/* PAPER ID */
+
+.paperIdCell {
+  padding: 7px 10px;
+
+  font-size: 12px;
+}
+
+/* TITLE */
+
+.paperTitleCell {
+  max-width: 320px;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.paperVersion {
+  font-size: 11px;
+}
+
+/* RESEARCH AREA */
+
+.researchAreaCell {
+  font-size: 13px;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.statusBadge {
+  padding: 7px 11px;
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.dateCell {
+  font-size: 13px;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.actionBtns button {
+  height: 36px;
+
+  padding: 0 13px;
+
+  font-size: 12px;
+}
+
+.actionIcon {
+  font-size: 14px;
+}
+
+.acceptedLabel {
+  height: 36px;
+
+  padding: 0 12px;
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.emptyPaper h3 {
+  font-size: 20px;
+}
+
+.emptyPaper p {
+  font-size: 14px;
+}
+
+.clearSearchButton {
+  padding: 10px 16px;
+
+  font-size: 13px;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.paperLoadingCard h3 {
+  font-size: 19px;
+}
+
+.paperLoadingCard p {
+  font-size: 14px;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .paperHeaderText h1 {
+    font-size: 27px;
   }
 
-  .paperCount {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
+  .paperHeaderText p {
+    font-size: 14px;
+  }
+
+  .paperCountNum {
+    font-size: 27px;
+  }
+
+  .paperCount span:last-child {
+    font-size: 11px;
+  }
+
+  .workflowBannerContent strong {
+    font-size: 13px;
+  }
+
+  .workflowBannerContent span {
+    font-size: 13px;
+  }
+
+  .statCardTop > span {
+    font-size: 10px;
+  }
+
+  .statCard h2 {
+    font-size: 29px;
+  }
+
+  .statCard p {
+    font-size: 12px;
+  }
+
+  .paperSearch {
+    height: 48px;
+
+    font-size: 14px;
+  }
+
+  .searchResultCount {
+    font-size: 12px;
+  }
+
+  .mobilePaperId {
+    font-size: 11px;
+  }
+
+  .mobilePaperCard h3 {
+    font-size: 16px;
+  }
+
+  .mobilePaperMeta span {
+    font-size: 10px;
+  }
+
+  .mobilePaperMeta strong {
+    font-size: 12px;
+  }
+
+  .mobileActionBtns button {
+    min-height: 40px;
+
+    font-size: 12px;
+  }
+
+  .mobileActionBtns .acceptedLabel {
+    min-height: 40px;
+
+    font-size: 12px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .paperHeaderText h1 {
+    font-size: 24px;
+  }
+
+  .paperHeaderText p {
+    font-size: 13px;
+  }
+
+  .workflowBannerContent strong {
+    font-size: 12px;
+  }
+
+  .workflowBannerContent span {
+    font-size: 12px;
+  }
+
+  .statCard h2 {
+    font-size: 27px;
+  }
+
+  .paperSearch {
+    height: 46px;
+
+    font-size: 13px;
+  }
+
+  .mobilePaperCard h3 {
+    font-size: 15px;
+  }
+
+  .mobilePaperMeta span {
+    font-size: 9px;
+  }
+
+  .mobilePaperMeta strong {
+    font-size: 11px;
+  }
+
+  .mobileActionBtns button {
+    min-height: 38px;
+
+    font-size: 11px;
   }
 }

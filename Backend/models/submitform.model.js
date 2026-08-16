@@ -1,15 +1,39 @@
 const mongoose = require("mongoose");
 
+/* =========================================================
+   AUTHOR SCHEMA
+========================================================= */
+
 const AuthorSchema = new mongoose.Schema({
   fullName: {
     type: String,
     required: true,
   },
-  designation: String,
-  organization: String,
-  contactNumber: String,
-  email: String,
+
+  designation: {
+    type: String,
+    default: "",
+  },
+
+  organization: {
+    type: String,
+    default: "",
+  },
+
+  contactNumber: {
+    type: String,
+    default: "",
+  },
+
+  email: {
+    type: String,
+    default: "",
+  },
 });
+
+/* =========================================================
+   REVISION SCHEMA
+========================================================= */
 
 const RevisionSchema = new mongoose.Schema(
   {
@@ -33,8 +57,14 @@ const RevisionSchema = new mongoose.Schema(
       default: Date.now,
     },
   },
-  { _id: false },
+  {
+    _id: false,
+  },
 );
+
+/* =========================================================
+   FEEDBACK SCHEMA
+========================================================= */
 
 const FeedbackSchema = new mongoose.Schema(
   {
@@ -61,6 +91,7 @@ const FeedbackSchema = new mongoose.Schema(
     editorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Editor",
+      default: null,
     },
 
     editorName: {
@@ -73,12 +104,166 @@ const FeedbackSchema = new mongoose.Schema(
       default: Date.now,
     },
   },
-  { _id: false }
+  {
+    _id: false,
+  },
 );
+
+/* =========================================================
+   PUBLICATION FILE SCHEMA
+========================================================= */
+
+const PublicationFileSchema = new mongoose.Schema(
+  {
+    file: {
+      type: String,
+      default: "",
+    },
+
+    version: {
+      type: Number,
+      default: 1,
+    },
+
+    originalName: {
+      type: String,
+      default: "",
+    },
+
+    uploadedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: null,
+    },
+
+    uploadedByRole: {
+      type: String,
+      enum: ["Author", "Editor", "Admin"],
+      default: null,
+    },
+
+    uploadedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    _id: false,
+  },
+);
+
+/* =========================================================
+   AUTHOR PHOTOGRAPH SCHEMA
+========================================================= */
+
+const AuthorPhotographSchema = new mongoose.Schema(
+  {
+    file: {
+      type: String,
+      required: true,
+    },
+
+    originalName: {
+      type: String,
+      default: "",
+    },
+
+    uploadedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    _id: false,
+  },
+);
+
+/* =========================================================
+   SUPPORTING FILE SCHEMA
+========================================================= */
+
+const SupportingFileSchema = new mongoose.Schema(
+  {
+    file: {
+      type: String,
+      required: true,
+    },
+
+    originalName: {
+      type: String,
+      default: "",
+    },
+
+    mimeType: {
+      type: String,
+      default: "",
+    },
+
+    uploadedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    _id: false,
+  },
+);
+
+/* =========================================================
+   GALLEY PROOF HISTORY
+========================================================= */
+
+const GalleyProofHistorySchema = new mongoose.Schema(
+  {
+    version: {
+      type: Number,
+      required: true,
+    },
+
+    file: {
+      type: String,
+      required: true,
+    },
+
+    originalName: {
+      type: String,
+      default: "",
+    },
+
+    uploadedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: null,
+    },
+
+    uploadedByRole: {
+      type: String,
+      enum: ["Author", "Editor", "Admin"],
+      default: null,
+    },
+
+    remarks: {
+      type: String,
+      default: "",
+    },
+
+    uploadedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    _id: false,
+  },
+);
+
+/* =========================================================
+   SUBMIT FORM SCHEMA
+========================================================= */
 
 const SubmitFormSchema = new mongoose.Schema(
   {
-    /* ================= LOGGED IN AUTHOR ================= */
+    /* =====================================================
+       AUTHOR
+    ===================================================== */
 
     authorId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -86,7 +271,9 @@ const SubmitFormSchema = new mongoose.Schema(
       required: true,
     },
 
-    /* ================= PAPER INFO ================= */
+    /* =====================================================
+       PAPER INFORMATION
+    ===================================================== */
 
     paperId: {
       type: String,
@@ -104,9 +291,15 @@ const SubmitFormSchema = new mongoose.Schema(
       required: true,
     },
 
-    keywords: [String],
+    keywords: {
+      type: [String],
+      default: [],
+    },
 
-    researchArea: String,
+    researchArea: {
+      type: String,
+      default: "",
+    },
 
     paperFile: {
       type: String,
@@ -123,46 +316,93 @@ const SubmitFormSchema = new mongoose.Schema(
       default: "",
     },
 
-    /* ================= REVISION HISTORY ================= */
+    /* =====================================================
+       PAPER REVISIONS
+    ===================================================== */
 
     revisions: {
       type: [RevisionSchema],
       default: [],
     },
 
-    /* ================= FEEDBACK HISTORY ================= */
-
-   
-    
+    /* =====================================================
+       FEEDBACK
+    ===================================================== */
 
     feedbackHistory: {
       type: [FeedbackSchema],
       default: [],
     },
-    /* ================= AUTHOR INFO ================= */
 
-    authorCategory: String,
+    /* =====================================================
+       AUTHOR INFORMATION
+    ===================================================== */
 
-    totalAuthors: Number,
-
-    authors: [AuthorSchema],
-
-    mobileCountryCode: String,
-
-    address: {
-      addressLine1: String,
-      addressLine2: String,
-      city: String,
-      state: String,
-      country: String,
-      pincode: String,
+    authorCategory: {
+      type: String,
+      default: "",
     },
 
-    referralCode: String,
+    totalAuthors: {
+      type: Number,
+      default: 1,
+    },
 
-    specialMessage: String,
+    authors: {
+      type: [AuthorSchema],
+      default: [],
+    },
 
-    /* ================= EDITOR ================= */
+    mobileCountryCode: {
+      type: String,
+      default: "",
+    },
+
+    address: {
+      addressLine1: {
+        type: String,
+        default: "",
+      },
+
+      addressLine2: {
+        type: String,
+        default: "",
+      },
+
+      city: {
+        type: String,
+        default: "",
+      },
+
+      state: {
+        type: String,
+        default: "",
+      },
+
+      country: {
+        type: String,
+        default: "",
+      },
+
+      pincode: {
+        type: String,
+        default: "",
+      },
+    },
+
+    referralCode: {
+      type: String,
+      default: "",
+    },
+
+    specialMessage: {
+      type: String,
+      default: "",
+    },
+
+    /* =====================================================
+       EDITOR
+    ===================================================== */
 
     editorId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -180,7 +420,9 @@ const SubmitFormSchema = new mongoose.Schema(
       default: null,
     },
 
-    /* ================= REVIEWER ================= */
+    /* =====================================================
+       REVIEWER
+    ===================================================== */
 
     reviewerId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -198,7 +440,9 @@ const SubmitFormSchema = new mongoose.Schema(
       default: null,
     },
 
-    /* ================= CURRENT REMARKS ================= */
+    /* =====================================================
+       REMARKS
+    ===================================================== */
 
     editorRemarks: {
       type: String,
@@ -209,42 +453,217 @@ const SubmitFormSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    /* ================= PUBLISH ================= */
 
-isPublished: {
-  type: Boolean,
-  default: false,
-},
+    /* =====================================================
+       PUBLICATION DOCUMENTS
+       
+       Simple workflow:
+       
+       Accepted
+          ↓
+       Documents Required
+          ↓
+       Author uploads documents
+          ↓
+       Documents Submitted
+          ↓
+       Editor approves
+          ↓
+       Published
+    ===================================================== */
 
-publishedAt: {
-  type: Date,
-  default: null,
-},
+    publicationDocuments: {
+      /* ---------------------------------------------------
+         Corrected Galley Proof
+      --------------------------------------------------- */
 
-completedAt: {
-  type: Date,
-  default: null,
-},
+      correctedGalleyProof: {
+        type: PublicationFileSchema,
+        default: null,
+      },
 
-    /* ================= STATUS ================= */
+      /* ---------------------------------------------------
+         Copyright Transfer Form
+      --------------------------------------------------- */
 
+      copyrightTransferForm: {
+        type: PublicationFileSchema,
+        default: null,
+      },
+
+      /* ---------------------------------------------------
+         Publication Fee Payment Proof
+         
+         Frontend field:
+         publicationFeePaymentProof
+         
+         Database field:
+         publicationFeeProof
+      --------------------------------------------------- */
+
+      publicationFeeProof: {
+        type: PublicationFileSchema,
+        default: null,
+      },
+
+      /* ---------------------------------------------------
+         Author Photographs
+      --------------------------------------------------- */
+
+      authorPhotographs: {
+        type: [AuthorPhotographSchema],
+        default: [],
+      },
+
+      /* ---------------------------------------------------
+         Additional Supporting Files
+         Optional
+      --------------------------------------------------- */
+
+      additionalSupportingFiles: {
+        type: [SupportingFileSchema],
+        default: [],
+      },
+
+      /* ---------------------------------------------------
+         Publication submission information
+      --------------------------------------------------- */
+
+      submittedAt: {
+        type: Date,
+        default: null,
+      },
+
+      /* ---------------------------------------------------
+         Editor approval information
+      --------------------------------------------------- */
+
+      approvedAt: {
+        type: Date,
+        default: null,
+      },
+
+      approvedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Editor",
+        default: null,
+      },
+
+      /* ---------------------------------------------------
+         Final article
+      --------------------------------------------------- */
+
+      finalArticle: {
+        type: String,
+        default: "",
+      },
+
+      /* ---------------------------------------------------
+         Abstract file
+      --------------------------------------------------- */
+
+      abstractFile: {
+        type: String,
+        default: "",
+      },
+
+      /* ---------------------------------------------------
+         Publication certificates
+      --------------------------------------------------- */
+
+      publicationCertificates: {
+        type: [String],
+        default: [],
+      },
+
+      /* ---------------------------------------------------
+         Published information
+      --------------------------------------------------- */
+
+      publishedAt: {
+        type: Date,
+        default: null,
+      },
+
+      publishedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Admin",
+        default: null,
+      },
+    },
+
+    /* =====================================================
+       PUBLICATION FLAGS
+    ===================================================== */
+
+    isPublished: {
+      type: Boolean,
+      default: false,
+    },
+
+    publishedAt: {
+      type: Date,
+      default: null,
+    },
+
+    /* =====================================================
+       COMPLETION
+    ===================================================== */
+
+    completedAt: {
+      type: Date,
+      default: null,
+    },
+
+    /* =====================================================
+       MAIN PAPER STATUS
+       
+       NORMAL WORKFLOW:
+       
+       Submitted
+       ↓
+       Editor Assigned
+       ↓
+       Editing
+       ↓
+       Reviewer Assigned
+       ↓
+       Review Pending
+       ↓
+       Revision Required
+       ↓
+       Accepted
+       
+       PUBLICATION WORKFLOW:
+       
+       Accepted
+       ↓
+       Documents Required
+       ↓
+       Documents Submitted
+       ↓
+       Published
+    ===================================================== */
     status: {
-  type: String,
-  enum: [
-    "Submitted",
-    "Editor Assigned",
-    "Editing",
-    "Reviewer Assigned",
-    "Review Pending",
-    "Revision Required",
-    "Accepted",
-    "Rejected",
-    "Completed",
-    "Published",
-  ],
-  default: "Submitted",
-},
+      type: String,
+
+      enum: [
+        "Submitted",
+        "Editor Assigned",
+        "Under Review",
+        "Accepted",
+        "Rejected",
+
+        "Documents Required",
+        "Documents Submitted",
+        "Approved and Forwarded to Admin",
+        "Published",
+      ],
+
+      default: "Submitted",
+    },
   },
+
   {
     timestamps: true,
   },

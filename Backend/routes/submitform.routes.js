@@ -2,9 +2,22 @@ const express = require("express");
 
 const router = express.Router();
 
-const { upload, convertToWebp } = require("../middlewares/upload");
+/* =========================================================
+   UPLOAD MIDDLEWARE
+========================================================= */
 
 const {
+  upload,
+  convertToWebp,
+} = require("../middlewares/upload");
+
+/* =========================================================
+   CONTROLLERS
+========================================================= */
+
+const {
+  /* ================= SUBMISSION ================= */
+
   createSubmission,
   getAllSubmissions,
   getSingleSubmission,
@@ -14,108 +27,495 @@ const {
   getMyPapers,
   uploadRevision,
 
+  /* ================= EDITOR WORKFLOW ================= */
+
   assignEditor,
   startEditing,
-  assignReviewer,
-  sendToReview,
   acceptPaper,
+  requestPublicationDocuments,
   rejectPaper,
-  publishPaper,
+
+  /* ================= PAPER LISTS ================= */
+
   getEditorPapers,
   getUnassignedPapers,
-  completePaper,
-  unPublishPaper,
   getPublishedEditorPapers,
   getPublishedAuthorPapers,
   getPublishedArchive,
-    getAllPublishedPapers,
+  getAllPublishedPapers,
+
+  /* ================= PUBLICATION WORKFLOW ================= */
+
+  uploadAuthorPublicationDocuments,
+  submitPublicationToEditor,
+  approveAndForwardToAdmin,
+
+  /* ================= ADMIN PUBLISH ================= */
+
+  publishPaper,
+  unPublishPaper,
 } = require("../controllers/submitform.controller");
 
+/* =========================================================
+   AUTH MIDDLEWARE
+========================================================= */
+
 const authorAuth = require("../middlewares/author.middleware");
+
 const editorAuth = require("../middlewares/editor.middleware");
-/* ================= CREATE SUBMISSION ================= */
+
+const adminAuth = require("../middlewares/adminAuth.middleware");
+
+
+/* =========================================================
+   CREATE SUBMISSION
+=========================================================
+
+   Author
+      ↓
+   Submitted
+
+========================================================= */
 
 router.post(
   "/create",
   authorAuth,
   upload.single("paperFile"),
   convertToWebp,
-  createSubmission,
+  createSubmission
 );
 
-/* ================= GET ALL ================= */
 
-router.get("/all", getAllSubmissions);
+/* =========================================================
+   GET ALL SUBMISSIONS
+=========================================================
 
+   Admin can see all submissions.
+
+========================================================= */
+
+router.get(
+  "/all",
+  adminAuth,
+  getAllSubmissions
+);
+
+
+/* =========================================================
+   GET ALL PUBLISHED PAPERS
+=========================================================
+
+   Public
+
+========================================================= */
 
 router.get(
   "/published/all",
   getAllPublishedPapers
 );
 
-/* ================= PUBLIC ARCHIVE ================= */
 
-router.get("/published/archive", getPublishedArchive);
+/* =========================================================
+   PUBLICATION ARCHIVE
+=========================================================
 
-router.get("/editor/:editorId/published", getPublishedEditorPapers);
-router.get("/author/published", authorAuth, getPublishedAuthorPapers);
-router.get("/editor/:editorId", getEditorPapers);
+   Public
 
-router.get("/unassigned", getUnassignedPapers);
-/* ================= GET SINGLE ================= */
-router.get("/my-papers", authorAuth, getMyPapers);
+========================================================= */
 
-router.get("/:id", getSingleSubmission);
+router.get(
+  "/published/archive",
+  getPublishedArchive
+);
 
-/* ================= UPDATE ================= */
 
-router.put("/update/:id", editorAuth, updateSubmission);
+/* =========================================================
+   PUBLISHED PAPERS BY EDITOR
+=========================================================
+
+   Public
+
+========================================================= */
+
+router.get(
+  "/editor/:editorId/published",
+  getPublishedEditorPapers
+);
+
+
+/* =========================================================
+   PUBLISHED PAPERS BY AUTHOR
+=========================================================
+
+   Author can see own published papers.
+
+========================================================= */
+
+router.get(
+  "/author/published",
+  authorAuth,
+  getPublishedAuthorPapers
+);
+
+
+/* =========================================================
+   EDITOR PAPERS
+=========================================================
+
+   Editor can see papers assigned to them.
+
+========================================================= */
+
+router.get(
+  "/editor/:editorId",
+  editorAuth,
+  getEditorPapers
+);
+
+
+/* =========================================================
+   UNASSIGNED PAPERS
+=========================================================
+
+   Admin needs this list to assign an Editor.
+
+   Submitted
+       ↓
+   Unassigned
+
+========================================================= */
+
+router.get(
+  "/unassigned",
+  adminAuth,
+  getUnassignedPapers
+);
+
+
+/* =========================================================
+   AUTHOR MY PAPERS
+=========================================================
+
+   Author can see their submitted papers.
+
+========================================================= */
+
+router.get(
+  "/my-papers",
+  authorAuth,
+  getMyPapers
+);
+
+
+/* =========================================================
+   GET SINGLE PAPER
+=========================================================
+
+   Get complete paper details.
+
+========================================================= */
+
+router.get(
+  "/:id",
+  getSingleSubmission
+);
+
+
+/* =========================================================
+   UPDATE SUBMISSION
+=========================================================
+
+   Editor updates:
+
+   - Paper title
+   - Abstract
+   - Editor remarks
+   - Feedback link
+   - Editor version
+
+   IMPORTANT:
+   Status should NOT be changed here.
+
+========================================================= */
+
+router.put(
+  "/update/:id",
+  editorAuth,
+  updateSubmission
+);
+
+
+/* =========================================================
+   UPLOAD PAPER REVISION
+=========================================================
+
+   Author uploads revised paper.
+
+   Existing paper
+        ↓
+   New revision/version
+
+========================================================= */
 
 router.put(
   "/revision/:id",
   authorAuth,
   upload.single("paperFile"),
   convertToWebp,
-  uploadRevision,
+  uploadRevision
 );
 
-/* ================= CHANGE STATUS ================= */
 
-router.put("/status/:id", changeStatus);
+/* =========================================================
+   NORMAL STATUS
+=========================================================
 
-/* ================= ASSIGN EDITOR ================= */
+   Editor can update normal editorial statuses.
 
-router.put("/assign-editor/:id", assignEditor);
+   Allowed:
 
-/* ================= START EDITING ================= */
+   Submitted
+   Editor Assigned
+   Under Review
+   Rejected
 
-router.put("/start-editing/:id", startEditing);
+   Publication workflow statuses are handled
+   through dedicated APIs below.
 
-/* ================= ASSIGN REVIEWER ================= */
+========================================================= */
 
-router.put("/assign-reviewer/:id", assignReviewer);
+router.put(
+  "/status/:id",
+  editorAuth,
+  changeStatus
+);
 
-/* ================= SEND TO REVIEW ================= */
 
-router.put("/send-review/:id", sendToReview);
+/* =========================================================
+   ADMIN ASSIGNS EDITOR
+=========================================================
 
-/* ================= ACCEPT PAPER ================= */
+   Submitted
+       ↓
+   Editor Assigned
 
-router.put("/accept/:id", acceptPaper);
+========================================================= */
 
-/* ================= REJECT PAPER ================= */
+router.put(
+  "/assign-editor/:id",
+  adminAuth,
+  assignEditor
+);
 
-router.put("/reject/:id", rejectPaper);
 
-/* ================= PUBLISH PAPER ================= */
-router.put("/complete/:id", completePaper);
+/* =========================================================
+   EDITOR STARTS REVIEW
+=========================================================
 
-router.put("/publish/:id", publishPaper);
+   Editor Assigned
+       ↓
+   Under Review
 
-router.put("/unpublish/:id", unPublishPaper);
+========================================================= */
 
-/* ================= DELETE ================= */
+router.put(
+  "/start-editing/:id",
+  editorAuth,
+  startEditing
+);
 
-router.delete("/delete/:id", deleteSubmission);
+
+/* =========================================================
+   EDITOR ACCEPTS PAPER
+=========================================================
+
+   Under Review
+       ↓
+   Accepted
+
+========================================================= */
+
+router.put(
+  "/accept/:id",
+  editorAuth,
+  acceptPaper
+);
+
+
+/* =========================================================
+   EDITOR REQUESTS PUBLICATION DOCUMENTS
+=========================================================
+
+   Accepted
+       ↓
+   Documents Required
+
+========================================================= */
+
+router.put(
+  "/request-publication-documents/:id",
+  editorAuth,
+  requestPublicationDocuments
+);
+
+
+/* =========================================================
+   EDITOR REJECTS PAPER
+=========================================================
+
+   Under Review
+       ↓
+   Rejected
+
+========================================================= */
+
+router.put(
+  "/reject/:id",
+  editorAuth,
+  rejectPaper
+);
+
+
+/* =========================================================
+   AUTHOR UPLOADS PUBLICATION DOCUMENTS
+=========================================================
+
+   Documents Required
+          ↓
+   Author uploads documents
+
+   Required:
+
+   - correctedGalleyProof
+   - copyrightTransferForm
+   - publicationFeePaymentProof
+   - authorPhotographs
+
+   Optional:
+
+   - additionalSupportingFiles
+
+========================================================= */
+
+router.put(
+  "/publication/documents/:id",
+
+  authorAuth,
+
+  upload.fields([
+    {
+      name: "correctedGalleyProof",
+      maxCount: 1,
+    },
+
+    {
+      name: "copyrightTransferForm",
+      maxCount: 1,
+    },
+
+    {
+      name: "publicationFeePaymentProof",
+      maxCount: 1,
+    },
+
+    {
+      name: "authorPhotographs",
+      maxCount: 10,
+    },
+
+    {
+      name: "additionalSupportingFiles",
+      maxCount: 10,
+    },
+  ]),
+
+  convertToWebp,
+
+  uploadAuthorPublicationDocuments
+);
+
+
+/* =========================================================
+   AUTHOR SUBMITS DOCUMENTS TO EDITOR
+=========================================================
+
+   Documents Required
+          ↓
+   Documents Submitted
+
+========================================================= */
+
+router.put(
+  "/publication/submit/:id",
+  authorAuth,
+  submitPublicationToEditor
+);
+
+
+/* =========================================================
+   EDITOR APPROVES PUBLICATION DOCUMENTS
+=========================================================
+
+   Documents Submitted
+          ↓
+   Approved and Forwarded to Admin
+
+========================================================= */
+
+router.put(
+  "/publication/approve/:id",
+  editorAuth,
+  approveAndForwardToAdmin
+);
+
+
+/* =========================================================
+   ADMIN PUBLISHES PAPER
+=========================================================
+
+   Approved and Forwarded to Admin
+              ↓
+           Published
+
+========================================================= */
+
+router.put(
+  "/publish/:id",
+  adminAuth,
+  publishPaper
+);
+
+
+/* =========================================================
+   ADMIN UNPUBLISHES PAPER
+=========================================================
+
+   Published
+       ↓
+   Approved and Forwarded to Admin
+
+========================================================= */
+
+router.put(
+  "/unpublish/:id",
+  adminAuth,
+  unPublishPaper
+);
+
+
+/* =========================================================
+   ADMIN DELETE SUBMISSION
+========================================================= */
+
+router.delete(
+  "/delete/:id",
+  adminAuth,
+  deleteSubmission
+);
+
+
+/* =========================================================
+   EXPORT ROUTER
+========================================================= */
 
 module.exports = router;

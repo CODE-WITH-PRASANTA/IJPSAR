@@ -79,3 +79,71 @@ exports.getAllAuthors = async (req, res) => {
     });
   }
 };
+
+
+
+// DELETE SINGLE AUTHOR NOTIFICATION
+exports.deleteAuthorNotification = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const authorId = req.user._id;
+
+    const notification = await Notification.findOneAndDelete({
+      _id: id,
+      recipient: authorId,
+    });
+
+    if (!notification) {
+      return res.status(404).json({
+        success: false,
+        message: "Notification not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Notification deleted successfully",
+    });
+  } catch (error) {
+    console.error(
+      "Delete author notification error:",
+      error
+    );
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to delete notification",
+      error: error.message,
+    });
+  }
+};
+
+
+// DELETE ALL AUTHOR NOTIFICATIONS
+exports.clearAllAuthorNotifications = async (req, res) => {
+  try {
+    const authorId = req.user._id;
+
+    const result = await Notification.deleteMany({
+      recipient: authorId,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "All notifications cleared successfully",
+      deletedCount: result.deletedCount,
+    });
+  } catch (error) {
+    console.error(
+      "Clear all author notifications error:",
+      error
+    );
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to clear notifications",
+      error: error.message,
+    });
+  }
+};

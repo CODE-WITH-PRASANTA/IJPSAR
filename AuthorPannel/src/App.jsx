@@ -13,12 +13,12 @@ import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import Papermanagement from "./Components/Papermanagement/Papermanagement";
 import Publishpaper from "./Components/Publishpaper/Publishpaper";
 import TransactionDetails from "./Pages/TransactionDetails/TransactionDetails";
+import AuthorPublicationDocuments from "./Components/SubmitFrom/AuthorPublicationDocuments";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-
         {/* Redirect */}
         <Route path="/" element={<Navigate to="/author/auth" replace />} />
 
@@ -36,6 +36,10 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
 
           <Route path="/submit-paper" element={<SubmitFrom />} />
+          <Route
+            path="/author-publication-documents/:id"
+            element={<AuthorPublicationDocuments />}
+          />
 
           <Route path="/tasks" element={<Tasks />} />
 
@@ -47,7 +51,6 @@ const App = () => {
 
         {/* 404 */}
         <Route path="*" element={<Navigate to="/author/auth" replace />} />
-
       </Routes>
     </BrowserRouter>
   );

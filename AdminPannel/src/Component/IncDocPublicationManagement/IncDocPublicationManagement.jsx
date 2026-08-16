@@ -13,6 +13,7 @@ const IncDocPublicationManagement = () => {
     try {
       setLoading(true);
 
+      
       const res = await API.get("/submitform/all");
 
       setPapers(res.data?.data || []);
@@ -27,15 +28,25 @@ const IncDocPublicationManagement = () => {
     fetchPapers();
   }, []);
 
-  const updateStatus = async (id, status) => {
+  const publishPaper = async (id) => {
     try {
-      await API.put(`/submitform/status/${id}`, {
-        status,
-      });
+      const response = await API.put(`/submitform/publish/${id}`);
 
-      fetchPapers();
+      if (!response.data?.success) {
+        throw new Error(
+          response.data?.message || "Unable to publish the paper.",
+        );
+      }
+
+      await fetchPapers();
     } catch (error) {
       console.error(error);
+
+      alert(
+        error.response?.data?.message ||
+          error.message ||
+          "Unable to publish the paper.",
+      );
     }
   };
 
@@ -195,41 +206,14 @@ const IncDocPublicationManagement = () => {
                       View
                     </button>
 
-                    <button
-                      className="accept-btn"
-                      onClick={() =>
-                        updateStatus(
-                          paper._id,
-                          "Accepted"
-                        )
-                      }
-                    >
-                      Accept
-                    </button>
-
-                    <button
-                      className="reject-btn"
-                      onClick={() =>
-                        updateStatus(
-                          paper._id,
-                          "Rejected"
-                        )
-                      }
-                    >
-                      Reject
-                    </button>
-
-                    <button
-                      className="publish-btn"
-                      onClick={() =>
-                        updateStatus(
-                          paper._id,
-                          "Published"
-                        )
-                      }
-                    >
-                      Publish
-                    </button>
+                    {paper.status === "Approved and Forwarded to Admin" && (
+                      <button
+                        className="publish-btn"
+                        onClick={() => publishPaper(paper._id)}
+                      >
+                        Publish
+                      </button>
+                    )}
                   </div>
                 </td>
               </tr>

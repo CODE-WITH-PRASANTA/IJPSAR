@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import API from "../../api/Axios";
+
 import {
   FileText,
   Users,
@@ -15,11 +16,18 @@ import {
   Phone,
   Mail,
   User,
+  BookOpen,
+  Sparkles,
+  CheckCircle2,
+  Clock3,
 } from "lucide-react";
+
 import { useLocation, useNavigate } from "react-router-dom";
 
 import "./SubmitFrom.css";
-import Swal from 'sweetalert2';
+
+import Swal from "sweetalert2";
+import AuthorPublicationDocuments from "./AuthorPublicationDocuments";
 
 const ALL_COUNTRIES = [
   { code: "AF", name: "Afghanistan", dial: "+93" },
@@ -33,54 +41,20 @@ const ALL_COUNTRIES = [
   { code: "AU", name: "Australia", dial: "+61" },
   { code: "AT", name: "Austria", dial: "+43" },
   { code: "AZ", name: "Azerbaijan", dial: "+994" },
-  { code: "BS", name: "Bahamas", dial: "+1" },
-  { code: "BH", name: "Bahrain", dial: "+973" },
+
   { code: "BD", name: "Bangladesh", dial: "+880" },
-  { code: "BB", name: "Barbados", dial: "+1" },
-  { code: "BY", name: "Belarus", dial: "+375" },
   { code: "BE", name: "Belgium", dial: "+32" },
-  { code: "BZ", name: "Belize", dial: "+501" },
-  { code: "BJ", name: "Benin", dial: "+229" },
-  { code: "BM", name: "Bermuda", dial: "+1" },
   { code: "BT", name: "Bhutan", dial: "+975" },
-  { code: "BO", name: "Bolivia", dial: "+591" },
-  { code: "BA", name: "Bosnia and Herzegovina", dial: "+387" },
-  { code: "BW", name: "Botswana", dial: "+267" },
   { code: "BR", name: "Brazil", dial: "+55" },
-  { code: "BG", name: "Bulgaria", dial: "+359" },
-  { code: "BF", name: "Burkina Faso", dial: "+226" },
-  { code: "BI", name: "Burundi", dial: "+257" },
-  { code: "KH", name: "Cambodia", dial: "+855" },
-  { code: "CM", name: "Cameroon", dial: "+237" },
   { code: "CA", name: "Canada", dial: "+1" },
-  { code: "CL", name: "Chile", dial: "+56" },
   { code: "CN", name: "China", dial: "+86" },
-  { code: "CO", name: "Colombia", dial: "+57" },
-  { code: "CR", name: "Costa Rica", dial: "+506" },
-  { code: "HR", name: "Croatia", dial: "+385" },
-  { code: "CU", name: "Cuba", dial: "+53" },
-  { code: "CY", name: "Cyprus", dial: "+357" },
-  { code: "CZ", name: "Czech Republic", dial: "+420" },
   { code: "DK", name: "Denmark", dial: "+45" },
-  { code: "DJ", name: "Djibouti", dial: "+253" },
-  { code: "EC", name: "Ecuador", dial: "+593" },
   { code: "EG", name: "Egypt", dial: "+20" },
-  { code: "SV", name: "El Salvador", dial: "+503" },
-  { code: "EE", name: "Estonia", dial: "+372" },
-  { code: "ET", name: "Ethiopia", dial: "+251" },
-  { code: "FJ", name: "Fiji", dial: "+679" },
-  { code: "FI", name: "Finland", dial: "+358" },
   { code: "FR", name: "France", dial: "+33" },
-  { code: "GM", name: "Gambia", dial: "+220" },
-  { code: "GE", name: "Georgia", dial: "+995" },
   { code: "DE", name: "Germany", dial: "+49" },
-  { code: "GH", name: "Ghana", dial: "+233" },
   { code: "GR", name: "Greece", dial: "+30" },
-  { code: "GT", name: "Guatemala", dial: "+502" },
-  { code: "HN", name: "Honduras", dial: "+504" },
   { code: "HK", name: "Hong Kong", dial: "+852" },
-  { code: "HU", name: "Hungary", dial: "+36" },
-  { code: "IS", name: "Iceland", dial: "+354" },
+
   { code: "IN", name: "India", dial: "+91" },
   { code: "ID", name: "Indonesia", dial: "+62" },
   { code: "IR", name: "Iran", dial: "+98" },
@@ -88,32 +62,24 @@ const ALL_COUNTRIES = [
   { code: "IE", name: "Ireland", dial: "+353" },
   { code: "IL", name: "Israel", dial: "+972" },
   { code: "IT", name: "Italy", dial: "+39" },
-  { code: "JM", name: "Jamaica", dial: "+1" },
   { code: "JP", name: "Japan", dial: "+81" },
   { code: "JO", name: "Jordan", dial: "+962" },
   { code: "KZ", name: "Kazakhstan", dial: "+7" },
+
   { code: "KE", name: "Kenya", dial: "+254" },
   { code: "KR", name: "Korea, Republic of", dial: "+82" },
   { code: "KW", name: "Kuwait", dial: "+965" },
-  { code: "LV", name: "Latvia", dial: "+371" },
-  { code: "LB", name: "Lebanon", dial: "+961" },
-  { code: "LY", name: "Libya", dial: "+218" },
-  { code: "LT", name: "Lithuania", dial: "+370" },
-  { code: "LU", name: "Luxembourg", dial: "+352" },
   { code: "MY", name: "Malaysia", dial: "+60" },
   { code: "MV", name: "Maldives", dial: "+960" },
   { code: "MX", name: "Mexico", dial: "+52" },
-  { code: "MC", name: "Monaco", dial: "+377" },
-  { code: "MA", name: "Morocco", dial: "+212" },
   { code: "NP", name: "Nepal", dial: "+977" },
   { code: "NL", name: "Netherlands", dial: "+31" },
   { code: "NZ", name: "New Zealand", dial: "+64" },
   { code: "NG", name: "Nigeria", dial: "+234" },
+
   { code: "NO", name: "Norway", dial: "+47" },
   { code: "OM", name: "Oman", dial: "+968" },
   { code: "PK", name: "Pakistan", dial: "+92" },
-  { code: "PA", name: "Panama", dial: "+507" },
-  { code: "PE", name: "Peru", dial: "+51" },
   { code: "PH", name: "Philippines", dial: "+63" },
   { code: "PL", name: "Poland", dial: "+48" },
   { code: "PT", name: "Portugal", dial: "+351" },
@@ -121,6 +87,7 @@ const ALL_COUNTRIES = [
   { code: "RO", name: "Romania", dial: "+40" },
   { code: "RU", name: "Russian Federation", dial: "+7" },
   { code: "SA", name: "Saudi Arabia", dial: "+966" },
+
   { code: "SG", name: "Singapore", dial: "+65" },
   { code: "ZA", name: "South Africa", dial: "+27" },
   { code: "ES", name: "Spain", dial: "+34" },
@@ -131,6 +98,7 @@ const ALL_COUNTRIES = [
   { code: "TR", name: "Turkey", dial: "+90" },
   { code: "UA", name: "Ukraine", dial: "+380" },
   { code: "AE", name: "United Arab Emirates", dial: "+971" },
+
   { code: "GB", name: "United Kingdom", dial: "+44" },
   { code: "US", name: "United States", dial: "+1" },
   { code: "VN", name: "Vietnam", dial: "+84" },
@@ -146,6 +114,7 @@ const SubmitFrom = () => {
 
   const [captcha, setCaptcha] = useState({
     num1: Math.floor(Math.random() * 10) + 1,
+
     num2: Math.floor(Math.random() * 10) + 1,
   });
 
@@ -178,234 +147,578 @@ const SubmitFrom = () => {
   ]);
 
   const [keywords, setKeywords] = useState(["Research", "Innovation"]);
+
   const [currentKeyword, setCurrentKeyword] = useState("");
+
   const [totalAuthors, setTotalAuthors] = useState(1);
+
   const [uploadedFile, setUploadedFile] = useState(null);
+
   const [editorText, setEditorText] = useState("");
+
   const [isBold, setIsBold] = useState(false);
+
   const [isItalic, setIsItalic] = useState(false);
+
   const [paperId, setPaperId] = useState("");
 
   const location = useLocation();
+
   const navigate = useNavigate();
 
-  const editPaper = location.state?.paper;
-  const isEdit = location.state?.isEdit;
-  const latestFeedback = location.state?.latestFeedback;
+  const editPaper = location.state?.paper || null;
+
+  const isEdit = location.state?.isEdit || false;
+
+  const latestFeedback = location.state?.latestFeedback || null;
+
+  const feedbackHistory =
+    editPaper?.feedbackHistory?.length > 0
+      ? editPaper.feedbackHistory
+      : latestFeedback
+        ? [latestFeedback]
+        : [];
+
+  const revisions = editPaper?.revisions || [];
 
   useEffect(() => {
-    if (!isEdit || !editPaper) return;
+    if (!isEdit || !editPaper) {
+      return;
+    }
 
     setFormData({
       paperTitle: editPaper.paperTitle || "",
+
       abstract: editPaper.abstract || "",
+
       researchArea: editPaper.researchArea || "",
+
       authorCategory: editPaper.authorCategory || "",
+
       address1: editPaper.address1 || "",
+
       address2: editPaper.address2 || "",
+
       city: editPaper.city || "",
+
       state: editPaper.state || "",
+
       country: editPaper.country || "",
+
       pincode: editPaper.pincode || "",
+
       referralCode: editPaper.referralCode || "",
+
       editorMessage: editPaper.editorMessage || "",
+
       mobileCountryCode: editPaper.mobileCountryCode || "",
     });
 
     setEditorText(editPaper.abstract || "");
+
     setKeywords(editPaper.keywords || []);
+
     setAuthors(editPaper.authors || []);
+
     setTotalAuthors(editPaper.authors?.length || 1);
   }, [editPaper, isEdit]);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
   const handleAuthorChange = (index, field, value) => {
-    const updatedAuthors = [...authors];
+    setAuthors((prev) => {
+      const updated = [...prev];
 
-    updatedAuthors[index][field] = value;
+      updated[index] = {
+        ...updated[index],
+        [field]: value,
+      };
 
-    setAuthors(updatedAuthors);
-  };
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  // 1. Basic Validation
-  if (!formData.paperTitle.trim()) {
-    Swal.fire({ icon: "warning", title: "Missing Field", text: "Paper Title is required" });
-    return;
-  }
-  if (!editorText.trim()) {
-    Swal.fire({ icon: "warning", title: "Missing Field", text: "Abstract is required" });
-    return;
-  }
-  if (Number(captchaAnswer) !== (captcha.num1 + captcha.num2)) {
-    Swal.fire({ icon: "error", title: "Invalid Captcha", text: "Please try again." });
-    generateCaptcha();
-    setCaptchaAnswer("");
-    return;
-  }
-
-  // 2. Show Loading Spinner
-  Swal.fire({
-    title: "Submitting...",
-    allowOutsideClick: false,
-    didOpen: () => { Swal.showLoading(); }
-  });
-
-  try {
-    const form = new FormData();
-    form.append("paperTitle", formData.paperTitle);
-    form.append("abstract", editorText);
-    form.append("keywords", JSON.stringify(keywords));
-    form.append("authors", JSON.stringify(authors));
-    form.append("mobileCountryCode", formData.mobileCountryCode);
-    form.append("researchArea", formData.researchArea);
-    form.append("authorCategory", formData.authorCategory);
-    form.append("address1", formData.address1);
-    form.append("address2", formData.address2);
-    form.append("city", formData.city);
-    form.append("state", formData.state);
-    form.append("country", formData.country);
-    form.append("pincode", formData.pincode);
-    form.append("referralCode", formData.referralCode);
-    form.append("editorMessage", formData.editorMessage);
-    if (uploadedFile) form.append("paperFile", uploadedFile);
-
-    const token = localStorage.getItem("authorToken");
-    const config = { headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" } };
-
-    const response = isEdit 
-      ? await API.put(`/submitform/revision/${editPaper._id}`, form, config)
-      : await API.post("/submitform/create", form, config);
-
-    if (response.data.success) {
-      // 3. Success Alert
-      Swal.fire({
-        icon: "success",
-        title: isEdit ? "Updated Successfully!" : "Submitted Successfully!",
-        text: !isEdit ? `Your Paper ID: ${response.data.data.paperId}` : "Changes saved.",
-        confirmButtonText: "Okay"
-      }).then(() => {
-        // Reset form and navigate
-        setFormData({ /* ... initial state object ... */ });
-        setAuthors([{ fullName: "", designation: "", organization: "", contactNumber: "", email: "" }]);
-        setKeywords(["Research", "Innovation"]);
-        setUploadedFile(null);
-        setEditorText("");
-        navigate("/paper-management");
-      });
-    }
-  } catch (error) {
-    console.error(error);
-    // 4. Error Alert
-    Swal.fire({
-      icon: "error",
-      title: "Submission Failed",
-      text: error?.response?.data?.message || "An unexpected error occurred."
+      return updated;
     });
-  }
-};
-
-  const toggleSection = (section) => {
-    setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
-  };
-
-  const handleAddKeyword = (e) => {
-    if (e.key === "Enter" || e.type === "click") {
-      e.preventDefault();
-      if (currentKeyword.trim() && !keywords.includes(currentKeyword.trim())) {
-        setKeywords([...keywords, currentKeyword.trim()]);
-        setCurrentKeyword("");
-      }
-    }
-  };
-
-  const handleRemoveKeyword = (indexToRemove) => {
-    setKeywords(keywords.filter((_, index) => index !== indexToRemove));
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
-    if (!file) return;
-
-    const allowed = ["pdf", "doc", "docx"];
-    const ext = file.name.split(".").pop().toLowerCase();
-
-    if (!allowed.includes(ext)) {
-      alert("Only PDF, DOC and DOCX files are allowed");
-      e.target.value = "";
-      return;
-    }
-
-    if (file.size > 20 * 1024 * 1024) {
-      alert("Maximum file size is 20 MB");
-      e.target.value = "";
-      return;
-    }
-
-    setUploadedFile(file);
   };
 
   const generateCaptcha = () => {
     setCaptcha({
       num1: Math.floor(Math.random() * 10) + 1,
+
       num2: Math.floor(Math.random() * 10) + 1,
     });
 
     setCaptchaAnswer("");
   };
 
+  const toggleSection = (section) => {
+    setOpenSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
+  const handleAddKeyword = (e) => {
+    if (e.key === "Enter" || e.type === "click") {
+      e.preventDefault();
+
+      const keyword = currentKeyword.trim();
+
+      if (keyword && !keywords.includes(keyword)) {
+        setKeywords((prev) => [...prev, keyword]);
+
+        setCurrentKeyword("");
+      }
+    }
+  };
+
+  const handleRemoveKeyword = (indexToRemove) => {
+    setKeywords((prev) => prev.filter((_, index) => index !== indexToRemove));
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    const allowed = ["pdf", "doc", "docx"];
+
+    const ext = file.name.split(".").pop().toLowerCase();
+
+    if (!allowed.includes(ext)) {
+      Swal.fire({
+        icon: "warning",
+        title: "Invalid File",
+        text: "Only PDF, DOC and DOCX files are allowed.",
+      });
+
+      e.target.value = "";
+
+      return;
+    }
+
+    if (file.size > 20 * 1024 * 1024) {
+      Swal.fire({
+        icon: "warning",
+        title: "File Too Large",
+        text: "Maximum file size is 20 MB.",
+      });
+
+      e.target.value = "";
+
+      return;
+    }
+
+    setUploadedFile(file);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.paperTitle.trim()) {
+      Swal.fire({
+        icon: "warning",
+        title: "Missing Field",
+        text: "Paper Title is required.",
+      });
+
+      return;
+    }
+
+    if (!editorText.trim()) {
+      Swal.fire({
+        icon: "warning",
+        title: "Missing Field",
+        text: "Abstract is required.",
+      });
+
+      return;
+    }
+
+    if (Number(captchaAnswer) !== captcha.num1 + captcha.num2) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Captcha",
+        text: "Please solve the verification correctly.",
+      });
+
+      generateCaptcha();
+
+      return;
+    }
+
+    if (isEdit && !uploadedFile) {
+      Swal.fire({
+        icon: "warning",
+        title: "Revision File Required",
+        text: "Please upload the new PDF, DOC or DOCX document.",
+      });
+
+      return;
+    }
+
+    Swal.fire({
+      title: isEdit ? "Uploading Revision..." : "Submitting Manuscript...",
+
+      allowOutsideClick: false,
+
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    try {
+      const form = new FormData();
+
+      form.append("paperTitle", formData.paperTitle);
+
+      form.append("abstract", editorText);
+
+      form.append("keywords", JSON.stringify(keywords));
+
+      form.append("authors", JSON.stringify(authors));
+
+      form.append("mobileCountryCode", formData.mobileCountryCode);
+
+      form.append("researchArea", formData.researchArea);
+
+      form.append("authorCategory", formData.authorCategory);
+
+      form.append("address1", formData.address1);
+
+      form.append("address2", formData.address2);
+
+      form.append("city", formData.city);
+
+      form.append("state", formData.state);
+
+      form.append("country", formData.country);
+
+      form.append("pincode", formData.pincode);
+
+      form.append("referralCode", formData.referralCode);
+
+      form.append("editorMessage", formData.editorMessage);
+
+      if (uploadedFile) {
+        form.append("paperFile", uploadedFile);
+      }
+
+      const token = localStorage.getItem("authorToken");
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = isEdit
+        ? await API.put(`/submitform/revision/${editPaper._id}`, form, config)
+        : await API.post("/submitform/create", form, config);
+
+      if (response.data?.success) {
+        const returnedPaperId =
+          response.data?.data?.paperId || response.data?.paperId || "";
+
+        setPaperId(returnedPaperId);
+
+        await Swal.fire({
+          icon: "success",
+
+          title: isEdit ? "Revision Submitted" : "Manuscript Submitted",
+
+          text: isEdit
+            ? "Your corrected manuscript has been submitted to the editor."
+            : returnedPaperId
+              ? `Your Paper ID is ${returnedPaperId}`
+              : "Your manuscript was submitted successfully.",
+
+          confirmButtonText: "Continue",
+        });
+
+        setFormData({
+          paperTitle: "",
+          abstract: "",
+          mobileCountryCode: "",
+          researchArea: "",
+          authorCategory: "",
+          address1: "",
+          address2: "",
+          city: "",
+          state: "",
+          country: "",
+          pincode: "",
+          referralCode: "",
+          editorMessage: "",
+        });
+
+        setAuthors([
+          {
+            fullName: "",
+            designation: "",
+            organization: "",
+            contactNumber: "",
+            email: "",
+          },
+        ]);
+
+        setKeywords(["Research", "Innovation"]);
+
+        setUploadedFile(null);
+
+        setEditorText("");
+
+        setCaptchaAnswer("");
+
+        navigate("/paper-management");
+      }
+    } catch (error) {
+      console.error("SUBMIT PAPER ERROR:", error);
+
+      Swal.fire({
+        icon: "error",
+
+        title: "Submission Failed",
+
+        text: error?.response?.data?.message || "An unexpected error occurred.",
+      });
+    }
+  };
+
   return (
     <div className="admin-dashboard-container">
       <main className="form-workspace-wrapper">
         <div className="admission-card-panel">
-          {/* <div className="panel-header-action-row">
-            <h1 className="panel-main-heading">Paper Submission Portal</h1>
-          </div> */}
-          <h1 className="panel-main-heading">Paper Submission Portal</h1>
-          {isEdit && latestFeedback && (
-            <div className="editor-feedback-box">
-              <h3> Editor Feedback</h3>
+          {/* =================================================
+              PREMIUM JOURNAL HEADER
+          ================================================= */}
 
-              <p>{latestFeedback.remark}</p>
+          <header className="journal-hero-header">
+            <div className="journal-brand-mark">
+              <div className="journal-brand-icon">
+                <BookOpen size={24} strokeWidth={2.2} />
+              </div>
 
-              <div className="feedback-meta">
-                <span>Version {latestFeedback.version}</span>
-
-                <span>{latestFeedback.editorName}</span>
-
-                <span>
-                  {new Date(latestFeedback.createdAt).toLocaleDateString()}
+              <div className="journal-brand-copy">
+                <span className="journal-eyebrow">
+                  Scholarly Publication Platform
                 </span>
+
+                <h1 className="panel-main-heading">Paper Submission Portal</h1>
+
+                <p className="journal-subtitle">
+                  Submit your research manuscript for editorial review and peer
+                  evaluation through our secure journal publication workflow.
+                </p>
+              </div>
+            </div>
+
+            <div className="journal-header-status">
+              <div className="journal-status-chip">
+                <span className="status-dot"></span>
+                Manuscript Intake Open
+              </div>
+
+              <div className="journal-status-chip secondary">
+                <ShieldCheck size={15} />
+                Secure Submission
+              </div>
+            </div>
+          </header>
+
+          {/* =================================================
+              GUIDANCE
+          ================================================= */}
+
+          <div className="journal-guidance-strip">
+            <div className="guidance-icon">
+              <Sparkles size={18} />
+            </div>
+
+            <div className="guidance-copy">
+              <strong>Editorial submission checklist</strong>
+
+              <span>
+                Complete manuscript, author, address and compliance details
+                before submission.
+              </span>
+            </div>
+
+            <div className="guidance-step">
+              <span>01</span>
+              Manuscript
+            </div>
+
+            <div className="guidance-step">
+              <span>02</span>
+              Authors
+            </div>
+
+            <div className="guidance-step">
+              <span>03</span>
+              Address
+            </div>
+
+            <div className="guidance-step">
+              <span>04</span>
+              Compliance
+            </div>
+          </div>
+
+          {/* =================================================
+              FEEDBACK HISTORY
+          ================================================= */}
+
+          {isEdit && feedbackHistory.length > 0 && (
+            <div className="journal-history-section">
+              <div className="history-section-heading">
+                <div className="history-heading-icon">
+                  <FileText size={18} />
+                </div>
+
+                <div>
+                  <span>Editorial Communication</span>
+
+                  <small>Previous editor feedback</small>
+                </div>
+              </div>
+
+              {feedbackHistory.map((feedback, index) => (
+                <div
+                  className="editor-feedback-box"
+                  key={`feedback-${feedback.version}-${feedback.createdAt || index}-${index}`}
+                >
+                  <h3>Editor Feedback</h3>
+
+                  <p>{feedback.remark}</p>
+
+                  <div className="feedback-meta">
+                    <span>Version {feedback.version}</span>
+
+                    <span>{feedback.editorName || "Editor"}</span>
+
+                    <span>
+                      {feedback.createdAt
+                        ? new Date(feedback.createdAt).toLocaleDateString()
+                        : ""}
+                    </span>
+                  </div>
+
+                  {feedback.link && (
+                    <div className="feedback-meta">
+                      <a
+                        href={feedback.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View Feedback Document
+                      </a>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* =================================================
+              REVISION HISTORY
+          ================================================= */}
+
+          {isEdit && revisions.length > 0 && (
+            <div className="journal-history-section">
+              <div className="history-section-heading">
+                <div className="history-heading-icon revision">
+                  <Upload size={18} />
+                </div>
+
+                <div>
+                  <span>Manuscript Revision History</span>
+
+                  <small>Previously uploaded manuscript versions</small>
+                </div>
+              </div>
+
+              {revisions.map((revision, index) => (
+                <div
+                  className="revision-history-card"
+                  key={`revision-${revision.version}-${revision.uploadedAt || index}-${index}`}
+                >
+                  <div className="revision-version-badge">
+                    V{revision.version}
+                  </div>
+
+                  <div className="revision-main-content">
+                    <h3>Manuscript Version {revision.version}</h3>
+
+                    <p>
+                      {revision.remarks || "Paper document uploaded by author."}
+                    </p>
+
+                    <div className="revision-meta">
+                      <span>
+                        Uploaded{" "}
+                        {revision.uploadedAt
+                          ? new Date(revision.uploadedAt).toLocaleDateString()
+                          : ""}
+                      </span>
+
+                      {revision.paperFile && (
+                        <a
+                          href={revision.paperFile}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <FileText size={14} />
+                          View Document
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* =================================================
+              PAPER ID
+          ================================================= */}
+
+          {paperId && (
+            <div className="paper-id-premium-card">
+              <div className="paper-id-icon">
+                <CheckCircle2 size={20} />
+              </div>
+
+              <div className="paper-id-copy">
+                <span>Submission Reference</span>
+
+                <strong>{paperId}</strong>
+              </div>
+
+              <div className="paper-id-state">
+                <Clock3 size={15} />
+                Ready for editorial processing
               </div>
             </div>
           )}
-          {paperId && (
-            <div
-              style={{
-                padding: "10px",
-                marginBottom: "15px",
-                background: "#e8f5e9",
-                border: "1px solid #4caf50",
-                borderRadius: "6px",
-              }}
-            >
-              <strong>Paper ID:</strong> {paperId}
-            </div>
-          )}
+
+          {/* =================================================
+              FORM
+          ================================================= */}
 
           <form className="structured-accordion-form" onSubmit={handleSubmit}>
-            {/* SECTION 1: Paper / Manuscript Details */}
+            {/* =================================================
+                SECTION 01
+            ================================================= */}
+
             <div
-              className={`accordion-segment-block ${openSections.paperDetails ? "is-expanded" : ""}`}
+              className={`accordion-segment-block ${
+                openSections.paperDetails ? "is-expanded" : ""
+              }`}
             >
               <button
                 type="button"
@@ -414,10 +727,17 @@ const handleSubmit = async (e) => {
               >
                 <div className="trigger-title-group">
                   <FileText className="section-icon-marker" size={22} />
+
                   <span className="section-title-label">
-                    Manuscript Submission Details
+                    <span className="section-number-badge">01</span>
+
+                    <span className="section-title-text">
+                      Manuscript Submission Details
+                      <small>Core manuscript information</small>
+                    </span>
                   </span>
                 </div>
+
                 {openSections.paperDetails ? (
                   <ChevronUp size={20} />
                 ) : (
@@ -427,68 +747,89 @@ const handleSubmit = async (e) => {
 
               <div className="accordion-collapsible-content">
                 <div className="inner-content-padding">
+                  {/* PAPER TITLE */}
+
                   <div className="form-field-grid-row universal-one-column">
                     <div className="input-field-group">
                       <label className="field-label-text">Paper Title</label>
+
                       <input
                         type="text"
                         name="paperTitle"
                         value={formData.paperTitle}
                         onChange={handleChange}
                         className="premium-input-box"
+                        placeholder="Enter manuscript title"
                       />
+
                       <small className="field-helper-caption">
                         Write the title of your article/paper in camel case.
-                        (first letter of each word should be in Upper case)
                       </small>
                     </div>
                   </div>
 
+                  {/* ABSTRACT */}
+
                   <div className="form-field-grid-row universal-one-column">
                     <div className="input-field-group">
                       <label className="field-label-text">Abstract</label>
+
                       <div className="rich-text-editor-container">
                         <div className="editor-toolbar-strip">
                           <button
                             type="button"
-                            className={`tool-action-btn ${isBold ? "active-tool" : ""}`}
+                            className={`tool-action-btn ${
+                              isBold ? "active-tool" : ""
+                            }`}
                             onClick={() => setIsBold(!isBold)}
                           >
                             <b>B</b>
                           </button>
+
                           <button
                             type="button"
-                            className={`tool-action-btn ${isItalic ? "active-tool" : ""}`}
+                            className={`tool-action-btn ${
+                              isItalic ? "active-tool" : ""
+                            }`}
                             onClick={() => setIsItalic(!isItalic)}
                           >
                             <i>I</i>
                           </button>
+
                           <span className="toolbar-divider-pipe"></span>
+
                           <span className="editor-status-tag">
                             Live Editor Box
                           </span>
                         </div>
+
                         <textarea
                           className={`editor-textarea-pane ${
                             isBold ? "text-weight-bold" : ""
                           } ${isItalic ? "text-style-italic" : ""}`}
                           value={editorText}
                           onChange={(e) => {
-                            setEditorText(e.target.value);
+                            const value = e.target.value;
 
-                            setFormData({
-                              ...formData,
-                              abstract: e.target.value,
-                            });
+                            setEditorText(value);
+
+                            setFormData((prev) => ({
+                              ...prev,
+                              abstract: value,
+                            }));
                           }}
+                          placeholder="Write your research abstract..."
                         />
                       </div>
                     </div>
                   </div>
 
+                  {/* KEYWORDS */}
+
                   <div className="form-field-grid-row universal-one-column">
                     <div className="input-field-group">
                       <label className="field-label-text">Keywords</label>
+
                       <div className="hashtag-manager-container">
                         <div className="tags-flex-wrap-pool">
                           {keywords.map((tag, idx) => (
@@ -504,6 +845,7 @@ const handleSubmit = async (e) => {
                             </span>
                           ))}
                         </div>
+
                         <div className="hashtag-append-input-row">
                           <input
                             type="text"
@@ -513,6 +855,7 @@ const handleSubmit = async (e) => {
                             onKeyDown={handleAddKeyword}
                             className="hashtag-pure-input"
                           />
+
                           <button
                             type="button"
                             onClick={handleAddKeyword}
@@ -524,6 +867,8 @@ const handleSubmit = async (e) => {
                       </div>
                     </div>
                   </div>
+
+                  {/* COUNTRY + RESEARCH AREA */}
 
                   <div className="form-field-grid-row split-two-equal-columns">
                     <div className="input-field-group">
@@ -537,129 +882,92 @@ const handleSubmit = async (e) => {
                         onChange={handleChange}
                         className="premium-select-dropdown"
                       >
-                        <option value="">
-                          (Select country code for mobile number)
-                        </option>
+                        <option value="">Select country code</option>
 
-                        {ALL_COUNTRIES.map((c) => (
-                          <option key={`dial-${c.code}`} value={c.dial}>
-                            {c.name} ({c.dial})
+                        {ALL_COUNTRIES.map((country) => (
+                          <option key={country.code} value={country.dial}>
+                            {country.name} ({country.dial})
                           </option>
                         ))}
                       </select>
                     </div>
-                        <div className="input-field-group">
-                          <label className="field-label-text">Research Area</label>
 
-                          <select
-                            name="researchArea"
-                            value={formData.researchArea}
-                            onChange={handleChange}
-                            className="premium-select-dropdown"
-                          >
-                            <option value="">
-                              (Please select your research area)
-                            </option>
+                    <div className="input-field-group">
+                      <label className="field-label-text">Research Area</label>
 
-                            {/* Engineering & Technology */}
-                            <option value="Computer Science & Engineering">
-                              Computer Science & Engineering
-                            </option>
-                            <option value="Information Technology">
-                              Information Technology
-                            </option>
-                            <option value="Electrical & Electronics">
-                              Electrical & Electronics
-                            </option>
-                            <option value="Mechanical Systems">
-                              Mechanical Systems
-                            </option>
+                      <select
+                        name="researchArea"
+                        value={formData.researchArea}
+                        onChange={handleChange}
+                        className="premium-select-dropdown"
+                      >
+                        <option value="">Select research area</option>
 
-                            {/* Pharmacy */}
-                            <option value="Pharmacy (All Branch)">
-                              Pharmacy (All Branch)
-                            </option>
-                            <option value="Pharmaceutics">
-                              Pharmaceutics
-                            </option>
-                            <option value="Pharmacognosy">
-                              Pharmacognosy
-                            </option>
-                            <option value="Pharmacology">
-                              Pharmacology
-                            </option>
-                            <option value="Pharma Chemistry">
-                              Pharma Chemistry
-                            </option>
-                            <option value="Analysis and Analytical Chemistry">
-                              Analysis and Analytical Chemistry
-                            </option>
-                            <option value="Quality Assurance">
-                              Quality Assurance
-                            </option>
+                        <option value="Computer Science & Engineering">
+                          Computer Science & Engineering
+                        </option>
 
-                            {/* Industry & Development */}
-                            <option value="Industry Development (All Area)">
-                              Industry Development (All Area)
-                            </option>
-                            <option value="Product Development">
-                              Product Development
-                            </option>
+                        <option value="Information Technology">
+                          Information Technology
+                        </option>
 
-                            {/* General Sciences & Life Sciences */}
-                            <option value="Science (All Branch)">
-                              Science (All Branch)
-                            </option>
-                            <option value="Life Science (All Branch)">
-                              Life Science (All Branch)
-                            </option>
-                            <option value="Health Science (All Branch)">
-                              Health Science (All Branch)
-                            </option>
-                            <option value="Biological Science (All Branch)">
-                              Biological Science (All Branch)
-                            </option>
-                            <option value="Applied Science">
-                              Applied Science
-                            </option>
-                            <option value="Applied Mathematics">
-                              Applied Mathematics
-                            </option>
-                            <option value="Applied Instrumentation">
-                              Applied Instrumentation
-                            </option>
+                        <option value="Electrical & Electronics">
+                          Electrical & Electronics
+                        </option>
 
-                            {/* Arts, Social Sciences & Humanities */}
-                            <option value="Arts and Social Science (All Branch)">
-                              Arts and Social Science (All Branch)
-                            </option>
-                            <option value="Social Science (All Branch)">
-                              Social Science (All Branch)
-                            </option>
-                            <option value="Humanities (All Branch)">
-                              Humanities (All Branch)
-                            </option>
-                            <option value="Commerce">
-                              Commerce
-                            </option>
-                            <option value="Language (All Branch)">
-                              Language (All Branch)
-                            </option>
+                        <option value="Mechanical Systems">
+                          Mechanical Systems
+                        </option>
 
-                            {/* Other Options */}
-                            <option value="Other Research Area Not in the list above">
-                              Other Research Area Not in the list above
-                            </option>
-                            <option value="Other">
-                              Other
-                            </option>
-                          </select>
-                        </div>
+                        <option value="Pharmacy (All Branch)">
+                          Pharmacy (All Branch)
+                        </option>
+
+                        <option value="Science (All Branch)">
+                          Science (All Branch)
+                        </option>
+
+                        <option value="Life Science (All Branch)">
+                          Life Science (All Branch)
+                        </option>
+
+                        <option value="Health Science (All Branch)">
+                          Health Science (All Branch)
+                        </option>
+
+                        <option value="Arts and Social Science (All Branch)">
+                          Arts and Social Science (All Branch)
+                        </option>
+
+                        <option value="Social Science (All Branch)">
+                          Social Science (All Branch)
+                        </option>
+
+                        <option value="Humanities (All Branch)">
+                          Humanities (All Branch)
+                        </option>
+
+                        <option value="Commerce">Commerce</option>
+
+                        <option value="Language (All Branch)">
+                          Language (All Branch)
+                        </option>
+
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
                   </div>
+
+                  {/* FILE */}
 
                   <div className="form-field-grid-row universal-one-column">
                     <div className="input-field-group">
-                      <label className="field-label-text">Upload Paper</label>
+                      <label className="field-label-text">
+                        {isEdit
+                          ? "Upload Corrected Manuscript"
+                          : "Upload Manuscript"}
+                      </label>
+
                       <div className="premium-file-dropzone-box">
                         <input
                           type="file"
@@ -668,22 +976,27 @@ const handleSubmit = async (e) => {
                           onChange={handleFileChange}
                           className="hidden-native-file-input"
                         />
+
                         <label
                           htmlFor="paperFileDrop"
                           className="dropzone-interactive-surface"
                         >
-                          <Upload className="cloud-upload-vector" size={32} />
+                          <span className="cloud-upload-vector">
+                            <Upload size={32} />
+                          </span>
+
                           <span className="dropzone-primary-prompt">
                             {uploadedFile
                               ? `Selected: ${uploadedFile.name}`
                               : isEdit && editPaper?.paperFile
-                                ? "Current File Available"
+                                ? "Current manuscript available — upload corrected version"
                                 : "Click to browse files or drag here"}
                           </span>
+
                           <span className="dropzone-format-constraint-text">
-                            Supported Formats: <strong>.doc</strong>,{" "}
-                            <strong>.docx</strong>, or <strong>.pdf</strong>{" "}
-                            only
+                            Supported: <strong>PDF</strong>,{" "}
+                            <strong>DOC</strong>, <strong>DOCX</strong> ·
+                            Maximum 20 MB
                           </span>
                         </label>
                       </div>
@@ -693,9 +1006,14 @@ const handleSubmit = async (e) => {
               </div>
             </div>
 
-            {/* SECTION 2: Authors Details */}
+            {/* =================================================
+                SECTION 02 AUTHORS
+            ================================================= */}
+
             <div
-              className={`accordion-segment-block ${openSections.authorDetails ? "is-expanded" : ""}`}
+              className={`accordion-segment-block ${
+                openSections.authorDetails ? "is-expanded" : ""
+              }`}
             >
               <button
                 type="button"
@@ -704,10 +1022,17 @@ const handleSubmit = async (e) => {
               >
                 <div className="trigger-title-group">
                   <Users className="section-icon-marker" size={22} />
+
                   <span className="section-title-label">
-                    Authors Profile Configurations
+                    <span className="section-number-badge">02</span>
+
+                    <span className="section-title-text">
+                      Authors Profile
+                      <small>Authors and affiliations</small>
+                    </span>
                   </span>
                 </div>
+
                 {openSections.authorDetails ? (
                   <ChevronUp size={20} />
                 ) : (
@@ -722,21 +1047,23 @@ const handleSubmit = async (e) => {
                       <label className="field-label-text">
                         Author Category
                       </label>
+
                       <select
                         name="authorCategory"
                         value={formData.authorCategory}
                         onChange={handleChange}
                         className="premium-select-dropdown"
                       >
-                        <option value="">
-                          (Please select an Author category)
-                        </option>
+                        <option value="">Select Author Category</option>
+
                         <option value="Student Researcher">
                           Student Researcher
                         </option>
+
                         <option value="Faculty / Professor">
                           Faculty / Professor
                         </option>
+
                         <option value="Industry Professional">
                           Industry Professional
                         </option>
@@ -745,6 +1072,7 @@ const handleSubmit = async (e) => {
 
                     <div className="input-field-group">
                       <label className="field-label-text">Total Authors</label>
+
                       <select
                         className="premium-select-dropdown focus-highlight-green"
                         value={totalAuthors}
@@ -753,19 +1081,21 @@ const handleSubmit = async (e) => {
 
                           setTotalAuthors(count);
 
-                          const updatedAuthors = Array.from(
-                            { length: count },
-                            (_, i) =>
-                              authors[i] || {
-                                fullName: "",
-                                designation: "",
-                                organization: "",
-                                contactNumber: "",
-                                email: "",
+                          setAuthors((prev) =>
+                            Array.from(
+                              {
+                                length: count,
                               },
+                              (_, i) =>
+                                prev[i] || {
+                                  fullName: "",
+                                  designation: "",
+                                  organization: "",
+                                  contactNumber: "",
+                                  email: "",
+                                },
+                            ),
                           );
-
-                          setAuthors(updatedAuthors);
                         }}
                       >
                         {[1, 2, 3, 4, 5].map((n) => (
@@ -778,11 +1108,13 @@ const handleSubmit = async (e) => {
                   </div>
 
                   <div className="dynamic-authors-stack-container">
-                    {Array.from({ length: totalAuthors }).map((_, index) => (
+                    {Array.from({
+                      length: totalAuthors,
+                    }).map((_, index) => (
                       <div key={index} className="individual-author-card-panel">
                         <div className="author-card-badge-header">
                           <User size={14} />
-                          <span>Author {index + 1}</span>
+                          Author {index + 1}
                         </div>
 
                         <div className="author-fields-inner-matrix">
@@ -790,6 +1122,7 @@ const handleSubmit = async (e) => {
                             <div className="wrapper-prepend-icon">
                               <User size={16} />
                             </div>
+
                             <input
                               type="text"
                               value={authors[index]?.fullName || ""}
@@ -800,7 +1133,7 @@ const handleSubmit = async (e) => {
                                   e.target.value,
                                 )
                               }
-                              placeholder={`Author ${index + 1} - Full Name`}
+                              placeholder="Full Name"
                               className="iconic-pure-input"
                             />
                           </div>
@@ -809,6 +1142,7 @@ const handleSubmit = async (e) => {
                             <div className="wrapper-prepend-icon">
                               <Briefcase size={16} />
                             </div>
+
                             <input
                               type="text"
                               value={authors[index]?.designation || ""}
@@ -819,7 +1153,7 @@ const handleSubmit = async (e) => {
                                   e.target.value,
                                 )
                               }
-                              placeholder={`Author ${index + 1} - Designation`}
+                              placeholder="Designation"
                               className="iconic-pure-input"
                             />
                           </div>
@@ -828,6 +1162,7 @@ const handleSubmit = async (e) => {
                             <div className="wrapper-prepend-icon">
                               <GraduationCap size={16} />
                             </div>
+
                             <input
                               type="text"
                               value={authors[index]?.organization || ""}
@@ -838,7 +1173,7 @@ const handleSubmit = async (e) => {
                                   e.target.value,
                                 )
                               }
-                              placeholder={`Author ${index + 1} - University/Organization`}
+                              placeholder="University / Organization"
                               className="iconic-pure-input"
                             />
                           </div>
@@ -847,6 +1182,7 @@ const handleSubmit = async (e) => {
                             <div className="wrapper-prepend-icon">
                               <Phone size={16} />
                             </div>
+
                             <input
                               type="tel"
                               value={authors[index]?.contactNumber || ""}
@@ -857,7 +1193,7 @@ const handleSubmit = async (e) => {
                                   e.target.value,
                                 )
                               }
-                              placeholder={`Author ${index + 1} - Contact Number`}
+                              placeholder="Contact Number"
                               className="iconic-pure-input"
                             />
                           </div>
@@ -866,6 +1202,7 @@ const handleSubmit = async (e) => {
                             <div className="wrapper-prepend-icon">
                               <Mail size={16} />
                             </div>
+
                             <input
                               type="email"
                               value={authors[index]?.email || ""}
@@ -876,7 +1213,7 @@ const handleSubmit = async (e) => {
                                   e.target.value,
                                 )
                               }
-                              placeholder={`Author ${index + 1} - Official Email Address`}
+                              placeholder="Official Email Address"
                               className="iconic-pure-input"
                             />
                           </div>
@@ -888,9 +1225,14 @@ const handleSubmit = async (e) => {
               </div>
             </div>
 
-            {/* SECTION 3: Address Details */}
+            {/* =================================================
+                SECTION 03 ADDRESS
+            ================================================= */}
+
             <div
-              className={`accordion-segment-block ${openSections.addressDetails ? "is-expanded" : ""}`}
+              className={`accordion-segment-block ${
+                openSections.addressDetails ? "is-expanded" : ""
+              }`}
             >
               <button
                 type="button"
@@ -899,10 +1241,17 @@ const handleSubmit = async (e) => {
               >
                 <div className="trigger-title-group">
                   <MapPin className="section-icon-marker" size={22} />
+
                   <span className="section-title-label">
-                    Geographical Address Details
+                    <span className="section-number-badge">03</span>
+
+                    <span className="section-title-text">
+                      Correspondence Address
+                      <small>Author contact address</small>
+                    </span>
                   </span>
                 </div>
+
                 {openSections.addressDetails ? (
                   <ChevronUp size={20} />
                 ) : (
@@ -915,6 +1264,7 @@ const handleSubmit = async (e) => {
                   <div className="form-field-grid-row split-two-equal-columns">
                     <div className="input-field-group">
                       <label className="field-label-text">Address Line 1</label>
+
                       <input
                         type="text"
                         name="address1"
@@ -924,14 +1274,16 @@ const handleSubmit = async (e) => {
                         className="premium-input-box"
                       />
                     </div>
+
                     <div className="input-field-group">
                       <label className="field-label-text">Address Line 2</label>
+
                       <input
                         type="text"
                         name="address2"
                         value={formData.address2}
                         onChange={handleChange}
-                        placeholder="Apartment, suite, unit, building"
+                        placeholder="Apartment, suite, unit"
                         className="premium-input-box"
                       />
                     </div>
@@ -940,23 +1292,26 @@ const handleSubmit = async (e) => {
                   <div className="form-field-grid-row split-two-equal-columns">
                     <div className="input-field-group">
                       <label className="field-label-text">City</label>
+
                       <input
                         type="text"
                         name="city"
                         value={formData.city}
                         onChange={handleChange}
-                        placeholder="e.g., Bhubaneswar"
+                        placeholder="City"
                         className="premium-input-box"
                       />
                     </div>
+
                     <div className="input-field-group">
                       <label className="field-label-text">State</label>
+
                       <input
                         type="text"
                         name="state"
                         value={formData.state}
                         onChange={handleChange}
-                        placeholder="e.g., Odisha"
+                        placeholder="State"
                         className="premium-input-box"
                       />
                     </div>
@@ -965,25 +1320,31 @@ const handleSubmit = async (e) => {
                   <div className="form-field-grid-row split-two-equal-columns">
                     <div className="input-field-group">
                       <label className="field-label-text">Country</label>
+
                       <select
                         name="country"
                         value={formData.country}
                         onChange={handleChange}
                         className="premium-select-dropdown"
                       >
-                        <option value="">(Select Country Name)</option>
+                        <option value="">Select Country</option>
 
-                        {ALL_COUNTRIES.map((c) => (
-                          <option key={`country-${c.code}`} value={c.name}>
-                            {c.name}
+                        {ALL_COUNTRIES.map((country) => (
+                          <option
+                            key={`country-${country.code}`}
+                            value={country.name}
+                          >
+                            {country.name}
                           </option>
                         ))}
                       </select>
                     </div>
+
                     <div className="input-field-group">
                       <label className="field-label-text">
                         Pincode / Postal Code
                       </label>
+
                       <input
                         type="text"
                         name="pincode"
@@ -998,9 +1359,14 @@ const handleSubmit = async (e) => {
               </div>
             </div>
 
-            {/* SECTION 4: Terms & Conditions */}
+            {/* =================================================
+                SECTION 04 COMPLIANCE
+            ================================================= */}
+
             <div
-              className={`accordion-segment-block ${openSections.termsDetails ? "is-expanded" : ""}`}
+              className={`accordion-segment-block ${
+                openSections.termsDetails ? "is-expanded" : ""
+              }`}
             >
               <button
                 type="button"
@@ -1009,10 +1375,17 @@ const handleSubmit = async (e) => {
               >
                 <div className="trigger-title-group">
                   <ShieldCheck className="section-icon-marker" size={22} />
+
                   <span className="section-title-label">
-                    Compliance / Referral Details
+                    <span className="section-number-badge">04</span>
+
+                    <span className="section-title-text">
+                      Compliance & Submission
+                      <small>Final verification</small>
+                    </span>
                   </span>
                 </div>
+
                 {openSections.termsDetails ? (
                   <ChevronUp size={20} />
                 ) : (
@@ -1024,15 +1397,14 @@ const handleSubmit = async (e) => {
                 <div className="inner-content-padding">
                   <div className="form-field-grid-row universal-one-column">
                     <div className="input-field-group">
-                      <label className="field-label-text">
-                        Referral Code (if you have)
-                      </label>
+                      <label className="field-label-text">Referral Code</label>
+
                       <input
                         type="text"
                         name="referralCode"
                         value={formData.referralCode}
                         onChange={handleChange}
-                        placeholder="Enter referral code"
+                        placeholder="Enter referral code if available"
                         className="premium-input-box"
                       />
                     </div>
@@ -1043,6 +1415,7 @@ const handleSubmit = async (e) => {
                       <label className="field-label-text">
                         Special Message for Editor
                       </label>
+
                       <textarea
                         name="editorMessage"
                         value={formData.editorMessage}
@@ -1073,11 +1446,7 @@ const handleSubmit = async (e) => {
                     <button
                       type="button"
                       onClick={generateCaptcha}
-                      style={{
-                        marginLeft: "10px",
-                        padding: "6px 12px",
-                        cursor: "pointer",
-                      }}
+                      className="captcha-refresh-btn"
                     >
                       Refresh
                     </button>
@@ -1085,20 +1454,39 @@ const handleSubmit = async (e) => {
 
                   <div className="terms-agreement-disclosure-callout">
                     <p>
-                      By submitting this form you have agreed to our
-                      comprehensive publication terms and conditions.
+                      By submitting this form, you agree to the journal
+                      publication terms and conditions.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
 
+            {/* =================================================
+                FINAL ACTION
+            ================================================= */}
+
             <div className="form-global-action-footer">
+              <div className="submission-security-note">
+                <ShieldCheck size={17} />
+
+                <span>
+                  Your manuscript information is transmitted through the
+                  authorized journal submission workflow.
+                </span>
+              </div>
+
               <button type="submit" className="global-master-submit-btn">
-                {isEdit ? "Update Paper" : "Submit Entire Application"}
+                {isEdit ? "Submit Corrected Manuscript" : "Submit Manuscript"}
+
+                <CheckCircle2 size={18} />
               </button>
             </div>
           </form>
+          {editPaper &&
+            ["Accepted", "Documents Required", "Correction Required"].includes(
+              editPaper.status,
+            ) && <AuthorPublicationDocuments paper={editPaper} />}
         </div>
       </main>
     </div>
