@@ -7,6 +7,8 @@ const { deleteImageFile } = require("../middlewares/upload");
 
 /* ================= CREATE EDITOR ================= */
 
+/* ================= CREATE EDITOR ================= */
+
 exports.createEditor = async (req, res) => {
   try {
     const { name, email, phone, password, role } = req.body;
@@ -22,19 +24,29 @@ exports.createEditor = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const count = await Editor.countDocuments();
+    // 1. Find the editor with the highest numeric userId
+    const lastEditor = await Editor.findOne({ userId: { $regex: /^EDT-\d+$/ } })
+      .sort({ userId: -1 })
+      .collation({ locale: "en", numericOrdering: true });
 
+    let nextNumber = 1;
+    if (lastEditor && lastEditor.userId) {
+      const match = lastEditor.userId.match(/\d+/);
+      if (match) {
+        nextNumber = parseInt(match[0], 10) + 1;
+      }
+    }
+
+    const nextUserId = `EDT-${String(nextNumber).padStart(4, "0")}`;
+
+    // 2. Create the editor with the safe nextUserId
     const editor = await Editor.create({
-      userId: `EDT-${String(count + 1).padStart(4, "0")}`,
-
+      userId: nextUserId,
       name,
       email,
       phone,
-
       password: hashedPassword,
-
       role: role || "Editor",
-
       status: "Active",
     });
 
@@ -44,6 +56,12 @@ exports.createEditor = async (req, res) => {
       data: editor,
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: "Duplicate entry detected. Please try again.",
+      });
+    }
     return res.status(500).json({
       success: false,
       message: error.message,

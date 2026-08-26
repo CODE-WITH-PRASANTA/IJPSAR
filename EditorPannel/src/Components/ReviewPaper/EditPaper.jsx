@@ -30,7 +30,7 @@ import {
 
 import { useNavigate, useParams } from "react-router-dom";
 
-import API, { BASE_URL } from "../../api/axios";
+import API, { BASE_URL } from "../../API/axios";
 
 import "./EditPaper.css";
 
