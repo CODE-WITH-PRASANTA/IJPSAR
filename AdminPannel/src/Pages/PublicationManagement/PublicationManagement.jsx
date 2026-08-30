@@ -331,10 +331,7 @@ const PublicationManagement = () => {
 
       setPapers(data);
 
-      console.log(
-        "PUBLICATION MANAGEMENT DATA:",
-        data
-      );
+     
     } catch (error) {
       console.error(
         "FETCH PAPERS ERROR:",

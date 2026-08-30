@@ -502,3 +502,62 @@
   padding: 3rem 0 !important;
   font-style: italic;
 }
+
+
+
+
+
+
+
+/* =====================================================
+   ONLY VERTICAL TABLE SCROLL
+===================================================== */
+
+.eb-table-responsive {
+  width: 100%;
+  max-width: 100%;
+
+  /* Vertical scrolling only */
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+/* Keep table width normal */
+.eb-table-responsive .eb-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Sticky table header */
+.eb-table-responsive .eb-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+  .eb-table-responsive {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+  .eb-table-responsive {
+    max-height: 450px;
+  }
+}
+

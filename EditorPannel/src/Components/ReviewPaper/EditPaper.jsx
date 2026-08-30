@@ -549,14 +549,7 @@ const EditPaper = () => {
       const response = await API.get(`/submitform/${id}`);
 
       const data = response?.data?.data;
-      console.log("========== PAPER DATA ==========");
-      console.log("PAPER:", data);
-      console.log("PAPER STATUS:", data?.status);
-      console.log("PAPER STATUS JSON:", JSON.stringify(data?.status));
-      console.log(
-        "IS DOCUMENT SUBMITTED:",
-        isPublicationDocumentsSubmitted(data?.status),
-      );
+      
 
       if (!data) {
         throw new Error("Paper information was not found.");
@@ -829,10 +822,7 @@ const EditPaper = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("========== SAVE PAPER ==========");
-    console.log("PAPER ID:", id);
-    console.log("CURRENT STATUS:", paper?.status);
-    console.log("SELECTED STATUS:", formData.status);
+  
 
     try {
       setSaving(true);
@@ -862,7 +852,7 @@ const EditPaper = () => {
         editorVersion: paper?.version || 1,
       };
 
-      console.log("EDITORIAL PAYLOAD:", editorialPayload);
+     
 
       let response;
 
@@ -881,7 +871,7 @@ const EditPaper = () => {
         paper?.status === "Editor Assigned" &&
         formData.status === "Under Review"
       ) {
-        console.log("STARTING EDITING...");
+       
 
         /* First save title / abstract / remarks */
         const updateResponse = await API.put(
@@ -894,8 +884,7 @@ const EditPaper = () => {
           },
         );
 
-        console.log("UPDATE RESPONSE:", updateResponse?.data);
-
+        
         if (!updateResponse?.data?.success) {
           throw new Error(
             updateResponse?.data?.message ||
@@ -914,7 +903,7 @@ const EditPaper = () => {
           },
         );
 
-        console.log("START EDITING RESPONSE:", response?.data);
+        
       } else if (
         /* =====================================================
        STEP 2
@@ -925,8 +914,7 @@ const EditPaper = () => {
         paper?.status === "Under Review" &&
         formData.status === "Accepted"
       ) {
-        console.log("ACCEPTING PAPER...");
-
+      
         /* First save editorial information */
         const updateResponse = await API.put(
           `/submitform/update/${id}`,
@@ -938,7 +926,7 @@ const EditPaper = () => {
           },
         );
 
-        console.log("UPDATE RESPONSE:", updateResponse?.data);
+      
 
         if (!updateResponse?.data?.success) {
           throw new Error(
@@ -958,7 +946,7 @@ const EditPaper = () => {
           },
         );
 
-        console.log("ACCEPT RESPONSE:", response?.data);
+        
       } else if (
         /* =====================================================
        STEP 3
@@ -969,7 +957,7 @@ const EditPaper = () => {
         paper?.status === "Under Review" &&
         formData.status === "Rejected"
       ) {
-        console.log("REJECTING PAPER...");
+       
 
         if (!normalizeText(formData.editorRemarks)) {
           throw new Error(
@@ -988,7 +976,7 @@ const EditPaper = () => {
           },
         );
 
-        console.log("UPDATE RESPONSE:", updateResponse?.data);
+       
 
         if (!updateResponse?.data?.success) {
           throw new Error(
@@ -1008,21 +996,20 @@ const EditPaper = () => {
           },
         );
 
-        console.log("REJECT RESPONSE:", response?.data);
+        
       } else if (formData.status === paper?.status) {
         /* =====================================================
        NO WORKFLOW CHANGE
        Just save normal editorial information
     ===================================================== */
-        console.log("SAVING EDITORIAL INFORMATION ONLY...");
-
+       
         response = await API.put(`/submitform/update/${id}`, editorialPayload, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        console.log("UPDATE RESPONSE:", response?.data);
+        
       } else {
         /* =====================================================
        INVALID WORKFLOW TRANSITION
@@ -1150,7 +1137,7 @@ const EditPaper = () => {
         },
       );
 
-      console.log("REQUEST PUBLICATION DOCUMENTS RESPONSE:", response?.data);
+     
 
       if (!response?.data?.success) {
         throw new Error(

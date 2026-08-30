@@ -1,22 +1,44 @@
+
 const mongoose = require("mongoose");
 
 const editorialBoardSchema = new mongoose.Schema(
   {
+    // =====================================================
+    // NAME
+    // =====================================================
+
     name: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
+      default: "",
     },
+
+    // =====================================================
+    // DESIGNATION
+    // =====================================================
 
     designation: {
       type: String,
-      required: true,
+      required: false,
+      trim: true,
+      default: "",
     },
+
+    // =====================================================
+    // INSTITUTION
+    // =====================================================
 
     institution: {
       type: String,
-      required: true,
+      required: false,
+      trim: true,
+      default: "",
     },
+
+    // =====================================================
+    // CATEGORY
+    // =====================================================
 
     category: {
       type: String,
@@ -29,31 +51,70 @@ const editorialBoardSchema = new mongoose.Schema(
       default: "Editorial Board",
     },
 
+    // =====================================================
+    // EMAIL
+    // =====================================================
+
     email: {
       type: String,
+      trim: true,
+      lowercase: true,
       default: "",
     },
+
+    // =====================================================
+    // PHONE
+    // =====================================================
 
     phone: {
       type: String,
+      trim: true,
       default: "",
     },
 
-    biography: {
+    // =====================================================
+    // ORCID ID
+    // =====================================================
+
+    orcid: {
       type: String,
+      trim: true,
       default: "",
     },
+
+    // =====================================================
+    // BIOGRAPHY
+    // =====================================================
+
+    biography: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    // =====================================================
+    // TAGS
+    // =====================================================
 
     tags: [
       {
         type: String,
+        trim: true,
       },
     ],
+
+    // =====================================================
+    // PROFILE IMAGE
+    // =====================================================
 
     profileImage: {
       type: String,
       default: "",
     },
+
+    // =====================================================
+    // STATUS
+    // =====================================================
 
     status: {
       type: Boolean,
@@ -69,3 +130,4 @@ module.exports = mongoose.model(
   "EditorialBoard",
   editorialBoardSchema
 );
+

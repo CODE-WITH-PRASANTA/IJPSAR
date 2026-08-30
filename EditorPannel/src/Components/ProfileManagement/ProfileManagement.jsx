@@ -45,10 +45,7 @@ const ProfileManagement = () => {
 
       const token = localStorage.getItem("editorToken");
 
-      if (!token) {
-        console.log("No Token Found");
-        return;
-      }
+      
 
       const { data } = await API.get("/editor/profile", {
         headers: {
@@ -56,7 +53,7 @@ const ProfileManagement = () => {
         },
       });
 
-      console.log(data);
+     
 
       if (data.success) {
         setEditor(data.data);

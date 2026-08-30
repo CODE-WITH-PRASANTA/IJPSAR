@@ -139,16 +139,13 @@ const AuthorPublicationDocuments = ({ paper: paperProp = null }) => {
   const loadExistingDocuments = (paperData) => {
     const publicationDocuments = paperData?.publicationDocuments || {};
 
-    console.log("========== LOAD EXISTING PUBLICATION DOCUMENTS ==========");
-
-    console.log("publicationDocuments:", publicationDocuments);
 
     const paymentProof =
       publicationDocuments.publicationFeePaymentProof ||
       publicationDocuments.publicationFeeProof ||
       null;
 
-    console.log("Publication Fee Payment Proof:", paymentProof);
+  
 
     const documents = {
       correctedGalleyProof: normalizeDocuments(
@@ -170,7 +167,7 @@ const AuthorPublicationDocuments = ({ paper: paperProp = null }) => {
       ),
     };
 
-    console.log("Normalized Existing Documents:", documents);
+   
 
     setExistingDocuments(documents);
   };
@@ -524,15 +521,7 @@ const AuthorPublicationDocuments = ({ paper: paperProp = null }) => {
         formData.append("additionalSupportingFiles", file);
       });
 
-      console.log("==========================================");
-
-      console.log("PUBLICATION DOCUMENT SUBMISSION");
-
-      console.log("Paper ID:", paperId);
-
-      console.log("Token:", !!token);
-
-      console.log("==========================================");
+    
 
       for (const [key, value] of formData.entries()) {
         console.log("FORM DATA:", key, value?.name || value);
@@ -548,7 +537,7 @@ const AuthorPublicationDocuments = ({ paper: paperProp = null }) => {
         },
       );
 
-      console.log("PUBLICATION DOCUMENT UPLOAD RESPONSE:", uploadResponse.data);
+     
 
       if (!uploadResponse.data?.success) {
         throw new Error(
@@ -567,7 +556,6 @@ const AuthorPublicationDocuments = ({ paper: paperProp = null }) => {
         },
       );
 
-      console.log("PUBLICATION FINAL SUBMIT RESPONSE:", submitResponse.data);
 
       if (!submitResponse.data?.success) {
         throw new Error(

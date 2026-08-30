@@ -14,6 +14,7 @@ router.post("/register", register);
 
 router.post("/login", login);
 
+
 router.get("/all", getAllAuthors);
 
 router.delete("/author/clear-all", authorAuth, clearAllAuthorNotifications);

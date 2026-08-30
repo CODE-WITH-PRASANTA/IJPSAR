@@ -190,19 +190,7 @@ const ReviewPaper = () => {
           "editorToken"
         );
 
-      console.log(
-        "========== APPROVE PAPER =========="
-      );
-
-      console.log(
-        "Paper ID:",
-        paperId
-      );
-
-      console.log(
-        "Editor token exists:",
-        !!token
-      );
+     
 
       if (!token) {
         console.error(
@@ -239,11 +227,7 @@ const ReviewPaper = () => {
         return;
       }
 
-      console.log(
-        "CURRENT PAPER STATUS:",
-        currentPaper.status
-      );
-
+     
       /* =====================================================
          ALREADY FORWARDED
       ===================================================== */
@@ -284,9 +268,7 @@ const ReviewPaper = () => {
          APPROVED AND FORWARDED TO ADMIN
       ===================================================== */
 
-      console.log(
-        "Approving and forwarding to Admin..."
-      );
+    
 
       const approveResponse =
         await API.put(
@@ -300,10 +282,7 @@ const ReviewPaper = () => {
           }
         );
 
-      console.log(
-        "APPROVE RESPONSE:",
-        approveResponse.data
-      );
+      
 
       /* =====================================================
          SUCCESS

@@ -1,10 +1,9 @@
-/* =========================================================
-   PREMIUM EDITORIAL BOARD - FULLY RESPONSIVE CSS
-========================================================= */
+
+/* =====================================================
+   PREMIUM EDITORIAL BOARD
+===================================================== */
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -23,31 +22,33 @@
     );
 }
 
-/* =========================================================
+
+/* =====================================================
    BACKGROUND EFFECTS
-========================================================= */
+===================================================== */
 
 .editorialBoard::before {
   content: "";
 
   position: absolute;
 
-  width: 420px;
-  height: 420px;
+  width: 520px;
+  height: 520px;
+
+  top: -230px;
+  right: -180px;
 
   border-radius: 50%;
-
-  top: -180px;
-  right: -140px;
 
   background:
     radial-gradient(
       circle,
-      rgba(214, 255, 58, 0.12),
-      transparent 70%
+      rgba(214, 255, 58, 0.15),
+      rgba(214, 255, 58, 0.04) 45%,
+      transparent 72%
     );
 
-  z-index: 0;
+  pointer-events: none;
 }
 
 .editorialBoard::after {
@@ -55,50 +56,56 @@
 
   position: absolute;
 
-  width: 320px;
-  height: 320px;
+  width: 420px;
+  height: 420px;
+
+  bottom: -200px;
+  left: -180px;
 
   border-radius: 50%;
-
-  bottom: -140px;
-  left: -120px;
 
   background:
     radial-gradient(
       circle,
-      rgba(0, 182, 155, 0.10),
+      rgba(0, 182, 155, 0.12),
       transparent 70%
     );
 
-  z-index: 0;
+  pointer-events: none;
 }
 
-/* =========================================================
+
+/* =====================================================
    CONTAINER
-========================================================= */
+===================================================== */
 
 .editorialBoardContainer {
   width: 100%;
+  max-width: 1500px;
+
   position: relative;
   z-index: 2;
+
+  margin: 0 auto;
 }
 
-/* =========================================================
+
+/* =====================================================
    TOP CONTENT
-========================================================= */
+===================================================== */
 
 .editorialTopContent {
-  text-align: center;
-
   max-width: 900px;
 
   margin: 0 auto 85px;
+
+  text-align: center;
 }
 
 .editorialMiniTag {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 9px;
 
   padding: 10px 24px;
 
@@ -113,25 +120,56 @@
 
   border: 1px solid rgba(0, 182, 155, 0.14);
 
-  color: #00b69b;
+  color: #00a98f;
 
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
 
   letter-spacing: 2px;
 
   margin-bottom: 24px;
+
+  box-shadow:
+    0 8px 25px rgba(0, 182, 155, 0.05);
+}
+
+.miniTagDot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #00b69b;
+
+  box-shadow:
+    0 0 0 4px rgba(0, 182, 155, 0.10),
+    0 0 14px rgba(0, 182, 155, 0.35);
+
+  animation: editorialPulse 2s infinite;
+}
+
+@keyframes editorialPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
 }
 
 .editorialTopContent h2 {
+  margin: 0 0 22px;
+
+  color: #08203a;
+
   font-size: 3.4rem;
   font-weight: 800;
 
   line-height: 1.2;
 
-  color: #08203a;
-
-  margin-bottom: 22px;
+  letter-spacing: -1.5px;
 }
 
 .editorialTopContent h2 span {
@@ -139,134 +177,278 @@
 }
 
 .editorialTopContent p {
+  margin: 0 auto;
+
+  max-width: 800px;
+
+  color: #617086;
+
   font-size: 1.02rem;
 
   line-height: 1.9;
-
-  color: #617086;
 }
 
-/* =========================================================
+
+/* =====================================================
    SECTION
-========================================================= */
+===================================================== */
 
 .editorialSection {
   margin-bottom: 90px;
 }
 
-/* =========================================================
+
+/* =====================================================
    SECTION TITLE
-========================================================= */
+===================================================== */
 
 .sectionTitleWrap {
   display: flex;
   align-items: center;
 
-  gap: 24px;
+  gap: 14px;
 
   margin-bottom: 40px;
 }
 
+.sectionTitleIcon {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #d6ff3a,
+      #00b69b
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 8px 22px rgba(0, 182, 155, 0.20);
+}
+
+.sectionTitleIcon svg {
+  font-size: 16px;
+}
+
 .sectionTitleWrap h3 {
-  font-size: 2.3rem;
-  font-weight: 800;
+  margin: 0;
 
   color: #08203a;
+
+  font-size: 2.1rem;
+
+  font-weight: 800;
 
   white-space: nowrap;
 }
 
 .sectionLine {
-  width: 100%;
+  flex: 1;
+
   height: 2px;
 
   background:
     linear-gradient(
       90deg,
-      #00b69b,
+      rgba(0, 182, 155, 0.45),
+      rgba(0, 182, 155, 0.05),
       transparent
     );
 }
 
-/* =========================================================
+.sectionCount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 34px;
+  height: 34px;
+
+  padding: 0 10px;
+
+  border-radius: 50px;
+
+  background: rgba(0, 182, 155, 0.08);
+
+  border: 1px solid rgba(0, 182, 155, 0.12);
+
+  color: #00a98f;
+
+  font-size: 12px;
+
+  font-weight: 800;
+}
+
+
+/* =====================================================
    GRID
-========================================================= */
+===================================================== */
 
 .editorialGrid {
   display: grid;
 
   grid-template-columns:
-    repeat(auto-fit, minmax(330px, 1fr));
+    repeat(
+      auto-fit,
+      minmax(330px, 1fr)
+    );
 
   gap: 35px;
 }
 
-/* =========================================================
+
+/* =====================================================
    CARD
-========================================================= */
+===================================================== */
 
 .editorialCard {
   position: relative;
 
   overflow: hidden;
 
-  background: white;
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  padding: 42px 30px 30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff 0%,
+      #fbfefd 100%
+    );
+
+  border: 1px solid rgba(227, 237, 241, 0.95);
 
   border-radius: 30px;
 
-  padding: 42px 30px;
-
-  border: 1px solid #e3edf1;
-
-  transition: 0.45s ease;
-
   box-shadow:
-    0 12px 35px rgba(0, 0, 0, 0.04);
+    0 12px 35px rgba(0, 0, 0, 0.04),
+    0 2px 5px rgba(0, 0, 0, 0.02);
+
+  transition:
+    transform 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
 }
 
 .editorialCard:hover {
   transform: translateY(-10px);
 
-  border-color: rgba(0, 182, 155, 0.22);
+  border-color:
+    rgba(0, 182, 155, 0.24);
 
   box-shadow:
-    0 24px 55px rgba(0, 182, 155, 0.14);
+    0 25px 60px rgba(0, 182, 155, 0.12),
+    0 5px 15px rgba(0, 0, 0, 0.04);
 }
 
-/* =========================================================
+
+/* =====================================================
+   CARD TOP LINE
+===================================================== */
+
+.editorialCard::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 15%;
+
+  width: 70%;
+  height: 2px;
+
+  border-radius: 0 0 10px 10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #00b69b,
+      #d6ff3a,
+      #00b69b,
+      transparent
+    );
+
+  opacity: 0.55;
+}
+
+
+/* =====================================================
    CARD GLOW
-========================================================= */
+===================================================== */
 
 .cardGlow {
   position: absolute;
 
-  width: 260px;
-  height: 260px;
+  width: 280px;
+  height: 280px;
+
+  top: -145px;
+  right: -145px;
 
   border-radius: 50%;
-
-  top: -120px;
-  right: -120px;
 
   background:
     radial-gradient(
       circle,
-      rgba(214, 255, 58, 0.16),
+      rgba(214, 255, 58, 0.18),
       transparent 70%
     );
 
   opacity: 0;
 
-  transition: 0.5s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+
+  pointer-events: none;
 }
 
 .editorialCard:hover .cardGlow {
   opacity: 1;
+
+  transform: scale(1.15);
 }
 
-/* =========================================================
+.cardGlowSecondary {
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  bottom: -110px;
+  left: -100px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0, 182, 155, 0.07),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =====================================================
    BADGE
-========================================================= */
+===================================================== */
 
 .topBadge {
   position: absolute;
@@ -274,8 +456,14 @@
   top: 20px;
   right: 20px;
 
+  z-index: 4;
+
   width: 42px;
   height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   border-radius: 50%;
 
@@ -286,45 +474,90 @@
       #00b69b
     );
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: white;
+  color: #ffffff;
 
   font-size: 0.95rem;
 
   box-shadow:
     0 10px 24px rgba(0, 182, 155, 0.25);
+
+  transition:
+    transform 0.35s ease;
 }
 
-/* =========================================================
+.editorialCard:hover .topBadge {
+  transform:
+    rotate(8deg)
+    scale(1.08);
+}
+
+
+/* =====================================================
    IMAGE
-========================================================= */
+===================================================== */
 
 .editorialImageWrap {
   width: 140px;
   height: 140px;
 
+  position: relative;
+
   margin: 0 auto 28px;
 
-  position: relative;
+  z-index: 2;
+}
+
+.imageRing {
+  position: absolute;
+
+  inset: -7px;
+
+  border-radius: 50%;
+
+  border: 1px solid
+    rgba(0, 182, 155, 0.18);
+
+  background:
+    conic-gradient(
+      from 0deg,
+      rgba(214, 255, 58, 0.55),
+      rgba(0, 182, 155, 0.55),
+      transparent,
+      rgba(0, 182, 155, 0.55),
+      rgba(214, 255, 58, 0.55)
+    );
+
+  opacity: 0.65;
+
+  transition:
+    transform 0.7s ease;
+}
+
+.editorialCard:hover .imageRing {
+  transform: rotate(25deg);
 }
 
 .editorialImageWrap img {
+  position: relative;
+
   width: 100%;
   height: 100%;
+
+  display: block;
 
   object-fit: cover;
 
   border-radius: 50%;
 
-  border: 5px solid white;
+  border: 5px solid #ffffff;
+
+  background: #f5faf8;
 
   box-shadow:
     0 15px 35px rgba(0, 182, 155, 0.18);
 
-  transition: 0.45s ease;
+  transition:
+    transform 0.45s ease;
 }
 
 .editorialCard:hover
@@ -332,66 +565,321 @@
   transform: scale(1.06);
 }
 
-/* =========================================================
+
+/* =====================================================
    CONTENT
-========================================================= */
+===================================================== */
 
 .editorialContent {
+  position: relative;
+
+  z-index: 2;
+
   text-align: center;
 }
 
 .editorialContent h4 {
-  font-size: 1.5rem;
-  font-weight: 700;
+  margin: 0 0 10px;
 
   color: #08203a;
 
+  font-size: 1.5rem;
+
+  font-weight: 750;
+
   line-height: 1.4;
 
-  margin-bottom: 12px;
+  word-break: break-word;
 }
 
-.editorialContent span {
+.memberDesignation {
   display: inline-block;
 
-  font-size: 1rem;
+  margin-bottom: 15px;
+
+  padding: 6px 13px;
+
+  border-radius: 50px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0, 182, 155, 0.08),
+      rgba(214, 255, 58, 0.10)
+    );
+
+  border: 1px solid
+    rgba(0, 182, 155, 0.10);
+
+  color: #00a98f;
+
+  font-size: 0.85rem;
+
   font-weight: 700;
-
-  color: #00b69b;
-
-  margin-bottom: 18px;
 }
 
-.editorialContent p {
-  font-size: 0.96rem;
-
-  line-height: 1.9;
+.memberInstitution {
+  margin: 0 0 22px !important;
 
   color: #617086;
 
-  margin-bottom: 28px;
+  font-size: 0.92rem;
+
+  line-height: 1.8;
 }
 
-/* =========================================================
-   FOOTER
-========================================================= */
 
-.editorialFooter {
+/* =====================================================
+   MEMBER DETAILS
+===================================================== */
+
+.memberDetails {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-top: 5px;
+
+  text-align: left;
+}
+
+.editorialDetailItem {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+
+  padding: 9px 11px;
+
+  border-radius: 12px;
+
+  border: 1px solid
+    rgba(0, 182, 155, 0.08);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0, 182, 155, 0.035),
+      rgba(214, 255, 58, 0.025)
+    );
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.editorialDetailItem:hover {
+  transform: translateX(3px);
+
+  border-color:
+    rgba(0, 182, 155, 0.18);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0, 182, 155, 0.07),
+      rgba(214, 255, 58, 0.05)
+    );
+}
+
+.detailIcon {
+  width: 30px;
+  height: 30px;
+
+  flex: 0 0 30px;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
+  border-radius: 9px;
+
+  background:
+    rgba(0, 182, 155, 0.09);
+
+  color: #00a98f;
+
+  font-size: 12px;
+}
+
+.orcidIcon {
+  color: #3d8b40;
+
+  background:
+    rgba(61, 139, 64, 0.09);
+}
+
+.detailContent {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.detailContent small {
+  color: #9aa7b6;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.8px;
+}
+
+.detailContent a {
+  min-width: 0;
+
+  color: #526174;
+
+  font-size: 0.78rem;
+
+  font-weight: 600;
+
+  line-height: 1.4;
+
+  text-decoration: none;
+
+  overflow-wrap: anywhere;
+
+  transition: color 0.25s ease;
+}
+
+.detailContent a:hover {
+  color: #00a98f;
+}
+
+.editorialDetailItem
+[href*="orcid"] {
+  color: #3d8b40;
+}
+
+
+/* =====================================================
+   BIOGRAPHY
+===================================================== */
+
+.editorialBiography {
+  margin-top: 18px;
+
+  padding: 15px;
+
+  text-align: left;
+
+  border-radius: 15px;
+
+  border: 1px solid
+    rgba(0, 182, 155, 0.10);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(0, 182, 155, 0.045),
+      rgba(255, 255, 255, 0.80)
+    );
+
+  box-shadow:
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.8);
+
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.editorialBiography:hover {
+  border-color:
+    rgba(0, 182, 155, 0.18);
+
+  box-shadow:
+    0 8px 22px
+      rgba(0, 182, 155, 0.06);
+}
+
+.editorialBiographyTitle {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 8px;
+
+  color: #08203a;
+
+  font-size: 0.8rem;
+
+  font-weight: 800;
+}
+
+.bioIcon {
+  width: 27px;
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background:
+    rgba(0, 182, 155, 0.09);
+
+  color: #00a98f;
+
+  font-size: 11px;
+}
+
+.editorialBiography p {
+  margin: 0;
+
+  color: #617086;
+
+  font-size: 0.78rem;
+
+  line-height: 1.7;
+
+  word-break: break-word;
+}
+
+
+/* =====================================================
+   TAGS
+===================================================== */
+
+.editorialFooter {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
   flex-wrap: wrap;
 
-  gap: 14px;
+  gap: 8px;
+
+  margin-top: 20px;
+
+  padding-top: 18px;
+
+  border-top: 1px solid
+    rgba(0, 182, 155, 0.08);
 }
 
 .footerItem {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: inline-flex;
 
-  padding: 10px 16px;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 8px 12px;
 
   border-radius: 50px;
 
@@ -402,9 +890,13 @@
       rgba(0, 182, 155, 0.08)
     );
 
-  border: 1px solid rgba(0, 182, 155, 0.10);
+  border: 1px solid
+    rgba(0, 182, 155, 0.10);
 
-  transition: 0.35s ease;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .footerItem:hover {
@@ -416,37 +908,108 @@
       rgba(214, 255, 58, 0.18),
       rgba(0, 182, 155, 0.14)
     );
+
+  border-color:
+    rgba(0, 182, 155, 0.18);
 }
 
 .footerItem svg {
+  flex-shrink: 0;
+
   color: #00b69b;
 
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .footerItem small {
-  font-size: 0.82rem;
-  font-weight: 600;
-
   color: #08203a;
+
+  font-size: 0.72rem;
+
+  font-weight: 700;
 }
 
-/* =========================================================
-   1600px
-========================================================= */
 
-@media (max-width: 1600px) {
-  .editorialGrid {
-    grid-template-columns:
-      repeat(auto-fit, minmax(320px, 1fr));
+/* =====================================================
+   LOADING
+===================================================== */
+
+.editorialLoading {
+  min-height: 220px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  color: #617086;
+
+  font-size: 15px;
+
+  font-weight: 600;
+}
+
+.editorialLoadingSpinner {
+  width: 24px;
+  height: 24px;
+
+  border-radius: 50%;
+
+  border: 3px solid
+    rgba(0, 182, 155, 0.15);
+
+  border-top-color: #00b69b;
+
+  animation:
+    editorialSpin 0.8s linear infinite;
+}
+
+@keyframes editorialSpin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-/* =========================================================
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.editorialEmpty {
+  border: 1px dashed
+    rgba(0, 182, 155, 0.20);
+
+  border-radius: 20px;
+
+  background:
+    rgba(0, 182, 155, 0.025);
+}
+
+
+/* =====================================================
+   1600px
+===================================================== */
+
+@media (max-width: 1600px) {
+
+  .editorialGrid {
+    grid-template-columns:
+      repeat(
+        auto-fit,
+        minmax(320px, 1fr)
+      );
+  }
+
+}
+
+
+/* =====================================================
    1400px
-========================================================= */
+===================================================== */
 
 @media (max-width: 1400px) {
+
   .editorialBoard {
     padding: 90px 5%;
   }
@@ -454,16 +1017,24 @@
   .editorialTopContent h2 {
     font-size: 3rem;
   }
+
 }
 
-/* =========================================================
+
+/* =====================================================
    1200px
-========================================================= */
+===================================================== */
 
 @media (max-width: 1200px) {
+
   .editorialGrid {
     grid-template-columns:
-      repeat(auto-fit, minmax(300px, 1fr));
+      repeat(
+        auto-fit,
+        minmax(300px, 1fr)
+      );
+
+    gap: 28px;
   }
 
   .sectionTitleWrap h3 {
@@ -473,13 +1044,16 @@
   .editorialTopContent h2 {
     font-size: 2.6rem;
   }
+
 }
 
-/* =========================================================
+
+/* =====================================================
    992px
-========================================================= */
+===================================================== */
 
 @media (max-width: 992px) {
+
   .editorialBoard {
     padding: 80px 5%;
   }
@@ -494,21 +1068,27 @@
 
   .editorialGrid {
     grid-template-columns:
-      repeat(auto-fit, minmax(280px, 1fr));
+      repeat(
+        auto-fit,
+        minmax(280px, 1fr)
+      );
 
-    gap: 28px;
+    gap: 26px;
   }
 
   .editorialCard {
-    padding: 36px 24px;
+    padding: 36px 24px 28px;
   }
+
 }
 
-/* =========================================================
+
+/* =====================================================
    768px
-========================================================= */
+===================================================== */
 
 @media (max-width: 768px) {
+
   .editorialBoard {
     padding: 70px 5%;
   }
@@ -522,10 +1102,9 @@
   }
 
   .sectionTitleWrap {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: wrap;
 
-    gap: 14px;
+    gap: 12px;
   }
 
   .sectionTitleWrap h3 {
@@ -533,7 +1112,11 @@
   }
 
   .sectionLine {
-    width: 140px;
+    flex-basis: 100%;
+
+    width: 100%;
+
+    height: 2px;
   }
 
   .editorialGrid {
@@ -543,13 +1126,16 @@
   .editorialCard {
     max-width: 100%;
   }
+
 }
 
-/* =========================================================
+
+/* =====================================================
    576px
-========================================================= */
+===================================================== */
 
 @media (max-width: 576px) {
+
   .editorialBoard {
     padding: 60px 4%;
   }
@@ -561,13 +1147,15 @@
   .editorialMiniTag {
     font-size: 10px;
 
-    padding: 9px 18px;
+    padding: 9px 16px;
 
-    letter-spacing: 1.5px;
+    letter-spacing: 1.4px;
   }
 
   .editorialTopContent h2 {
     font-size: 1.65rem;
+
+    letter-spacing: -0.5px;
   }
 
   .editorialTopContent p {
@@ -576,8 +1164,22 @@
     line-height: 1.8;
   }
 
+  .sectionTitleIcon {
+    width: 36px;
+    height: 36px;
+
+    flex-basis: 36px;
+  }
+
   .sectionTitleWrap h3 {
     font-size: 1.45rem;
+
+    white-space: normal;
+  }
+
+  .sectionCount {
+    min-width: 30px;
+    height: 30px;
   }
 
   .editorialSection {
@@ -585,7 +1187,7 @@
   }
 
   .editorialCard {
-    padding: 30px 20px;
+    padding: 30px 20px 25px;
 
     border-radius: 24px;
   }
@@ -599,38 +1201,64 @@
     font-size: 1.18rem;
   }
 
-  .editorialContent span {
-    font-size: 0.9rem;
+  .memberDesignation {
+    font-size: 0.78rem;
   }
 
-  .editorialContent p {
+  .memberInstitution {
     font-size: 0.85rem;
+  }
 
-    line-height: 1.8;
+  .editorialDetailItem {
+    padding: 8px 9px;
+  }
+
+  .detailContent a {
+    font-size: 0.72rem;
   }
 
   .editorialFooter {
-    flex-direction: column;
+    gap: 7px;
   }
 
   .footerItem {
-    width: 100%;
-
-    justify-content: center;
+    padding: 8px 10px;
   }
+
 }
 
-/* =========================================================
+
+/* =====================================================
    420px
-========================================================= */
+===================================================== */
 
 @media (max-width: 420px) {
+
   .editorialBoard {
     padding: 55px 4%;
   }
 
+  .editorialMiniTag {
+    font-size: 9px;
+
+    padding: 8px 13px;
+
+    letter-spacing: 1.1px;
+  }
+
   .editorialTopContent h2 {
     font-size: 1.45rem;
+  }
+
+  .sectionTitleIcon {
+    width: 32px;
+    height: 32px;
+
+    flex-basis: 32px;
+  }
+
+  .sectionTitleIcon svg {
+    font-size: 12px;
   }
 
   .sectionTitleWrap h3 {
@@ -638,7 +1266,7 @@
   }
 
   .editorialCard {
-    padding: 26px 18px;
+    padding: 26px 17px 22px;
   }
 
   .editorialImageWrap {
@@ -646,32 +1274,70 @@
     height: 95px;
   }
 
+  .topBadge {
+    width: 36px;
+    height: 36px;
+
+    top: 16px;
+    right: 16px;
+
+    font-size: 0.8rem;
+  }
+
   .editorialContent h4 {
     font-size: 1rem;
   }
 
-  .editorialContent span {
-    font-size: 0.82rem;
+  .memberDesignation {
+    font-size: 0.72rem;
+
+    padding: 5px 10px;
   }
 
-  .editorialContent p {
+  .memberInstitution {
     font-size: 0.8rem;
   }
 
+  .detailIcon {
+    width: 27px;
+    height: 27px;
+
+    flex-basis: 27px;
+  }
+
+  .detailContent small {
+    font-size: 8px;
+  }
+
+  .detailContent a {
+    font-size: 0.68rem;
+  }
+
+  .editorialBiography {
+    padding: 12px;
+  }
+
+  .editorialBiography p {
+    font-size: 0.7rem;
+  }
+
   .footerItem {
-    padding: 9px 14px;
+    padding: 7px 9px;
   }
 
   .footerItem small {
-    font-size: 0.74rem;
+    font-size: 0.67rem;
   }
+
 }
 
-/* =========================================================
+
+/* =====================================================
    360px
-========================================================= */
+===================================================== */
 
 @media (max-width: 360px) {
+
   .editorialTopContent h2 {
     font-size: 1.3rem;
   }
@@ -681,7 +1347,7 @@
   }
 
   .editorialCard {
-    padding: 24px 16px;
+    padding: 24px 15px 20px;
   }
 
   .editorialImageWrap {
@@ -693,11 +1359,31 @@
     font-size: 0.92rem;
   }
 
-  .editorialContent span {
-    font-size: 0.76rem;
+  .memberDesignation {
+    font-size: 0.68rem;
   }
 
-  .editorialContent p {
+  .memberInstitution {
     font-size: 0.75rem;
   }
+
 }
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+  }
+
+}
+
