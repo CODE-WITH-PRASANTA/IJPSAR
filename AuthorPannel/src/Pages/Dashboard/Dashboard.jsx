@@ -10,47 +10,24 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
 
-  const fetchAllSubmissions = async () => {
+  const fetchAuthorDashboardData = async () => {
     try {
       setLoading(true)
       setError("")
 
-      const [firstResponse, paymentsResponse] = await Promise.all([
-        API.get("/submitform/all", {
-          params: { page: 1, limit: 100 },
-        }),
-        API.get("/payment"),
+      const [papersResponse, paymentsResponse] = await Promise.all([
+        API.get("/submitform/my-papers"),
+        API.get("/transactions/my-transactions"),
       ])
 
-      setPayments(paymentsResponse.data?.payments || [])
+      setPayments(paymentsResponse.data?.data || [])
 
-      if (!firstResponse.data?.success) {
+      if (!papersResponse.data?.success) {
         setSubmissions([])
         return
       }
 
-      const firstPageData = firstResponse.data.data || []
-      const totalPages = firstResponse.data.pages || 1
-
-      if (totalPages <= 1) {
-        setSubmissions(firstPageData)
-        return
-      }
-
-      const remainingRequests = Array.from(
-        { length: totalPages - 1 },
-        (_, index) =>
-          API.get("/submitform/all", {
-            params: { page: index + 2, limit: 100 },
-          })
-      )
-
-      const remainingResponses = await Promise.all(remainingRequests)
-      const remainingData = remainingResponses.flatMap(
-        (response) => response.data?.data || []
-      )
-
-      setSubmissions([...firstPageData, ...remainingData])
+      setSubmissions(papersResponse.data.data || [])
     } catch (err) {
       console.log(err)
       setError("Unable to load dashboard papers.")
@@ -62,7 +39,7 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    fetchAllSubmissions()
+    fetchAuthorDashboardData()
   }, [])
 
   return (

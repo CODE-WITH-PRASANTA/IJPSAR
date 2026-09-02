@@ -5,6 +5,7 @@ const EditorialBoard = require("../models/editorialboard.models");
 // CREATE MEMBER
 // =====================================================
 
+
 exports.createMember = async (req, res) => {
   try {
     console.log(

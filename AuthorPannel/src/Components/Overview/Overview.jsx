@@ -77,15 +77,7 @@ const AnimatedCounter = ({ value }) => {
   );
 };
 
-const PENDING_STATUSES = [
-  "Submitted",
-  "Editor Assigned",
-  "Editing",
-  "Reviewer Assigned",
-  "Review Pending",
-  "Revision Required",
-  "Accepted",
-];
+const TERMINAL_PAPER_STATUSES = ["Published", "Rejected"];
 
 const getDate = (item) =>
   item?.createdAt || item?.date || item?.updatedAt || item?.publishedAt || null;
@@ -147,10 +139,10 @@ const Overview = ({ submissions = [], payments = [], loading = false }) => {
   const cards = useMemo(() => {
     const totalTrend = getTrend(submissions, () => true);
     const pendingTrend = getTrend(submissions, (paper) =>
-      PENDING_STATUSES.includes(paper.status)
+      !TERMINAL_PAPER_STATUSES.includes(paper.status)
     );
     const paymentsTrend = getTrend(payments, (payment) =>
-      ["Pending", "Processing"].includes(payment.status)
+      payment.status === "Pending Verification"
     );
     const publishedTrend = getTrend(
       submissions,
@@ -171,9 +163,9 @@ const Overview = ({ submissions = [], payments = [], loading = false }) => {
       {
         id: "pending-papers",
         paperId: "IN PROGRESS",
-        title: "Pending Papers",
+        title: "In Progress",
         value: submissions.filter((paper) =>
-          PENDING_STATUSES.includes(paper.status)
+          !TERMINAL_PAPER_STATUSES.includes(paper.status)
         ).length,
         change: pendingTrend.change,
         positive: pendingTrend.positive,
@@ -183,9 +175,9 @@ const Overview = ({ submissions = [], payments = [], loading = false }) => {
       {
         id: "pending-payments",
         paperId: "PAYMENTS",
-        title: "Pending Payments",
+        title: "Payments Pending",
         value: payments.filter((payment) =>
-          ["Pending", "Processing"].includes(payment.status)
+          payment.status === "Pending Verification"
         ).length,
         change: paymentsTrend.change,
         positive: paymentsTrend.positive,

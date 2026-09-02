@@ -682,8 +682,7 @@ exports.startEditing = async (req, res) => {
 
 exports.acceptPaper = async (req, res) => {
   try {
-    console.log("========== ACCEPT PAPER ==========");
-
+    
     const paper = await SubmitForm.findById(req.params.id);
 
     if (!paper) {
@@ -735,7 +734,7 @@ exports.acceptPaper = async (req, res) => {
 
     await paper.save();
 
-    console.log("Paper accepted successfully:", paper._id);
+   
 
     /* =====================================================
        NOTIFY AUTHOR
@@ -816,9 +815,7 @@ exports.rejectPaper = async (req, res) => {
 
 exports.requestPublicationDocuments = async (req, res) => {
   try {
-    console.log(
-      "========== REQUEST PUBLICATION DOCUMENTS =========="
-    );
+    
 
     const paper = await SubmitForm.findById(req.params.id);
 
@@ -871,10 +868,7 @@ exports.requestPublicationDocuments = async (req, res) => {
 
     await paper.save();
 
-    console.log(
-      "Publication documents requested successfully:",
-      paper._id
-    );
+    
 
     /* =====================================================
        NOTIFY AUTHOR
