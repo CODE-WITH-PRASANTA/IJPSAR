@@ -152,15 +152,16 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* PROMINENT ACTION BUTTON */}
-          <button 
-            className="navbarPrimarySubmitButton"
-            onClick={() => navigate("/submit-paper")}
-          >
-            <FaTelegramPlane className="submitIconAnim" />
-            <span>Submit Paper</span>
-          </button>
-          
+        {/* PROMINENT ACTION BUTTON */}
+<a 
+  href="https://author.ijpasr.com" 
+  className="navbarPrimarySubmitButton"
+  target="_blank" 
+  rel="noopener noreferrer"
+>
+  <FaTelegramPlane className="submitIconAnim" />
+  <span>Submit Paper</span>
+</a>
           {/* HAMBURGER TRIGGER */}
           <div className="navbarMobileIcon" onClick={() => setMobileMenu(true)}>
             <FaBars />
