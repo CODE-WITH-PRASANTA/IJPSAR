@@ -33,14 +33,14 @@ const DOCUMENT_TYPES = [
     formats: "PDF",
   },
 
-  {
+ {
     key: "copyrightTransferForm",
     title: "Copyright Transfer Form",
     description: "Upload the completed and signed copyright transfer form.",
     required: true,
     icon: ShieldCheck,
-    accept: ".pdf,.doc,.docx,.jpg,.jpeg,.png",
-    formats: "PDF, DOC, DOCX, JPG, PNG",
+    accept: ".pdf,.doc,.docx", // <-- Removed .jpg,.jpeg,.png
+    formats: "PDF, DOC, DOCX",     // <-- Updated display text
   },
 
   {

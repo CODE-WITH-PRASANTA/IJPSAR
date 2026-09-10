@@ -1,9 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 
 import API, { BASE_URL } from "../../api/axios";
 
 import './EditorialBoard.css';
+
+const ITEMS_PER_PAGE = 10;
 
 const EditorialBoard = () => {
 
@@ -51,6 +52,12 @@ const EditorialBoard = () => {
   // =====================================================
 
   const [boardMembers, setBoardMembers] = useState([]);
+
+  // =====================================================
+  // PAGINATION STATE VALUES
+  // =====================================================
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   // =====================================================
   // APPLICATION LOADING / UI STATES
@@ -113,7 +120,6 @@ const EditorialBoard = () => {
   const resolveImageSource = (imagePath) => {
     if (!imagePath) return null;
 
-    // Already absolute URL / blob / data
     if (
       imagePath.startsWith('http://') ||
       imagePath.startsWith('https://') ||
@@ -123,7 +129,6 @@ const EditorialBoard = () => {
       return imagePath;
     }
 
-    // Clean trailing / leading slashes
     const cleanBase = BASE_URL.endsWith('/')
       ? BASE_URL.slice(0, -1)
       : BASE_URL;
@@ -145,7 +150,6 @@ const EditorialBoard = () => {
     if (file) {
       setSelectedFile(file);
 
-      // Free old blob preview
       if (
         profileImage &&
         profileImage.startsWith('blob:')
@@ -225,171 +229,64 @@ const EditorialBoard = () => {
   };
 
   // =====================================================
-  // CORE SUBMIT ROUTE
-  // CREATE / UPDATE
+  // CORE SUBMIT ROUTE - CREATE / UPDATE
   // =====================================================
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // =================================================
-    // NO REQUIRED FIELD VALIDATION
-    // =================================================
-    //
-    // All form fields are optional now.
-    //
-    // =================================================
-
     const formData = new FormData();
 
-    // =================================================
-    // BASIC INFORMATION
-    // =================================================
-
-    formData.append(
-      "name",
-      name.trim()
-    );
-
-    formData.append(
-      "designation",
-      designation.trim()
-    );
-
-    formData.append(
-      "institution",
-      institution.trim()
-    );
-
-    formData.append(
-      "category",
-      category
-    );
-
-    // =================================================
-    // CONTACT INFORMATION
-    // =================================================
-
-    formData.append(
-      "email",
-      email.trim()
-    );
-
-    formData.append(
-      "phone",
-      phone.trim()
-    );
-
-    // =================================================
-    // ORCID ID
-    // =================================================
-
-    formData.append(
-      "orcid",
-      orcid.trim()
-    );
-
-    // =================================================
-    // BIOGRAPHY
-    // =================================================
-
-    formData.append(
-      "biography",
-      biography.trim()
-    );
-
-    // =================================================
-    // TAGS
-    // =================================================
-
-    formData.append(
-      "tags",
-      JSON.stringify(tags)
-    );
-
-    // =================================================
-    // PROFILE IMAGE
-    // =================================================
+    formData.append("name", name.trim());
+    formData.append("designation", designation.trim());
+    formData.append("institution", institution.trim());
+    formData.append("category", category);
+    formData.append("email", email.trim());
+    formData.append("phone", phone.trim());
+    formData.append("orcid", orcid.trim());
+    formData.append("biography", biography.trim());
+    formData.append("tags", JSON.stringify(tags));
 
     if (selectedFile) {
-      formData.append(
-        "profileImage",
-        selectedFile
-      );
+      formData.append("profileImage", selectedFile);
     }
 
     try {
       setLoading(true);
 
-      // =================================================
-      // UPDATE
-      // =================================================
-
       if (editingId !== null) {
-
         await API.put(
           `/editorialboard/update/${editingId}`,
           formData,
           {
             headers: {
-              'Content-Type':
-                'multipart/form-data'
+              'Content-Type': 'multipart/form-data'
             }
           }
         );
-
-        alert(
-          "Member registry parameters successfully updated."
-        );
-
-      }
-
-      // =================================================
-      // CREATE
-      // =================================================
-
-      else {
-
+        alert("Member registry parameters successfully updated.");
+      } else {
         await API.post(
           "/editorialboard/create",
           formData,
           {
             headers: {
-              'Content-Type':
-                'multipart/form-data'
+              'Content-Type': 'multipart/form-data'
             }
           }
         );
-
-        alert(
-          "Member profile processed and saved safely into system registry."
-        );
+        alert("Member profile processed and saved safely into system registry.");
       }
 
-      // =================================================
-      // RESET
-      // =================================================
-
       resetFormFields();
-
-      // =================================================
-      // REFRESH TABLE
-      // =================================================
-
       await fetchBoardMembers();
 
     } catch (error) {
-
-      console.error(
-        "Form transmission failed error:",
-        error
-      );
-
+      console.error("Form transmission failed error:", error);
       alert(
         error.response?.data?.message ||
         "Internal transmission network block failure."
       );
-
     } finally {
       setLoading(false);
     }
@@ -400,97 +297,30 @@ const EditorialBoard = () => {
   // =====================================================
 
   const initializeEditSequence = (member) => {
-
-    setEditingId(
-      member._id || member.id
-    );
-
-    setName(
-      member.name || ''
-    );
-
-    setDesignation(
-      member.designation || ''
-    );
-
-    setInstitution(
-      member.institution || ''
-    );
-
-    setCategory(
-      member.category ||
-      'Editorial Board'
-    );
-
-    setEmail(
-      member.email || ''
-    );
-
-    setPhone(
-      member.phone || ''
-    );
-
-    // =================================================
-    // ORCID
-    // =================================================
-
-    setOrcid(
-      member.orcid ||
-      member.ORCID ||
-      member.orcidId ||
-      ''
-    );
-
-    setBiography(
-      member.biography || ''
-    );
-
-    // =================================================
-    // TAGS
-    // =================================================
+    setEditingId(member._id || member.id);
+    setName(member.name || '');
+    setDesignation(member.designation || '');
+    setInstitution(member.institution || '');
+    setCategory(member.category || 'Editorial Board');
+    setEmail(member.email || '');
+    setPhone(member.phone || '');
+    setOrcid(member.orcid || member.ORCID || member.orcidId || '');
+    setBiography(member.biography || '');
 
     if (Array.isArray(member.tags)) {
-
       setTags(member.tags);
-
-    } else if (
-      typeof member.tags === 'string'
-    ) {
-
+    } else if (typeof member.tags === 'string') {
       try {
-
-        setTags(
-          JSON.parse(member.tags)
-        );
-
+        setTags(JSON.parse(member.tags));
       } catch {
-
         setTags([]);
-
       }
-
     } else {
-
       setTags([]);
-
     }
 
-    // =================================================
-    // IMAGE
-    // =================================================
-
-    const rawImage =
-      member.profileImage ||
-      member.image ||
-      null;
-
-    setProfileImage(rawImage);
-
+    setProfileImage(member.profileImage || member.image || null);
     setSelectedFile(null);
-
-    // =================================================
-    // SCROLL TO FORM
-    // =================================================
 
     window.scrollTo({
       top: 0,
@@ -502,27 +332,14 @@ const EditorialBoard = () => {
   // DELETE RECORD
   // =====================================================
 
-  const executeDestructionSequence = async (
-    id
-  ) => {
-
-    if (
-      window.confirm(
-        "Confirm structural deletion of this record?"
-      )
-    ) {
-
+  const executeDestructionSequence = async (id) => {
+    if (window.confirm("Confirm structural deletion of this record?")) {
       try {
-
         setLoading(true);
 
-        await API.delete(
-          `/editorialboard/delete/${id}`
-        );
+        await API.delete(`/editorialboard/delete/${id}`);
 
-        alert(
-          "Registry data node successfully purged."
-        );
+        alert("Registry data node successfully purged.");
 
         if (editingId === id) {
           resetFormFields();
@@ -531,22 +348,42 @@ const EditorialBoard = () => {
         await fetchBoardMembers();
 
       } catch (error) {
-
-        console.error(
-          "Error executing component deletion route:",
-          error
-        );
-
-        alert(
-          "Failed to remove data element tracking instance."
-        );
-
+        console.error("Error executing component deletion route:", error);
+        alert("Failed to remove data element tracking instance.");
       } finally {
-
         setLoading(false);
-
       }
     }
+  };
+
+  // =====================================================
+  // PAGINATION CALCULATIONS
+  // =====================================================
+
+  const totalEntries = boardMembers.length;
+  const totalPages = Math.max(Math.ceil(totalEntries / ITEMS_PER_PAGE), 1);
+  
+  // Ensure current page doesn't exceed total pages if entries are deleted
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  
+  const indexOfLastItem = safeCurrentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+  const currentBoardMembers = boardMembers.slice(indexOfFirstItem, indexOfLastItem);
+
+  const getPageNumbers = () => {
+    const pages = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+      return pages;
+    }
+    pages.push(1);
+    if (safeCurrentPage > 3) pages.push('...');
+    for (let i = Math.max(2, safeCurrentPage - 1); i <= Math.min(totalPages - 1, safeCurrentPage + 1); i++) {
+      pages.push(i);
+    }
+    if (safeCurrentPage < totalPages - 2) pages.push('...');
+    pages.push(totalPages);
+    return pages;
   };
 
   // =====================================================
@@ -561,7 +398,7 @@ const EditorialBoard = () => {
       </h2>
 
       {/* =====================================================
-          FORM SECTION
+         FORM SECTION
       ====================================================== */}
 
       <form
@@ -591,10 +428,7 @@ const EditorialBoard = () => {
 
         <div className="eb-form-grid">
 
-          {/* =================================================
-              IMAGE UPLOAD
-          ================================================= */}
-
+          {/* IMAGE UPLOAD */}
           <div className="eb-form-group eb-col-full md-eb-col-6">
 
             <label className="eb-label">
@@ -619,15 +453,11 @@ const EditorialBoard = () => {
                 {profileImage ? (
 
                   <img
-                    src={resolveImageSource(
-                      profileImage
-                    )}
+                    src={resolveImageSource(profileImage)}
                     alt="Preview"
                     className="eb-image-preview"
                     onError={(e) => {
-                      e.target.style.display =
-                        'none';
-
+                      e.target.style.display = 'none';
                       e.target.parentNode.innerHTML =
                         '<div className="eb-upload-placeholder"><span className="eb-upload-icon">👤</span><p>Image Error</p></div>';
                     }}
@@ -670,10 +500,7 @@ const EditorialBoard = () => {
 
           </div>
 
-          {/* =================================================
-              NAME & DESIGNATION
-          ================================================= */}
-
+          {/* NAME & DESIGNATION */}
           <div className="eb-form-group eb-col-full md-eb-col-6">
 
             <div className="eb-sub-group">
@@ -714,10 +541,7 @@ const EditorialBoard = () => {
 
           </div>
 
-          {/* =================================================
-              INSTITUTION
-          ================================================= */}
-
+          {/* INSTITUTION */}
           <div className="eb-form-group eb-col-full md-eb-col-6">
 
             <label className="eb-label">
@@ -736,10 +560,7 @@ const EditorialBoard = () => {
 
           </div>
 
-          {/* =================================================
-              CATEGORY
-          ================================================= */}
-
+          {/* CATEGORY */}
           <div className="eb-form-group eb-col-full md-eb-col-6">
 
             <label className="eb-label">
@@ -778,10 +599,7 @@ const EditorialBoard = () => {
 
           </div>
 
-          {/* =================================================
-              KEY TAGS
-          ================================================= */}
-
+          {/* KEY TAGS */}
           <div className="eb-form-group eb-col-full">
 
             <label className="eb-label">
@@ -828,10 +646,7 @@ const EditorialBoard = () => {
 
           </div>
 
-          {/* =================================================
-              EMAIL
-          ================================================= */}
-
+          {/* EMAIL */}
           <div className="eb-form-group eb-col-full md-eb-col-6">
 
             <label className="eb-label">
@@ -850,10 +665,7 @@ const EditorialBoard = () => {
 
           </div>
 
-          {/* =================================================
-              PHONE
-          ================================================= */}
-
+          {/* PHONE */}
           <div className="eb-form-group eb-col-full md-eb-col-6">
 
             <label className="eb-label">
@@ -872,10 +684,7 @@ const EditorialBoard = () => {
 
           </div>
 
-          {/* =================================================
-              ORCID ID
-          ================================================= */}
-
+          {/* ORCID ID */}
           <div className="eb-form-group eb-col-full md-eb-col-6">
 
             <label className="eb-label">
@@ -898,10 +707,7 @@ const EditorialBoard = () => {
 
           </div>
 
-          {/* =================================================
-              BIOGRAPHY
-          ================================================= */}
-
+          {/* BIOGRAPHY */}
           <div className="eb-form-group eb-col-full">
 
             <label className="eb-label">
@@ -922,10 +728,7 @@ const EditorialBoard = () => {
 
         </div>
 
-        {/* =================================================
-            SAVE / UPDATE BUTTON
-        ================================================= */}
-
+        {/* SAVE / UPDATE BUTTON */}
         <div className="eb-form-actions">
 
           <button
@@ -951,7 +754,7 @@ const EditorialBoard = () => {
       </form>
 
       {/* =====================================================
-          LIST TABLE SECTION
+         LIST TABLE SECTION
       ====================================================== */}
 
       <div className="eb-table-card">
@@ -967,53 +770,32 @@ const EditorialBoard = () => {
             <thead>
 
               <tr>
-
-                <th>
-                  Profile
-                </th>
-
-                <th>
-                  Name & Designation
-                </th>
-
-                <th>
-                  Institution
-                </th>
-
-                <th>
-                  Category
-                </th>
-
-                <th>
-                  Contact
-                </th>
-
-                <th>
-                  Actions
-                </th>
-
+                <th>Profile</th>
+                <th>Name & Designation</th>
+                <th>Institution</th>
+                <th>Category</th>
+                <th>Contact</th>
+                <th>Actions</th>
               </tr>
 
             </thead>
 
             <tbody>
 
-              {boardMembers.length === 0 ? (
+              {currentBoardMembers.length === 0 ? (
 
                 <tr>
-
                   <td
                     colSpan="6"
                     className="eb-empty-feedback"
                   >
                     No records found in active registry dataset.
                   </td>
-
                 </tr>
 
               ) : (
 
-                boardMembers.map((member) => {
+                currentBoardMembers.map((member) => {
 
                   const currentId =
                     member._id ||
@@ -1040,119 +822,74 @@ const EditorialBoard = () => {
                     >
 
                       {/* PROFILE */}
-
                       <td>
-
                         <div className="eb-table-avatar">
-
                           {computedImageSrc ? (
-
                             <img
                               src={computedImageSrc}
-                              alt={`${
-                                member.name ||
-                                'Member'
-                              }'s Avatar`}
+                              alt={`${member.name || 'Member'}'s Avatar`}
                               onError={(e) => {
-
-                                e.target.style.display =
-                                  'none';
-
-                                e.target.parentNode.innerText =
-                                  '👤';
-
+                                e.target.style.display = 'none';
+                                e.target.parentNode.innerText = '👤';
                               }}
                             />
-
                           ) : (
-
                             '👤'
-
                           )}
-
                         </div>
-
                       </td>
 
                       {/* NAME */}
-
                       <td>
-
                         <div className="eb-table-name">
                           {member.name || '--'}
                         </div>
-
                         <div className="eb-table-subtext">
                           {member.designation || '--'}
                         </div>
-
                       </td>
 
                       {/* INSTITUTION */}
-
                       <td>
-
                         <div className="eb-table-inst-cell">
                           {member.institution || '--'}
                         </div>
-
                       </td>
 
                       {/* CATEGORY */}
-
                       <td>
-
                         <span className="eb-table-badge">
                           {member.category || '--'}
                         </span>
-
                       </td>
 
                       {/* CONTACT */}
-
                       <td>
-
                         <div className="eb-table-contact-cell">
-
                           <div>
                             {member.email || (
-                              <span className="eb-none">
-                                --
-                              </span>
+                              <span className="eb-none">--</span>
                             )}
                           </div>
-
                           <div className="eb-table-subtext">
                             {member.phone || '--'}
                           </div>
-
-                          {/* ORCID */}
-
                           {member.orcid && (
-
                             <div className="eb-table-subtext">
                               ORCID: {member.orcid}
                             </div>
-
                           )}
-
                         </div>
-
                       </td>
 
                       {/* ACTIONS */}
-
                       <td>
-
                         <div className="eb-table-actions">
-
                           <button
                             type="button"
                             className="eb-btn-text-edit"
                             onClick={() =>
-                              initializeEditSequence(
-                                member
-                              )
+                              initializeEditSequence(member)
                             }
                           >
                             Edit
@@ -1162,16 +899,12 @@ const EditorialBoard = () => {
                             type="button"
                             className="eb-btn-text-delete"
                             onClick={() =>
-                              executeDestructionSequence(
-                                currentId
-                              )
+                              executeDestructionSequence(currentId)
                             }
                           >
                             Delete
                           </button>
-
                         </div>
-
                       </td>
 
                     </tr>
@@ -1188,6 +921,58 @@ const EditorialBoard = () => {
 
         </div>
 
+        {/* =====================================================
+           PAGINATION FOOTER CONTROLS
+        ====================================================== */}
+        <div className="addmanagement-pagination-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+          <div className="addmanagement-showing-text" style={{ fontSize: '13px', color: '#94a3b8' }}>
+            Showing {totalEntries === 0 ? 0 : indexOfFirstItem + 1} to {Math.min(indexOfLastItem, totalEntries)} of {totalEntries} entries
+          </div>
+
+          <div className="addmanagement-pagination-controls" style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+            <button
+              className="addmanagement-page-nav-btn"
+              disabled={safeCurrentPage === 1}
+              onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '6px 10px', borderRadius: '6px', cursor: safeCurrentPage === 1 ? 'not-allowed' : 'pointer', opacity: safeCurrentPage === 1 ? 0.5 : 1 }}
+            >
+              &lt;
+            </button>
+
+            {getPageNumbers().map((page, idx) =>
+              page === '...' ? (
+                <span key={`ellipsis-${idx}`} style={{ color: '#94a3b8', padding: '0 4px' }}>...</span>
+              ) : (
+                <button
+                  key={page}
+                  className={`addmanagement-page-num ${safeCurrentPage === page ? 'active' : ''}`}
+                  onClick={() => setCurrentPage(page)}
+                  style={{
+                    background: safeCurrentPage === page ? '#fff' : 'transparent',
+                    color: safeCurrentPage === page ? '#0f172a' : '#fff',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    padding: '6px 12px',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontWeight: safeCurrentPage === page ? '600' : 'normal'
+                  }}
+                >
+                  {page}
+                </button>
+              )
+            )}
+
+            <button
+              className="addmanagement-page-nav-btn"
+              disabled={safeCurrentPage === totalPages || totalPages === 0}
+              onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '6px 10px', borderRadius: '6px', cursor: safeCurrentPage === totalPages || totalPages === 0 ? 'not-allowed' : 'pointer', opacity: safeCurrentPage === totalPages || totalPages === 0 ? 0.5 : 1 }}
+            >
+              &gt;
+            </button>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -1195,4 +980,3 @@ const EditorialBoard = () => {
 };
 
 export default EditorialBoard;
-

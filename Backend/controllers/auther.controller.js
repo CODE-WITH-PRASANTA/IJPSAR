@@ -147,3 +147,40 @@ exports.clearAllAuthorNotifications = async (req, res) => {
     });
   }
 };
+
+// DELETE AUTHOR ACCOUNT BY ADMIN (No token or password required)
+exports.deleteAuthorByAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const author = await Author.findByIdAndDelete(id);
+
+    if (!author) {
+      return res.status(404).json({
+        success: false,
+        message: "Author not found",
+      });
+    }
+
+    // Optional: Clean up related data like notifications if the Notification model exists
+    try {
+      if (typeof Notification !== 'undefined') {
+        await Notification.deleteMany({ recipient: id });
+      }
+    } catch (err) {
+      // Ignore if Notification model is not imported here
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Author account deleted successfully",
+    });
+  } catch (error) {
+    console.error("Delete author error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to delete account",
+      error: error.message,
+    });
+  }
+};

@@ -4,16 +4,6 @@ const authorAuth = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
-    // console.log(
-    //   "REQUEST:",
-    //   req.method,
-    //   req.originalUrl
-    // );
-    // console.log(
-    //   "AUTH HEADER:",
-    //   authHeader ? "AVAILABLE" : "MISSING"
-    // );
-
     if (
       !authHeader ||
       !authHeader.startsWith("Bearer ")

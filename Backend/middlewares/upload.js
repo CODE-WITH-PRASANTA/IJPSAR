@@ -52,12 +52,11 @@ const getUploadPath = (req) => {
 const storage = multer.memoryStorage();
 
 /* =========================================================
-   MIME TYPES
+   MIME TYPES (Expanded to support generic browser streams)
 ========================================================= */
 
 const MIME_TYPES = {
   /* ================= IMAGE ================= */
-
   JPG: [
     "image/jpeg",
     "image/jpg",
@@ -68,23 +67,23 @@ const MIME_TYPES = {
   ],
 
   /* ================= PDF ================= */
-
   PDF: [
     "application/pdf",
   ],
 
   /* ================= WORD ================= */
-
   DOC: [
     "application/msword",
+    "application/octet-stream",
   ],
 
   DOCX: [
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "application/octet-stream",
+    "application/zip",
   ],
 
   /* ================= ZIP ================= */
-
   ZIP: [
     "application/zip",
     "application/x-zip-compressed",
@@ -130,75 +129,62 @@ const isPNG = (mime) => {
 
 const validatePublicationFile = (
   field,
-  mime
+  file
 ) => {
+  const mime = file.mimetype || "";
+  const ext = path.extname(file.originalname).toLowerCase();
 
   /* =======================================================
-     ACCEPTANCE LETTER
-
-     PDF ONLY
+     ACCEPTANCE LETTER (PDF ONLY)
   ======================================================= */
 
   if (field === "acceptanceLetter") {
-    return isPDF(mime)
+    return (isPDF(mime) || ext === ".pdf")
       ? null
       : "Acceptance Letter must be a PDF file.";
   }
 
   /* =======================================================
-     GALLEY PROOF
-
-     PDF ONLY
+     GALLEY PROOF (PDF ONLY)
   ======================================================= */
 
   if (field === "galleyProof") {
-    return isPDF(mime)
+    return (isPDF(mime) || ext === ".pdf")
       ? null
       : "Galley Proof must be a PDF file.";
   }
 
   /* =======================================================
-     CORRECTED GALLEY PROOF
-
-     PDF ONLY
+     CORRECTED GALLEY PROOF (PDF ONLY)
   ======================================================= */
 
   if (field === "correctedGalleyProof") {
-    return isPDF(mime)
+    return (isPDF(mime) || ext === ".pdf")
       ? null
       : "Corrected Galley Proof must be a PDF file.";
   }
 
   /* =======================================================
-     COPYRIGHT TRANSFER FORM
-
-     PDF / DOC / DOCX
-
-     UPDATED
+     COPYRIGHT TRANSFER FORM (PDF / DOC / DOCX)
   ======================================================= */
 
   if (field === "copyrightTransferForm") {
     if (
       isPDF(mime) ||
       isDOC(mime) ||
-      isDOCX(mime)
+      isDOCX(mime) ||
+      ext === ".pdf" ||
+      ext === ".doc" ||
+      ext === ".docx"
     ) {
       return null;
     }
 
-    return (
-      "Copyright Transfer Form must be a PDF, DOC, or DOCX file."
-    );
+    return "Copyright Transfer Form must be a PDF, DOC, or DOCX file.";
   }
 
   /* =======================================================
-     PUBLICATION FEE PAYMENT PROOF
-
-     PDF / JPG / PNG
-
-     IMPORTANT:
-     Frontend field is:
-     publicationFeePaymentProof
+     PUBLICATION FEE PAYMENT PROOF (PDF / JPG / PNG)
   ======================================================= */
 
   if (
@@ -208,39 +194,38 @@ const validatePublicationFile = (
     if (
       isPDF(mime) ||
       isJPG(mime) ||
-      isPNG(mime)
+      isPNG(mime) ||
+      ext === ".pdf" ||
+      ext === ".jpg" ||
+      ext === ".jpeg" ||
+      ext === ".png"
     ) {
       return null;
     }
 
-    return (
-      "Publication Fee Payment Proof must be PDF, JPG, or PNG."
-    );
+    return "Publication Fee Payment Proof must be PDF, JPG, or PNG.";
   }
 
   /* =======================================================
-     AUTHOR PHOTOGRAPHS
-
-     JPG / PNG
+     AUTHOR PHOTOGRAPHS (JPG / PNG)
   ======================================================= */
 
   if (field === "authorPhotographs") {
     if (
       isJPG(mime) ||
-      isPNG(mime)
+      isPNG(mime) ||
+      ext === ".jpg" ||
+      ext === ".jpeg" ||
+      ext === ".png"
     ) {
       return null;
     }
 
-    return (
-      "Author Photograph must be JPG or PNG."
-    );
+    return "Author Photograph must be JPG or PNG.";
   }
 
   /* =======================================================
-     ADDITIONAL SUPPORTING FILES
-
-     PDF / DOC / DOCX / ZIP
+     ADDITIONAL SUPPORTING FILES (PDF / DOC / DOCX / ZIP)
   ======================================================= */
 
   if (
@@ -250,21 +235,17 @@ const validatePublicationFile = (
       isPDF(mime) ||
       isDOC(mime) ||
       isDOCX(mime) ||
-      isZIP(mime)
+      isZIP(mime) ||
+      ext === ".pdf" ||
+      ext === ".doc" ||
+      ext === ".docx" ||
+      ext === ".zip"
     ) {
       return null;
     }
 
-    return (
-      "Supporting files must be PDF, DOC, DOCX, or ZIP."
-    );
+    return "Supporting files must be PDF, DOC, DOCX, or ZIP.";
   }
-
-  /* =======================================================
-     UNKNOWN PUBLICATION FIELD
-
-     Don't block it here.
-  ======================================================= */
 
   return null;
 };
@@ -278,30 +259,22 @@ const fileFilter = (
   file,
   cb
 ) => {
-
-  const route =
-    req.originalUrl || "";
-
-  const mime =
-    file.mimetype || "";
-
-  const field =
-    file.fieldname || "";
+  const route = req.originalUrl || "";
+  const mime = file.mimetype || "";
+  const field = file.fieldname || "";
+  const ext = path.extname(file.originalname).toLowerCase();
 
   /* =======================================================
      FINAL PUBLICATION WORKFLOW
-
-     Publication files have their own validation.
   ======================================================= */
 
   if (
     route.includes("/publication/")
   ) {
-
     const publicationError =
       validatePublicationFile(
         field,
-        mime
+        file
       );
 
     if (publicationError) {
@@ -325,7 +298,6 @@ const fileFilter = (
   if (
     route.includes("/students")
   ) {
-
     const imageFields = [
       "studentPhoto",
       "fatherPhoto",
@@ -349,15 +321,10 @@ const fileFilter = (
       "aadhaarParent",
     ];
 
-    /* =====================================================
-       IMAGE FIELDS
-    ===================================================== */
-
     if (
       imageFields.includes(field)
     ) {
-
-      return isImage(mime)
+      return (isImage(mime) || [".jpg", ".jpeg", ".png"].includes(ext))
         ? cb(null, true)
         : cb(
             new Error(
@@ -366,15 +333,10 @@ const fileFilter = (
           );
     }
 
-    /* =====================================================
-       PDF FIELDS
-    ===================================================== */
-
     if (
       pdfFields.includes(field)
     ) {
-
-      return isPDF(mime)
+      return (isPDF(mime) || ext === ".pdf")
         ? cb(null, true)
         : cb(
             new Error(
@@ -383,17 +345,13 @@ const fileFilter = (
           );
     }
 
-    /* =====================================================
-       PDF OR IMAGE
-    ===================================================== */
-
     if (
       pdfOrImageFields.includes(field)
     ) {
-
       return (
         isPDF(mime) ||
-        isImage(mime)
+        isImage(mime) ||
+        [".pdf", ".jpg", ".jpeg", ".png"].includes(ext)
       )
         ? cb(null, true)
         : cb(
@@ -406,22 +364,15 @@ const fileFilter = (
 
   /* =========================================================
      DEFAULT VALIDATION
-
-     Existing normal uploads:
-
-     IMAGE
-     PDF
-     DOC
-     DOCX
   ========================================================= */
 
   if (
     isImage(mime) ||
     isPDF(mime) ||
     isDOC(mime) ||
-    isDOCX(mime)
+    isDOCX(mime) ||
+    [".jpg", ".jpeg", ".png", ".pdf", ".doc", ".docx"].includes(ext)
   ) {
-
     return cb(
       null,
       true
@@ -445,13 +396,7 @@ const upload = multer({
   fileFilter,
 
   limits: {
-    /*
-     * Maximum file size:
-     * 100 MB
-     */
-
-    fileSize:
-      100 * 1024 * 1024,
+    fileSize: 100 * 1024 * 1024,
   },
 });
 
@@ -463,20 +408,10 @@ const processFile = async (
   file,
   uploadPath
 ) => {
+  const mime = file.mimetype || "";
+  const ext = path.extname(file.originalname).toLowerCase();
 
-  const mime =
-    file.mimetype || "";
-
-  /* =======================================================
-     IMAGE
-
-     JPG / PNG → WEBP
-
-     Existing behavior preserved.
-  ======================================================= */
-
-  if (isImage(mime)) {
-
+  if (isImage(mime) || [".jpg", ".jpeg", ".png"].includes(ext)) {
     const filename =
       `${file.fieldname}_${Date.now()}_${Math.round(
         Math.random() * 100000
@@ -511,24 +446,6 @@ const processFile = async (
       )
     );
   }
-
-  /* =======================================================
-     DOCUMENT
-
-     PDF
-     DOC
-     DOCX
-     ZIP
-
-     Documents are NOT converted to WebP.
-  ======================================================= */
-
-  const ext =
-    path
-      .extname(
-        file.originalname
-      )
-      .toLowerCase();
 
   const safeExtension =
     ext || ".bin";
@@ -567,13 +484,7 @@ const convertToWebp = async (
   res,
   next
 ) => {
-
   try {
-
-    /* =====================================================
-       NO FILE
-    ===================================================== */
-
     if (
       !req.file &&
       !req.files
@@ -581,35 +492,18 @@ const convertToWebp = async (
       return next();
     }
 
-    /* =====================================================
-       UPLOAD DIRECTORY
-    ===================================================== */
-
     const uploadPath =
       getUploadPath(req);
 
-    /* =====================================================
-       SINGLE FILE
-    ===================================================== */
-
     if (req.file) {
-
       const pathSaved =
         await processFile(
           req.file,
           uploadPath
         );
 
-      /*
-       * Save path to multer object.
-       */
-
       req.file.path =
         pathSaved;
-
-      /*
-       * Save path to request body.
-       */
 
       req.body[
         req.file.fieldname
@@ -621,18 +515,10 @@ const convertToWebp = async (
       );
     }
 
-    /* =====================================================
-       MULTIPLE FILES
-
-       upload.fields()
-    ===================================================== */
-
     if (req.files) {
-
       for (
         const field in req.files
       ) {
-
         const uploadedFiles =
           [];
 
@@ -640,7 +526,6 @@ const convertToWebp = async (
           const file of
           req.files[field]
         ) {
-
           const pathSaved =
             await processFile(
               file,
@@ -655,23 +540,12 @@ const convertToWebp = async (
           );
         }
 
-        /* ================================================
-           SINGLE FILE
-        ================================================ */
-
         if (
           uploadedFiles.length === 1
         ) {
-
           req.body[field] =
             uploadedFiles[0];
-
         } else {
-
-          /* ==============================================
-             MULTIPLE FILES
-          ============================================== */
-
           req.body[field] =
             uploadedFiles;
         }
@@ -681,7 +555,6 @@ const convertToWebp = async (
     next();
 
   } catch (err) {
-
     console.error(
       "UPLOAD ERROR:",
       err
@@ -689,7 +562,6 @@ const convertToWebp = async (
 
     return res.status(500).json({
       success: false,
-
       message:
         err.message ||
         "File upload failed.",
@@ -704,24 +576,10 @@ const convertToWebp = async (
 const deleteImageFile = (
   imagePath
 ) => {
-
   try {
-
     if (!imagePath) {
       return;
     }
-
-    /*
-     * Remove leading slash.
-     *
-     * Example:
-     *
-     * /uploads/submitform/file.pdf
-     *
-     * becomes:
-     *
-     * uploads/submitform/file.pdf
-     */
 
     const cleanPath =
       imagePath.replace(
@@ -739,7 +597,6 @@ const deleteImageFile = (
     if (
       fs.existsSync(fullPath)
     ) {
-
       fs.unlinkSync(
         fullPath
       );
@@ -751,7 +608,6 @@ const deleteImageFile = (
     }
 
   } catch (err) {
-
     console.error(
       "DELETE ERROR:",
       err

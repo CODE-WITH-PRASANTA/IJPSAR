@@ -8,6 +8,7 @@ const {
   getAllAuthors,
   clearAllAuthorNotifications,
   deleteAuthorNotification,
+  deleteAuthorByAdmin
 } = require("../controllers/auther.controller");
 
 router.post("/register", register);
@@ -20,5 +21,7 @@ router.get("/all", getAllAuthors);
 router.delete("/author/clear-all", authorAuth, clearAllAuthorNotifications);
 
 router.delete("/author/:id", authorAuth, deleteAuthorNotification);
+
+router.delete("/admin/:id", deleteAuthorByAdmin);
 
 module.exports = router;
