@@ -1,4 +1,6 @@
-/* AboutGerenal.css */
+/* ============================= */
+/* ABOUT GENERAL */
+/* ============================= */
 
 * {
   margin: 0;
@@ -8,122 +10,163 @@
 
 .aboutgeneral {
   width: 100%;
-  padding: 60px 7%;
+  padding: 80px 7%;
+
   background: linear-gradient(
     135deg,
     #ffffff 0%,
     #f8fff6 45%,
     #f4fff1 100%
   );
+
   overflow: hidden;
   position: relative;
 }
 
+/* ============================= */
 /* BACKGROUND GLOW */
+/* ============================= */
 
 .aboutgeneral::before {
   content: "";
+
   position: absolute;
+
   top: -150px;
   right: -120px;
+
   width: 500px;
   height: 500px;
-  background: rgba(100, 195, 69, 0.10);
+
+  background: rgba(100, 195, 69, 0.1);
+
   border-radius: 50%;
+
   filter: blur(80px);
+
+  pointer-events: none;
 }
+
+/* ============================= */
+/* CONTAINER */
+/* ============================= */
 
 .aboutgeneral-container {
   position: relative;
   z-index: 2;
 
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
   align-items: center;
+
   gap: 80px;
 }
 
-/* ======================= */
+/* ============================= */
 /* LEFT SECTION */
-/* ======================= */
+/* ============================= */
 
 .aboutgeneral-left {
-  flex: 1;
+  width: 100%;
   max-width: 760px;
 }
 
 .aboutgeneral-tag {
   display: inline-block;
+
   margin-bottom: 26px;
 
   font-size: 15px;
   font-weight: 800;
+
   letter-spacing: 3px;
 
   color: #64c345;
+
   text-transform: uppercase;
 }
 
 .aboutgeneral-title {
   font-size: 3.5rem;
+
   line-height: 1.08;
+
   font-weight: 600;
+
   color: #0f1f12;
 
   margin-bottom: 28px;
-  letter-spacing: -2px;
-}
 
-.aboutgeneral-title span {
-  color: #64c345;
+  letter-spacing: -2px;
 }
 
 .aboutgeneral-description {
   font-size: 1.2rem;
+
   line-height: 1.95;
+
   color: #5f6f69;
 
-  margin-bottom: 42px;
+  margin-bottom: 40px;
 }
 
+/* ============================= */
 /* POINTS */
+/* ============================= */
 
 .aboutgeneral-points {
   display: flex;
-  flex-direction: column;
-  gap: 22px;
 
-  margin-bottom: 42px;
+  flex-direction: column;
+
+  gap: 20px;
+
+  margin-bottom: 40px;
 }
 
 .aboutgeneral-point {
   display: flex;
+
   align-items: flex-start;
+
   gap: 16px;
 
   font-size: 1.1rem;
-  line-height: 1.7;
+
+  line-height: 1.6;
+
   color: #1e2b27;
+
   font-weight: 600;
 }
 
 .aboutgeneral-check {
   min-width: 20px;
+
   margin-top: 5px;
 
   color: #64c345;
+
   font-size: 1rem;
 }
 
+/* ============================= */
 /* BUTTON */
+/* ============================= */
 
 .aboutgeneral-btn {
   border: none;
+
   outline: none;
+
   cursor: pointer;
 
   padding: 20px 38px;
+
   border-radius: 18px;
 
   background: linear-gradient(
@@ -133,8 +176,20 @@
   );
 
   color: #ffffff;
+
   font-size: 1.05rem;
+
   font-weight: 800;
+
+  text-decoration: none;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
 
   transition: all 0.4s ease;
 
@@ -149,82 +204,108 @@
     0 22px 45px rgba(100, 195, 69, 0.35);
 }
 
-/* ======================= */
+/* ============================= */
 /* RIGHT SECTION */
-/* ======================= */
+/* ============================= */
 
 .aboutgeneral-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* SLIDER */
-
-.aboutgeneral-slider {
   width: 100%;
-  position: relative;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 }
 
+/* ============================= */
+/* 4 CARD GRID */
+/* ============================= */
+
+.aboutgeneral-card-grid {
+  width: 100%;
+
+  max-width: 650px;
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 22px;
+}
+
+/* ============================= */
 /* CARD */
+/* ============================= */
 
 .aboutgeneral-card {
-  width: 100%;
-  max-width: 540px;
+  min-height: 245px;
 
-  min-height: 430px;
+  padding: 30px;
 
   position: relative;
 
-  padding: 55px 45px;
-  border-radius: 34px;
+  border-radius: 28px;
 
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.95);
 
   border: 1px solid rgba(100, 195, 69, 0.12);
 
   box-shadow:
-    0 18px 45px rgba(0, 0, 0, 0.05),
-    0 6px 22px rgba(100, 195, 69, 0.08);
-
-  transition: all 0.4s ease;
+    0 15px 35px rgba(0, 0, 0, 0.05),
+    0 6px 20px rgba(100, 195, 69, 0.08);
 
   overflow: hidden;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
 }
+
+/* CARD GLOW */
 
 .aboutgeneral-card::before {
   content: "";
-  position: absolute;
-  inset: 0;
 
-  background: linear-gradient(
-    135deg,
-    rgba(100, 195, 69, 0.06),
-    rgba(100, 195, 69, 0.02)
-  );
+  position: absolute;
+
+  top: -80px;
+  right: -80px;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+
+  background: rgba(100, 195, 69, 0.08);
+
+  filter: blur(30px);
 
   pointer-events: none;
 }
 
+/* HOVER */
+
 .aboutgeneral-card:hover {
   transform: translateY(-8px);
 
+  border-color: rgba(100, 195, 69, 0.25);
+
   box-shadow:
-    0 24px 55px rgba(0, 0, 0, 0.08),
-    0 10px 25px rgba(100, 195, 69, 0.16);
+    0 25px 50px rgba(0, 0, 0, 0.08),
+    0 10px 30px rgba(100, 195, 69, 0.15);
 }
 
-/* ICON */
+/* ============================= */
+/* ICON BOX */
+/* ============================= */
 
 .aboutgeneral-icon-box {
-  width: 90px;
-  height: 90px;
+  width: 65px;
+  height: 65px;
 
-  border-radius: 26px;
+  border-radius: 20px;
 
   background: linear-gradient(
     135deg,
@@ -233,232 +314,290 @@
   );
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
-  margin-bottom: 35px;
+  margin-bottom: 22px;
 
   box-shadow:
-    0 10px 25px rgba(100, 195, 69, 0.10);
+    0 8px 20px rgba(100, 195, 69, 0.1);
 }
 
 .aboutgeneral-icon {
-  font-size: 2.3rem;
+  font-size: 1.8rem;
+
   color: #64c345;
 }
 
-/* CONTENT */
+/* ============================= */
+/* CARD CONTENT */
+/* ============================= */
 
 .aboutgeneral-card h3 {
-  font-size: 2.5rem;
+  font-size: 1.7rem;
+
   font-weight: 800;
+
   color: #10231d;
 
-  margin-bottom: 22px;
+  margin-bottom: 12px;
 }
 
 .aboutgeneral-card p {
-  font-size: 1.15rem;
-  line-height: 2;
+  font-size: 0.98rem;
+
+  line-height: 1.7;
+
   color: #64746f;
 }
 
-/* ARROWS */
+/* ============================= */
+/* LARGE DESKTOP */
+/* ============================= */
 
-.aboutgeneral-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-
-  width: 55px;
-  height: 55px;
-
-  border: none;
-  cursor: pointer;
-
-  border-radius: 50%;
-
-  background: #ffffff;
-  color: #64c345;
-
-  font-size: 1rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  box-shadow:
-    0 10px 30px rgba(100, 195, 69, 0.15);
-
-  transition: 0.3s ease;
-
-  z-index: 10;
-}
-
-.aboutgeneral-arrow:hover {
-  background: #64c345;
-  color: white;
-}
-
-.aboutgeneral-arrow.left {
-  left: -25px;
-}
-
-.aboutgeneral-arrow.right {
-  right: -25px;
-}
-
-/* DOTS */
-
-.aboutgeneral-dots {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  margin-top: 30px;
-}
-
-.aboutgeneral-dot {
-  width: 12px;
-  height: 12px;
-
-  border-radius: 50%;
-  cursor: pointer;
-
-  background: rgba(100, 195, 69, 0.2);
-
-  transition: 0.3s ease;
-}
-
-.aboutgeneral-dot.active {
-  width: 38px;
-  border-radius: 20px;
-  background: #64c345;
-}
-
-/* ======================= */
-/* RESPONSIVE */
-/* ======================= */
-
-@media (max-width: 1200px) {
-
-  .aboutgeneral-container {
-    flex-direction: column;
-  }
-
-  .aboutgeneral-left,
-  .aboutgeneral-right {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .aboutgeneral-right {
-    margin-top: 20px;
-  }
-}
-
-@media (max-width: 992px) {
+@media (max-width: 1300px) {
 
   .aboutgeneral {
-    padding: 90px 5%;
+    padding: 70px 5%;
+  }
+
+  .aboutgeneral-container {
+    gap: 50px;
   }
 
   .aboutgeneral-title {
-    font-size: 3.2rem;
+    font-size: 3.1rem;
   }
 
   .aboutgeneral-description {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
   }
 
   .aboutgeneral-card {
-    min-height: 380px;
-    padding: 45px 35px;
+    min-height: 230px;
+
+    padding: 27px;
   }
 }
+
+/* ============================= */
+/* TABLET */
+/* ============================= */
+
+@media (max-width: 1100px) {
+
+  .aboutgeneral-container {
+    grid-template-columns: 1fr;
+
+    gap: 60px;
+  }
+
+  .aboutgeneral-left {
+    max-width: 900px;
+  }
+
+  .aboutgeneral-right {
+    width: 100%;
+  }
+
+  .aboutgeneral-card-grid {
+    max-width: 850px;
+  }
+}
+
+/* ============================= */
+/* TABLET SMALL */
+/* ============================= */
 
 @media (max-width: 768px) {
 
   .aboutgeneral {
-    padding: 75px 5%;
+    padding: 65px 5%;
+  }
+
+  .aboutgeneral-container {
+    gap: 45px;
   }
 
   .aboutgeneral-title {
     font-size: 2.5rem;
+
     line-height: 1.15;
   }
 
   .aboutgeneral-description {
     font-size: 1rem;
+
     line-height: 1.8;
+  }
+
+  .aboutgeneral-point {
+    font-size: 1rem;
+  }
+
+  .aboutgeneral-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 16px;
   }
 
   .aboutgeneral-card {
-    min-height: 340px;
-    padding: 35px 28px;
+    min-height: 220px;
+
+    padding: 24px;
+
+    border-radius: 22px;
+  }
+
+  .aboutgeneral-icon-box {
+    width: 58px;
+    height: 58px;
+
+    border-radius: 17px;
+
+    margin-bottom: 18px;
+  }
+
+  .aboutgeneral-icon {
+    font-size: 1.5rem;
   }
 
   .aboutgeneral-card h3 {
-    font-size: 2rem;
+    font-size: 1.45rem;
   }
 
   .aboutgeneral-card p {
-    font-size: 1rem;
-    line-height: 1.8;
-  }
+    font-size: 0.9rem;
 
-  .aboutgeneral-arrow {
-    width: 48px;
-    height: 48px;
-  }
-
-  .aboutgeneral-arrow.left {
-    left: -10px;
-  }
-
-  .aboutgeneral-arrow.right {
-    right: -10px;
+    line-height: 1.6;
   }
 }
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
 
 @media (max-width: 576px) {
 
   .aboutgeneral {
-    padding: 65px 4%;
+    padding: 55px 5%;
   }
 
   .aboutgeneral-tag {
     font-size: 12px;
+
     letter-spacing: 2px;
+
+    margin-bottom: 20px;
   }
 
   .aboutgeneral-title {
     font-size: 2rem;
+
+    letter-spacing: -1px;
+
+    margin-bottom: 22px;
+  }
+
+  .aboutgeneral-description {
+    font-size: 0.95rem;
+
+    line-height: 1.75;
+
+    margin-bottom: 30px;
+  }
+
+  .aboutgeneral-points {
+    gap: 16px;
+
+    margin-bottom: 30px;
   }
 
   .aboutgeneral-point {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+
+    gap: 12px;
   }
 
   .aboutgeneral-btn {
     width: 100%;
+
+    padding: 17px 25px;
+  }
+
+  /* 2 x 2 cards on mobile too */
+
+  .aboutgeneral-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 12px;
   }
 
   .aboutgeneral-card {
-    min-height: 320px;
-    border-radius: 26px;
+    min-height: 200px;
+
+    padding: 18px;
+
+    border-radius: 20px;
   }
 
   .aboutgeneral-icon-box {
-    width: 75px;
-    height: 75px;
+    width: 48px;
+    height: 48px;
+
+    border-radius: 14px;
+
+    margin-bottom: 15px;
   }
 
   .aboutgeneral-icon {
-    font-size: 2rem;
+    font-size: 1.25rem;
   }
 
-  .aboutgeneral-arrow {
-    display: none;
+  .aboutgeneral-card h3 {
+    font-size: 1.2rem;
+
+    margin-bottom: 8px;
+  }
+
+  .aboutgeneral-card p {
+    font-size: 0.78rem;
+
+    line-height: 1.5;
+  }
+}
+
+/* ============================= */
+/* VERY SMALL MOBILE */
+/* ============================= */
+
+@media (max-width: 380px) {
+
+  .aboutgeneral {
+    padding: 45px 4%;
+  }
+
+  .aboutgeneral-title {
+    font-size: 1.8rem;
+  }
+
+  .aboutgeneral-card-grid {
+    gap: 10px;
+  }
+
+  .aboutgeneral-card {
+    padding: 15px;
+
+    min-height: 185px;
+  }
+
+  .aboutgeneral-card h3 {
+    font-size: 1.05rem;
+  }
+
+  .aboutgeneral-card p {
+    font-size: 0.72rem;
   }
 }

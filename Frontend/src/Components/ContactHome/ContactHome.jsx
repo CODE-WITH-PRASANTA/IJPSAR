@@ -42,7 +42,7 @@ const ContactHome = () => {
 
               <div>
                 <h4>Email Address</h4>
-                <p>editor@ijpasr.com</p>
+                <p>editorijpasr@gmail.com</p>
               </div>
             </div>
 
@@ -64,7 +64,7 @@ const ContactHome = () => {
 
               <div>
                 <h4>Website</h4>
-                <p>www.ijpasr.com</p>
+                <p>ijpasr.com</p>
               </div>
             </div>
 
