@@ -97,7 +97,7 @@ const Navbar = () => {
                 </div>
                 <div className="navbarDropdownColumn">
                   <h4 className="navbarDropdownTitle">Authors</h4>
-                  <Link to="/submit-manuscript" className="navbarDropdownItem" onClick={closeMobileMenu}>Submit Manuscript</Link>
+                  {/* <Link to="/submit-manuscript" className="navbarDropdownItem" onClick={closeMobileMenu}>Submit Manuscript</Link> */}
                   <Link to="/author-guidelines" className="navbarDropdownItem" onClick={closeMobileMenu}>Author Guidelines</Link>
                 </div>
               </div>
