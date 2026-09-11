@@ -29,39 +29,62 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = await Author.findOne({ email });
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide both email and password.",
+      });
+    }
 
-  if (!user) {
-    return res.json({
+    const user = await Author.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "No author account found with this email address.",
+      });
+    }
+
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) {
+      return res.status(401).json({
+        success: false,
+        message: "Incorrect password. Please verify and try again.",
+      });
+    }
+
+    const token = jwt.sign(
+      {
+        id: user._id,
+        role: "author",
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        organization: user.organization,
+        designation: user.designation,
+      },
+    });
+  } catch (error) {
+    console.error("Login Server Error:", error);
+    return res.status(500).json({
       success: false,
-      message: "Invalid Email",
+      message: "Internal server error. Please try again later.",
     });
   }
-
-  const match = await bcrypt.compare(password, user.password);
-
-  if (!match) {
-    return res.json({
-      success: false,
-      message: "Wrong Password",
-    });
-  }
-
-  const token = jwt.sign(
-    {
-      id: user._id,
-      role: "author",
-    },
-    process.env.JWT_SECRET,
-  );
-
-  res.json({
-    success: true,
-    token,
-    user,
-  });
 };
 
 exports.getAllAuthors = async (req, res) => {
