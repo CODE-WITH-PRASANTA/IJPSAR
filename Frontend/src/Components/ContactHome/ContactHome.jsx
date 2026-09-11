@@ -81,7 +81,7 @@ const ContactHome = () => {
               <h3>Editorial Office Location</h3>
 
               <p>
-                Bhubaneswar, Odisha, India
+               Baddi University of Emerging Sci. & Tech. (BUEST) Makhnumajra, Baddi, Distt. Solan, H.P.-173205
               </p>
             </div>
 

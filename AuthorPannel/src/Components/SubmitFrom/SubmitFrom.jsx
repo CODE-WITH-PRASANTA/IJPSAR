@@ -892,70 +892,66 @@ const SubmitFrom = () => {
                       </select>
                     </div>
 
-                    <div className="input-field-group">
-                      <label className="field-label-text">Research Area</label>
+                   <div className="input-field-group">
+  <label className="field-label-text">Research Area</label>
 
-                      <select
-                        name="researchArea"
-                        value={formData.researchArea}
-                        onChange={handleChange}
-                        className="premium-select-dropdown"
-                      >
-                        <option value="">Select research area</option>
+  <select
+    name="researchArea"
+    value={formData.researchArea}
+    onChange={handleChange}
+    className="premium-select-dropdown"
+  >
+    <option value="">Select research area</option>
 
-                        <option value="Computer Science & Engineering">
-                          Computer Science & Engineering
-                        </option>
+    <option value="Science (All Branch)">
+      Science (All Branch)
+    </option>
 
-                        <option value="Information Technology">
-                          Information Technology
-                        </option>
+    <option value="Pharmacy (All Branch)">
+      Pharmacy (All Branch)
+    </option>
 
-                        <option value="Electrical & Electronics">
-                          Electrical & Electronics
-                        </option>
+    <option value="Pharmaceutical Chemistry">
+      Pharmaceutical Chemistry
+    </option>
 
-                        <option value="Mechanical Systems">
-                          Mechanical Systems
-                        </option>
+    <option value="Pharmaceutics">
+      Pharmaceutics
+    </option>
 
-                        <option value="Pharmacy (All Branch)">
-                          Pharmacy (All Branch)
-                        </option>
+    <option value="Pharmacology">
+      Pharmacology
+    </option>
 
-                        <option value="Science (All Branch)">
-                          Science (All Branch)
-                        </option>
+    <option value="Pharmacognosy">
+      Pharmacognosy
+    </option>
 
-                        <option value="Life Science (All Branch)">
-                          Life Science (All Branch)
-                        </option>
+    <option value="Medical Sciences">
+      Medical Sciences
+    </option>
 
-                        <option value="Health Science (All Branch)">
-                          Health Science (All Branch)
-                        </option>
+    <option value="Life Science (All Branch)">
+      Life Science (All Branch)
+    </option>
 
-                        <option value="Arts and Social Science (All Branch)">
-                          Arts and Social Science (All Branch)
-                        </option>
+    <option value="Health Science (All Branch)">
+      Health Science (All Branch)
+    </option>
 
-                        <option value="Social Science (All Branch)">
-                          Social Science (All Branch)
-                        </option>
+    <option value="Art and Social Science (All Branch)">
+      Art and Social Science (All Branch)
+    </option>
 
-                        <option value="Humanities (All Branch)">
-                          Humanities (All Branch)
-                        </option>
+    <option value="Social Science (All Branch)">
+      Social Science (All Branch)
+    </option>
 
-                        <option value="Commerce">Commerce</option>
-
-                        <option value="Language (All Branch)">
-                          Language (All Branch)
-                        </option>
-
-                        <option value="Other">Other</option>
-                      </select>
-                    </div>
+    <option value="Others">
+      Others
+    </option>
+  </select>
+</div>
                   </div>
 
                   {/* FILE */}
