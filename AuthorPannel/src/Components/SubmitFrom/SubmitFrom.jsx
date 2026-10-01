@@ -351,11 +351,11 @@ const SubmitFrom = () => {
       return;
     }
 
-    if (isEdit && !uploadedFile) {
+    if (isEdit && !uploadedFile && !editPaper?.paperFile) {
       Swal.fire({
         icon: "warning",
-        title: "Revision File Required",
-        text: "Please upload the new PDF, DOC or DOCX document.",
+        title: "Manuscript Required",
+        text: "Please upload the manuscript file.",
       });
 
       return;
@@ -415,11 +415,26 @@ const SubmitFrom = () => {
           Authorization: `Bearer ${token}`,
         },
       };
+      let response;
 
-      const response = isEdit
-        ? await API.put(`/submitform/revision/${editPaper._id}`, form, config)
-        : await API.post("/submitform/create", form, config);
-
+      if (isEdit && uploadedFile) {
+        // Full revision — new file uploaded
+        response = await API.put(
+          `/submitform/revision/${editPaper._id}`,
+          form,
+          config,
+        );
+      } else if (isEdit && !uploadedFile) {
+        // Metadata-only update — no new file
+        response = await API.put(
+          `/submitform/update-metadata/${editPaper._id}`,
+          form,
+          config,
+        );
+      } else {
+        // New submission
+        response = await API.post("/submitform/create", form, config);
+      }
       if (response.data?.success) {
         const returnedPaperId =
           response.data?.data?.paperId || response.data?.paperId || "";
@@ -429,10 +444,16 @@ const SubmitFrom = () => {
         await Swal.fire({
           icon: "success",
 
-          title: isEdit ? "Revision Submitted" : "Manuscript Submitted",
+          title: isEdit
+            ? uploadedFile
+              ? "Revision Submitted"
+              : "Details Updated"
+            : "Manuscript Submitted",
 
           text: isEdit
-            ? "Your corrected manuscript has been submitted to the editor."
+            ? uploadedFile
+              ? "Your corrected manuscript has been submitted to the editor."
+              : "Your manuscript details have been updated."
             : returnedPaperId
               ? `Your Paper ID is ${returnedPaperId}`
               : "Your manuscript was submitted successfully.",
@@ -989,14 +1010,14 @@ const SubmitFrom = () => {
                             {uploadedFile
                               ? `Selected: ${uploadedFile.name}`
                               : isEdit && editPaper?.paperFile
-                                ? "Current manuscript available — upload corrected version"
+                                ? "Optional — upload a corrected version, or leave blank to keep current file"
                                 : "Click to browse files or drag here"}
                           </span>
 
                           <span className="dropzone-format-constraint-text">
                             Supported: <strong>PDF</strong>,{" "}
                             <strong>DOC</strong>, <strong>DOCX</strong> ·
-                            Maximum 20 MB
+                            Maximum 5 MB
                           </span>
                         </label>
                       </div>

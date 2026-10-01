@@ -39,8 +39,9 @@ const DOCUMENT_TYPES = [
     description: "Upload the completed and signed copyright transfer form.",
     required: true,
     icon: ShieldCheck,
-    accept: ".pdf,.doc,.docx,.jpg,.jpeg,.png",
-    formats: "PDF, DOC, DOCX, JPG, PNG",
+    // ❌ removed .jpg,.jpeg,.png
+    accept: ".pdf,.doc,.docx",
+    formats: "PDF, DOC, DOCX",
   },
 
   {
@@ -60,8 +61,9 @@ const DOCUMENT_TYPES = [
     description: "Upload clear photograph(s) of the author(s) for publication.",
     required: true,
     icon: UserRound,
-    accept: ".jpg,.jpeg,.png,.webp",
-    formats: "JPG, PNG, WEBP",
+    // ❌ removed .webp  (backend only accepts JPG/PNG)
+    accept: ".jpg,.jpeg,.png",
+    formats: "JPG, PNG",
     multiple: true,
   },
 
@@ -71,8 +73,9 @@ const DOCUMENT_TYPES = [
     description: "Upload any additional files required for publication.",
     required: false,
     icon: FolderOpen,
-    accept: ".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip",
-    formats: "PDF, DOC, DOCX, JPG, PNG, ZIP",
+    // ❌ removed .jpg,.jpeg,.png
+    accept: ".pdf,.doc,.docx,.zip",
+    formats: "PDF, DOC, DOCX, ZIP",
     multiple: true,
   },
 ];
@@ -139,13 +142,10 @@ const AuthorPublicationDocuments = ({ paper: paperProp = null }) => {
   const loadExistingDocuments = (paperData) => {
     const publicationDocuments = paperData?.publicationDocuments || {};
 
-
     const paymentProof =
       publicationDocuments.publicationFeePaymentProof ||
       publicationDocuments.publicationFeeProof ||
       null;
-
-  
 
     const documents = {
       correctedGalleyProof: normalizeDocuments(
@@ -166,8 +166,6 @@ const AuthorPublicationDocuments = ({ paper: paperProp = null }) => {
         publicationDocuments.additionalSupportingFiles,
       ),
     };
-
-   
 
     setExistingDocuments(documents);
   };
@@ -521,8 +519,6 @@ const AuthorPublicationDocuments = ({ paper: paperProp = null }) => {
         formData.append("additionalSupportingFiles", file);
       });
 
-    
-
       for (const [key, value] of formData.entries()) {
         console.log("FORM DATA:", key, value?.name || value);
       }
@@ -536,8 +532,6 @@ const AuthorPublicationDocuments = ({ paper: paperProp = null }) => {
           },
         },
       );
-
-     
 
       if (!uploadResponse.data?.success) {
         throw new Error(
@@ -555,7 +549,6 @@ const AuthorPublicationDocuments = ({ paper: paperProp = null }) => {
           },
         },
       );
-
 
       if (!submitResponse.data?.success) {
         throw new Error(

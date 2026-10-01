@@ -593,6 +593,48 @@ const SubmitFormSchema = new mongoose.Schema(
     },
 
     /* =====================================================
+   FINAL PAPER
+   Uploaded by Editor after author submits publication
+   documents. This is the publish-ready manuscript.
+===================================================== */
+
+    finalPaper: {
+      type: PublicationFileSchema,
+      default: null,
+    },
+
+    /* =====================================================
+   EDITOR DOCUMENTS
+   
+   Uploaded by the Editor when accepting the paper.
+   Author downloads these, corrects them, and 
+   re-uploads the corrected versions into 
+   publicationDocuments.
+===================================================== */
+
+    editorDocuments: {
+      acceptanceLetter: {
+        type: PublicationFileSchema,
+        default: null,
+      },
+
+      galleyProof: {
+        type: PublicationFileSchema,
+        default: null,
+      },
+
+      reviewReport: {
+        type: PublicationFileSchema,
+        default: null,
+      },
+
+      copyrightForm: {
+        type: PublicationFileSchema,
+        default: null,
+      },
+    },
+
+    /* =====================================================
        PUBLICATION FLAGS
     ===================================================== */
 

@@ -58,26 +58,17 @@ const storage = multer.memoryStorage();
 const MIME_TYPES = {
   /* ================= IMAGE ================= */
 
-  JPG: [
-    "image/jpeg",
-    "image/jpg",
-  ],
+  JPG: ["image/jpeg", "image/jpg"],
 
-  PNG: [
-    "image/png",
-  ],
+  PNG: ["image/png"],
 
   /* ================= PDF ================= */
 
-  PDF: [
-    "application/pdf",
-  ],
+  PDF: ["application/pdf"],
 
   /* ================= WORD ================= */
 
-  DOC: [
-    "application/msword",
-  ],
+  DOC: ["application/msword"],
 
   DOCX: [
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -85,11 +76,7 @@ const MIME_TYPES = {
 
   /* ================= ZIP ================= */
 
-  ZIP: [
-    "application/zip",
-    "application/x-zip-compressed",
-    "multipart/x-zip",
-  ],
+  ZIP: ["application/zip", "application/x-zip-compressed", "multipart/x-zip"],
 };
 
 /* =========================================================
@@ -128,11 +115,7 @@ const isPNG = (mime) => {
    PUBLICATION FILE VALIDATION
 ========================================================= */
 
-const validatePublicationFile = (
-  field,
-  mime
-) => {
-
+const validatePublicationFile = (field, mime) => {
   /* =======================================================
      ACCEPTANCE LETTER
 
@@ -140,9 +123,7 @@ const validatePublicationFile = (
   ======================================================= */
 
   if (field === "acceptanceLetter") {
-    return isPDF(mime)
-      ? null
-      : "Acceptance Letter must be a PDF file.";
+    return isPDF(mime) ? null : "Acceptance Letter must be a PDF file.";
   }
 
   /* =======================================================
@@ -152,11 +133,27 @@ const validatePublicationFile = (
   ======================================================= */
 
   if (field === "galleyProof") {
-    return isPDF(mime)
-      ? null
-      : "Galley Proof must be a PDF file.";
+    return isPDF(mime) ? null : "Galley Proof must be a PDF file.";
+  }
+  /* =======================================================
+   REVIEW REPORT
+
+   PDF ONLY
+======================================================= */
+
+  if (field === "reviewReport") {
+    return isPDF(mime) ? null : "Review Report must be a PDF file.";
   }
 
+  /* =======================================================
+   COPYRIGHT FORM (Editor's version)
+
+   PDF ONLY
+======================================================= */
+
+  if (field === "copyrightForm") {
+    return isPDF(mime) ? null : "Copyright Form must be a PDF file.";
+  }
   /* =======================================================
      CORRECTED GALLEY PROOF
 
@@ -164,9 +161,7 @@ const validatePublicationFile = (
   ======================================================= */
 
   if (field === "correctedGalleyProof") {
-    return isPDF(mime)
-      ? null
-      : "Corrected Galley Proof must be a PDF file.";
+    return isPDF(mime) ? null : "Corrected Galley Proof must be a PDF file.";
   }
 
   /* =======================================================
@@ -178,17 +173,11 @@ const validatePublicationFile = (
   ======================================================= */
 
   if (field === "copyrightTransferForm") {
-    if (
-      isPDF(mime) ||
-      isDOC(mime) ||
-      isDOCX(mime)
-    ) {
+    if (isPDF(mime) || isDOC(mime) || isDOCX(mime)) {
       return null;
     }
 
-    return (
-      "Copyright Transfer Form must be a PDF, DOC, or DOCX file."
-    );
+    return "Copyright Transfer Form must be a PDF, DOC, or DOCX file.";
   }
 
   /* =======================================================
@@ -205,17 +194,11 @@ const validatePublicationFile = (
     field === "publicationFeePaymentProof" ||
     field === "publicationFeeProof"
   ) {
-    if (
-      isPDF(mime) ||
-      isJPG(mime) ||
-      isPNG(mime)
-    ) {
+    if (isPDF(mime) || isJPG(mime) || isPNG(mime)) {
       return null;
     }
 
-    return (
-      "Publication Fee Payment Proof must be PDF, JPG, or PNG."
-    );
+    return "Publication Fee Payment Proof must be PDF, JPG, or PNG.";
   }
 
   /* =======================================================
@@ -225,16 +208,11 @@ const validatePublicationFile = (
   ======================================================= */
 
   if (field === "authorPhotographs") {
-    if (
-      isJPG(mime) ||
-      isPNG(mime)
-    ) {
+    if (isJPG(mime) || isPNG(mime)) {
       return null;
     }
 
-    return (
-      "Author Photograph must be JPG or PNG."
-    );
+    return "Author Photograph must be JPG or PNG.";
   }
 
   /* =======================================================
@@ -243,21 +221,12 @@ const validatePublicationFile = (
      PDF / DOC / DOCX / ZIP
   ======================================================= */
 
-  if (
-    field === "additionalSupportingFiles"
-  ) {
-    if (
-      isPDF(mime) ||
-      isDOC(mime) ||
-      isDOCX(mime) ||
-      isZIP(mime)
-    ) {
+  if (field === "additionalSupportingFiles") {
+    if (isPDF(mime) || isDOC(mime) || isDOCX(mime) || isZIP(mime)) {
       return null;
     }
 
-    return (
-      "Supporting files must be PDF, DOC, DOCX, or ZIP."
-    );
+    return "Supporting files must be PDF, DOC, DOCX, or ZIP.";
   }
 
   /* =======================================================
@@ -273,20 +242,12 @@ const validatePublicationFile = (
    FILE FILTER
 ========================================================= */
 
-const fileFilter = (
-  req,
-  file,
-  cb
-) => {
+const fileFilter = (req, file, cb) => {
+  const route = req.originalUrl || "";
 
-  const route =
-    req.originalUrl || "";
+  const mime = file.mimetype || "";
 
-  const mime =
-    file.mimetype || "";
-
-  const field =
-    file.fieldname || "";
+  const field = file.fieldname || "";
 
   /* =======================================================
      FINAL PUBLICATION WORKFLOW
@@ -294,38 +255,21 @@ const fileFilter = (
      Publication files have their own validation.
   ======================================================= */
 
-  if (
-    route.includes("/publication/")
-  ) {
-
-    const publicationError =
-      validatePublicationFile(
-        field,
-        mime
-      );
+  if (route.includes("/publication/") || route.includes("/accept/")) {
+    const publicationError = validatePublicationFile(field, mime);
 
     if (publicationError) {
-      return cb(
-        new Error(
-          publicationError
-        )
-      );
+      return cb(new Error(publicationError));
     }
 
-    return cb(
-      null,
-      true
-    );
+    return cb(null, true);
   }
 
   /* =======================================================
      STUDENT VALIDATION
   ======================================================= */
 
-  if (
-    route.includes("/students")
-  ) {
-
+  if (route.includes("/students")) {
     const imageFields = [
       "studentPhoto",
       "fatherPhoto",
@@ -344,63 +288,36 @@ const fileFilter = (
       "pip",
     ];
 
-    const pdfOrImageFields = [
-      "aadhaarStudent",
-      "aadhaarParent",
-    ];
+    const pdfOrImageFields = ["aadhaarStudent", "aadhaarParent"];
 
     /* =====================================================
        IMAGE FIELDS
     ===================================================== */
 
-    if (
-      imageFields.includes(field)
-    ) {
-
+    if (imageFields.includes(field)) {
       return isImage(mime)
         ? cb(null, true)
-        : cb(
-            new Error(
-              `${field} must be an image`
-            )
-          );
+        : cb(new Error(`${field} must be an image`));
     }
 
     /* =====================================================
        PDF FIELDS
     ===================================================== */
 
-    if (
-      pdfFields.includes(field)
-    ) {
-
+    if (pdfFields.includes(field)) {
       return isPDF(mime)
         ? cb(null, true)
-        : cb(
-            new Error(
-              `${field} must be a PDF`
-            )
-          );
+        : cb(new Error(`${field} must be a PDF`));
     }
 
     /* =====================================================
        PDF OR IMAGE
     ===================================================== */
 
-    if (
-      pdfOrImageFields.includes(field)
-    ) {
-
-      return (
-        isPDF(mime) ||
-        isImage(mime)
-      )
+    if (pdfOrImageFields.includes(field)) {
+      return isPDF(mime) || isImage(mime)
         ? cb(null, true)
-        : cb(
-            new Error(
-              `${field} must be PDF or image`
-            )
-          );
+        : cb(new Error(`${field} must be PDF or image`));
     }
   }
 
@@ -415,24 +332,11 @@ const fileFilter = (
      DOCX
   ========================================================= */
 
-  if (
-    isImage(mime) ||
-    isPDF(mime) ||
-    isDOC(mime) ||
-    isDOCX(mime)
-  ) {
-
-    return cb(
-      null,
-      true
-    );
+  if (isImage(mime) || isPDF(mime) || isDOC(mime) || isDOCX(mime)) {
+    return cb(null, true);
   }
 
-  return cb(
-    new Error(
-      "Only images, PDF, DOC, DOCX files are allowed."
-    )
-  );
+  return cb(new Error("Only images, PDF, DOC, DOCX files are allowed."));
 };
 
 /* =========================================================
@@ -450,8 +354,7 @@ const upload = multer({
      * 100 MB
      */
 
-    fileSize:
-      100 * 1024 * 1024,
+    fileSize: 100 * 1024 * 1024,
   },
 });
 
@@ -459,13 +362,8 @@ const upload = multer({
    PROCESS FILE
 ========================================================= */
 
-const processFile = async (
-  file,
-  uploadPath
-) => {
-
-  const mime =
-    file.mimetype || "";
+const processFile = async (file, uploadPath) => {
+  const mime = file.mimetype || "";
 
   /* =======================================================
      IMAGE
@@ -476,40 +374,22 @@ const processFile = async (
   ======================================================= */
 
   if (isImage(mime)) {
+    const filename = `${file.fieldname}_${Date.now()}_${Math.round(
+      Math.random() * 100000,
+    )}.webp`;
 
-    const filename =
-      `${file.fieldname}_${Date.now()}_${Math.round(
-        Math.random() * 100000
-      )}.webp`;
-
-    const outputPath =
-      path.join(
-        uploadPath,
-        filename
-      );
+    const outputPath = path.join(uploadPath, filename);
 
     await sharp(file.buffer)
-      .resize(
-        1200,
-        1200,
-        {
-          fit: "inside",
-        }
-      )
+      .resize(1200, 1200, {
+        fit: "inside",
+      })
       .webp({
         quality: 80,
       })
-      .toFile(
-        outputPath
-      );
+      .toFile(outputPath);
 
-    return (
-      "/" +
-      outputPath.replace(
-        /\\/g,
-        "/"
-      )
-    );
+    return "/" + outputPath.replace(/\\/g, "/");
   }
 
   /* =======================================================
@@ -523,61 +403,32 @@ const processFile = async (
      Documents are NOT converted to WebP.
   ======================================================= */
 
-  const ext =
-    path
-      .extname(
-        file.originalname
-      )
-      .toLowerCase();
+  const ext = path.extname(file.originalname).toLowerCase();
 
-  const safeExtension =
-    ext || ".bin";
+  const safeExtension = ext || ".bin";
 
-  const filename =
-    `${file.fieldname}_${Date.now()}_${Math.round(
-      Math.random() * 100000
-    )}${safeExtension}`;
+  const filename = `${file.fieldname}_${Date.now()}_${Math.round(
+    Math.random() * 100000,
+  )}${safeExtension}`;
 
-  const outputPath =
-    path.join(
-      uploadPath,
-      filename
-    );
+  const outputPath = path.join(uploadPath, filename);
 
-  fs.writeFileSync(
-    outputPath,
-    file.buffer
-  );
+  fs.writeFileSync(outputPath, file.buffer);
 
-  return (
-    "/" +
-    outputPath.replace(
-      /\\/g,
-      "/"
-    )
-  );
+  return "/" + outputPath.replace(/\\/g, "/");
 };
 
 /* =========================================================
    FILE PROCESSOR
 ========================================================= */
 
-const convertToWebp = async (
-  req,
-  res,
-  next
-) => {
-
+const convertToWebp = async (req, res, next) => {
   try {
-
     /* =====================================================
        NO FILE
     ===================================================== */
 
-    if (
-      !req.file &&
-      !req.files
-    ) {
+    if (!req.file && !req.files) {
       return next();
     }
 
@@ -585,40 +436,28 @@ const convertToWebp = async (
        UPLOAD DIRECTORY
     ===================================================== */
 
-    const uploadPath =
-      getUploadPath(req);
+    const uploadPath = getUploadPath(req);
 
     /* =====================================================
        SINGLE FILE
     ===================================================== */
 
     if (req.file) {
-
-      const pathSaved =
-        await processFile(
-          req.file,
-          uploadPath
-        );
+      const pathSaved = await processFile(req.file, uploadPath);
 
       /*
        * Save path to multer object.
        */
 
-      req.file.path =
-        pathSaved;
+      req.file.path = pathSaved;
 
       /*
        * Save path to request body.
        */
 
-      req.body[
-        req.file.fieldname
-      ] = pathSaved;
+      req.body[req.file.fieldname] = pathSaved;
 
-      console.log(
-        "FILE SAVED:",
-        pathSaved
-      );
+      console.log("FILE SAVED:", pathSaved);
     }
 
     /* =====================================================
@@ -628,71 +467,41 @@ const convertToWebp = async (
     ===================================================== */
 
     if (req.files) {
+      for (const field in req.files) {
+        const uploadedFiles = [];
 
-      for (
-        const field in req.files
-      ) {
+        for (const file of req.files[field]) {
+          const pathSaved = await processFile(file, uploadPath);
 
-        const uploadedFiles =
-          [];
+          file.path = pathSaved;
 
-        for (
-          const file of
-          req.files[field]
-        ) {
-
-          const pathSaved =
-            await processFile(
-              file,
-              uploadPath
-            );
-
-          file.path =
-            pathSaved;
-
-          uploadedFiles.push(
-            pathSaved
-          );
+          uploadedFiles.push(pathSaved);
         }
 
         /* ================================================
            SINGLE FILE
         ================================================ */
 
-        if (
-          uploadedFiles.length === 1
-        ) {
-
-          req.body[field] =
-            uploadedFiles[0];
-
+        if (uploadedFiles.length === 1) {
+          req.body[field] = uploadedFiles[0];
         } else {
-
           /* ==============================================
              MULTIPLE FILES
           ============================================== */
 
-          req.body[field] =
-            uploadedFiles;
+          req.body[field] = uploadedFiles;
         }
       }
     }
 
     next();
-
   } catch (err) {
-
-    console.error(
-      "UPLOAD ERROR:",
-      err
-    );
+    console.error("UPLOAD ERROR:", err);
 
     return res.status(500).json({
       success: false,
 
-      message:
-        err.message ||
-        "File upload failed.",
+      message: err.message || "File upload failed.",
     });
   }
 };
@@ -701,12 +510,8 @@ const convertToWebp = async (
    DELETE FILE
 ========================================================= */
 
-const deleteImageFile = (
-  imagePath
-) => {
-
+const deleteImageFile = (imagePath) => {
   try {
-
     if (!imagePath) {
       return;
     }
@@ -723,39 +528,17 @@ const deleteImageFile = (
      * uploads/submitform/file.pdf
      */
 
-    const cleanPath =
-      imagePath.replace(
-        /^\/+/,
-        ""
-      );
+    const cleanPath = imagePath.replace(/^\/+/, "");
 
-    const fullPath =
-      path.join(
-        __dirname,
-        "..",
-        cleanPath
-      );
+    const fullPath = path.join(__dirname, "..", cleanPath);
 
-    if (
-      fs.existsSync(fullPath)
-    ) {
+    if (fs.existsSync(fullPath)) {
+      fs.unlinkSync(fullPath);
 
-      fs.unlinkSync(
-        fullPath
-      );
-
-      console.log(
-        "Deleted:",
-        fullPath
-      );
+      console.log("Deleted:", fullPath);
     }
-
   } catch (err) {
-
-    console.error(
-      "DELETE ERROR:",
-      err
-    );
+    console.error("DELETE ERROR:", err);
   }
 };
 

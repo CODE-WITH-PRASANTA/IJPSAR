@@ -485,7 +485,174 @@ exports.updateSubmission = async (req, res) => {
     });
   }
 };
+/* =========================================================
+   UPDATE AUTHOR METADATA (no new file)
+   =========================================================
+   Author edits only the manuscript details without
+   uploading a new file. Existing `paperFile` is preserved,
+   version is NOT bumped, status is NOT changed.
+========================================================= */
 
+exports.updateAuthorMetadata = async (req, res) => {
+  try {
+    console.log("========== UPDATE AUTHOR METADATA ==========");
+
+    const { id } = req.params;
+
+    console.log("Paper ID:", id);
+    console.log("Author ID:", req.author?.id);
+
+    /* =====================================================
+       FIND PAPER
+    ===================================================== */
+
+    const paper = await SubmitForm.findById(id);
+
+    if (!paper) {
+      return res.status(404).json({
+        success: false,
+        message: "Paper not found.",
+      });
+    }
+
+    /* =====================================================
+       AUTHOR OWNERSHIP CHECK
+    ===================================================== */
+
+    if (
+      req.author?.id &&
+      paper.authorId?.toString() !== req.author.id.toString()
+    ) {
+      return res.status(403).json({
+        success: false,
+        message: "You are not authorized to edit this paper.",
+      });
+    }
+
+    /* =====================================================
+       STATUS CHECK — only editable states
+    ===================================================== */
+
+    const editableStatuses = [
+      "Submitted",
+      "Editor Assigned",
+      "Under Review",
+      "Revision Required",
+      "Documents Required",
+    ];
+
+    if (!editableStatuses.includes(paper.status)) {
+      return res.status(400).json({
+        success: false,
+        message: `This paper cannot be edited in its current status (${paper.status}).`,
+      });
+    }
+
+    /* =====================================================
+       UPDATE SCALAR FIELDS
+    ===================================================== */
+
+    if (req.body.paperTitle !== undefined) {
+      paper.paperTitle = req.body.paperTitle;
+    }
+
+    if (req.body.abstract !== undefined) {
+      paper.abstract = req.body.abstract;
+    }
+
+    if (req.body.researchArea !== undefined) {
+      paper.researchArea = req.body.researchArea;
+    }
+
+    if (req.body.authorCategory !== undefined) {
+      paper.authorCategory = req.body.authorCategory;
+    }
+
+    if (req.body.mobileCountryCode !== undefined) {
+      paper.mobileCountryCode = req.body.mobileCountryCode;
+    }
+
+    if (req.body.referralCode !== undefined) {
+      paper.referralCode = req.body.referralCode;
+    }
+
+    if (req.body.editorMessage !== undefined) {
+      paper.specialMessage = req.body.editorMessage;
+    }
+
+    /* =====================================================
+       JSON FIELDS (keywords, authors)
+    ===================================================== */
+
+    if (req.body.keywords) {
+      try {
+        paper.keywords = JSON.parse(req.body.keywords);
+      } catch (err) {
+        console.warn("KEYWORDS PARSE FAILED:", err.message);
+      }
+    }
+
+    if (req.body.authors) {
+      try {
+        paper.authors = JSON.parse(req.body.authors);
+        paper.totalAuthors = paper.authors.length;
+      } catch (err) {
+        console.warn("AUTHORS PARSE FAILED:", err.message);
+      }
+    }
+
+    /* =====================================================
+       ADDRESS
+    ===================================================== */
+
+    const hasAddressUpdate =
+      req.body.address1 !== undefined ||
+      req.body.address2 !== undefined ||
+      req.body.city !== undefined ||
+      req.body.state !== undefined ||
+      req.body.country !== undefined ||
+      req.body.pincode !== undefined;
+
+    if (hasAddressUpdate) {
+      paper.address = {
+        addressLine1: req.body.address1 ?? paper.address?.addressLine1 ?? "",
+        addressLine2: req.body.address2 ?? paper.address?.addressLine2 ?? "",
+        city: req.body.city ?? paper.address?.city ?? "",
+        state: req.body.state ?? paper.address?.state ?? "",
+        country: req.body.country ?? paper.address?.country ?? "",
+        pincode: req.body.pincode ?? paper.address?.pincode ?? "",
+      };
+    }
+
+    /* =====================================================
+       IMPORTANT: do NOT touch paperFile, version, status,
+       revisions, feedbackHistory, publicationDocuments,
+       editorDocuments
+    ===================================================== */
+
+    await paper.save();
+
+    console.log("Manuscript metadata updated successfully.");
+
+    /* =====================================================
+       RESPONSE
+    ===================================================== */
+
+    return res.status(200).json({
+      success: true,
+      message: "Manuscript details updated successfully.",
+      data: paper,
+    });
+  } catch (error) {
+    console.error("UPDATE AUTHOR METADATA ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update manuscript details.",
+      error: error.message,
+    });
+  }
+};
 exports.uploadRevision = async (req, res) => {
   try {
     const { id } = req.params;
@@ -679,10 +846,10 @@ exports.startEditing = async (req, res) => {
   }
 };
 
-
 exports.acceptPaper = async (req, res) => {
   try {
-    
+    console.log("========== ACCEPT PAPER ==========");
+
     const paper = await SubmitForm.findById(req.params.id);
 
     if (!paper) {
@@ -711,7 +878,7 @@ exports.acceptPaper = async (req, res) => {
 
        Under Review
             ↓
-         Accepted
+       Documents Required
     ===================================================== */
 
     if (paper.status !== "Under Review") {
@@ -723,18 +890,71 @@ exports.acceptPaper = async (req, res) => {
     }
 
     /* =====================================================
-       ACCEPT PAPER
+       FILES
     ===================================================== */
 
-    paper.status = "Accepted";
+    const files = req.files || {};
+
+    const acceptanceLetter = files.acceptanceLetter?.[0];
+    const galleyProof = files.galleyProof?.[0];
+    const reviewReport = files.reviewReport?.[0];
+    const copyrightForm = files.copyrightForm?.[0];
 
     /* =====================================================
-       SAVE
+       VALIDATE: ALL 4 REQUIRED
     ===================================================== */
+
+    const missing = [];
+
+    if (!acceptanceLetter) missing.push("Acceptance Letter");
+    if (!galleyProof) missing.push("Galley Proof");
+    if (!reviewReport) missing.push("Review Report");
+    if (!copyrightForm) missing.push("Copyright Form");
+
+    if (missing.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: "All 4 documents are required.",
+        missingDocuments: missing,
+      });
+    }
+
+    /* =====================================================
+       BUILD EDITOR DOCUMENTS
+    ===================================================== */
+
+    const uploadedBy = req.editor?.id || paper.editorId || null;
+    const now = new Date();
+
+    const buildDoc = (file) => ({
+      file: getFilePath(file),
+      version: 1,
+      originalName: file.originalname || "",
+      uploadedBy,
+      uploadedByRole: "Editor",
+      uploadedAt: now,
+    });
+
+    paper.editorDocuments = {
+      acceptanceLetter: buildDoc(acceptanceLetter),
+      galleyProof: buildDoc(galleyProof),
+      reviewReport: buildDoc(reviewReport),
+      copyrightForm: buildDoc(copyrightForm),
+    };
+
+    /* =====================================================
+       STATUS
+
+       Under Review
+            ↓
+       Documents Required
+    ===================================================== */
+
+    paper.status = "Documents Required";
 
     await paper.save();
 
-   
+    console.log("Paper accepted with 4 editor documents.");
 
     /* =====================================================
        NOTIFY AUTHOR
@@ -744,11 +964,8 @@ exports.acceptPaper = async (req, res) => {
       await sendNotification({
         receiverId: paper.authorId,
         receiverRole: "Author",
-
         title: "Paper Accepted",
-
-        message: `Your paper "${paper.paperTitle}" has been accepted by the Editor. Publication documents are now required.`,
-
+        message: `Your paper "${paper.paperTitle}" has been accepted. Please download the editor's documents, correct them, and submit the required publication documents.`,
         paperId: paper._id,
       });
     } catch (notificationError) {
@@ -761,10 +978,8 @@ exports.acceptPaper = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-
       message:
-        "Paper accepted successfully. Publication documents are now required.",
-
+        "Paper accepted. Documents sent to author for correction and submission.",
       data: paper,
     });
   } catch (error) {
@@ -812,11 +1027,8 @@ exports.rejectPaper = async (req, res) => {
   }
 };
 
-
 exports.requestPublicationDocuments = async (req, res) => {
   try {
-    
-
     const paper = await SubmitForm.findById(req.params.id);
 
     if (!paper) {
@@ -836,8 +1048,7 @@ exports.requestPublicationDocuments = async (req, res) => {
     ) {
       return res.status(403).json({
         success: false,
-        message:
-          "You are not authorized to request publication documents.",
+        message: "You are not authorized to request publication documents.",
       });
     }
 
@@ -868,8 +1079,6 @@ exports.requestPublicationDocuments = async (req, res) => {
 
     await paper.save();
 
-    
-
     /* =====================================================
        NOTIFY AUTHOR
     ===================================================== */
@@ -882,16 +1091,12 @@ exports.requestPublicationDocuments = async (req, res) => {
 
         title: "Publication Documents Required",
 
-        message:
-          `Your paper "${paper.paperTitle}" has been accepted. Please upload the required publication documents.`,
+        message: `Your paper "${paper.paperTitle}" has been accepted. Please upload the required publication documents.`,
 
         paperId: paper._id,
       });
     } catch (notificationError) {
-      console.error(
-        "DOCUMENT REQUEST NOTIFICATION ERROR:",
-        notificationError
-      );
+      console.error("DOCUMENT REQUEST NOTIFICATION ERROR:", notificationError);
     }
 
     /* =====================================================
@@ -901,22 +1106,17 @@ exports.requestPublicationDocuments = async (req, res) => {
     return res.status(200).json({
       success: true,
 
-      message:
-        "Paper accepted. Publication documents are now required.",
+      message: "Paper accepted. Publication documents are now required.",
 
       data: paper,
     });
   } catch (error) {
-    console.error(
-      "REQUEST PUBLICATION DOCUMENTS ERROR:",
-      error
-    );
+    console.error("REQUEST PUBLICATION DOCUMENTS ERROR:", error);
 
     return res.status(500).json({
       success: false,
 
-      message:
-        "Failed to request publication documents.",
+      message: "Failed to request publication documents.",
 
       error: error.message,
     });
@@ -946,9 +1146,7 @@ exports.requestPublicationDocuments = async (req, res) => {
 
 exports.uploadAuthorPublicationDocuments = async (req, res) => {
   try {
-    console.log(
-      "========== AUTHOR PUBLICATION DOCUMENTS =========="
-    );
+    console.log("========== AUTHOR PUBLICATION DOCUMENTS ==========");
 
     const paperId = req.params.id;
 
@@ -979,8 +1177,7 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
     ) {
       return res.status(403).json({
         success: false,
-        message:
-          "You are not authorized to upload documents for this paper.",
+        message: "You are not authorized to upload documents for this paper.",
       });
     }
 
@@ -1000,10 +1197,7 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
        starts uploading.
     ===================================================== */
 
-    if (
-      paper.status !== "Accepted" &&
-      paper.status !== "Documents Required"
-    ) {
+    if (paper.status !== "Accepted" && paper.status !== "Documents Required") {
       return res.status(400).json({
         success: false,
         message:
@@ -1017,25 +1211,22 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
     ===================================================== */
 
     const correctedGalleyProof = getFilePath(
-      req.files?.correctedGalleyProof?.[0]
+      req.files?.correctedGalleyProof?.[0],
     );
 
     const copyrightTransferForm = getFilePath(
-      req.files?.copyrightTransferForm?.[0]
+      req.files?.copyrightTransferForm?.[0],
     );
 
     const publicationFeePaymentProof = getFilePath(
-      req.files?.publicationFeePaymentProof?.[0]
+      req.files?.publicationFeePaymentProof?.[0],
     );
 
-    const authorPhotographs = getMultipleFilePaths(
-      req,
-      "authorPhotographs"
-    );
+    const authorPhotographs = getMultipleFilePaths(req, "authorPhotographs");
 
     const supportingFiles = getMultipleFilePaths(
       req,
-      "additionalSupportingFiles"
+      "additionalSupportingFiles",
     );
 
     /* =====================================================
@@ -1052,8 +1243,7 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
     if (!hasAnyFile) {
       return res.status(400).json({
         success: false,
-        message:
-          "Please upload at least one publication document.",
+        message: "Please upload at least one publication document.",
       });
     }
 
@@ -1065,15 +1255,13 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
       paper.publicationDocuments = {};
     }
 
-    const existingDocuments =
-      paper.publicationDocuments;
+    const existingDocuments = paper.publicationDocuments;
 
     /* =====================================================
        UPLOADED BY
     ===================================================== */
 
-    const uploadedBy =
-      req.author?.id || paper.authorId;
+    const uploadedBy = req.author?.id || paper.authorId;
 
     /* =====================================================
        CORRECTED GALLEY PROOF
@@ -1081,15 +1269,13 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
 
     if (correctedGalleyProof) {
       const currentVersion = Number(
-        existingDocuments?.correctedGalleyProof?.version || 0
+        existingDocuments?.correctedGalleyProof?.version || 0,
       );
 
-      const newVersion =
-        currentVersion + 1;
+      const newVersion = currentVersion + 1;
 
       const originalName =
-        req.files?.correctedGalleyProof?.[0]
-          ?.originalname || "";
+        req.files?.correctedGalleyProof?.[0]?.originalname || "";
 
       existingDocuments.correctedGalleyProof = {
         file: correctedGalleyProof,
@@ -1104,11 +1290,7 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
          GALLEY PROOF HISTORY
       ================================================= */
 
-      if (
-        !Array.isArray(
-          existingDocuments.galleyProofHistory
-        )
-      ) {
+      if (!Array.isArray(existingDocuments.galleyProofHistory)) {
         existingDocuments.galleyProofHistory = [];
       }
 
@@ -1118,8 +1300,7 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
         originalName,
         uploadedBy,
         uploadedByRole: "Author",
-        remarks:
-          "Corrected galley proof uploaded by author.",
+        remarks: "Corrected galley proof uploaded by author.",
         uploadedAt: new Date(),
       });
     }
@@ -1130,17 +1311,14 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
 
     if (copyrightTransferForm) {
       const currentVersion = Number(
-        existingDocuments?.copyrightTransferForm
-          ?.version || 0
+        existingDocuments?.copyrightTransferForm?.version || 0,
       );
 
       existingDocuments.copyrightTransferForm = {
         file: copyrightTransferForm,
         version: currentVersion + 1,
 
-        originalName:
-          req.files?.copyrightTransferForm?.[0]
-            ?.originalname || "",
+        originalName: req.files?.copyrightTransferForm?.[0]?.originalname || "",
 
         uploadedBy,
         uploadedByRole: "Author",
@@ -1154,8 +1332,7 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
 
     if (publicationFeePaymentProof) {
       const currentVersion = Number(
-        existingDocuments?.publicationFeeProof
-          ?.version || 0
+        existingDocuments?.publicationFeeProof?.version || 0,
       );
 
       existingDocuments.publicationFeeProof = {
@@ -1163,8 +1340,7 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
         version: currentVersion + 1,
 
         originalName:
-          req.files?.publicationFeePaymentProof?.[0]
-            ?.originalname || "",
+          req.files?.publicationFeePaymentProof?.[0]?.originalname || "",
 
         uploadedBy,
         uploadedByRole: "Author",
@@ -1180,24 +1356,20 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
     ===================================================== */
 
     if (authorPhotographs.length > 0) {
-      existingDocuments.authorPhotographs =
-        authorPhotographs.map(
-          (file, index) => ({
-            file,
+      existingDocuments.authorPhotographs = authorPhotographs.map(
+        (file, index) => ({
+          file,
 
-            originalName:
-              req.files?.authorPhotographs?.[index]
-                ?.originalname || "",
+          originalName:
+            req.files?.authorPhotographs?.[index]?.originalname || "",
 
-            uploadedBy,
+          uploadedBy,
 
-            uploadedByRole:
-              "Author",
+          uploadedByRole: "Author",
 
-            uploadedAt:
-              new Date(),
-          })
-        );
+          uploadedAt: new Date(),
+        }),
+      );
     }
 
     /* =====================================================
@@ -1207,30 +1379,23 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
     ===================================================== */
 
     if (supportingFiles.length > 0) {
-      existingDocuments.additionalSupportingFiles =
-        supportingFiles.map(
-          (file, index) => ({
-            file,
+      existingDocuments.additionalSupportingFiles = supportingFiles.map(
+        (file, index) => ({
+          file,
 
-            originalName:
-              req.files
-                ?.additionalSupportingFiles?.[index]
-                ?.originalname || "",
+          originalName:
+            req.files?.additionalSupportingFiles?.[index]?.originalname || "",
 
-            mimeType:
-              req.files
-                ?.additionalSupportingFiles?.[index]
-                ?.mimetype || "",
+          mimeType:
+            req.files?.additionalSupportingFiles?.[index]?.mimetype || "",
 
-            uploadedBy,
+          uploadedBy,
 
-            uploadedByRole:
-              "Author",
+          uploadedByRole: "Author",
 
-            uploadedAt:
-              new Date(),
-          })
-        );
+          uploadedAt: new Date(),
+        }),
+      );
     }
 
     /* =====================================================
@@ -1242,9 +1407,7 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
     if (paper.status === "Accepted") {
       paper.status = "Documents Required";
 
-      console.log(
-        "Paper status changed: Accepted → Documents Required"
-      );
+      console.log("Paper status changed: Accepted → Documents Required");
     }
 
     /* =====================================================
@@ -1259,38 +1422,27 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
 
     await paper.save();
 
-    console.log(
-      "Publication documents saved successfully:",
-      paper._id
-    );
+    console.log("Publication documents saved successfully:", paper._id);
 
     /* =====================================================
        DOCUMENT STATUS
     ===================================================== */
 
-    const documents =
-      paper.publicationDocuments || {};
+    const documents = paper.publicationDocuments || {};
 
     const uploadedDocuments = {
-      correctedGalleyProof:
-        !!documents?.correctedGalleyProof?.file,
+      correctedGalleyProof: !!documents?.correctedGalleyProof?.file,
 
-      copyrightTransferForm:
-        !!documents?.copyrightTransferForm?.file,
+      copyrightTransferForm: !!documents?.copyrightTransferForm?.file,
 
-      publicationFeePaymentProof:
-        !!documents?.publicationFeeProof?.file,
+      publicationFeePaymentProof: !!documents?.publicationFeeProof?.file,
 
       authorPhotographs:
-        Array.isArray(
-          documents?.authorPhotographs
-        ) &&
+        Array.isArray(documents?.authorPhotographs) &&
         documents.authorPhotographs.length > 0,
 
       additionalSupportingFiles:
-        Array.isArray(
-          documents?.additionalSupportingFiles
-        ) &&
+        Array.isArray(documents?.additionalSupportingFiles) &&
         documents.additionalSupportingFiles.length > 0,
     };
 
@@ -1317,49 +1469,41 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
        LOG
     ===================================================== */
 
-    console.log(
-      "------------------------------------------"
-    );
+    console.log("------------------------------------------");
 
     console.log(
       "Corrected Galley Proof:",
-      uploadedDocuments.correctedGalleyProof
+      uploadedDocuments.correctedGalleyProof,
     );
 
     console.log(
       "Copyright Transfer Form:",
-      uploadedDocuments.copyrightTransferForm
+      uploadedDocuments.copyrightTransferForm,
     );
 
     console.log(
       "Publication Fee Proof:",
-      uploadedDocuments.publicationFeePaymentProof
+      uploadedDocuments.publicationFeePaymentProof,
     );
 
     console.log(
       "Author Photographs:",
-      documents?.authorPhotographs?.length || 0
+      documents?.authorPhotographs?.length || 0,
     );
 
     console.log(
       "Additional Supporting Files:",
-      documents?.additionalSupportingFiles
-        ?.length || 0
+      documents?.additionalSupportingFiles?.length || 0,
     );
 
     console.log(
       "All Required Documents Uploaded:",
-      allRequiredDocumentsUploaded
+      allRequiredDocumentsUploaded,
     );
 
-    console.log(
-      "Current Paper Status:",
-      paper.status
-    );
+    console.log("Current Paper Status:", paper.status);
 
-    console.log(
-      "------------------------------------------"
-    );
+    console.log("------------------------------------------");
 
     /* =====================================================
        RESPONSE
@@ -1368,45 +1512,35 @@ exports.uploadAuthorPublicationDocuments = async (req, res) => {
     return res.status(200).json({
       success: true,
 
-      message:
-        "Publication document uploaded successfully.",
+      message: "Publication document uploaded successfully.",
 
       data: paper,
 
       documentStatus: {
-        correctedGalleyProof:
-          uploadedDocuments.correctedGalleyProof,
+        correctedGalleyProof: uploadedDocuments.correctedGalleyProof,
 
-        copyrightTransferForm:
-          uploadedDocuments.copyrightTransferForm,
+        copyrightTransferForm: uploadedDocuments.copyrightTransferForm,
 
         publicationFeePaymentProof:
           uploadedDocuments.publicationFeePaymentProof,
 
-        authorPhotographs:
-          uploadedDocuments.authorPhotographs,
+        authorPhotographs: uploadedDocuments.authorPhotographs,
 
-        additionalSupportingFiles:
-          uploadedDocuments.additionalSupportingFiles,
+        additionalSupportingFiles: uploadedDocuments.additionalSupportingFiles,
 
         allRequiredDocumentsUploaded,
       },
 
-      nextStep:
-        allRequiredDocumentsUploaded
-          ? "All required documents are uploaded. You can now submit the publication documents to the Editor."
-          : "Upload the remaining required publication documents.",
+      nextStep: allRequiredDocumentsUploaded
+        ? "All required documents are uploaded. You can now submit the publication documents to the Editor."
+        : "Upload the remaining required publication documents.",
     });
   } catch (error) {
-    console.error(
-      "UPLOAD AUTHOR PUBLICATION DOCUMENTS ERROR:",
-      error
-    );
+    console.error("UPLOAD AUTHOR PUBLICATION DOCUMENTS ERROR:", error);
 
     return res.status(500).json({
       success: false,
-      message:
-        "Failed to upload publication documents.",
+      message: "Failed to upload publication documents.",
       error: error.message,
     });
   }
@@ -1666,40 +1800,37 @@ exports.approveAndForwardToAdmin = async (req, res) => {
     }
 
     /* =====================================================
-       PUBLICATION DOCUMENTS
+       FINAL PAPER FILE — REQUIRED
+    ===================================================== */
+
+    const finalPaperFile = req.files?.finalPaper?.[0];
+
+    if (!finalPaperFile) {
+      return res.status(400).json({
+        success: false,
+        message: "Final paper document is required before forwarding to Admin.",
+      });
+    }
+
+    /* =====================================================
+       PUBLICATION DOCUMENTS VALIDATION
     ===================================================== */
 
     const documents = paper.publicationDocuments || {};
 
     const missing = [];
 
-    /* =====================================================
-       REQUIRED DOCUMENT 1
-    ===================================================== */
-
     if (!documents?.correctedGalleyProof?.file) {
       missing.push("Corrected Galley Proof");
     }
-
-    /* =====================================================
-       REQUIRED DOCUMENT 2
-    ===================================================== */
 
     if (!documents?.copyrightTransferForm?.file) {
       missing.push("Copyright Transfer Form");
     }
 
-    /* =====================================================
-       REQUIRED DOCUMENT 3
-    ===================================================== */
-
     if (!documents?.publicationFeeProof?.file) {
       missing.push("Publication Fee Payment Proof");
     }
-
-    /* =====================================================
-       REQUIRED DOCUMENT 4
-    ===================================================== */
 
     if (
       !Array.isArray(documents?.authorPhotographs) ||
@@ -1708,56 +1839,51 @@ exports.approveAndForwardToAdmin = async (req, res) => {
       missing.push("Author Photograph(s)");
     }
 
-    /*
-      Additional Supporting Files are OPTIONAL.
-    */
-
-    /* =====================================================
-       DOCUMENT VALIDATION
-    ===================================================== */
-
     if (missing.length > 0) {
       console.log("MISSING PUBLICATION DOCUMENTS:", missing);
 
       return res.status(400).json({
         success: false,
-
         message:
           "Cannot forward to Admin. Required publication documents are missing.",
-
         missingDocuments: missing,
       });
     }
 
     /* =====================================================
-       EDITOR APPROVAL INFORMATION
+       SAVE FINAL PAPER
     ===================================================== */
 
     const now = new Date();
 
+    paper.finalPaper = {
+      file: getFilePath(finalPaperFile),
+      version: 1,
+      originalName: finalPaperFile.originalname || "",
+      uploadedBy: req.editor?.id || paper.editorId || null,
+      uploadedByRole: "Editor",
+      uploadedAt: now,
+    };
+
+    /* =====================================================
+       EDITOR APPROVAL INFORMATION
+    ===================================================== */
+
     documents.reviewedAt = now;
-
     documents.approvedAt = now;
-
     documents.approvedBy = req.editor?.id || paper.editorId || null;
-
     documents.approvedByRole = "Editor";
 
     /* =====================================================
        FINAL WORKFLOW STATUS
-
-       Documents Submitted
-              ↓
-       Approved and Forwarded to Admin
     ===================================================== */
 
     paper.status = "Approved and Forwarded to Admin";
-
     paper.isPublished = false;
 
     await paper.save();
 
-    console.log("Paper approved and forwarded to Admin.");
+    console.log("Final paper saved and forwarded to Admin.");
 
     /* =====================================================
        ADMIN NOTIFICATION
@@ -1769,13 +1895,9 @@ exports.approveAndForwardToAdmin = async (req, res) => {
       if (adminId) {
         await sendNotification({
           receiverId: adminId,
-
           receiverRole: "Admin",
-
           title: "Paper Ready for Publication",
-
           message: `${paper.paperTitle} has been checked and approved by the Editor. It is ready for publication.`,
-
           paperId: paper._id,
         });
       } else {
@@ -1791,9 +1913,7 @@ exports.approveAndForwardToAdmin = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-
       message: "Paper approved and forwarded to Admin successfully.",
-
       data: paper,
     });
   } catch (error) {
@@ -1801,9 +1921,7 @@ exports.approveAndForwardToAdmin = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-
       message: "Failed to approve and forward paper.",
-
       error: error.message,
     });
   }

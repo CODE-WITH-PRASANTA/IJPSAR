@@ -11,6 +11,7 @@ import {
   ExternalLink,
   FileCheck2,
   FileText,
+  FileUp,
   Files,
   Hash,
   Info,
@@ -25,6 +26,7 @@ import {
   Upload,
   User,
   Users,
+  X,
   XCircle,
 } from "lucide-react";
 
@@ -129,6 +131,19 @@ const REQUIRED_DOCUMENTS = [
 ];
 
 const OPTIONAL_DOCUMENTS = ["Additional Supporting Files"];
+
+/* =========================================================
+   EDITOR ACCEPT DOCUMENTS
+   Uploaded by editor when accepting the paper.
+   Author downloads → corrects → re-uploads.
+========================================================= */
+
+const EDITOR_ACCEPT_DOCUMENTS = [
+  { key: "acceptanceLetter", label: "Acceptance Letter" },
+  { key: "galleyProof", label: "Galley Proof" },
+  { key: "reviewReport", label: "Review Report" },
+  { key: "copyrightForm", label: "Copyright Form" },
+];
 
 /* =========================================================
    HELPERS
@@ -531,6 +546,35 @@ const EditPaper = () => {
   const [publicationDocuments, setPublicationDocuments] = useState([]);
 
   /* =======================================================
+     ACCEPT DOCUMENTS MODAL STATE
+  ======================================================= */
+
+  const [showAcceptModal, setShowAcceptModal] = useState(false);
+
+  const [acceptSubmitting, setAcceptSubmitting] = useState(false);
+
+  const [acceptError, setAcceptError] = useState("");
+
+  const [acceptFiles, setAcceptFiles] = useState({
+    acceptanceLetter: null,
+    galleyProof: null,
+    reviewReport: null,
+    copyrightForm: null,
+  });
+
+  /* =======================================================
+   FINAL PAPER MODAL STATE
+======================================================= */
+
+  const [showFinalModal, setShowFinalModal] = useState(false);
+
+  const [finalSubmitting, setFinalSubmitting] = useState(false);
+
+  const [finalError, setFinalError] = useState("");
+
+  const [finalPaperFile, setFinalPaperFile] = useState(null);
+
+  /* =======================================================
      FETCH PAPER
   ======================================================= */
 
@@ -549,7 +593,6 @@ const EditPaper = () => {
       const response = await API.get(`/submitform/${id}`);
 
       const data = response?.data?.data;
-      
 
       if (!data) {
         throw new Error("Paper information was not found.");
@@ -812,8 +855,259 @@ const EditPaper = () => {
   };
 
   /* =======================================================
-     SAVE PAPER
+     ACCEPT MODAL HANDLERS
   ======================================================= */
+
+  const handleAcceptFileChange = (field, file) => {
+    if (!file) return;
+
+    if (file.type !== "application/pdf") {
+      setAcceptError(`${file.name} must be a PDF file.`);
+      return;
+    }
+
+    const MAX = 20 * 1024 * 1024;
+
+    if (file.size > MAX) {
+      setAcceptError(`${file.name} exceeds the 20 MB limit.`);
+      return;
+    }
+
+    setAcceptError("");
+
+    setAcceptFiles((prev) => ({ ...prev, [field]: file }));
+  };
+
+  const handleCloseAcceptModal = () => {
+    if (acceptSubmitting) return;
+
+    setShowAcceptModal(false);
+    setAcceptError("");
+
+    setAcceptFiles({
+      acceptanceLetter: null,
+      galleyProof: null,
+      reviewReport: null,
+      copyrightForm: null,
+    });
+
+    // Revert status selection
+    setFormData((prev) => ({
+      ...prev,
+      status: paper?.status || "Under Review",
+    }));
+  };
+
+  const handleAcceptSubmit = async () => {
+    setAcceptError("");
+
+    const missing = EDITOR_ACCEPT_DOCUMENTS.filter(
+      ({ key }) => !acceptFiles[key],
+    ).map(({ label }) => label);
+
+    if (missing.length) {
+      setAcceptError(`Please upload all 4 documents: ${missing.join(", ")}.`);
+      return;
+    }
+
+    try {
+      setAcceptSubmitting(true);
+
+      const token =
+        localStorage.getItem("editorToken") || localStorage.getItem("token");
+
+      const fd = new FormData();
+
+      fd.append("acceptanceLetter", acceptFiles.acceptanceLetter);
+      fd.append("galleyProof", acceptFiles.galleyProof);
+      fd.append("reviewReport", acceptFiles.reviewReport);
+      fd.append("copyrightForm", acceptFiles.copyrightForm);
+
+      const res = await API.put(`/submitform/accept/${id}`, fd, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!res?.data?.success) {
+        throw new Error(res?.data?.message || "Unable to accept paper.");
+      }
+
+      const updatedPaper = res.data.data;
+
+      setPaper(updatedPaper);
+
+      setFormData((prev) => ({
+        ...prev,
+        status: updatedPaper.status || "Documents Required",
+        paperTitle: updatedPaper.paperTitle ?? prev.paperTitle,
+        abstract: updatedPaper.abstract ?? prev.abstract,
+        editorRemarks: updatedPaper.editorRemarks ?? prev.editorRemarks,
+        feedbackLink: updatedPaper.feedbackLink ?? prev.feedbackLink,
+      }));
+
+      setPublicationDocuments(
+        getPublicationDocuments(updatedPaper.publicationDocuments),
+      );
+
+      setSuccessMessage(
+        "Paper accepted. Documents sent to author for correction and submission.",
+      );
+
+      setShowAcceptModal(false);
+
+      setAcceptFiles({
+        acceptanceLetter: null,
+        galleyProof: null,
+        reviewReport: null,
+        copyrightForm: null,
+      });
+
+      setAcceptError("");
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err) {
+      console.error("ACCEPT WITH DOCUMENTS ERROR:", err);
+
+      setAcceptError(
+        err?.response?.data?.message ||
+          err?.message ||
+          "Unable to accept paper.",
+      );
+    } finally {
+      setAcceptSubmitting(false);
+    }
+  };
+
+  /* =======================================================
+   FINAL PAPER MODAL HANDLERS
+======================================================= */
+
+  const handleFinalFileChange = (file) => {
+    if (!file) return;
+
+    const isPdf = file.type === "application/pdf";
+
+    const isDoc =
+      file.type === "application/msword" ||
+      file.type ===
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
+    if (!isPdf && !isDoc) {
+      setFinalError(`${file.name} must be a PDF or DOC/DOCX file.`);
+      return;
+    }
+
+    const MAX = 20 * 1024 * 1024;
+
+    if (file.size > MAX) {
+      setFinalError(`${file.name} exceeds the 20 MB limit.`);
+      return;
+    }
+
+    setFinalError("");
+    setFinalPaperFile(file);
+  };
+
+  const handleOpenFinalModal = () => {
+    /* Precondition checks */
+
+    if (!isPublicationDocumentsSubmitted(paper?.status)) {
+      setError(
+        "Publication documents must be submitted by the author before approval.",
+      );
+      return;
+    }
+
+    if (uploadedRequiredDocuments !== REQUIRED_DOCUMENTS.length) {
+      setError(
+        "All required publication documents must be uploaded before approval.",
+      );
+      return;
+    }
+
+    setFinalError("");
+    setFinalPaperFile(null);
+    setShowFinalModal(true);
+  };
+
+  const handleCloseFinalModal = () => {
+    if (finalSubmitting) return;
+
+    setShowFinalModal(false);
+    setFinalError("");
+    setFinalPaperFile(null);
+  };
+
+  const handleFinalSubmit = async () => {
+    setFinalError("");
+
+    if (!finalPaperFile) {
+      setFinalError("Please upload the final paper document.");
+      return;
+    }
+
+    try {
+      setFinalSubmitting(true);
+
+      const token =
+        localStorage.getItem("editorToken") || localStorage.getItem("token");
+
+      if (!token) {
+        throw new Error("Editor session expired. Please login again.");
+      }
+
+      const fd = new FormData();
+      fd.append("finalPaper", finalPaperFile);
+
+      const res = await API.put(`/submitform/publication/approve/${id}`, fd, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res?.data?.success) {
+        throw new Error(
+          res?.data?.message || "Unable to approve publication documents.",
+        );
+      }
+
+      const updatedPaper = res.data.data;
+
+      setPaper(updatedPaper);
+
+      setFormData((previous) => ({
+        ...previous,
+        paperTitle: updatedPaper.paperTitle ?? previous.paperTitle,
+        abstract: updatedPaper.abstract ?? previous.abstract,
+        editorRemarks: updatedPaper.editorRemarks ?? previous.editorRemarks,
+        feedbackLink: updatedPaper.feedbackLink ?? previous.feedbackLink,
+        status: updatedPaper.status || "Approved and Forwarded to Admin",
+      }));
+
+      setPublicationDocuments(
+        getPublicationDocuments(updatedPaper.publicationDocuments),
+      );
+
+      setSuccessMessage(
+        "Final paper uploaded. Paper approved and forwarded to Admin for publication.",
+      );
+
+      setShowFinalModal(false);
+      setFinalPaperFile(null);
+      setFinalError("");
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err) {
+      console.error("FINAL SUBMIT ERROR:", err);
+
+      setFinalError(
+        err?.response?.data?.message ||
+          err?.message ||
+          "Unable to forward paper to Admin.",
+      );
+    } finally {
+      setFinalSubmitting(false);
+    }
+  };
 
   /* =======================================================
    SAVE PAPER DETAILS / EDITORIAL CHANGES
@@ -821,8 +1115,6 @@ const EditPaper = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-  
 
     try {
       setSaving(true);
@@ -852,8 +1144,6 @@ const EditPaper = () => {
         editorVersion: paper?.version || 1,
       };
 
-     
-
       let response;
 
       /* =====================================================
@@ -871,8 +1161,6 @@ const EditPaper = () => {
         paper?.status === "Editor Assigned" &&
         formData.status === "Under Review"
       ) {
-       
-
         /* First save title / abstract / remarks */
         const updateResponse = await API.put(
           `/submitform/update/${id}`,
@@ -884,7 +1172,6 @@ const EditPaper = () => {
           },
         );
 
-        
         if (!updateResponse?.data?.success) {
           throw new Error(
             updateResponse?.data?.message ||
@@ -902,19 +1189,19 @@ const EditPaper = () => {
             },
           },
         );
-
-        
       } else if (
         /* =====================================================
        STEP 2
        UNDER REVIEW
              ↓
        ACCEPTED
+
+       Save editorial info, then OPEN THE MODAL.
+       Do NOT call /accept here.
     ===================================================== */
         paper?.status === "Under Review" &&
         formData.status === "Accepted"
       ) {
-      
         /* First save editorial information */
         const updateResponse = await API.put(
           `/submitform/update/${id}`,
@@ -926,8 +1213,6 @@ const EditPaper = () => {
           },
         );
 
-      
-
         if (!updateResponse?.data?.success) {
           throw new Error(
             updateResponse?.data?.message ||
@@ -935,18 +1220,10 @@ const EditPaper = () => {
           );
         }
 
-        /* Then accept */
-        response = await API.put(
-          `/submitform/accept/${id}`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-
-        
+        /* Open modal instead of calling /accept */
+        setSaving(false);
+        setShowAcceptModal(true);
+        return;
       } else if (
         /* =====================================================
        STEP 3
@@ -957,8 +1234,6 @@ const EditPaper = () => {
         paper?.status === "Under Review" &&
         formData.status === "Rejected"
       ) {
-       
-
         if (!normalizeText(formData.editorRemarks)) {
           throw new Error(
             "Please provide rejection remarks before rejecting the paper.",
@@ -975,8 +1250,6 @@ const EditPaper = () => {
             },
           },
         );
-
-       
 
         if (!updateResponse?.data?.success) {
           throw new Error(
@@ -995,21 +1268,17 @@ const EditPaper = () => {
             },
           },
         );
-
-        
       } else if (formData.status === paper?.status) {
         /* =====================================================
        NO WORKFLOW CHANGE
        Just save normal editorial information
     ===================================================== */
-       
+
         response = await API.put(`/submitform/update/${id}`, editorialPayload, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
-        
       } else {
         /* =====================================================
        INVALID WORKFLOW TRANSITION
@@ -1098,105 +1367,6 @@ const EditPaper = () => {
         err?.response?.data?.message ||
           err?.message ||
           "Failed to update paper.",
-      );
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  const handleRequestPublicationDocuments = async () => {
-    try {
-      setSaving(true);
-      setError("");
-      setSuccessMessage("");
-
-      const token =
-        localStorage.getItem("editorToken") || localStorage.getItem("token");
-
-      if (!token) {
-        throw new Error("Editor session expired. Please login again.");
-      }
-
-      /* =====================================================
-       ONLY ACCEPTED PAPER CAN REQUEST DOCUMENTS
-    ===================================================== */
-
-      if (paper?.status !== "Accepted") {
-        throw new Error(
-          "Publication documents can only be requested after the paper is accepted.",
-        );
-      }
-
-      const response = await API.put(
-        `/submitform/request-publication-documents/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-     
-
-      if (!response?.data?.success) {
-        throw new Error(
-          response?.data?.message || "Unable to request publication documents.",
-        );
-      }
-
-      const updatedPaper = {
-        ...paper,
-        ...(response?.data?.data || {}),
-        status: response?.data?.data?.status || "Documents Required",
-      };
-
-      /* =====================================================
-       UPDATE PAPER
-    ===================================================== */
-
-      setPaper(updatedPaper);
-
-      /* =====================================================
-       UPDATE FORM STATUS
-    ===================================================== */
-
-      setFormData((previous) => ({
-        ...previous,
-
-        paperTitle: updatedPaper.paperTitle ?? previous.paperTitle,
-
-        abstract: updatedPaper.abstract ?? previous.abstract,
-
-        editorRemarks: updatedPaper.editorRemarks ?? previous.editorRemarks,
-
-        feedbackLink: updatedPaper.feedbackLink ?? previous.feedbackLink,
-
-        status: updatedPaper.status,
-      }));
-
-      /* =====================================================
-       UPDATE DOCUMENTS
-    ===================================================== */
-
-      setPublicationDocuments(
-        getPublicationDocuments(updatedPaper.publicationDocuments),
-      );
-
-      setSuccessMessage(
-        response?.data?.message || "Publication documents are now required.",
-      );
-    } catch (err) {
-      console.error("REQUEST PUBLICATION DOCUMENTS ERROR:", err);
-
-      console.error("STATUS:", err?.response?.status);
-
-      console.error("RESPONSE:", err?.response?.data);
-
-      setError(
-        err?.response?.data?.message ||
-          err?.message ||
-          "Failed to request publication documents.",
       );
     } finally {
       setSaving(false);
@@ -2052,7 +2222,7 @@ const EditPaper = () => {
             </div>
           </div>
 
-          {paper.status === "Accepted" && (
+          {/* {paper.status === "Accepted" && (
             <div className="publication-next-action-card">
               <div className="publication-next-action-content">
                 <div className="publication-next-action-icon">
@@ -2090,7 +2260,7 @@ const EditPaper = () => {
                 )}
               </button>
             </div>
-          )}
+          )} */}
 
           {isPublicationDocumentsSubmitted(paper.status) && (
             <div className="publication-next-action-card">
@@ -2105,8 +2275,9 @@ const EditPaper = () => {
                   <h3>Approve Publication Documents</h3>
 
                   <p>
-                    The author has submitted the publication documents. Review
-                    them and forward the paper to Admin for publication.
+                    The author has submitted the publication documents. Upload
+                    the final publish-ready paper and forward it to Admin for
+                    publication.
                   </p>
                 </div>
               </div>
@@ -2114,7 +2285,7 @@ const EditPaper = () => {
               <button
                 type="button"
                 className="request-publication-documents-btn"
-                onClick={handleApprovePublicationDocuments}
+                onClick={handleOpenFinalModal}
                 disabled={
                   saving ||
                   uploadedRequiredDocuments !== REQUIRED_DOCUMENTS.length
@@ -2502,6 +2673,226 @@ const EditPaper = () => {
           </div>
         </div>
       </form>
+
+      {/* =====================================================
+          ACCEPT DOCUMENTS MODAL
+      ===================================================== */}
+
+      {showAcceptModal && (
+        <div className="accept-modal-overlay" role="dialog" aria-modal="true">
+          <div className="accept-modal">
+            <div className="accept-modal-header">
+              <div>
+                <span className="accept-modal-eyebrow">
+                  FINAL EDITORIAL STEP
+                </span>
+
+                <h2>Accept Manuscript & Send Documents</h2>
+
+                <p>
+                  Upload the 4 documents below. They will be sent to the author
+                  for review, correction, and final submission.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                className="accept-modal-close"
+                onClick={handleCloseAcceptModal}
+                disabled={acceptSubmitting}
+                aria-label="Close"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {acceptError && (
+              <div className="accept-modal-error">
+                <XCircle size={16} />
+                <span>{acceptError}</span>
+              </div>
+            )}
+
+            <div className="accept-modal-grid">
+              {EDITOR_ACCEPT_DOCUMENTS.map(({ key, label }) => {
+                const file = acceptFiles[key];
+
+                return (
+                  <div className="accept-file-field" key={key}>
+                    <label>{label}</label>
+
+                    <label
+                      htmlFor={`accept-${key}`}
+                      className={`accept-file-drop ${file ? "has-file" : ""}`}
+                    >
+                      {file ? (
+                        <>
+                          <FileCheck2 size={20} />
+                          <strong>{file.name}</strong>
+                          <span>Click to replace</span>
+                        </>
+                      ) : (
+                        <>
+                          <FileUp size={20} />
+                          <strong>Upload PDF</strong>
+                          <span>Click to browse</span>
+                        </>
+                      )}
+
+                      <input
+                        id={`accept-${key}`}
+                        type="file"
+                        accept=".pdf,application/pdf"
+                        onChange={(e) =>
+                          handleAcceptFileChange(key, e.target.files?.[0])
+                        }
+                        hidden
+                      />
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="accept-modal-footer">
+              <button
+                type="button"
+                className="accept-cancel-btn"
+                onClick={handleCloseAcceptModal}
+                disabled={acceptSubmitting}
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                className="accept-submit-btn"
+                onClick={handleAcceptSubmit}
+                disabled={acceptSubmitting}
+              >
+                {acceptSubmitting ? (
+                  <>
+                    <Loader2 size={17} className="spin-icon" />
+                    Sending to Author...
+                  </>
+                ) : (
+                  <>
+                    <ShieldCheck size={17} />
+                    Accept & Send to Author
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =====================================================
+    FINAL PAPER UPLOAD MODAL
+===================================================== */}
+
+      {showFinalModal && (
+        <div className="accept-modal-overlay" role="dialog" aria-modal="true">
+          <div className="accept-modal">
+            <div className="accept-modal-header">
+              <div>
+                <span className="accept-modal-eyebrow">
+                  FINAL EDITORIAL APPROVAL
+                </span>
+
+                <h2>Upload Final Paper & Forward to Admin</h2>
+
+                <p>
+                  Upload the final publish-ready manuscript. It will be sent to
+                  Admin for publication.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                className="accept-modal-close"
+                onClick={handleCloseFinalModal}
+                disabled={finalSubmitting}
+                aria-label="Close"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {finalError && (
+              <div className="accept-modal-error">
+                <XCircle size={16} />
+                <span>{finalError}</span>
+              </div>
+            )}
+
+            <div className="accept-modal-grid single-column">
+              <div className="accept-file-field">
+                <label>Final Paper Document</label>
+
+                <label
+                  htmlFor="final-paper-upload"
+                  className={`accept-file-drop ${
+                    finalPaperFile ? "has-file" : ""
+                  }`}
+                >
+                  {finalPaperFile ? (
+                    <>
+                      <FileCheck2 size={20} />
+                      <strong>{finalPaperFile.name}</strong>
+                      <span>Click to replace</span>
+                    </>
+                  ) : (
+                    <>
+                      <FileUp size={20} />
+                      <strong>Upload Final Paper</strong>
+                      <span>Click to browse (PDF, DOC, DOCX)</span>
+                    </>
+                  )}
+
+                  <input
+                    id="final-paper-upload"
+                    type="file"
+                    accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    onChange={(e) => handleFinalFileChange(e.target.files?.[0])}
+                    hidden
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div className="accept-modal-footer">
+              <button
+                type="button"
+                className="accept-cancel-btn"
+                onClick={handleCloseFinalModal}
+                disabled={finalSubmitting}
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                className="accept-submit-btn"
+                onClick={handleFinalSubmit}
+                disabled={finalSubmitting || !finalPaperFile}
+              >
+                {finalSubmitting ? (
+                  <>
+                    <Loader2 size={17} className="spin-icon" />
+                    Forwarding to Admin...
+                  </>
+                ) : (
+                  <>
+                    <ShieldCheck size={17} />
+                    Approve & Forward to Admin
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

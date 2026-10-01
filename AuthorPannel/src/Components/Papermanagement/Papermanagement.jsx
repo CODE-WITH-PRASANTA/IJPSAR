@@ -1,9 +1,55 @@
 import React, { useState, useEffect } from "react";
 import "./Papermanagement.css";
 import { API, IMG_URL } from "../../api/Axios";
-import { FiMoreVertical, FiEdit2, FiTrash2 } from "react-icons/fi";
+import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+
+/* =========================================================
+   EDITOR DOCUMENT HELPERS
+========================================================= */
+
+const EDITOR_DOCUMENT_LABELS = {
+  acceptanceLetter: "Acceptance Letter",
+  galleyProof: "Galley Proof",
+  reviewReport: "Review Report",
+  copyrightForm: "Copyright Form",
+};
+
+const normalizeEditorDocuments = (editorDocuments) => {
+  if (!editorDocuments) return [];
+
+  return Object.entries(EDITOR_DOCUMENT_LABELS)
+    .map(([key, label]) => {
+      const doc = editorDocuments[key];
+      if (!doc) return null;
+
+      const file = doc.file || doc.url;
+      if (!file) return null;
+
+      const filename =
+        doc.originalName || file.split("/").pop() || "Document.pdf";
+
+      const fullUrl =
+        file.startsWith("http://") || file.startsWith("https://")
+          ? file
+          : `${IMG_URL}${file}`;
+
+      return { key, label, filename, url: fullUrl };
+    })
+    .filter(Boolean);
+};
+
+const triggerDownload = (url, filename) => {
+  const link = document.createElement("a");
+  link.href = url;
+  link.setAttribute("download", filename || "");
+  link.setAttribute("target", "_blank");
+  link.setAttribute("rel", "noopener noreferrer");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
 const Papermanagement = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,8 +59,7 @@ const Papermanagement = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const [openMenu, setOpenMenu] = useState(null);
-  const [showHistory, setShowHistory] = useState({});
+  const [openEditorDocs, setOpenEditorDocs] = useState({});
 
   const getAllPapers = async () => {
     Swal.fire({
@@ -198,55 +243,10 @@ const Papermanagement = () => {
         <div className="paper-management-grid two-column">
           {currentCards.map((paper) => {
             const feedbacks = [...(paper.feedbackHistory || [])].reverse();
-            const latestFeedback = feedbacks[0];
 
             return (
               <div className="paper-card" key={paper._id}>
                 {/* Header */}
-
-                <div className="paper-card-header">
-                  <span className="paper-category">
-                    {paper.department || "Information Technology"}
-                  </span>
-
-                  <div className="paper-header-right">
-                    <span className="paper-date">
-                      📅 {new Date(paper.createdAt).toLocaleDateString()}
-                    </span>
-
-                    <div className="paper-menu">
-                      <button
-                        className="paper-menu-btn"
-                        onClick={() =>
-                          setOpenMenu(openMenu === paper._id ? null : paper._id)
-                        }
-                      >
-                        <FiMoreVertical />
-                      </button>
-
-                      {openMenu === paper._id && (
-                        <div className="paper-menu-dropdown">
-                          {/* Edit - Always Visible */}
-                          <button onClick={() => handleEdit(paper)}>
-                            <FiEdit2 />
-                            Edit Paper
-                          </button>
-
-                          {/* Delete - Only for Submitted Papers */}
-                          {paper.status === "Submitted" && (
-                            <button
-                              className="delete-btn"
-                              onClick={() => handleDelete(paper._id)}
-                            >
-                              <FiTrash2 />
-                              Delete
-                            </button>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
 
                 {/* Publication */}
 
@@ -259,7 +259,7 @@ const Papermanagement = () => {
                 {/* Author */}
 
                 <div className="paper-author">
-                  👨‍🎓 {paper.authorName || "Student Researcher"}
+                  👨‍🎓 {paper.researchArea || "Student Researcher"}
                 </div>
 
                 {/* Paper ID */}
@@ -284,6 +284,84 @@ const Papermanagement = () => {
                     <h4>{paper.status}</h4>
                   </div>
                 </div>
+
+                {/* ============================================
+                    EDITOR DOCUMENTS (collapsible dropdown)
+                ============================================ */}
+                {(() => {
+                  const editorDocs = normalizeEditorDocuments(
+                    paper.editorDocuments,
+                  );
+
+                  if (!editorDocs.length) return null;
+
+                  const isOpen = !!openEditorDocs[paper._id];
+
+                  return (
+                    <div className="paper-editor-documents">
+                      <div className="editor-docs-wrapper">
+                        <button
+                          type="button"
+                          className={`editor-docs-toggle ${isOpen ? "open" : ""}`}
+                          onClick={() =>
+                            setOpenEditorDocs((prev) => ({
+                              ...prev,
+                              [paper._id]: !prev[paper._id],
+                            }))
+                          }
+                          aria-expanded={isOpen}
+                        >
+                          <span className="editor-docs-toggle-left">
+                            <span className="editor-docs-icon">📥</span>
+                            <span className="editor-docs-title">
+                              Documents from Editor
+                            </span>
+                            <span className="editor-docs-count">
+                              {editorDocs.length}
+                            </span>
+                          </span>
+
+                          <span
+                            className={`editor-docs-chevron ${isOpen ? "open" : ""}`}
+                          >
+                            ▾
+                          </span>
+                        </button>
+
+                        {isOpen && (
+                          <div className="editor-docs-dropdown">
+                            {editorDocs.map((doc) => (
+                              <div className="editor-doc-row" key={doc.key}>
+                                <div className="editor-doc-info">
+                                  <span className="editor-doc-label">
+                                    {doc.label}
+                                  </span>
+                                  <span
+                                    className="editor-doc-filename"
+                                    title={doc.filename}
+                                  >
+                                    {doc.filename}
+                                  </span>
+                                </div>
+
+                                <button
+                                  type="button"
+                                  className="editor-doc-download-btn"
+                                  onClick={() =>
+                                    triggerDownload(doc.url, doc.filename)
+                                  }
+                                >
+                                  ⬇ Download
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })()}
+
                 {/* Feedback */}
                 <div className="paper-feedback">
                   <h3 className="feedback-heading">📝 Editor Feedback</h3>
@@ -333,26 +411,55 @@ const Papermanagement = () => {
                   )}
                 </div>
 
-                {/* Buttons */}
-
-                <div className="paper-btns">
-                  <a
-                    href={`${IMG_URL}${paper.paperFile}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="download-btn"
-                  >
-                    📄 PDF
-                  </a>
-
-                  {paper.status === "Revision Required" && (
-                    <button
-                      className="revision-btn"
-                      onClick={() => navigate(`/upload-revision/${paper._id}`)}
+                {/* ============================================
+                    BOTTOM ROW — Buttons + Card Actions
+                ============================================ */}
+                <div className="paper-card-footer-row">
+                  {/* LEFT: PDF + revision */}
+                  <div className="paper-btns">
+                    <a
+                      href={`${IMG_URL}${paper.paperFile}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="download-btn"
                     >
-                      Upload Revised Paper (V{paper.version + 1})
+                      📄 PDF
+                    </a>
+
+                    {paper.status === "Revision Required" && (
+                      <button
+                        className="revision-btn"
+                        onClick={() =>
+                          navigate(`/upload-revision/${paper._id}`)
+                        }
+                      >
+                        Upload Revised Paper (V{paper.version + 1})
+                      </button>
+                    )}
+                  </div>
+
+                  {/* RIGHT: Edit + Delete */}
+                  <div className="paper-card-actions">
+                    <button
+                      type="button"
+                      className="card-action-btn edit"
+                      onClick={() => handleEdit(paper)}
+                    >
+                      <FiEdit2 size={15} />
+                      Edit
                     </button>
-                  )}
+
+                    {paper.status === "Submitted" && (
+                      <button
+                        type="button"
+                        className="card-action-btn delete"
+                        onClick={() => handleDelete(paper._id)}
+                      >
+                        <FiTrash2 size={15} />
+                        Delete
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             );

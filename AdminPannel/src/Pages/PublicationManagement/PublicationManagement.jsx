@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import {
   Search,
@@ -60,10 +55,7 @@ const PublicationManagement = () => {
       return "";
     }
 
-    if (
-      filePath.startsWith("http://") ||
-      filePath.startsWith("https://")
-    ) {
+    if (filePath.startsWith("http://") || filePath.startsWith("https://")) {
       return filePath;
     }
 
@@ -102,9 +94,7 @@ const PublicationManagement = () => {
         return [];
       }
 
-      const documents = Array.isArray(document)
-        ? document
-        : [document];
+      const documents = Array.isArray(document) ? document : [document];
 
       return documents
         .filter((item) => item && item.file)
@@ -114,28 +104,21 @@ const PublicationManagement = () => {
           documentType,
 
           uniqueKey:
-            item._id ||
-            `${documentType}-${item.version || 1}-${index}`,
+            item._id || `${documentType}-${item.version || 1}-${index}`,
 
           version: item.version || 1,
 
           originalName:
-            item.originalName ||
-            item.file?.split("/")?.pop() ||
-            "Document",
+            item.originalName || item.file?.split("/")?.pop() || "Document",
 
           fileUrl: getFileUrl(item.file),
 
-          uploadedByRole:
-            item.uploadedByRole || "Unknown",
+          uploadedByRole: item.uploadedByRole || "Unknown",
 
-          uploadedAt:
-            item.uploadedAt ||
-            item.createdAt ||
-            null,
+          uploadedAt: item.uploadedAt || item.createdAt || null,
         }));
     },
-    [getFileUrl]
+    [getFileUrl],
   );
 
   /* =========================================================
@@ -144,8 +127,7 @@ const PublicationManagement = () => {
 
   const getPublicationDocuments = useCallback(
     (paper) => {
-      const publicationDocuments =
-        paper?.publicationDocuments;
+      const publicationDocuments = paper?.publicationDocuments;
 
       if (!publicationDocuments) {
         return [];
@@ -157,48 +139,48 @@ const PublicationManagement = () => {
       documents.push(
         ...normalizeDocument(
           publicationDocuments.correctedGalleyProof,
-          "Corrected Galley Proof"
-        )
+          "Corrected Galley Proof",
+        ),
       );
 
       /* Copyright Transfer Form */
       documents.push(
         ...normalizeDocument(
           publicationDocuments.copyrightTransferForm,
-          "Copyright Transfer Form"
-        )
+          "Copyright Transfer Form",
+        ),
       );
 
       /* Publication Fee Payment Proof */
       documents.push(
         ...normalizeDocument(
           publicationDocuments.publicationFeePaymentProof,
-          "Publication Fee Payment Proof"
-        )
+          "Publication Fee Payment Proof",
+        ),
       );
 
       /* Old property support */
       documents.push(
         ...normalizeDocument(
           publicationDocuments.publicationFeeProof,
-          "Publication Fee Payment Proof"
-        )
+          "Publication Fee Payment Proof",
+        ),
       );
 
       /* Author Photographs */
       documents.push(
         ...normalizeDocument(
           publicationDocuments.authorPhotographs,
-          "Author Photograph"
-        )
+          "Author Photograph",
+        ),
       );
 
       /* Additional Supporting Files */
       documents.push(
         ...normalizeDocument(
           publicationDocuments.additionalSupportingFiles,
-          "Additional Supporting File"
-        )
+          "Additional Supporting File",
+        ),
       );
 
       /* Sort newest version first */
@@ -210,18 +192,14 @@ const PublicationManagement = () => {
           return versionB - versionA;
         }
 
-        const dateA = a.uploadedAt
-          ? new Date(a.uploadedAt).getTime()
-          : 0;
+        const dateA = a.uploadedAt ? new Date(a.uploadedAt).getTime() : 0;
 
-        const dateB = b.uploadedAt
-          ? new Date(b.uploadedAt).getTime()
-          : 0;
+        const dateB = b.uploadedAt ? new Date(b.uploadedAt).getTime() : 0;
 
         return dateB - dateA;
       });
     },
-    [normalizeDocument]
+    [normalizeDocument],
   );
 
   /* =========================================================
@@ -240,53 +218,30 @@ const PublicationManagement = () => {
       return false;
     }
 
-    const publicationDocuments =
-      paper.publicationDocuments;
+    const publicationDocuments = paper.publicationDocuments;
 
     if (!publicationDocuments) {
       return false;
     }
 
     return (
-      (Array.isArray(
-        publicationDocuments.correctedGalleyProof
-      )
-        ? publicationDocuments.correctedGalleyProof.length >
-          0
+      (Array.isArray(publicationDocuments.correctedGalleyProof)
+        ? publicationDocuments.correctedGalleyProof.length > 0
         : !!publicationDocuments.correctedGalleyProof) ||
-
-      (Array.isArray(
-        publicationDocuments.copyrightTransferForm
-      )
-        ? publicationDocuments.copyrightTransferForm.length >
-          0
+      (Array.isArray(publicationDocuments.copyrightTransferForm)
+        ? publicationDocuments.copyrightTransferForm.length > 0
         : !!publicationDocuments.copyrightTransferForm) ||
-
-      (Array.isArray(
-        publicationDocuments.publicationFeePaymentProof
-      )
-        ? publicationDocuments.publicationFeePaymentProof.length >
-          0
+      (Array.isArray(publicationDocuments.publicationFeePaymentProof)
+        ? publicationDocuments.publicationFeePaymentProof.length > 0
         : !!publicationDocuments.publicationFeePaymentProof) ||
-
-      (Array.isArray(
-        publicationDocuments.publicationFeeProof
-      )
-        ? publicationDocuments.publicationFeeProof.length >
-          0
+      (Array.isArray(publicationDocuments.publicationFeeProof)
+        ? publicationDocuments.publicationFeeProof.length > 0
         : !!publicationDocuments.publicationFeeProof) ||
-
-      (Array.isArray(
-        publicationDocuments.authorPhotographs
-      )
+      (Array.isArray(publicationDocuments.authorPhotographs)
         ? publicationDocuments.authorPhotographs.length > 0
         : !!publicationDocuments.authorPhotographs) ||
-
-      (Array.isArray(
-        publicationDocuments.additionalSupportingFiles
-      )
-        ? publicationDocuments.additionalSupportingFiles.length >
-          0
+      (Array.isArray(publicationDocuments.additionalSupportingFiles)
+        ? publicationDocuments.additionalSupportingFiles.length > 0
         : !!publicationDocuments.additionalSupportingFiles)
     );
   }, []);
@@ -319,35 +274,20 @@ const PublicationManagement = () => {
     try {
       setLoading(true);
 
-      const response = await API.get(
-        "/submitform/all"
-      );
+      const response = await API.get("/submitform/all");
 
-      const data = Array.isArray(
-        response.data?.data
-      )
-        ? response.data.data
-        : [];
+      const data = Array.isArray(response.data?.data) ? response.data.data : [];
 
       setPapers(data);
-
-     
     } catch (error) {
       console.error(
         "FETCH PAPERS ERROR:",
-        error?.response?.data ||
-          error?.message
+        error?.response?.data || error?.message,
       );
 
-      console.error(
-        "STATUS:",
-        error?.response?.status
-      );
+      console.error("STATUS:", error?.response?.status);
 
-      console.error(
-        "MESSAGE:",
-        error?.message
-      );
+      console.error("MESSAGE:", error?.message);
 
       setPapers([]);
     } finally {
@@ -369,23 +309,15 @@ const PublicationManagement = () => {
 
   useEffect(() => {
     const handleVisibility = () => {
-      if (
-        document.visibilityState === "visible"
-      ) {
+      if (document.visibilityState === "visible") {
         fetchPapers();
       }
     };
 
-    document.addEventListener(
-      "visibilitychange",
-      handleVisibility
-    );
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
-      document.removeEventListener(
-        "visibilitychange",
-        handleVisibility
-      );
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, [fetchPapers]);
 
@@ -398,16 +330,10 @@ const PublicationManagement = () => {
       fetchPapers();
     };
 
-    window.addEventListener(
-      "focus",
-      handleFocus
-    );
+    window.addEventListener("focus", handleFocus);
 
     return () => {
-      window.removeEventListener(
-        "focus",
-        handleFocus
-      );
+      window.removeEventListener("focus", handleFocus);
     };
   }, [fetchPapers]);
 
@@ -419,14 +345,11 @@ const PublicationManagement = () => {
     try {
       setActionLoading(`publish-${id}`);
 
-      const response = await API.put(
-        `/submitform/publish/${id}`
-      );
+      const response = await API.put(`/submitform/publish/${id}`);
 
       if (!response.data?.success) {
         throw new Error(
-          response.data?.message ||
-            "Unable to publish the paper."
+          response.data?.message || "Unable to publish the paper.",
         );
       }
 
@@ -439,23 +362,18 @@ const PublicationManagement = () => {
         setSelectedPaper((previous) => ({
           ...previous,
 
-          status:
-            response.data?.data?.status ||
-            "Published",
+          status: response.data?.data?.status || "Published",
 
           isPublished: true,
         }));
       }
     } catch (error) {
-      console.error(
-        "PUBLISH ERROR:",
-        error
-      );
+      console.error("PUBLISH ERROR:", error);
 
       alert(
         error?.response?.data?.message ||
           error?.message ||
-          "Unable to publish the paper."
+          "Unable to publish the paper.",
       );
     } finally {
       setActionLoading("");
@@ -480,14 +398,11 @@ const PublicationManagement = () => {
     try {
       setActionLoading(`unpublish-${id}`);
 
-      const response = await API.put(
-        `/submitform/unpublish/${id}`
-      );
+      const response = await API.put(`/submitform/unpublish/${id}`);
 
       if (!response.data?.success) {
         throw new Error(
-          response.data?.message ||
-            "Unable to unpublish the paper."
+          response.data?.message || "Unable to unpublish the paper.",
         );
       }
 
@@ -497,23 +412,18 @@ const PublicationManagement = () => {
         setSelectedPaper((previous) => ({
           ...previous,
 
-          status:
-            response.data?.data?.status ||
-            "Complete",
+          status: response.data?.data?.status || "Complete",
 
           isPublished: false,
         }));
       }
     } catch (error) {
-      console.error(
-        "UNPUBLISH ERROR:",
-        error
-      );
+      console.error("UNPUBLISH ERROR:", error);
 
       alert(
         error?.response?.data?.message ||
           error?.message ||
-          "Unable to unpublish the paper."
+          "Unable to unpublish the paper.",
       );
     } finally {
       setActionLoading("");
@@ -525,56 +435,31 @@ const PublicationManagement = () => {
   ========================================================= */
 
   const filteredPapers = useMemo(() => {
-    const query = search
-      .trim()
-      .toLowerCase();
+    const query = search.trim().toLowerCase();
 
     return papers.filter((paper) => {
       /* SEARCH */
 
       const matchesSearch =
         !query ||
-        paper.paperTitle
-          ?.toLowerCase()
-          .includes(query) ||
-        paper.paperId
-          ?.toLowerCase()
-          .includes(query) ||
-        paper.authorName
-          ?.toLowerCase()
-          .includes(query) ||
-        paper.authorEmail
-          ?.toLowerCase()
-          .includes(query) ||
-        paper.authors?.[0]?.fullName
-          ?.toLowerCase()
-          .includes(query);
+        paper.paperTitle?.toLowerCase().includes(query) ||
+        paper.paperId?.toLowerCase().includes(query) ||
+        paper.authorName?.toLowerCase().includes(query) ||
+        paper.authorEmail?.toLowerCase().includes(query) ||
+        paper.authors?.[0]?.fullName?.toLowerCase().includes(query);
 
       /* STATUS */
 
       const matchesStatus =
-        statusFilter === "All" ||
-        paper.status === statusFilter;
+        statusFilter === "All" || paper.status === statusFilter;
 
       /* VIEW */
 
-      const matchesViewMode =
-        viewMode === "all" ||
-        hasPublicationData(paper);
+      const matchesViewMode = viewMode === "all" || hasPublicationData(paper);
 
-      return (
-        matchesSearch &&
-        matchesStatus &&
-        matchesViewMode
-      );
+      return matchesSearch && matchesStatus && matchesViewMode;
     });
-  }, [
-    papers,
-    search,
-    statusFilter,
-    viewMode,
-    hasPublicationData,
-  ]);
+  }, [papers, search, statusFilter, viewMode, hasPublicationData]);
 
   /* =========================================================
      STATISTICS
@@ -582,93 +467,60 @@ const PublicationManagement = () => {
 
   const totalPapers = papers.length;
 
-  const publicationDataCount =
-    papers.filter(hasPublicationData).length;
+  const publicationDataCount = papers.filter(hasPublicationData).length;
 
-  const publishedCount =
-    papers.filter(
-      (paper) =>
-        paper.status === "Published" ||
-        paper.isPublished === true
-    ).length;
+  const publishedCount = papers.filter(
+    (paper) => paper.status === "Published" || paper.isPublished === true,
+  ).length;
 
-  const completeCount =
-    papers.filter(
-      (paper) =>
-        paper.status === "Complete"
-    ).length;
+  const completeCount = papers.filter(
+    (paper) => paper.status === "Complete",
+  ).length;
 
-  const adminReadyCount =
-    papers.filter(
-      (paper) =>
-        paper.status ===
-        "Approved and Forwarded to Admin"
-    ).length;
+  const adminReadyCount = papers.filter(
+    (paper) => paper.status === "Approved and Forwarded to Admin",
+  ).length;
 
-  const documentsSubmittedCount =
-    papers.filter(
-      (paper) =>
-        paper.status ===
-        "Documents Submitted"
-    ).length;
+  const documentsSubmittedCount = papers.filter(
+    (paper) => paper.status === "Documents Submitted",
+  ).length;
 
   /* =========================================================
      STATUS CLASS
   ========================================================= */
 
   const getStatusClass = (status) => {
-    const value =
-      (status || "").toLowerCase();
+    const value = (status || "").toLowerCase();
 
-    if (
-      value.includes("published")
-    ) {
+    if (value.includes("published")) {
       return "status-published";
     }
 
-    if (
-      value.includes("complete")
-    ) {
+    if (value.includes("complete")) {
       return "status-complete";
     }
 
-    if (
-      value.includes("approved")
-    ) {
+    if (value.includes("approved")) {
       return "status-approved";
     }
 
-    if (
-      value.includes(
-        "documents submitted"
-      )
-    ) {
+    if (value.includes("documents submitted")) {
       return "status-documents";
     }
 
-    if (
-      value.includes(
-        "documents required"
-      )
-    ) {
+    if (value.includes("documents required")) {
       return "status-required";
     }
 
-    if (
-      value.includes("accepted")
-    ) {
+    if (value.includes("accepted")) {
       return "status-accepted";
     }
 
-    if (
-      value.includes("rejected")
-    ) {
+    if (value.includes("rejected")) {
       return "status-rejected";
     }
 
-    if (
-      value.includes("review")
-    ) {
+    if (value.includes("review")) {
       return "status-review";
     }
 
@@ -680,28 +532,18 @@ const PublicationManagement = () => {
   ========================================================= */
 
   const getAuthorName = (paper) => {
-    return (
-      paper.authorName ||
-      paper.authors?.[0]?.fullName ||
-      "-"
-    );
+    return paper.authorName || paper.authors?.[0]?.fullName || "-";
   };
 
   const getAuthorEmail = (paper) => {
-    return (
-      paper.authorEmail ||
-      paper.authors?.[0]?.email ||
-      "-"
-    );
+    return paper.authorEmail || paper.authors?.[0]?.email || "-";
   };
 
   /* =========================================================
      DOCUMENT CARD
   ========================================================= */
 
-  const DocumentCard = ({
-    document,
-  }) => {
+  const DocumentCard = ({ document }) => {
     if (!document) {
       return null;
     }
@@ -714,15 +556,11 @@ const PublicationManagement = () => {
           </div>
 
           <div className="document-info">
-            <strong
-              title={document.originalName}
-            >
+            <strong title={document.originalName}>
               {document.originalName}
             </strong>
 
-            <span>
-              {document.documentType}
-            </span>
+            <span>{document.documentType}</span>
 
             <small>
               Version {document.version}
@@ -731,12 +569,7 @@ const PublicationManagement = () => {
             </small>
 
             {document.uploadedAt && (
-              <small>
-                Uploaded{" "}
-                {formatDate(
-                  document.uploadedAt
-                )}
-              </small>
+              <small>Uploaded {formatDate(document.uploadedAt)}</small>
             )}
           </div>
         </div>
@@ -760,19 +593,13 @@ const PublicationManagement = () => {
 
   const renderActions = (paper) => {
     const isPublished =
-      paper.isPublished === true ||
-      paper.status === "Published";
+      paper.isPublished === true || paper.status === "Published";
 
-    const isAdminReady =
-      isPublishReady(paper);
+    const isAdminReady = isPublishReady(paper);
 
-    const publishing =
-      actionLoading ===
-      `publish-${paper._id}`;
+    const publishing = actionLoading === `publish-${paper._id}`;
 
-    const unpublishing =
-      actionLoading ===
-      `unpublish-${paper._id}`;
+    const unpublishing = actionLoading === `unpublish-${paper._id}`;
 
     return (
       <div className="action-group">
@@ -781,9 +608,7 @@ const PublicationManagement = () => {
         <button
           type="button"
           className="view-btn"
-          onClick={() =>
-            setSelectedPaper(paper)
-          }
+          onClick={() => setSelectedPaper(paper)}
         >
           <Eye size={15} />
           View
@@ -791,17 +616,33 @@ const PublicationManagement = () => {
 
         {/* ORIGINAL PAPER */}
 
+        {/* ORIGINAL PAPER */}
+
         {paper.paperFile && (
           <a
-            href={getFileUrl(
-              paper.paperFile
-            )}
+            href={getFileUrl(paper.paperFile)}
             target="_blank"
             rel="noreferrer"
             className="original-btn"
+            title="Open original submission"
           >
             <FileText size={15} />
             Paper
+          </a>
+        )}
+
+        {/* FINAL PAPER (from editor) */}
+
+        {paper.finalPaper?.file && (
+          <a
+            href={getFileUrl(paper.finalPaper.file)}
+            target="_blank"
+            rel="noreferrer"
+            className="final-btn"
+            title="Open final paper uploaded by editor"
+          >
+            <FileCheck2 size={15} />
+            Final
           </a>
         )}
 
@@ -812,24 +653,15 @@ const PublicationManagement = () => {
             type="button"
             className="unpublish-btn"
             disabled={unpublishing}
-            onClick={() =>
-              unpublishPaper(
-                paper._id
-              )
-            }
+            onClick={() => unpublishPaper(paper._id)}
           >
             {unpublishing ? (
-              <Loader2
-                size={15}
-                className="spin"
-              />
+              <Loader2 size={15} className="spin" />
             ) : (
               <RefreshCw size={15} />
             )}
 
-            {unpublishing
-              ? "..."
-              : "Unpublish"}
+            {unpublishing ? "..." : "Unpublish"}
           </button>
         ) : isAdminReady ? (
           /* PUBLISH */
@@ -838,26 +670,15 @@ const PublicationManagement = () => {
             type="button"
             className="publish-btn"
             disabled={publishing}
-            onClick={() =>
-              publishPaper(
-                paper._id
-              )
-            }
+            onClick={() => publishPaper(paper._id)}
           >
             {publishing ? (
-              <Loader2
-                size={15}
-                className="spin"
-              />
+              <Loader2 size={15} className="spin" />
             ) : (
-              <CheckCircle2
-                size={15}
-              />
+              <CheckCircle2 size={15} />
             )}
 
-            {publishing
-              ? "..."
-              : "Publish"}
+            {publishing ? "..." : "Publish"}
           </button>
         ) : null}
       </div>
@@ -879,14 +700,11 @@ const PublicationManagement = () => {
             ADMIN CONTROL
           </div>
 
-          <h1>
-            Publication Management
-          </h1>
+          <h1>Publication Management</h1>
 
           <p>
-            Manage submitted papers,
-            publication documents and
-            publishing workflow.
+            Manage submitted papers, publication documents and publishing
+            workflow.
           </p>
         </div>
 
@@ -896,16 +714,9 @@ const PublicationManagement = () => {
           onClick={fetchPapers}
           disabled={loading}
         >
-          <RefreshCw
-            size={17}
-            className={
-              loading ? "spin" : ""
-            }
-          />
+          <RefreshCw size={17} className={loading ? "spin" : ""} />
 
-          {loading
-            ? "Refreshing..."
-            : "Refresh"}
+          {loading ? "Refreshing..." : "Refresh"}
         </button>
       </div>
 
@@ -918,13 +729,9 @@ const PublicationManagement = () => {
           </div>
 
           <div>
-            <h4>
-              Total Papers
-            </h4>
+            <h4>Total Papers</h4>
 
-            <h2>
-              {totalPapers}
-            </h2>
+            <h2>{totalPapers}</h2>
           </div>
         </div>
 
@@ -934,13 +741,9 @@ const PublicationManagement = () => {
           </div>
 
           <div>
-            <h4>
-              Publication Data
-            </h4>
+            <h4>Publication Data</h4>
 
-            <h2>
-              {publicationDataCount}
-            </h2>
+            <h2>{publicationDataCount}</h2>
           </div>
         </div>
 
@@ -950,13 +753,9 @@ const PublicationManagement = () => {
           </div>
 
           <div>
-            <h4>
-              Documents Submitted
-            </h4>
+            <h4>Documents Submitted</h4>
 
-            <h2>
-              {documentsSubmittedCount}
-            </h2>
+            <h2>{documentsSubmittedCount}</h2>
           </div>
         </div>
 
@@ -966,13 +765,9 @@ const PublicationManagement = () => {
           </div>
 
           <div>
-            <h4>
-              Published
-            </h4>
+            <h4>Published</h4>
 
-            <h2>
-              {publishedCount}
-            </h2>
+            <h2>{publishedCount}</h2>
           </div>
         </div>
       </div>
@@ -983,45 +778,22 @@ const PublicationManagement = () => {
         <div className="view-toggle">
           <button
             type="button"
-            className={
-              viewMode === "all"
-                ? "active"
-                : ""
-            }
-            onClick={() =>
-              setViewMode("all")
-            }
+            className={viewMode === "all" ? "active" : ""}
+            onClick={() => setViewMode("all")}
           >
             <FileText size={16} />
-
             All Papers
-
-            <span>
-              {totalPapers}
-            </span>
+            <span>{totalPapers}</span>
           </button>
 
           <button
             type="button"
-            className={
-              viewMode ===
-              "publication"
-                ? "active"
-                : ""
-            }
-            onClick={() =>
-              setViewMode(
-                "publication"
-              )
-            }
+            className={viewMode === "publication" ? "active" : ""}
+            onClick={() => setViewMode("publication")}
           >
             <FileCheck2 size={16} />
-
             Publication Data
-
-            <span>
-              {publicationDataCount}
-            </span>
+            <span>{publicationDataCount}</span>
           </button>
         </div>
       </div>
@@ -1037,20 +809,14 @@ const PublicationManagement = () => {
             className="search-box"
             placeholder="Search by title, paper ID or author..."
             value={search}
-            onChange={(event) =>
-              setSearch(
-                event.target.value
-              )
-            }
+            onChange={(event) => setSearch(event.target.value)}
           />
 
           {search && (
             <button
               type="button"
               className="clear-search"
-              onClick={() =>
-                setSearch("")
-              }
+              onClick={() => setSearch("")}
             >
               <X size={15} />
             </button>
@@ -1060,112 +826,61 @@ const PublicationManagement = () => {
         <select
           className="filter-select"
           value={statusFilter}
-          onChange={(event) =>
-            setStatusFilter(
-              event.target.value
-            )
-          }
+          onChange={(event) => setStatusFilter(event.target.value)}
         >
-          <option value="All">
-            All Status
-          </option>
+          <option value="All">All Status</option>
 
-          <option value="Submitted">
-            Submitted
-          </option>
+          <option value="Submitted">Submitted</option>
 
-          <option value="Review Pending">
-            Review Pending
-          </option>
+          <option value="Review Pending">Review Pending</option>
 
-          <option value="Accepted">
-            Accepted
-          </option>
+          <option value="Accepted">Accepted</option>
 
-          <option value="Rejected">
-            Rejected
-          </option>
+          <option value="Rejected">Rejected</option>
 
-          <option value="Documents Required">
-            Documents Required
-          </option>
+          <option value="Documents Required">Documents Required</option>
 
-          <option value="Documents Submitted">
-            Documents Submitted
-          </option>
+          <option value="Documents Submitted">Documents Submitted</option>
 
-          <option value="Complete">
-            Complete
-          </option>
+          <option value="Complete">Complete</option>
 
           <option value="Approved and Forwarded to Admin">
             Approved and Forwarded to Admin
           </option>
 
-          <option value="Published">
-            Published
-          </option>
+          <option value="Published">Published</option>
         </select>
 
         <div className="result-count">
-          Showing{" "}
+          Showing <strong>{filteredPapers.length}</strong> /{" "}
           <strong>
-            {filteredPapers.length}
-          </strong>{" "}
-          /{" "}
-          <strong>
-            {viewMode ===
-            "publication"
-              ? publicationDataCount
-              : totalPapers}
+            {viewMode === "publication" ? publicationDataCount : totalPapers}
           </strong>
         </div>
       </div>
 
       {/* LOADING */}
 
-      {loading &&
-      papers.length === 0 ? (
+      {loading && papers.length === 0 ? (
         <div className="loading-box">
-          <Loader2
-            size={34}
-            className="spin"
-          />
+          <Loader2 size={34} className="spin" />
 
-          <h3>
-            Loading papers...
-          </h3>
+          <h3>Loading papers...</h3>
 
-          <p>
-            Fetching latest
-            publication data.
-          </p>
+          <p>Fetching latest publication data.</p>
         </div>
-      ) : filteredPapers.length ===
-        0 ? (
+      ) : filteredPapers.length === 0 ? (
         <div className="empty-box">
           <div className="empty-icon">
             <FileText size={30} />
           </div>
 
-          <h3>
-            No papers found
-          </h3>
+          <h3>No papers found</h3>
 
-          <p>
-            No papers match the
-            selected view, search or
-            status filter.
-          </p>
+          <p>No papers match the selected view, search or status filter.</p>
 
-          {viewMode ===
-            "publication" && (
-            <button
-              type="button"
-              onClick={() =>
-                setViewMode("all")
-              }
-            >
+          {viewMode === "publication" && (
+            <button type="button" onClick={() => setViewMode("all")}>
               Show All Papers
             </button>
           )}
@@ -1180,192 +895,116 @@ const PublicationManagement = () => {
             <table className="publication-table">
               <thead>
                 <tr>
-                  <th>
-                    Paper ID
-                  </th>
+                  <th>Paper ID</th>
 
-                  <th>
-                    Title
-                  </th>
+                  <th>Title</th>
 
-                  <th>
-                    Author
-                  </th>
+                  <th>Author</th>
 
-                  <th>
-                    Status
-                  </th>
+                  <th>Status</th>
 
-                  {viewMode ===
-                    "publication" && (
-                    <th>
-                      Publication Data
-                    </th>
-                  )}
+                  {viewMode === "publication" && <th>Publication Data</th>}
 
-                  <th>
-                    Actions
-                  </th>
+                  <th>Actions</th>
                 </tr>
               </thead>
 
               <tbody>
-                {filteredPapers.map(
-                  (paper) => {
-                    const documents =
-                      getPublicationDocuments(
-                        paper
-                      );
+                {filteredPapers.map((paper) => {
+                  const documents = getPublicationDocuments(paper);
 
-                    const latestDocument =
-                      documents[0];
+                  const latestDocument = documents[0];
 
-                    return (
-                      <tr
-                        key={
-                          paper._id
-                        }
-                      >
-                        {/* PAPER ID */}
+                  return (
+                    <tr key={paper._id}>
+                      {/* PAPER ID */}
 
-                        <td>
-                          <span className="paper-id">
-                            {paper.paperId ||
-                              paper._id}
-                          </span>
-                        </td>
+                      <td>
+                        <span className="paper-id">
+                          {paper.paperId || paper._id}
+                        </span>
+                      </td>
 
-                        {/* TITLE */}
+                      {/* TITLE */}
 
-                        <td>
-                          <div className="title-cell">
-                            <strong>
-                              {
-                                paper.paperTitle
-                              }
-                            </strong>
+                      <td>
+                        <div className="title-cell">
+                          <strong>{paper.paperTitle}</strong>
 
-                            <small>
-                              Version{" "}
-                              {paper.version ||
-                                1}
-                            </small>
+                          <small>Version {paper.version || 1}</small>
+                        </div>
+                      </td>
+
+                      {/* AUTHOR */}
+
+                      <td>
+                        <div className="author-cell">
+                          <div className="author-avatar">
+                            <User size={15} />
                           </div>
-                        </td>
 
-                        {/* AUTHOR */}
+                          <div>
+                            <strong>{getAuthorName(paper)}</strong>
 
-                        <td>
-                          <div className="author-cell">
-                            <div className="author-avatar">
-                              <User
-                                size={
-                                  15
-                                }
-                              />
-                            </div>
-
-                            <div>
-                              <strong>
-                                {getAuthorName(
-                                  paper
-                                )}
-                              </strong>
-
-                              <span>
-                                {getAuthorEmail(
-                                  paper
-                                )}
-                              </span>
-                            </div>
+                            <span>{getAuthorEmail(paper)}</span>
                           </div>
-                        </td>
+                        </div>
+                      </td>
 
-                        {/* STATUS */}
+                      {/* STATUS */}
 
+                      <td>
+                        <span
+                          className={`status-badge ${getStatusClass(
+                            paper.status,
+                          )}`}
+                        >
+                          <span className="status-dot" />
+
+                          {paper.status || "Unknown"}
+                        </span>
+                      </td>
+
+                      {/* PUBLICATION DATA */}
+
+                      {viewMode === "publication" && (
                         <td>
-                          <span
-                            className={`status-badge ${getStatusClass(
-                              paper.status
-                            )}`}
-                          >
-                            <span className="status-dot" />
+                          {documents.length > 0 ? (
+                            <div className="publication-data-cell">
+                              <div className="publication-data-count">
+                                <FileCheck2 size={15} />
 
-                            {paper.status ||
-                              "Unknown"}
-                          </span>
-                        </td>
+                                <strong>{documents.length}</strong>
 
-                        {/* PUBLICATION DATA */}
-
-                        {viewMode ===
-                          "publication" && (
-                          <td>
-                            {documents.length >
-                            0 ? (
-                              <div className="publication-data-cell">
-                                <div className="publication-data-count">
-                                  <FileCheck2
-                                    size={
-                                      15
-                                    }
-                                  />
-
-                                  <strong>
-                                    {
-                                      documents.length
-                                    }
-                                  </strong>
-
-                                  <span>
-                                    document
-                                    {documents.length !==
-                                    1
-                                      ? "s"
-                                      : ""}
-                                  </span>
-                                </div>
-
-                                {latestDocument && (
-                                  <div className="latest-document">
-                                    <span>
-                                      {
-                                        latestDocument.documentType
-                                      }
-                                    </span>
-
-                                    <small>
-                                      {
-                                        latestDocument.originalName
-                                      }
-                                    </small>
-                                  </div>
-                                )}
+                                <span>
+                                  document
+                                  {documents.length !== 1 ? "s" : ""}
+                                </span>
                               </div>
-                            ) : (
-                              <span className="no-publication">
-                                <AlertCircle
-                                  size={
-                                    14
-                                  }
-                                />
-                                No documents
-                              </span>
-                            )}
-                          </td>
-                        )}
 
-                        {/* ACTIONS */}
+                              {latestDocument && (
+                                <div className="latest-document">
+                                  <span>{latestDocument.documentType}</span>
 
-                        <td>
-                          {renderActions(
-                            paper
+                                  <small>{latestDocument.originalName}</small>
+                                </div>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="no-publication">
+                              <AlertCircle size={14} />
+                              No documents
+                            </span>
                           )}
                         </td>
-                      </tr>
-                    );
-                  }
-                )}
+                      )}
+
+                      {/* ACTIONS */}
+
+                      <td>{renderActions(paper)}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -1375,220 +1014,139 @@ const PublicationManagement = () => {
           ================================================= */}
 
           <div className="mobile-paper-list">
-            {filteredPapers.map(
-              (paper) => {
-                const documents =
-                  getPublicationDocuments(
-                    paper
-                  );
+            {filteredPapers.map((paper) => {
+              const documents = getPublicationDocuments(paper);
 
-                const latestDocument =
-                  documents[0];
+              const latestDocument = documents[0];
 
-                const isPublished =
-                  paper.isPublished ===
-                    true ||
-                  paper.status ===
-                    "Published";
+              const isPublished =
+                paper.isPublished === true || paper.status === "Published";
 
-                const isAdminReady =
-                  isPublishReady(
-                    paper
-                  );
+              const isAdminReady = isPublishReady(paper);
 
-                return (
-                  <article
-                    className="mobile-paper-card"
-                    key={paper._id}
-                  >
-                    <div className="mobile-card-header">
-                      <span className="paper-id">
-                        {paper.paperId ||
-                          paper._id}
-                      </span>
+              return (
+                <article className="mobile-paper-card" key={paper._id}>
+                  <div className="mobile-card-header">
+                    <span className="paper-id">
+                      {paper.paperId || paper._id}
+                    </span>
 
-                      <span
-                        className={`status-badge ${getStatusClass(
-                          paper.status
-                        )}`}
-                      >
-                        <span className="status-dot" />
+                    <span
+                      className={`status-badge ${getStatusClass(paper.status)}`}
+                    >
+                      <span className="status-dot" />
 
-                        {paper.status}
-                      </span>
+                      {paper.status}
+                    </span>
+                  </div>
+
+                  <h3>{paper.paperTitle}</h3>
+
+                  <div className="mobile-author">
+                    <div className="author-avatar">
+                      <User size={15} />
                     </div>
 
-                    <h3>
-                      {
-                        paper.paperTitle
-                      }
-                    </h3>
+                    <div>
+                      <strong>{getAuthorName(paper)}</strong>
 
-                    <div className="mobile-author">
-                      <div className="author-avatar">
-                        <User
-                          size={15}
-                        />
-                      </div>
+                      <span>{getAuthorEmail(paper)}</span>
+                    </div>
+                  </div>
 
-                      <div>
-                        <strong>
-                          {getAuthorName(
-                            paper
-                          )}
-                        </strong>
-
+                  {viewMode === "publication" && (
+                    <div className="mobile-publication-box">
+                      <div className="mobile-publication-header">
                         <span>
-                          {getAuthorEmail(
-                            paper
-                          )}
+                          <FileCheck2 size={16} />
+                          Publication Data
                         </span>
+
+                        <strong>{documents.length}</strong>
                       </div>
-                    </div>
 
-                    {viewMode ===
-                      "publication" && (
-                      <div className="mobile-publication-box">
-                        <div className="mobile-publication-header">
-                          <span>
-                            <FileCheck2
-                              size={
-                                16
-                              }
-                            />
-
-                            Publication
-                            Data
-                          </span>
-
-                          <strong>
-                            {
-                              documents.length
-                            }
-                          </strong>
+                      {latestDocument ? (
+                        <DocumentCard document={latestDocument} />
+                      ) : (
+                        <div className="no-publication">
+                          <AlertCircle size={15} />
+                          No publication documents
                         </div>
-
-                        {latestDocument ? (
-                          <DocumentCard
-                            document={
-                              latestDocument
-                            }
-                          />
-                        ) : (
-                          <div className="no-publication">
-                            <AlertCircle
-                              size={
-                                15
-                              }
-                            />
-                            No publication
-                            documents
-                          </div>
-                        )}
-
-                        {documents.length >
-                          1 && (
-                          <button
-                            type="button"
-                            className="view-more-documents"
-                            onClick={() =>
-                              setSelectedPaper(
-                                paper
-                              )
-                            }
-                          >
-                            View all{" "}
-                            {
-                              documents.length
-                            }{" "}
-                            documents
-                          </button>
-                        )}
-                      </div>
-                    )}
-
-                    <div className="mobile-actions">
-                      <button
-                        type="button"
-                        className="view-btn"
-                        onClick={() =>
-                          setSelectedPaper(
-                            paper
-                          )
-                        }
-                      >
-                        <Eye
-                          size={15}
-                        />
-                        View
-                      </button>
-
-                      {paper.paperFile && (
-                        <a
-                          href={getFileUrl(
-                            paper.paperFile
-                          )}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="original-btn"
-                        >
-                          <FileText
-                            size={
-                              15
-                            }
-                          />
-                          Paper
-                        </a>
                       )}
 
-                      {isPublished ? (
+                      {documents.length > 1 && (
                         <button
                           type="button"
-                          className="unpublish-btn"
-                          disabled={
-                            actionLoading ===
-                            `unpublish-${paper._id}`
-                          }
-                          onClick={() =>
-                            unpublishPaper(
-                              paper._id
-                            )
-                          }
+                          className="view-more-documents"
+                          onClick={() => setSelectedPaper(paper)}
                         >
-                          <RefreshCw
-                            size={
-                              15
-                            }
-                          />
-                          Unpublish
+                          View all {documents.length} documents
                         </button>
-                      ) : isAdminReady ? (
-                        <button
-                          type="button"
-                          className="publish-btn"
-                          disabled={
-                            actionLoading ===
-                            `publish-${paper._id}`
-                          }
-                          onClick={() =>
-                            publishPaper(
-                              paper._id
-                            )
-                          }
-                        >
-                          <CheckCircle2
-                            size={
-                              15
-                            }
-                          />
-                          Publish
-                        </button>
-                      ) : null}
+                      )}
                     </div>
-                  </article>
-                );
-              }
-            )}
+                  )}
+
+                  <div className="mobile-actions">
+                    <button
+                      type="button"
+                      className="view-btn"
+                      onClick={() => setSelectedPaper(paper)}
+                    >
+                      <Eye size={15} />
+                      View
+                    </button>
+
+                    {/* {paper.paperFile && (
+                      <a
+                        href={getFileUrl(paper.paperFile)}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="original-btn"
+                        title="Open original submission"
+                      >
+                        <FileText size={15} />
+                        Paper
+                      </a>
+                    )} */}
+
+                    {paper.finalPaper?.file && (
+                      <a
+                        href={getFileUrl(paper.finalPaper.file)}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="final-btn"
+                        title="Open final paper"
+                      >
+                        <FileCheck2 size={15} />
+                        Final
+                      </a>
+                    )}
+
+                    {isPublished ? (
+                      <button
+                        type="button"
+                        className="unpublish-btn"
+                        disabled={actionLoading === `unpublish-${paper._id}`}
+                        onClick={() => unpublishPaper(paper._id)}
+                      >
+                        <RefreshCw size={15} />
+                        Unpublish
+                      </button>
+                    ) : isAdminReady ? (
+                      <button
+                        type="button"
+                        className="publish-btn"
+                        disabled={actionLoading === `publish-${paper._id}`}
+                        onClick={() => publishPaper(paper._id)}
+                      >
+                        <CheckCircle2 size={15} />
+                        Publish
+                      </button>
+                    ) : null}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </>
       )}
@@ -1598,58 +1156,36 @@ const PublicationManagement = () => {
       ===================================================== */}
 
       {selectedPaper && (
-        <div
-          className="modal-overlay"
-          onClick={() =>
-            setSelectedPaper(null)
-          }
-        >
+        <div className="modal-overlay" onClick={() => setSelectedPaper(null)}>
           <div
             className="modal-box"
-            onClick={(event) =>
-              event.stopPropagation()
-            }
+            onClick={(event) => event.stopPropagation()}
           >
             {/* MODAL HEADER */}
 
             <div className="modal-header">
               <div>
-                <span className="modal-label">
-                  PAPER DETAILS
-                </span>
+                <span className="modal-label">PAPER DETAILS</span>
 
-                <h2>
-                  {
-                    selectedPaper.paperTitle
-                  }
-                </h2>
+                <h2>{selectedPaper.paperTitle}</h2>
 
                 <div className="modal-meta">
                   <span>
-                    <FileText
-                      size={14}
-                    />
+                    <FileText size={14} />
 
-                    {selectedPaper.paperId ||
-                      selectedPaper._id}
+                    {selectedPaper.paperId || selectedPaper._id}
                   </span>
 
-                  <span>
-                    Version{" "}
-                    {selectedPaper.version ||
-                      1}
-                  </span>
+                  <span>Version {selectedPaper.version || 1}</span>
 
                   <span
                     className={`status-badge ${getStatusClass(
-                      selectedPaper.status
+                      selectedPaper.status,
                     )}`}
                   >
                     <span className="status-dot" />
 
-                    {
-                      selectedPaper.status
-                    }
+                    {selectedPaper.status}
                   </span>
                 </div>
               </div>
@@ -1657,11 +1193,7 @@ const PublicationManagement = () => {
               <button
                 type="button"
                 className="modal-close"
-                onClick={() =>
-                  setSelectedPaper(
-                    null
-                  )
-                }
+                onClick={() => setSelectedPaper(null)}
               >
                 <X size={20} />
               </button>
@@ -1670,107 +1202,105 @@ const PublicationManagement = () => {
             <div className="modal-content">
               {/* PAPER INFORMATION */}
 
+              {/* =================================================
+                  FINAL PAPER (from Editor)
+              ================================================= */}
+
               <section className="modal-section">
                 <div className="section-title">
-                  <BookOpen
-                    size={18}
-                  />
+                  <FileCheck2 size={18} />
 
                   <div>
-                    <h3>
-                      Paper Information
-                    </h3>
+                    <h3>Final Paper (from Editor)</h3>
 
                     <p>
-                      Research paper
-                      details.
+                      Final publish-ready manuscript uploaded by the editor.
                     </p>
                   </div>
                 </div>
 
-                <div className="details-grid">
-                  <div>
-                    <span>
-                      Paper ID
-                    </span>
+                {selectedPaper.finalPaper?.file ? (
+                  <div className="final-paper-card">
+                    <div className="final-paper-icon">
+                      <FileCheck2 size={20} />
+                    </div>
 
-                    <strong>
-                      {selectedPaper.paperId ||
-                        selectedPaper._id}
-                    </strong>
+                    <div className="final-paper-info">
+                      <strong
+                        title={
+                          selectedPaper.finalPaper.originalName || "Final Paper"
+                        }
+                      >
+                        {selectedPaper.finalPaper.originalName || "Final Paper"}
+                      </strong>
+
+                      <div className="final-paper-meta">
+                        <span>
+                          Uploaded by{" "}
+                          {selectedPaper.finalPaper.uploadedByRole || "Editor"}
+                        </span>
+
+                        {selectedPaper.finalPaper.uploadedAt && (
+                          <>
+                            <span>•</span>
+                            <span>
+                              {formatDate(selectedPaper.finalPaper.uploadedAt)}
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+
+                    <a
+                      href={getFileUrl(selectedPaper.finalPaper.file)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="final-paper-open"
+                      title="Open final paper"
+                    >
+                      <ExternalLink size={16} />
+                    </a>
                   </div>
-
-                  <div>
-                    <span>
-                      Version
-                    </span>
-
-                    <strong>
-                      V
-                      {selectedPaper.version ||
-                        1}
-                    </strong>
+                ) : (
+                  <div className="no-publication">
+                    <AlertCircle size={15} />
+                    Final paper not uploaded by editor yet.
                   </div>
+                )}
+              </section>
+
+              {/* =================================================
+                  ORIGINAL PAPER
+              ================================================= */}
+
+              <section className="modal-section">
+                <div className="section-title">
+                  <FileText size={18} />
 
                   <div>
-                    <span>
-                      Research Area
-                    </span>
+                    <h3>Original Submission</h3>
 
-                    <strong>
-                      {selectedPaper.researchArea ||
-                        "-"}
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>
-                      Country
-                    </span>
-
-                    <strong>
-                      {selectedPaper.country ||
-                        selectedPaper.address
-                          ?.country ||
-                        "-"}
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>
-                      Submitted
-                    </span>
-
-                    <strong>
-                      {formatDate(
-                        selectedPaper.createdAt
-                      )}
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>
-                      Updated
-                    </span>
-
-                    <strong>
-                      {formatDate(
-                        selectedPaper.updatedAt
-                      )}
-                    </strong>
+                    <p>Original research paper submitted by the author.</p>
                   </div>
                 </div>
 
-                <div className="abstract-box">
-                  <span>
-                    Abstract
-                  </span>
-
-                  <p>
-                    {selectedPaper.abstract ||
-                      "No abstract available."}
-                  </p>
-                </div>
+                {selectedPaper.paperFile ? (
+                  <a
+                    href={getFileUrl(selectedPaper.paperFile)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="open-original"
+                  >
+                    <FileText size={18} />
+                    Open Original Paper
+                    <ExternalLink size={16} />
+                  </a>
+                ) : (
+                  <div className="no-publication">
+                    <AlertCircle size={15} />
+                    Original paper not available.
+                  </div>
+                )}
               </section>
 
               {/* AUTHOR */}
@@ -1780,48 +1310,31 @@ const PublicationManagement = () => {
                   <User size={18} />
 
                   <div>
-                    <h3>
-                      Author
-                    </h3>
+                    <h3>Author</h3>
 
-                    <p>
-                      Author information.
-                    </p>
+                    <p>Author information.</p>
                   </div>
                 </div>
 
                 <div className="author-detail">
                   <div className="author-avatar large">
-                    <User
-                      size={22}
-                    />
+                    <User size={22} />
                   </div>
 
                   <div>
-                    <strong>
-                      {getAuthorName(
-                        selectedPaper
-                      )}
-                    </strong>
+                    <strong>{getAuthorName(selectedPaper)}</strong>
 
                     <span>
-                      <Mail
-                        size={14}
-                      />
+                      <Mail size={14} />
 
-                      {getAuthorEmail(
-                        selectedPaper
-                      )}
+                      {getAuthorEmail(selectedPaper)}
                     </span>
 
                     <span>
-                      <Globe2
-                        size={14}
-                      />
+                      <Globe2 size={14} />
 
                       {selectedPaper.country ||
-                        selectedPaper.address
-                          ?.country ||
+                        selectedPaper.address?.country ||
                         "Country not available"}
                     </span>
                   </div>
@@ -1833,122 +1346,73 @@ const PublicationManagement = () => {
               <section className="modal-section">
                 <div className="section-title publication-section-heading">
                   <div className="section-title-left">
-                    <FileCheck2
-                      size={18}
-                    />
+                    <FileCheck2 size={18} />
 
                     <div>
-                      <h3>
-                        Publication Data
-                      </h3>
+                      <h3>Publication Data</h3>
 
-                      <p>
-                        Current publication
-                        documents.
-                      </p>
+                      <p>Current publication documents.</p>
                     </div>
                   </div>
 
                   <span className="document-count">
-                    {
-                      getPublicationDocuments(
-                        selectedPaper
-                      ).length
-                    }{" "}
-                    Files
+                    {getPublicationDocuments(selectedPaper).length} Files
                   </span>
                 </div>
 
                 <div className="document-list">
-                  {getPublicationDocuments(
-                    selectedPaper
-                  ).length === 0 ? (
+                  {getPublicationDocuments(selectedPaper).length === 0 ? (
                     <div className="empty-documents">
-                      <AlertCircle
-                        size={25}
-                      />
+                      <AlertCircle size={25} />
 
-                      <h4>
-                        No publication
-                        documents
-                      </h4>
+                      <h4>No publication documents</h4>
 
                       <p>
-                        No publication
-                        documents are
-                        available for
-                        this paper.
+                        No publication documents are available for this paper.
                       </p>
                     </div>
                   ) : (
-                    getPublicationDocuments(
-                      selectedPaper
-                    ).map(
-                      (document) => (
-                        <DocumentCard
-                          key={
-                            document.uniqueKey
-                          }
-                          document={
-                            document
-                          }
-                        />
-                      )
-                    )
+                    getPublicationDocuments(selectedPaper).map((document) => (
+                      <DocumentCard
+                        key={document.uniqueKey}
+                        document={document}
+                      />
+                    ))
                   )}
                 </div>
               </section>
 
               {/* ORIGINAL PAPER */}
 
-              <section className="modal-section">
+              {/* <section className="modal-section">
                 <div className="section-title">
-                  <FileText
-                    size={18}
-                  />
+                  <FileText size={18} />
 
                   <div>
-                    <h3>
-                      Original Paper
-                    </h3>
+                    <h3>Original Paper</h3>
 
-                    <p>
-                      Original submitted
-                      research paper.
-                    </p>
+                    <p>Original submitted research paper.</p>
                   </div>
                 </div>
 
                 {selectedPaper.paperFile ? (
                   <a
-                    href={getFileUrl(
-                      selectedPaper.paperFile
-                    )}
+                    href={getFileUrl(selectedPaper.paperFile)}
                     target="_blank"
                     rel="noreferrer"
                     className="open-original"
                   >
-                    <FileText
-                      size={18}
-                    />
-
+                    <FileText size={18} />
                     Open Original Paper
-
-                    <ExternalLink
-                      size={16}
-                    />
+                    <ExternalLink size={16} />
                   </a>
                 ) : (
                   <div className="no-publication">
-                    <AlertCircle
-                      size={15}
-                    />
-
-                    Original paper
-                    not available.
+                    <AlertCircle size={15} />
+                    Original paper not available.
                   </div>
                 )}
-              </section>
+              </section> */}
             </div>
 
             {/* MODAL ACTIONS */}
@@ -1957,69 +1421,41 @@ const PublicationManagement = () => {
               <button
                 type="button"
                 className="close-btn"
-                onClick={() =>
-                  setSelectedPaper(
-                    null
-                  )
-                }
+                onClick={() => setSelectedPaper(null)}
               >
                 Close
               </button>
 
               {/* PUBLISH */}
 
-              {isPublishReady(
-                selectedPaper
-              ) &&
-                !selectedPaper.isPublished && (
-                  <button
-                    type="button"
-                    className="publish-btn modal-publish"
-                    disabled={
-                      actionLoading ===
-                      `publish-${selectedPaper._id}`
-                    }
-                    onClick={() =>
-                      publishPaper(
-                        selectedPaper._id
-                      )
-                    }
-                  >
-                    <CheckCircle2
-                      size={16}
-                    />
+              {isPublishReady(selectedPaper) && !selectedPaper.isPublished && (
+                <button
+                  type="button"
+                  className="publish-btn modal-publish"
+                  disabled={actionLoading === `publish-${selectedPaper._id}`}
+                  onClick={() => publishPaper(selectedPaper._id)}
+                >
+                  <CheckCircle2 size={16} />
 
-                    {actionLoading ===
-                    `publish-${selectedPaper._id}`
-                      ? "Publishing..."
-                      : "Publish Paper"}
-                  </button>
-                )}
+                  {actionLoading === `publish-${selectedPaper._id}`
+                    ? "Publishing..."
+                    : "Publish Paper"}
+                </button>
+              )}
 
               {/* UNPUBLISH */}
 
               {(selectedPaper.isPublished ||
-                selectedPaper.status ===
-                  "Published") && (
+                selectedPaper.status === "Published") && (
                 <button
                   type="button"
                   className="unpublish-btn"
-                  disabled={
-                    actionLoading ===
-                    `unpublish-${selectedPaper._id}`
-                  }
-                  onClick={() =>
-                    unpublishPaper(
-                      selectedPaper._id
-                    )
-                  }
+                  disabled={actionLoading === `unpublish-${selectedPaper._id}`}
+                  onClick={() => unpublishPaper(selectedPaper._id)}
                 >
-                  <RefreshCw
-                    size={16}
-                  />
+                  <RefreshCw size={16} />
 
-                  {actionLoading ===
-                  `unpublish-${selectedPaper._id}`
+                  {actionLoading === `unpublish-${selectedPaper._id}`
                     ? "Unpublishing..."
                     : "Unpublish"}
                 </button>

@@ -3522,3 +3522,368 @@
   }
 
 }
+
+/* =========================================================
+   EDITOR DOCUMENTS — FLOATING DROPDOWN (card height fixed)
+========================================================= */
+
+.paper-editor-documents {
+  margin: 14px 0 16px;
+  border: 1px solid #e0e7ff;
+  background: linear-gradient(180deg, #eef2ff 0%, #f8faff 100%);
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.paper-editor-documents:hover {
+  border-color: #c7d2fe;
+}
+
+/* ---------- POSITION WRAPPER ---------- */
+
+.editor-docs-wrapper {
+  position: relative;
+}
+
+/* ---------- TOGGLE HEADER (clickable) ---------- */
+
+.editor-docs-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  border-radius: 12px;
+  transition: background 0.15s ease;
+}
+
+.editor-docs-toggle:hover {
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.editor-docs-toggle.open {
+  background: rgba(99, 102, 241, 0.08);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.editor-docs-toggle-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.editor-docs-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.editor-docs-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #3730a3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.editor-docs-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: #4f46e5;
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.editor-docs-chevron {
+  font-size: 13px;
+  color: #4f46e5;
+  transition: transform 0.25s ease;
+  display: inline-block;
+  line-height: 1;
+}
+
+.editor-docs-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* ---------- FLOATING DROPDOWN (does NOT push card height) ---------- */
+
+.editor-docs-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 12px;
+
+  background: #ffffff;
+  border: 1px solid #e0e7ff;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.14);
+
+  z-index: 30;
+
+  max-height: 260px;
+  overflow-y: auto;
+
+  animation: editorDocsSlideDown 0.2s ease-out;
+}
+
+@keyframes editorDocsSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.editor-doc-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.editor-doc-row:hover {
+  border-color: #a5b4fc;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+  background: #ffffff;
+}
+
+.editor-doc-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.editor-doc-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.editor-doc-filename {
+  font-size: 11px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.editor-doc-download-btn {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.editor-doc-download-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.28);
+}
+
+.editor-doc-download-btn:active {
+  transform: translateY(0);
+}
+
+/* Custom scrollbar inside the dropdown */
+
+.editor-docs-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.editor-docs-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.editor-docs-dropdown::-webkit-scrollbar-thumb {
+  background: #c7d2fe;
+  border-radius: 999px;
+}
+
+.editor-docs-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #a5b4fc;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 480px) {
+  .editor-docs-toggle {
+    padding: 11px 12px;
+  }
+
+  .editor-docs-title {
+    font-size: 12.5px;
+  }
+
+  .editor-docs-dropdown {
+    max-height: 220px;
+  }
+
+  .editor-doc-row {
+    flex-wrap: wrap;
+  }
+
+  .editor-doc-download-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* =========================================================
+   PAPER CARD BOTTOM ROW (buttons + actions)
+========================================================= */
+
+.paper-card-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-top: 14px;
+  padding-top: 14px;
+
+  border-top: 1px dashed #e2e8f0;
+  flex-wrap: wrap;
+}
+
+/* LEFT side — PDF / Revision buttons */
+
+.paper-card-footer-row .paper-btns {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;       /* neutralise any old margin on .paper-btns */
+  flex-wrap: wrap;
+}
+
+/* RIGHT side — Edit / Delete */
+
+.paper-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;   /* pushes it to the right */
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.card-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 12px 14px;
+  margin-right: 18px;
+
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: inherit;
+
+  border-radius: 9px;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+
+  white-space: nowrap;
+}
+
+/* ---------- EDIT ---------- */
+
+.card-action-btn.edit {
+  color: #4338ca;
+  background: #eef2ff;
+  border-color: #c7d2fe;
+}
+
+.card-action-btn.edit:hover {
+  background: #e0e7ff;
+  border-color: #a5b4fc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.15);
+}
+
+/* ---------- DELETE ---------- */
+
+.card-action-btn.delete {
+  color: #b91c1c;
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.card-action-btn.delete:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.15);
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 480px) {
+  .paper-card-footer-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .paper-card-footer-row .paper-btns {
+    width: 100%;
+  }
+
+  .paper-card-actions {
+    width: 100%;
+    margin-left: 0;
+    justify-content: stretch;
+  }
+
+  .paper-card-actions .card-action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}

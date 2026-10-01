@@ -6,10 +6,7 @@ const router = express.Router();
    UPLOAD MIDDLEWARE
 ========================================================= */
 
-const {
-  upload,
-  convertToWebp,
-} = require("../middlewares/upload");
+const { upload, convertToWebp } = require("../middlewares/upload");
 
 /* =========================================================
    CONTROLLERS
@@ -26,6 +23,7 @@ const {
   changeStatus,
   getMyPapers,
   uploadRevision,
+  updateAuthorMetadata,
 
   /* ================= EDITOR WORKFLOW ================= */
 
@@ -66,7 +64,6 @@ const editorAuth = require("../middlewares/editor.middleware");
 
 const adminAuth = require("../middlewares/adminAuth.middleware");
 
-
 /* =========================================================
    CREATE SUBMISSION
 =========================================================
@@ -82,9 +79,8 @@ router.post(
   authorAuth,
   upload.single("paperFile"),
   convertToWebp,
-  createSubmission
+  createSubmission,
 );
-
 
 /* =========================================================
    GET ALL SUBMISSIONS
@@ -94,12 +90,7 @@ router.post(
 
 ========================================================= */
 
-router.get(
-  "/all",
-  adminAuth,
-  getAllSubmissions
-);
-
+router.get("/all", adminAuth, getAllSubmissions);
 
 /* =========================================================
    GET ALL PUBLISHED PAPERS
@@ -109,11 +100,7 @@ router.get(
 
 ========================================================= */
 
-router.get(
-  "/published/all",
-  getAllPublishedPapers
-);
-
+router.get("/published/all", getAllPublishedPapers);
 
 /* =========================================================
    PUBLICATION ARCHIVE
@@ -123,11 +110,7 @@ router.get(
 
 ========================================================= */
 
-router.get(
-  "/published/archive",
-  getPublishedArchive
-);
-
+router.get("/published/archive", getPublishedArchive);
 
 /* =========================================================
    PUBLISHED PAPERS BY EDITOR
@@ -137,11 +120,7 @@ router.get(
 
 ========================================================= */
 
-router.get(
-  "/editor/:editorId/published",
-  getPublishedEditorPapers
-);
-
+router.get("/editor/:editorId/published", getPublishedEditorPapers);
 
 /* =========================================================
    PUBLISHED PAPERS BY AUTHOR
@@ -151,12 +130,7 @@ router.get(
 
 ========================================================= */
 
-router.get(
-  "/author/published",
-  authorAuth,
-  getPublishedAuthorPapers
-);
-
+router.get("/author/published", authorAuth, getPublishedAuthorPapers);
 
 /* =========================================================
    EDITOR PAPERS
@@ -166,12 +140,7 @@ router.get(
 
 ========================================================= */
 
-router.get(
-  "/editor/:editorId",
-  editorAuth,
-  getEditorPapers
-);
-
+router.get("/editor/:editorId", editorAuth, getEditorPapers);
 
 /* =========================================================
    UNASSIGNED PAPERS
@@ -185,12 +154,7 @@ router.get(
 
 ========================================================= */
 
-router.get(
-  "/unassigned",
-  adminAuth,
-  getUnassignedPapers
-);
-
+router.get("/unassigned", adminAuth, getUnassignedPapers);
 
 /* =========================================================
    AUTHOR MY PAPERS
@@ -200,12 +164,7 @@ router.get(
 
 ========================================================= */
 
-router.get(
-  "/my-papers",
-  authorAuth,
-  getMyPapers
-);
-
+router.get("/my-papers", authorAuth, getMyPapers);
 
 /* =========================================================
    GET SINGLE PAPER
@@ -215,11 +174,7 @@ router.get(
 
 ========================================================= */
 
-router.get(
-  "/:id",
-  getSingleSubmission
-);
-
+router.get("/:id", getSingleSubmission);
 
 /* =========================================================
    UPDATE SUBMISSION
@@ -238,12 +193,7 @@ router.get(
 
 ========================================================= */
 
-router.put(
-  "/update/:id",
-  editorAuth,
-  updateSubmission
-);
-
+router.put("/update/:id", editorAuth, updateSubmission);
 
 /* =========================================================
    UPLOAD PAPER REVISION
@@ -262,7 +212,19 @@ router.put(
   authorAuth,
   upload.single("paperFile"),
   convertToWebp,
-  uploadRevision
+  uploadRevision,
+);
+
+
+/* =========================================================
+   UPDATE AUTHOR METADATA (no new file)
+========================================================= */
+
+router.put(
+  "/update-metadata/:id",
+  authorAuth,
+  upload.none(),
+  updateAuthorMetadata
 );
 
 
@@ -284,12 +246,7 @@ router.put(
 
 ========================================================= */
 
-router.put(
-  "/status/:id",
-  editorAuth,
-  changeStatus
-);
-
+router.put("/status/:id", editorAuth, changeStatus);
 
 /* =========================================================
    ADMIN ASSIGNS EDITOR
@@ -301,12 +258,7 @@ router.put(
 
 ========================================================= */
 
-router.put(
-  "/assign-editor/:id",
-  adminAuth,
-  assignEditor
-);
-
+router.put("/assign-editor/:id", adminAuth, assignEditor);
 
 /* =========================================================
    EDITOR STARTS REVIEW
@@ -318,12 +270,7 @@ router.put(
 
 ========================================================= */
 
-router.put(
-  "/start-editing/:id",
-  editorAuth,
-  startEditing
-);
-
+router.put("/start-editing/:id", editorAuth, startEditing);
 
 /* =========================================================
    EDITOR ACCEPTS PAPER
@@ -338,9 +285,15 @@ router.put(
 router.put(
   "/accept/:id",
   editorAuth,
-  acceptPaper
+  upload.fields([
+    { name: "acceptanceLetter", maxCount: 1 },
+    { name: "galleyProof", maxCount: 1 },
+    { name: "reviewReport", maxCount: 1 },
+    { name: "copyrightForm", maxCount: 1 },
+  ]),
+  convertToWebp,
+  acceptPaper,
 );
-
 
 /* =========================================================
    EDITOR REQUESTS PUBLICATION DOCUMENTS
@@ -355,9 +308,8 @@ router.put(
 router.put(
   "/request-publication-documents/:id",
   editorAuth,
-  requestPublicationDocuments
+  requestPublicationDocuments,
 );
-
 
 /* =========================================================
    EDITOR REJECTS PAPER
@@ -369,12 +321,7 @@ router.put(
 
 ========================================================= */
 
-router.put(
-  "/reject/:id",
-  editorAuth,
-  rejectPaper
-);
-
+router.put("/reject/:id", editorAuth, rejectPaper);
 
 /* =========================================================
    AUTHOR UPLOADS PUBLICATION DOCUMENTS
@@ -431,9 +378,8 @@ router.put(
 
   convertToWebp,
 
-  uploadAuthorPublicationDocuments
+  uploadAuthorPublicationDocuments,
 );
-
 
 /* =========================================================
    AUTHOR SUBMITS DOCUMENTS TO EDITOR
@@ -445,12 +391,7 @@ router.put(
 
 ========================================================= */
 
-router.put(
-  "/publication/submit/:id",
-  authorAuth,
-  submitPublicationToEditor
-);
-
+router.put("/publication/submit/:id", authorAuth, submitPublicationToEditor);
 
 /* =========================================================
    EDITOR APPROVES PUBLICATION DOCUMENTS
@@ -465,9 +406,10 @@ router.put(
 router.put(
   "/publication/approve/:id",
   editorAuth,
-  approveAndForwardToAdmin
+  upload.fields([{ name: "finalPaper", maxCount: 1 }]),
+  convertToWebp,
+  approveAndForwardToAdmin,
 );
-
 
 /* =========================================================
    ADMIN PUBLISHES PAPER
@@ -479,12 +421,7 @@ router.put(
 
 ========================================================= */
 
-router.put(
-  "/publish/:id",
-  adminAuth,
-  publishPaper
-);
-
+router.put("/publish/:id", adminAuth, publishPaper);
 
 /* =========================================================
    ADMIN UNPUBLISHES PAPER
@@ -496,23 +433,13 @@ router.put(
 
 ========================================================= */
 
-router.put(
-  "/unpublish/:id",
-  adminAuth,
-  unPublishPaper
-);
-
+router.put("/unpublish/:id", adminAuth, unPublishPaper);
 
 /* =========================================================
    ADMIN DELETE SUBMISSION
 ========================================================= */
 
-router.delete(
-  "/delete/:id",
-  adminAuth,
-  deleteSubmission
-);
-
+router.delete("/delete/:id", adminAuth, deleteSubmission);
 
 /* =========================================================
    EXPORT ROUTER

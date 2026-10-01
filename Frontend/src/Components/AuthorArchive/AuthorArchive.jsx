@@ -31,20 +31,15 @@ const AuthorArchive = () => {
     try {
       setLoading(true);
 
-      const response = await API.get(
-        "/submitform/published/all"
-      );
+      const response = await API.get("/submitform/published/all");
 
-      console.log(
-        "Published Papers:",
-        response.data
-      );
+      console.log("Published Papers:", response.data);
 
       setPapers(response.data.data || []);
     } catch (error) {
       console.error(
         "Fetch published papers error:",
-        error.response?.data || error.message
+        error.response?.data || error.message,
       );
 
       setPapers([]);
@@ -60,8 +55,7 @@ const AuthorArchive = () => {
   /* ================= GET YEAR ================= */
 
   const getPaperYear = (paper) => {
-    const date =
-      paper.publishedAt || paper.createdAt;
+    const date = paper.publishedAt || paper.createdAt;
 
     return new Date(date).getFullYear();
   };
@@ -69,8 +63,7 @@ const AuthorArchive = () => {
   /* ================= GET MONTH / ISSUE ================= */
 
   const getPaperIssue = (paper) => {
-    const date =
-      paper.publishedAt || paper.createdAt;
+    const date = paper.publishedAt || paper.createdAt;
 
     return new Date(date).getMonth() + 1;
   };
@@ -78,11 +71,9 @@ const AuthorArchive = () => {
   /* ================= GET VOLUME ================= */
 
   const years = useMemo(() => {
-    return [
-      ...new Set(
-        papers.map((paper) => getPaperYear(paper))
-      ),
-    ].sort((a, b) => a - b);
+    return [...new Set(papers.map((paper) => getPaperYear(paper)))].sort(
+      (a, b) => a - b,
+    );
   }, [papers]);
 
   const getPaperVolume = (paper) => {
@@ -94,36 +85,24 @@ const AuthorArchive = () => {
   /* ================= VOLUME OPTIONS ================= */
 
   const volumeOptions = useMemo(() => {
-    return [
-      ...new Set(
-        papers.map((paper) =>
-          getPaperVolume(paper)
-        )
-      ),
-    ].sort((a, b) => b - a);
+    return [...new Set(papers.map((paper) => getPaperVolume(paper)))].sort(
+      (a, b) => b - a,
+    );
   }, [papers, years]);
 
   /* ================= ISSUE OPTIONS ================= */
 
   const issueOptions = useMemo(() => {
-    return [
-      ...new Set(
-        papers.map((paper) =>
-          getPaperIssue(paper)
-        )
-      ),
-    ].sort((a, b) => a - b);
+    return [...new Set(papers.map((paper) => getPaperIssue(paper)))].sort(
+      (a, b) => a - b,
+    );
   }, [papers]);
 
   /* ================= CATEGORY OPTIONS ================= */
 
   const categoryOptions = useMemo(() => {
     return [
-      ...new Set(
-        papers
-          .map((paper) => paper.researchArea)
-          .filter(Boolean)
-      ),
+      ...new Set(papers.map((paper) => paper.researchArea).filter(Boolean)),
     ].sort();
   }, [papers]);
 
@@ -135,14 +114,10 @@ const AuthorArchive = () => {
     /* KEYWORD */
 
     if (searchKeyword.trim()) {
-      const query = searchKeyword
-        .trim()
-        .toLowerCase();
+      const query = searchKeyword.trim().toLowerCase();
 
       result = result.filter((paper) => {
-        const authors = paper.authors
-          ?.map((author) => author.name)
-          .join(" ");
+        const authors = paper.authors?.map((author) => author.name).join(" ");
 
         const searchableText = [
           paper.paperTitle,
@@ -164,28 +139,20 @@ const AuthorArchive = () => {
 
     if (volume !== "Any") {
       result = result.filter(
-        (paper) =>
-          getPaperVolume(paper) ===
-          Number(volume)
+        (paper) => getPaperVolume(paper) === Number(volume),
       );
     }
 
     /* ISSUE */
 
     if (issue !== "Any") {
-      result = result.filter(
-        (paper) =>
-          getPaperIssue(paper) === Number(issue)
-      );
+      result = result.filter((paper) => getPaperIssue(paper) === Number(issue));
     }
 
     /* CATEGORY */
 
     if (category !== "All") {
-      result = result.filter(
-        (paper) =>
-          paper.researchArea === category
-      );
+      result = result.filter((paper) => paper.researchArea === category);
     }
 
     /* SORT */
@@ -193,37 +160,21 @@ const AuthorArchive = () => {
     if (sort === "Latest") {
       result.sort(
         (a, b) =>
-          new Date(
-            b.publishedAt || b.createdAt
-          ) -
-          new Date(
-            a.publishedAt || a.createdAt
-          )
+          new Date(b.publishedAt || b.createdAt) -
+          new Date(a.publishedAt || a.createdAt),
       );
     }
 
     if (sort === "Oldest") {
       result.sort(
         (a, b) =>
-          new Date(
-            a.publishedAt || a.createdAt
-          ) -
-          new Date(
-            b.publishedAt || b.createdAt
-          )
+          new Date(a.publishedAt || a.createdAt) -
+          new Date(b.publishedAt || b.createdAt),
       );
     }
 
     return result;
-  }, [
-    papers,
-    searchKeyword,
-    volume,
-    issue,
-    category,
-    sort,
-    years,
-  ]);
+  }, [papers, searchKeyword, volume, issue, category, sort, years]);
 
   /* ================= SEARCH ================= */
 
@@ -239,29 +190,42 @@ const AuthorArchive = () => {
     }
 
     return authors
-      .map(
-        (author) =>
-          author.name ||
-          author.fullName ||
-          author.authorName
-      )
+      .map((author) => author.name || author.fullName || author.authorName)
       .filter(Boolean)
       .join(", ");
   };
 
   /* ================= PDF ================= */
 
-  const handlePdf = (paperFile) => {
-    if (!paperFile) {
+  const handlePdf = (filePath) => {
+    if (!filePath) {
       alert("PDF not available");
       return;
     }
 
-    const pdfUrl = paperFile.startsWith("http")
-      ? paperFile
-      : `${BASE_URL}/${paperFile.replace(/\\/g, "/")}`;
+    const cleanPath = String(filePath).replace(/\\/g, "/");
+
+    const pdfUrl = cleanPath.startsWith("http")
+      ? cleanPath
+      : `${BASE_URL}/${cleanPath.replace(/^\/+/, "")}`;
 
     window.open(pdfUrl, "_blank");
+  };
+
+  /* =========================================================
+   RESOLVE PDF SOURCE
+   New papers  → editor's finalPaper.file
+   Legacy papers → paperFile (original submission)
+========================================================= */
+
+  const getPdfSource = (paper) => {
+    if (!paper) return "";
+
+    if (paper.finalPaper?.file) {
+      return paper.finalPaper.file;
+    }
+
+    return paper.paperFile || "";
   };
 
   return (
@@ -270,26 +234,20 @@ const AuthorArchive = () => {
       <div className="authorarchive-glow authorarchive-glow2" />
 
       <div className="authorarchive-container">
-
         {/* FILTER */}
 
         <div className="authorarchive-filter">
           <div className="authorarchive-filter-grid">
-
             {/* KEYWORD */}
 
             <div className="authorarchive-input-group authorarchive-large">
-              <label>
-                Keyword / Title / Author
-              </label>
+              <label>Keyword / Title / Author</label>
 
               <input
                 type="text"
                 placeholder="Search title, author, keyword..."
                 value={keyword}
-                onChange={(e) =>
-                  setKeyword(e.target.value)
-                }
+                onChange={(e) => setKeyword(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     handleSearch();
@@ -305,17 +263,12 @@ const AuthorArchive = () => {
 
               <select
                 value={volume}
-                onChange={(e) =>
-                  setVolume(e.target.value)
-                }
+                onChange={(e) => setVolume(e.target.value)}
               >
                 <option value="Any">Any</option>
 
                 {volumeOptions.map((item) => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
+                  <option key={item} value={item}>
                     Volume {item}
                   </option>
                 ))}
@@ -327,21 +280,12 @@ const AuthorArchive = () => {
             <div className="authorarchive-input-group">
               <label>Issue</label>
 
-              <select
-                value={issue}
-                onChange={(e) =>
-                  setIssue(e.target.value)
-                }
-              >
+              <select value={issue} onChange={(e) => setIssue(e.target.value)}>
                 <option value="Any">Any</option>
 
                 {issueOptions.map((item) => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
-                    Issue{" "}
-                    {String(item).padStart(2, "0")}
+                  <option key={item} value={item}>
+                    Issue {String(item).padStart(2, "0")}
                   </option>
                 ))}
               </select>
@@ -354,17 +298,12 @@ const AuthorArchive = () => {
 
               <select
                 value={category}
-                onChange={(e) =>
-                  setCategory(e.target.value)
-                }
+                onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="All">All</option>
 
                 {categoryOptions.map((item) => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
+                  <option key={item} value={item}>
                     {item}
                   </option>
                 ))}
@@ -372,10 +311,7 @@ const AuthorArchive = () => {
             </div>
           </div>
 
-          <button
-            className="authorarchive-search-btn"
-            onClick={handleSearch}
-          >
+          <button className="authorarchive-search-btn" onClick={handleSearch}>
             <FaSearch />
             Search
           </button>
@@ -385,24 +321,17 @@ const AuthorArchive = () => {
 
         <div className="authorarchive-result-top">
           <p>
-            Showing {filteredPapers.length} of{" "}
-            {papers.length} results
+            Showing {filteredPapers.length} of {papers.length} results
           </p>
 
           <select
             className="authorarchive-sort"
             value={sort}
-            onChange={(e) =>
-              setSort(e.target.value)
-            }
+            onChange={(e) => setSort(e.target.value)}
           >
-            <option value="Latest">
-              Latest
-            </option>
+            <option value="Latest">Latest</option>
 
-            <option value="Oldest">
-              Oldest
-            </option>
+            <option value="Oldest">Oldest</option>
           </select>
         </div>
 
@@ -415,57 +344,39 @@ const AuthorArchive = () => {
             <p>No published papers found.</p>
           ) : (
             filteredPapers.map((paper) => {
-              const paperDate =
-                paper.publishedAt ||
-                paper.createdAt;
+              const paperDate = paper.publishedAt || paper.createdAt;
 
-              const paperVolume =
-                getPaperVolume(paper);
+              const paperVolume = getPaperVolume(paper);
 
-              const paperIssue =
-                getPaperIssue(paper);
+              const paperIssue = getPaperIssue(paper);
 
               return (
-                <div
-                  className="authorarchive-card"
-                  key={paper._id}
-                >
+                <div className="authorarchive-card" key={paper._id}>
                   <div className="authorarchive-card-top">
                     <span className="authorarchive-category">
-                      {paper.researchArea ||
-                        "Research"}
+                      {paper.researchArea || "Research"}
                     </span>
 
                     <div className="authorarchive-meta">
                       <span>
                         <FaCalendarAlt />
 
-                        {new Date(
-                          paperDate
-                        ).toLocaleDateString(
-                          "en-US",
-                          {
-                            month: "short",
-                            day: "2-digit",
-                            year: "numeric",
-                          }
-                        )}
+                        {new Date(paperDate).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "2-digit",
+                          year: "numeric",
+                        })}
                       </span>
 
                       <span>
                         <FaBookOpen />
-
                         Vol {paperVolume} • Issue{" "}
-                        {String(
-                          paperIssue
-                        ).padStart(2, "0")}
+                        {String(paperIssue).padStart(2, "0")}
                       </span>
                     </div>
                   </div>
 
-                  <h3 className="authorarchive-title">
-                    {paper.paperTitle}
-                  </h3>
+                  <h3 className="authorarchive-title">{paper.paperTitle}</h3>
 
                   <div className="authorarchive-authors">
                     <FaUserEdit />
@@ -480,8 +391,11 @@ const AuthorArchive = () => {
                   <div className="authorarchive-card-bottom">
                     <button
                       className="authorarchive-pdf"
-                      onClick={() =>
-                        handlePdf(paper.paperFile)
+                      onClick={() => handlePdf(getPdfSource(paper))}
+                      title={
+                        paper.finalPaper?.file
+                          ? "Open final published paper"
+                          : "Open published paper"
                       }
                     >
                       <FaFilePdf />
