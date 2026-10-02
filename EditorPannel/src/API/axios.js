@@ -9,83 +9,13 @@ const API = axios.create({
 
 API.interceptors.request.use(
   (config) => {
-    console.log(
-      "========== API REQUEST =========="
-    );
+    const editorToken = localStorage.getItem("editorToken");
+    const authorToken = localStorage.getItem("authorToken");
 
-    console.log(
-      "METHOD:",
-      config.method?.toUpperCase()
-    );
-
-    console.log(
-      "URL:",
-      config.url
-    );
-
-    /*
-     * =====================================================
-     * GET EDITOR TOKEN
-     * =====================================================
-     */
-
-    const editorToken =
-      localStorage.getItem("editorToken");
-
-    /*
-     * =====================================================
-     * GET AUTHOR TOKEN
-     * =====================================================
-     */
-
-    const authorToken =
-      localStorage.getItem("authorToken");
-
-    /*
-     * =====================================================
-     * SELECT TOKEN
-     *
-     * Editor token gets priority.
-     * If editor token doesn't exist,
-     * author token will be used.
-     * =====================================================
-     */
-
-    const token =
-      editorToken || authorToken;
-
-    console.log(
-      "EDITOR TOKEN EXISTS:",
-      !!editorToken
-    );
-
-    console.log(
-      "AUTHOR TOKEN EXISTS:",
-      !!authorToken
-    );
-
-    console.log(
-      "TOKEN EXISTS:",
-      !!token
-    );
-
-    /*
-     * =====================================================
-     * ADD AUTHORIZATION HEADER
-     * =====================================================
-     */
+    const token = editorToken || authorToken;
 
     if (token) {
-      config.headers.Authorization =
-        `Bearer ${token}`;
-
-      console.log(
-        "AUTHORIZATION HEADER ADDED"
-      );
-    } else {
-      console.warn(
-        "NO AUTHORIZATION TOKEN FOUND"
-      );
+      config.headers.Authorization = `Bearer ${token}`;
     }
 
     return config;

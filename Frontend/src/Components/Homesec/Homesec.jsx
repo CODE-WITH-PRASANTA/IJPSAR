@@ -94,19 +94,19 @@ const PharmaHero = () => {
             transition={{ delay: 0.6 }}
           >
             {/* 3. Added onClick for /submit-paper */}
-            <motion.button
-              className="submitBtn"
-              onClick={() => navigate("/submit-paper")} 
-              whileHover={{
-                scale: 1.05,
-              }}
-              whileTap={{
-                scale: 0.95,
-              }}
-            >
-              Submit Paper
-              <FaArrowRight />
-            </motion.button>
+           <motion.button
+  className="submitBtn"
+  onClick={() => window.open("https://author.ijpasr.com/", "_blank")}
+  whileHover={{
+    scale: 1.05,
+  }}
+  whileTap={{
+    scale: 0.95,
+  }}
+>
+  Submit Paper
+  <FaArrowRight />
+</motion.button>
 
             {/* 4. Added onClick for /current-issue */}
             <motion.button

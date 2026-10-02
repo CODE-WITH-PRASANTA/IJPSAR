@@ -1,16 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // 1. Import useNavigate
 import "./IJwelcomes.css";
 import { FaArrowRight } from "react-icons/fa";
-import welcomeImage from '../../assets/FRONT-1.webp';
+import welcomeImage from "../../assets/FRONT-1.webp";
 
 const IJwelcomes = () => {
-  const navigate = useNavigate(); // 2. Initialize navigate function
+  const handleSubmitManuscript = () => {
+    window.location.href = "https://author.ijpasr.com/";
+  };
 
   return (
     <section className="ijwelcome">
       <div className="ijwelcome-container">
-        
+
         {/* LEFT CONTENT */}
         <div className="ijwelcome-left">
           <span className="ijwelcome-tag">
@@ -32,18 +33,19 @@ const IJwelcomes = () => {
         {/* RIGHT SECTION */}
         <div className="ijwelcome-right">
           <div className="ijwelcome-action-wrapper">
-            
-            {/* JPG IMAGE ABOVE BUTTON */}
-            <img 
-              src={welcomeImage} 
-              alt="Submit Guideline" 
-              className="ijwelcome-top-img" 
+
+            {/* IMAGE ABOVE BUTTON */}
+            <img
+              src={welcomeImage}
+              alt="Submit Guideline"
+              className="ijwelcome-top-img"
             />
 
-            {/* BUTTON */}
-            <button 
+            {/* SUBMIT MANUSCRIPT BUTTON */}
+            <button
+              type="button"
               className="ijwelcome-btn"
-              onClick={() => navigate("/submit-manuscript")} // 3. Added navigate onClick
+              onClick={handleSubmitManuscript}
             >
               Submit Manuscript
               <FaArrowRight className="ijwelcome-btn-icon" />

@@ -16,9 +16,6 @@ API.interceptors.request.use(
       config.headers.Authorization = `Bearer ${authorToken}`;
     }
 
-    console.log("API URL:", config.url);
-    console.log("TOKEN SENT:", authorToken ? "YES" : "NO");
-
     return config;
   },
   (error) => Promise.reject(error)

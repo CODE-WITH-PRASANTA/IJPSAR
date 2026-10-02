@@ -23,12 +23,18 @@ const Isuee = () => {
 
   const fetchArticles = async () => {
     try {
-      const { data } = await API.get("/submitform/all");
+      // 1. Use the public published route instead of the admin-only /all
+      const { data } = await API.get("/submitform/published/all");
 
       console.log("Articles Response:", data);
 
       if (data?.success) {
-        setArticles(data.data.filter((paper) => paper.status === "Published"));
+        // Since the backend already returns published papers, you can set directly
+        // or keep the filter as an extra safeguard:
+        const publishedOnly = Array.isArray(data.data)
+          ? data.data.filter((paper) => paper.status === "Published")
+          : [];
+        setArticles(publishedOnly);
       }
     } catch (error) {
       console.error("Fetch Error:", error);
@@ -74,7 +80,6 @@ const Isuee = () => {
 
                     <div className="isuee-date">
                       <FaCalendarAlt />
-
                       {new Date(item.createdAt).toLocaleDateString()}
                     </div>
                   </div>
@@ -99,7 +104,7 @@ const Isuee = () => {
                   <div className="isuee-card-bottom">
                     {item.paperFile && (
                       <a
-                        href={`http://localhost:5000${item.paperFile}`}
+                        href={`https://backend.ijpasr.com${item.paperFile}`}
                         target="_blank"
                         rel="noreferrer"
                         className="isuee-pdf-btn"
