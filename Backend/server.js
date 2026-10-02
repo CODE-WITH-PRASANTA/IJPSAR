@@ -39,6 +39,7 @@ const allowedOrigins = [
   "https://reviewer.ijpasr.com",
 ];
 
+
 app.use(
   cors({
     origin: function (origin, callback) {

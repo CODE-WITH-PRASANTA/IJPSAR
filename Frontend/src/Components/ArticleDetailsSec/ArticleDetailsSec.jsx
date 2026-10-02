@@ -17,6 +17,22 @@ import "./ArticleDetailsSec.css";
 // Dynamic configuration base link variable with port segments removed
 const BACKEND_BASE_URL = import.meta.env.VITE_API_URL || "";
 
+/* =========================================================
+   RESOLVE PDF SOURCE
+   New papers   → editor's finalPaper.file
+   Legacy papers → paperFile (original submission)
+========================================================= */
+
+const getPdfSource = (article) => {
+  if (!article) return "";
+
+  if (article.finalPaper?.file) {
+    return article.finalPaper.file;
+  }
+
+  return article.paperFile || "";
+};
+
 const ArticleDetails = () => {
   const { id } = useParams();
   const [article, setArticle] = useState(null);
@@ -68,13 +84,16 @@ const ArticleDetails = () => {
 
   // Enhanced dynamic file reference builder (No ports assigned)
   const handleDownloadPDF = () => {
-    if (!article?.paperFile) {
+    const pdfSource = getPdfSource(article);
+
+    if (!pdfSource) {
       alert(
         "No printable manuscript or publication file resource linked with this profile.",
       );
       return;
     }
-    let fileUrl = article.paperFile;
+
+    let fileUrl = pdfSource;
 
     if (fileUrl.startsWith("http://") || fileUrl.startsWith("https://")) {
       window.open(fileUrl, "_blank", "noopener,noreferrer");
@@ -388,9 +407,12 @@ const ArticleDetails = () => {
             <button
               className="articleDetailsBtn primary"
               onClick={handleDownloadPDF}
-              disabled={!article?.paperFile}
+              disabled={!getPdfSource(article)}
             >
-              <FaFilePdf /> Download PDF
+              <FaFilePdf />{" "}
+              {article?.finalPaper?.file
+                ? "Download Final Paper"
+                : "Download PDF"}
             </button>
             <button className="articleDetailsBtn" onClick={handleCiteAction}>
               <FaQuoteRight /> Cite

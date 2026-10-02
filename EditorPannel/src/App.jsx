@@ -41,10 +41,10 @@ function App() {
               element={<Dashboard />}
             />
 
-            <Route
+            {/* <Route
               path="paper-management"
               element={<PaperManagement />}
-            />
+            /> */}
 
             <Route
               path="review-paper"

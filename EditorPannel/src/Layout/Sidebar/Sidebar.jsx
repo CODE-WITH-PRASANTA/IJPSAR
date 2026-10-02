@@ -119,14 +119,14 @@ const Sidebar = ({ sidebarCollapsed, mobileSidebar, setMobileSidebar }) => {
 
           {openMenu === "paper" && !sidebarCollapsed && (
             <div className="sidebarDropdown">
-              <NavLink to="/paper-management" className="sidebarSubItem">
+              {/* <NavLink to="/paper-management" className="sidebarSubItem">
                 <FaFileAlt />
                 <span>Assigned Papers</span>
-              </NavLink>
+              </NavLink> */}
 
               <NavLink to="/review-paper" className="sidebarSubItem">
                 <FaBook />
-                <span>Review Papers</span>
+                <span>Assigned Papers</span>
               </NavLink>
 
               <NavLink to="/publication" className="sidebarSubItem">
