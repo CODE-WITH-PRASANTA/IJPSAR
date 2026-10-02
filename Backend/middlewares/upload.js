@@ -57,37 +57,18 @@ const storage = multer.memoryStorage();
 
 const MIME_TYPES = {
   /* ================= IMAGE ================= */
-<<<<<<< HEAD
 
   JPG: ["image/jpeg", "image/jpg"],
-=======
-  JPG: [
-    "image/jpeg",
-    "image/jpg",
-  ],
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
 
   PNG: ["image/png"],
 
   /* ================= PDF ================= */
-<<<<<<< HEAD
 
   PDF: ["application/pdf"],
 
   /* ================= WORD ================= */
 
   DOC: ["application/msword"],
-=======
-  PDF: [
-    "application/pdf",
-  ],
-
-  /* ================= WORD ================= */
-  DOC: [
-    "application/msword",
-    "application/octet-stream",
-  ],
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
 
   DOCX: [
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -96,16 +77,8 @@ const MIME_TYPES = {
   ],
 
   /* ================= ZIP ================= */
-<<<<<<< HEAD
 
   ZIP: ["application/zip", "application/x-zip-compressed", "multipart/x-zip"],
-=======
-  ZIP: [
-    "application/zip",
-    "application/x-zip-compressed",
-    "multipart/x-zip",
-  ],
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
 };
 
 /* =========================================================
@@ -144,29 +117,13 @@ const isPNG = (mime) => {
    PUBLICATION FILE VALIDATION
 ========================================================= */
 
-<<<<<<< HEAD
 const validatePublicationFile = (field, mime) => {
-=======
-const validatePublicationFile = (
-  field,
-  file
-) => {
-  const mime = file.mimetype || "";
-  const ext = path.extname(file.originalname).toLowerCase();
-
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
   /* =======================================================
      ACCEPTANCE LETTER (PDF ONLY)
   ======================================================= */
 
   if (field === "acceptanceLetter") {
-<<<<<<< HEAD
     return isPDF(mime) ? null : "Acceptance Letter must be a PDF file.";
-=======
-    return (isPDF(mime) || ext === ".pdf")
-      ? null
-      : "Acceptance Letter must be a PDF file.";
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
   }
 
   /* =======================================================
@@ -174,7 +131,6 @@ const validatePublicationFile = (
   ======================================================= */
 
   if (field === "galleyProof") {
-<<<<<<< HEAD
     return isPDF(mime) ? null : "Galley Proof must be a PDF file.";
   }
   /* =======================================================
@@ -204,21 +160,6 @@ const validatePublicationFile = (
 
   if (field === "correctedGalleyProof") {
     return isPDF(mime) ? null : "Corrected Galley Proof must be a PDF file.";
-=======
-    return (isPDF(mime) || ext === ".pdf")
-      ? null
-      : "Galley Proof must be a PDF file.";
-  }
-
-  /* =======================================================
-     CORRECTED GALLEY PROOF (PDF ONLY)
-  ======================================================= */
-
-  if (field === "correctedGalleyProof") {
-    return (isPDF(mime) || ext === ".pdf")
-      ? null
-      : "Corrected Galley Proof must be a PDF file.";
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
   }
 
   /* =======================================================
@@ -226,18 +167,7 @@ const validatePublicationFile = (
   ======================================================= */
 
   if (field === "copyrightTransferForm") {
-<<<<<<< HEAD
     if (isPDF(mime) || isDOC(mime) || isDOCX(mime)) {
-=======
-    if (
-      isPDF(mime) ||
-      isDOC(mime) ||
-      isDOCX(mime) ||
-      ext === ".pdf" ||
-      ext === ".doc" ||
-      ext === ".docx"
-    ) {
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
       return null;
     }
 
@@ -252,19 +182,7 @@ const validatePublicationFile = (
     field === "publicationFeePaymentProof" ||
     field === "publicationFeeProof"
   ) {
-<<<<<<< HEAD
     if (isPDF(mime) || isJPG(mime) || isPNG(mime)) {
-=======
-    if (
-      isPDF(mime) ||
-      isJPG(mime) ||
-      isPNG(mime) ||
-      ext === ".pdf" ||
-      ext === ".jpg" ||
-      ext === ".jpeg" ||
-      ext === ".png"
-    ) {
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
       return null;
     }
 
@@ -276,17 +194,7 @@ const validatePublicationFile = (
   ======================================================= */
 
   if (field === "authorPhotographs") {
-<<<<<<< HEAD
     if (isJPG(mime) || isPNG(mime)) {
-=======
-    if (
-      isJPG(mime) ||
-      isPNG(mime) ||
-      ext === ".jpg" ||
-      ext === ".jpeg" ||
-      ext === ".png"
-    ) {
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
       return null;
     }
 
@@ -297,24 +205,8 @@ const validatePublicationFile = (
      ADDITIONAL SUPPORTING FILES (PDF / DOC / DOCX / ZIP)
   ======================================================= */
 
-<<<<<<< HEAD
   if (field === "additionalSupportingFiles") {
     if (isPDF(mime) || isDOC(mime) || isDOCX(mime) || isZIP(mime)) {
-=======
-  if (
-    field === "additionalSupportingFiles"
-  ) {
-    if (
-      isPDF(mime) ||
-      isDOC(mime) ||
-      isDOCX(mime) ||
-      isZIP(mime) ||
-      ext === ".pdf" ||
-      ext === ".doc" ||
-      ext === ".docx" ||
-      ext === ".zip"
-    ) {
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
       return null;
     }
 
@@ -328,42 +220,19 @@ const validatePublicationFile = (
    FILE FILTER
 ========================================================= */
 
-<<<<<<< HEAD
 const fileFilter = (req, file, cb) => {
   const route = req.originalUrl || "";
 
   const mime = file.mimetype || "";
 
   const field = file.fieldname || "";
-=======
-const fileFilter = (
-  req,
-  file,
-  cb
-) => {
-  const route = req.originalUrl || "";
-  const mime = file.mimetype || "";
-  const field = file.fieldname || "";
-  const ext = path.extname(file.originalname).toLowerCase();
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
 
   /* =======================================================
      FINAL PUBLICATION WORKFLOW
   ======================================================= */
 
-<<<<<<< HEAD
   if (route.includes("/publication/") || route.includes("/accept/")) {
     const publicationError = validatePublicationFile(field, mime);
-=======
-  if (
-    route.includes("/publication/")
-  ) {
-    const publicationError =
-      validatePublicationFile(
-        field,
-        file
-      );
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
 
     if (publicationError) {
       return cb(new Error(publicationError));
@@ -376,13 +245,7 @@ const fileFilter = (
      STUDENT VALIDATION
   ======================================================= */
 
-<<<<<<< HEAD
   if (route.includes("/students")) {
-=======
-  if (
-    route.includes("/students")
-  ) {
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
     const imageFields = [
       "studentPhoto",
       "fatherPhoto",
@@ -403,57 +266,32 @@ const fileFilter = (
 
     const pdfOrImageFields = ["aadhaarStudent", "aadhaarParent"];
 
-<<<<<<< HEAD
     /* =====================================================
        IMAGE FIELDS
     ===================================================== */
 
     if (imageFields.includes(field)) {
       return isImage(mime)
-=======
-    if (
-      imageFields.includes(field)
-    ) {
-      return (isImage(mime) || [".jpg", ".jpeg", ".png"].includes(ext))
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
         ? cb(null, true)
         : cb(new Error(`${field} must be an image`));
     }
 
-<<<<<<< HEAD
     /* =====================================================
        PDF FIELDS
     ===================================================== */
 
     if (pdfFields.includes(field)) {
       return isPDF(mime)
-=======
-    if (
-      pdfFields.includes(field)
-    ) {
-      return (isPDF(mime) || ext === ".pdf")
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
         ? cb(null, true)
         : cb(new Error(`${field} must be a PDF`));
     }
 
-<<<<<<< HEAD
     /* =====================================================
        PDF OR IMAGE
     ===================================================== */
 
     if (pdfOrImageFields.includes(field)) {
       return isPDF(mime) || isImage(mime)
-=======
-    if (
-      pdfOrImageFields.includes(field)
-    ) {
-      return (
-        isPDF(mime) ||
-        isImage(mime) ||
-        [".pdf", ".jpg", ".jpeg", ".png"].includes(ext)
-      )
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
         ? cb(null, true)
         : cb(new Error(`${field} must be PDF or image`));
     }
@@ -463,22 +301,8 @@ const fileFilter = (
      DEFAULT VALIDATION
   ========================================================= */
 
-<<<<<<< HEAD
   if (isImage(mime) || isPDF(mime) || isDOC(mime) || isDOCX(mime)) {
     return cb(null, true);
-=======
-  if (
-    isImage(mime) ||
-    isPDF(mime) ||
-    isDOC(mime) ||
-    isDOCX(mime) ||
-    [".jpg", ".jpeg", ".png", ".pdf", ".doc", ".docx"].includes(ext)
-  ) {
-    return cb(
-      null,
-      true
-    );
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
   }
 
   return cb(new Error("Only images, PDF, DOC, DOCX files are allowed."));
@@ -494,14 +318,11 @@ const upload = multer({
   fileFilter,
 
   limits: {
-<<<<<<< HEAD
     /*
      * Maximum file size:
      * 100 MB
      */
 
-=======
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
     fileSize: 100 * 1024 * 1024,
   },
 });
@@ -510,7 +331,6 @@ const upload = multer({
    PROCESS FILE
 ========================================================= */
 
-<<<<<<< HEAD
 const processFile = async (file, uploadPath) => {
   const mime = file.mimetype || "";
 
@@ -528,26 +348,6 @@ const processFile = async (file, uploadPath) => {
     )}.webp`;
 
     const outputPath = path.join(uploadPath, filename);
-=======
-const processFile = async (
-  file,
-  uploadPath
-) => {
-  const mime = file.mimetype || "";
-  const ext = path.extname(file.originalname).toLowerCase();
-
-  if (isImage(mime) || [".jpg", ".jpeg", ".png"].includes(ext)) {
-    const filename =
-      `${file.fieldname}_${Date.now()}_${Math.round(
-        Math.random() * 100000
-      )}.webp`;
-
-    const outputPath =
-      path.join(
-        uploadPath,
-        filename
-      );
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
 
     await sharp(file.buffer)
       .resize(1200, 1200, {
@@ -561,7 +361,6 @@ const processFile = async (
     return "/" + outputPath.replace(/\\/g, "/");
   }
 
-<<<<<<< HEAD
   /* =======================================================
      DOCUMENT
 
@@ -576,10 +375,6 @@ const processFile = async (
   const ext = path.extname(file.originalname).toLowerCase();
 
   const safeExtension = ext || ".bin";
-=======
-  const safeExtension =
-    ext || ".bin";
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
 
   const filename = `${file.fieldname}_${Date.now()}_${Math.round(
     Math.random() * 100000,
@@ -596,7 +391,6 @@ const processFile = async (
    FILE PROCESSOR
 ========================================================= */
 
-<<<<<<< HEAD
 const convertToWebp = async (req, res, next) => {
   try {
     /* =====================================================
@@ -612,26 +406,8 @@ const convertToWebp = async (req, res, next) => {
     ===================================================== */
 
     const uploadPath = getUploadPath(req);
-=======
-const convertToWebp = async (
-  req,
-  res,
-  next
-) => {
-  try {
-    if (
-      !req.file &&
-      !req.files
-    ) {
-      return next();
-    }
-
-    const uploadPath =
-      getUploadPath(req);
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
 
     if (req.file) {
-<<<<<<< HEAD
       const pathSaved = await processFile(req.file, uploadPath);
 
       /*
@@ -645,26 +421,11 @@ const convertToWebp = async (
        */
 
       req.body[req.file.fieldname] = pathSaved;
-=======
-      const pathSaved =
-        await processFile(
-          req.file,
-          uploadPath
-        );
-
-      req.file.path =
-        pathSaved;
-
-      req.body[
-        req.file.fieldname
-      ] = pathSaved;
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
 
       console.log("FILE SAVED:", pathSaved);
     }
 
     if (req.files) {
-<<<<<<< HEAD
       for (const field in req.files) {
         const uploadedFiles = [];
 
@@ -688,65 +449,18 @@ const convertToWebp = async (
           ============================================== */
 
           req.body[field] = uploadedFiles;
-=======
-      for (
-        const field in req.files
-      ) {
-        const uploadedFiles =
-          [];
-
-        for (
-          const file of
-          req.files[field]
-        ) {
-          const pathSaved =
-            await processFile(
-              file,
-              uploadPath
-            );
-
-          file.path =
-            pathSaved;
-
-          uploadedFiles.push(
-            pathSaved
-          );
-        }
-
-        if (
-          uploadedFiles.length === 1
-        ) {
-          req.body[field] =
-            uploadedFiles[0];
-        } else {
-          req.body[field] =
-            uploadedFiles;
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
         }
       }
     }
 
     next();
   } catch (err) {
-<<<<<<< HEAD
     console.error("UPLOAD ERROR:", err);
 
     return res.status(500).json({
       success: false,
 
       message: err.message || "File upload failed.",
-=======
-    console.error(
-      "UPLOAD ERROR:",
-      err
-    );
-
-    return res.status(500).json({
-      success: false,
-      message:
-        err.message ||
-        "File upload failed.",
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
     });
   }
 };
@@ -755,19 +469,12 @@ const convertToWebp = async (
    DELETE FILE
 ========================================================= */
 
-<<<<<<< HEAD
 const deleteImageFile = (imagePath) => {
-=======
-const deleteImageFile = (
-  imagePath
-) => {
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
   try {
     if (!imagePath) {
       return;
     }
 
-<<<<<<< HEAD
     /*
      * Remove leading slash.
      *
@@ -781,44 +488,16 @@ const deleteImageFile = (
      */
 
     const cleanPath = imagePath.replace(/^\/+/, "");
-=======
-    const cleanPath =
-      imagePath.replace(
-        /^\/+/,
-        ""
-      );
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
 
     const fullPath = path.join(__dirname, "..", cleanPath);
 
-<<<<<<< HEAD
     if (fs.existsSync(fullPath)) {
       fs.unlinkSync(fullPath);
 
       console.log("Deleted:", fullPath);
-=======
-    if (
-      fs.existsSync(fullPath)
-    ) {
-      fs.unlinkSync(
-        fullPath
-      );
-
-      console.log(
-        "Deleted:",
-        fullPath
-      );
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
     }
   } catch (err) {
-<<<<<<< HEAD
     console.error("DELETE ERROR:", err);
-=======
-    console.error(
-      "DELETE ERROR:",
-      err
-    );
->>>>>>> 5e5e221369f78495de3988185772ed3b05b7f240
   }
 };
 
