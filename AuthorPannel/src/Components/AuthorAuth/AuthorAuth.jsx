@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AuthorAuth.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { API } from "../../api/Axios";
 import Swal from "sweetalert2";
 
@@ -12,24 +12,23 @@ const getErrorMessage = (error) => {
     return error.message || "Network error. Please verify your connection.";
   }
 
-  // Case 1: Backend sends an array of validation errors (e.g., express-validator)
   if (Array.isArray(data.errors)) {
     return data.errors
       .map((err) => `• ${err.msg || err.message || err}`)
       .join("<br/>");
   }
 
-  // Case 2: Backend sends an object of field errors (e.g., Mongoose validation)
   if (typeof data.errors === "object" && data.errors !== null) {
     return Object.values(data.errors)
       .map((val) => `• ${val.message || val}`)
       .join("<br/>");
   }
 
-  // Case 3: Standard single string response: data.message or data.error
   if (data.message) return data.message;
   if (data.error) {
-    return typeof data.error === "string" ? data.error : JSON.stringify(data.error);
+    return typeof data.error === "string"
+      ? data.error
+      : JSON.stringify(data.error);
   }
 
   return "An unexpected error occurred. Please try again.";
@@ -51,6 +50,24 @@ const AuthorAuth = () => {
   const [formData, setFormData] = useState(initialFormData);
 
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Show a message if redirected here due to session expiry
+  useEffect(() => {
+    if (searchParams.get("reason") === "session-expired") {
+      Swal.fire({
+        icon: "info",
+        title: "Session Expired",
+        text: "Your session has expired. Please log in again to continue.",
+        confirmButtonColor: "#2563EB",
+        background: "#ffffff",
+      });
+
+      // Clean the URL so refresh doesn't re-show it
+      searchParams.delete("reason");
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,7 +93,6 @@ const AuthorAuth = () => {
           password: formData.password,
         });
 
-        // 1. Success case
         if (data.success) {
           localStorage.setItem("authorToken", data.token);
           localStorage.setItem("author", JSON.stringify(data.user));
@@ -95,23 +111,25 @@ const AuthorAuth = () => {
             navigate("/dashboard");
           });
         } else {
-          // 2. Handles HTTP 200 responses returning { success: false, message: "..." }
           Swal.fire({
             icon: "error",
             title: "Login Failed",
-            text: data.message || "Invalid credentials, please check your input.",
+            text:
+              data.message ||
+              "Invalid credentials, please check your input.",
             confirmButtonColor: "#EF4444",
             background: "#ffffff",
           });
         }
       } catch (error) {
-        // 3. Handles standard HTTP error codes (400, 401, 500) and network failures
         console.error("Login Error:", error);
 
         Swal.fire({
           icon: "error",
           title: "Login Failed",
-          html: `<div style="text-align: center; padding: 4px 8px; font-size: 14px; line-height: 1.6; color: #374151;">${getErrorMessage(error)}</div>`,
+          html: `<div style="text-align: center; padding: 4px 8px; font-size: 14px; line-height: 1.6; color: #374151;">${getErrorMessage(
+            error
+          )}</div>`,
           confirmButtonColor: "#EF4444",
           background: "#ffffff",
         });
@@ -119,7 +137,6 @@ const AuthorAuth = () => {
         setLoading(false);
       }
     } else {
-      // Registration field validations
       if (formData.password !== formData.confirmPassword) {
         return Swal.fire({
           icon: "warning",
@@ -163,7 +180,9 @@ const AuthorAuth = () => {
           Swal.fire({
             icon: "error",
             title: "Registration Failed",
-            html: `<div style="text-align: center; font-size: 14px; color: #374151;">${data.message || "Could not complete registration."}</div>`,
+            html: `<div style="text-align: center; font-size: 14px; color: #374151;">${
+              data.message || "Could not complete registration."
+            }</div>`,
             confirmButtonColor: "#EF4444",
             background: "#ffffff",
           });
@@ -174,7 +193,9 @@ const AuthorAuth = () => {
         Swal.fire({
           icon: "error",
           title: "Registration Failed",
-          html: `<div style="text-align: left; padding: 4px 8px; font-size: 14px; line-height: 1.6; color: #374151;">${getErrorMessage(error)}</div>`,
+          html: `<div style="text-align: left; padding: 4px 8px; font-size: 14px; line-height: 1.6; color: #374151;">${getErrorMessage(
+            error
+          )}</div>`,
           confirmButtonColor: "#EF4444",
           background: "#ffffff",
         });
@@ -187,7 +208,6 @@ const AuthorAuth = () => {
   return (
     <div className="auth-page">
       <div className="auth-box">
-        {/* Left Branding Side */}
         <div className="auth-left">
           <div className="floating-bg-glow"></div>
           <h1>Journal Portal</h1>
@@ -203,7 +223,6 @@ const AuthorAuth = () => {
           />
         </div>
 
-        {/* Right Form Side */}
         <div className="auth-right">
           <form onSubmit={handleSubmit} className="modern-form">
             <h2>{isLogin ? "Author Login" : "Create Account"}</h2>
@@ -295,13 +314,19 @@ const AuthorAuth = () => {
 
             <button type="submit" className="premium-btn" disabled={loading}>
               <span>
-                {loading ? "Processing..." : isLogin ? "Sign In" : "Get Started"}
+                {loading
+                  ? "Processing..."
+                  : isLogin
+                  ? "Sign In"
+                  : "Get Started"}
               </span>
               <div className="btn-glow"></div>
             </button>
 
             <div className="toggle">
-              {isLogin ? "Don't have an account? " : "Already have an account? "}
+              {isLogin
+                ? "Don't have an account? "
+                : "Already have an account? "}
               <span onClick={handleToggleMode}>
                 {isLogin ? "Register Here" : "Login Here"}
               </span>

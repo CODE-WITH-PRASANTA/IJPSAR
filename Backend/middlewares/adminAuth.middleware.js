@@ -2,17 +2,12 @@ const jwt = require("jsonwebtoken");
 
 const adminAuth = (req, res, next) => {
   try {
-    console.log(
-      "========== ADMIN AUTH =========="
-    );
+    
 
     const authHeader =
       req.headers.authorization;
 
-    console.log(
-      "AUTHORIZATION HEADER EXISTS:",
-      Boolean(authHeader)
-    );
+    
 
     /* =====================================================
        GET BEARER TOKEN
@@ -25,9 +20,8 @@ const adminAuth = (req, res, next) => {
         : null;
 
     if (!token) {
-      console.log(
-        "ADMIN TOKEN NOT FOUND"
-      );
+      
+      
 
       return res.status(401).json({
         success: false,
@@ -46,19 +40,7 @@ const adminAuth = (req, res, next) => {
         process.env.JWT_SECRET
       );
 
-    console.log(
-      "ADMIN TOKEN VERIFIED"
-    );
-
-    console.log(
-      "ADMIN ID:",
-      decoded.adminId
-    );
-
-    console.log(
-      "ADMIN ROLE:",
-      decoded.role
-    );
+   
 
     /* =====================================================
        SAVE ADMIN INFORMATION

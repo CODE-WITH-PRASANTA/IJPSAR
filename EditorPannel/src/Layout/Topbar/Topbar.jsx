@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import profileImg from "../../assets/hero.png";
 import API from "../../api/axios";
 
+import Swal from "sweetalert2";
 const Topbar = ({
   sidebarCollapsed,
   setSidebarCollapsed,
@@ -128,20 +129,46 @@ const Topbar = ({
   // Logout
   // ===========================
 
-  const handleLogout = () => {
-    const confirmLogout = window.confirm("Are you sure you want to logout?");
+  const handleLogout = async () => {
+    // 1. Ask for confirmation with styled modal
+    const result = await Swal.fire({
+      title: "Log Out?",
+      text: "You will be signed out of the editorial dashboard.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Log Out",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#EF4444", // red — destructive action
+      cancelButtonColor: "#64748B", // neutral gray
+      background: "#ffffff",
+      reverseButtons: true, // Cancel on left, Confirm on right (safer UX)
+      focusCancel: true, // Default focus on Cancel (safer)
+      allowOutsideClick: false,
+      allowEscapeKey: true,
+    });
 
-    if (!confirmLogout) return;
+    // 2. User cancelled
+    if (!result.isConfirmed) return;
 
-    // Remove Login Data
+    // 3. Show loading state while clearing
+    Swal.fire({
+      title: "Logging out…",
+      html: "Please wait a moment.",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
 
+    // 4. Clear storage
     localStorage.clear();
-
     sessionStorage.clear();
 
-    // Redirect Login Page
-
-    navigate("/editor-login");
+    setTimeout(() => {
+      Swal.close();
+      navigate("/editor-login", { replace: true });
+    }, 600);
   };
   return (
     <div className={`Topbar ${sidebarCollapsed ? "TopbarCollapsed" : ""}`}>

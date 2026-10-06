@@ -82,16 +82,11 @@ exports.createAdmin = async (req, res) => {
 
 exports.adminLogin = async (req, res) => {
   try {
-    console.log(
-      "========== ADMIN LOGIN =========="
-    );
+   
 
     const { email, password } = req.body;
 
-    console.log(
-      "LOGIN EMAIL:",
-      email
-    );
+    
 
     /* =====================================================
        VALIDATION
@@ -155,10 +150,8 @@ exports.adminLogin = async (req, res) => {
       }
     );
 
-    console.log(
-      "ADMIN TOKEN CREATED:",
-      Boolean(token)
-    );
+   
+    
 
     /* =====================================================
        COOKIE

@@ -63,7 +63,7 @@ exports.login = async (req, res) => {
         role: "author",
       },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "1d" }
     );
 
     return res.status(200).json({

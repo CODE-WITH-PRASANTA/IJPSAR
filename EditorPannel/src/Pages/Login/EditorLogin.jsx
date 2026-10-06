@@ -1,7 +1,42 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../API/axios";
+import Swal from "sweetalert2";
 import "./EditorLogin.css";
+
+/* =========================================================
+   ERROR MESSAGE EXTRACTOR
+   Handles: array errors, object errors, {message}, {error},
+   network failures, and generic fallbacks.
+========================================================= */
+const getErrorMessage = (error) => {
+  const data = error.response?.data;
+
+  if (!data) {
+    return error.message || "Network error. Please verify your connection.";
+  }
+
+  if (Array.isArray(data.errors)) {
+    return data.errors
+      .map((err) => `• ${err.msg || err.message || err}`)
+      .join("<br/>");
+  }
+
+  if (typeof data.errors === "object" && data.errors !== null) {
+    return Object.values(data.errors)
+      .map((val) => `• ${val.message || val}`)
+      .join("<br/>");
+  }
+
+  if (data.message) return data.message;
+  if (data.error) {
+    return typeof data.error === "string"
+      ? data.error
+      : JSON.stringify(data.error);
+  }
+
+  return "An unexpected error occurred. Please try again.";
+};
 
 const EditorLogin = () => {
   const navigate = useNavigate();
@@ -23,20 +58,67 @@ const EditorLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    // Basic client-side validation
+    if (!formData.email || !formData.password) {
+      return Swal.fire({
+        icon: "warning",
+        title: "Missing Fields",
+        text: "Please enter both email and password.",
+        confirmButtonColor: "#F59E0B",
+        background: "#ffffff",
+      });
+    }
+
     try {
       setLoading(true);
 
       const res = await API.post("/editor/login", formData);
 
-      localStorage.setItem("editorToken", res.data.token);
+      // Success case
+      if (res.data?.success !== false && res.data?.token) {
+        localStorage.setItem("editorToken", res.data.token);
+        localStorage.setItem(
+          "editorData",
+          JSON.stringify(res.data.editor)
+        );
 
-      localStorage.setItem("editorData", JSON.stringify(res.data.editor));
-
-      alert("Login Successful");
-
-      navigate("/");
+        Swal.fire({
+          icon: "success",
+          title: "Welcome Back, Editor!",
+          text: "Login Successful",
+          background: "#ffffff",
+          confirmButtonColor: "#2563EB",
+          iconColor: "#10B981",
+          timer: 1800,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate("/");
+        });
+      } else {
+        // Backend returned success:false with 200
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text:
+            res.data?.message ||
+            "Invalid credentials, please check your input.",
+          confirmButtonColor: "#EF4444",
+          background: "#ffffff",
+        });
+      }
     } catch (error) {
-      alert(error?.response?.data?.message || "Login Failed");
+      console.error("Editor Login Error:", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        html: `<div style="text-align: center; padding: 4px 8px; font-size: 14px; line-height: 1.6; color: #374151;">${getErrorMessage(
+          error
+        )}</div>`,
+        confirmButtonColor: "#EF4444",
+        background: "#ffffff",
+      });
     } finally {
       setLoading(false);
     }
