@@ -1,6 +1,6 @@
 // src/api/Axios.js
 import axios from "axios";
-import { logoutUser } from "../utils/auth";
+import { logoutUser } from "../Utils/auth";
 
 export const BASE_URL = "http://localhost:5000";
 export const IMG_URL = BASE_URL;
