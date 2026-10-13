@@ -167,12 +167,6 @@ const Footer = () => {
             © 2026 IJPASR | Developed by PR WEBSTOCK
           </p>
 
-          {/* <div className="footerBottomRight">
-            <span>ISSN: Applied</span>
-            <BsDot />
-            <span>Open Access</span>
-          </div> */}
-
         </div>
       </div>
     </footer>

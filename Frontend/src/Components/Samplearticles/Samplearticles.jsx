@@ -32,11 +32,11 @@ const Samplearticles = () => {
 
   const fetchArticles = async () => {
     try {
-      const { data } = await API.get("/submitform/all");
+      // Updated to use the dedicated published endpoint
+      const { data } = await API.get("/submitform/published/all");
 
       if (data.success) {
         const published = data.data
-          .filter((paper) => paper.status === "Published")
           .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
           .slice(0, 6);
 
@@ -78,21 +78,21 @@ const Samplearticles = () => {
           </div>
 
           {/* WHATSAPP LEARN MORE BUTTON */}
-         <a
-  href="https://wa.me/918868855677?text=Hello%2C%20I%20would%20like%20to%20learn%20more"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="samplearticles-view-btn"
-  style={{
-    textDecoration: "none",
-    display: "inline-flex",
-    alignItems: "center",
-    gap: "8px",
-  }}
->
-  <FaWhatsapp style={{ fontSize: "1.2rem" }} />
-  Learn More <FaArrowRight />
-</a>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="samplearticles-view-btn"
+            style={{
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <FaWhatsapp style={{ fontSize: "1.2rem" }} />
+            Learn More <FaArrowRight />
+          </a>
         </div>
 
         {/* MOBILE NAV */}
