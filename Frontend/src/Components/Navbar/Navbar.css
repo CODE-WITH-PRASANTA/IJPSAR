@@ -1,697 +1,884 @@
+
 /* =========================================
-   CORE CONTAINER STRUCTURE & FIXED BEHAVIOR
-/* =========================================
-   Navbar
+   NAVBAR STICKY SLOT
 ========================================= */
-.navbarMainContainer {
+
+.navbarStickySlot {
+  position: relative;
   width: 100%;
-  background: #ffffff;
-  position: relative; /* or simply remove this line */
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  z-index: 9999;
 }
 
+.navbarStickySlot.navbarIsFixed {
+  height: var(--navbar-height, 82px);
+}
+
+/* =========================================
+   MAIN NAVBAR
+========================================= */
+
+.navbarMainContainer {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 3px solid #17733e;
+  box-shadow: 0 5px 20px rgba(25, 55, 35, 0.07);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.navbarMainContainer.navbarIsStuck {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 9999;
+  box-shadow: 0 5px 22px rgba(25, 55, 35, 0.14);
+  animation: navbarSlideDown 0.22s ease-out;
+}
+
+@keyframes navbarSlideDown {
+  from {
+    transform: translateY(-8px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   NAVBAR INNER WRAPPER
+========================================= */
+
 .navbarWrapper {
-  max-width: 1650px;
+  width: 100%;
+  max-width: 1800px;
+  min-height: 82px;
   margin: 0 auto;
-  height: 105px; /* Boosted slightly to 105px for perfect stacked proportion room */
+  padding: 10px 3%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 30px;
-  gap: 30px;
+  gap: 20px;
+  box-sizing: border-box;
 }
 
 /* =========================================
-   LEFT BRAND SECTION
+   BRAND / LOGO
 ========================================= */
+
 .navbarBrandSection {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   flex-shrink: 0;
-}
-
-.navbarLogoLink {
-  display: flex;
-  align-items: center;
+  min-width: 220px;
+  color: inherit;
+  text-decoration: none;
 }
 
 .navbarLogo {
-  width: 64px;
-  height: 64px;
+  display: block;
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
   object-fit: contain;
-  border-radius: 8px;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
 }
 
-.navbarLogo:hover {
+.navbarBrandSection:hover .navbarLogo {
   transform: scale(1.04);
 }
 
-.navbarBrandMeta {
+.navbarBrandText {
   display: flex;
   flex-direction: column;
   gap: 3px;
+  min-width: 0;
 }
 
-.navbarMetaBadge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #64748b;
-  font-size: 11px;
-  font-weight: 500;
+.navbarBrandTitle {
+  color: #11723d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 31px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.4px;
+}
+
+.navbarBrandSubtitle {
+  max-width: 180px;
+  overflow: hidden;
+  color: #7b8580;
+  font-size: 10px;
   white-space: nowrap;
-}
-
-.navbarMetaIcon {
-  color: #66c641;
-  font-size: 12px;
+  text-overflow: ellipsis;
 }
 
 /* =========================================
-   MIDDLE VERTICAL STACKED LAYOUT
+   DESKTOP NAVIGATION MENU
 ========================================= */
-.navbarMiddleStack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px; /* Space between the Email Bar and Link Titles */
-  flex: 1;
-}
 
-/* =========================================
-   DESKTOP EMAIL STRIP (TOP OF TITLES)
-========================================= */
-.navbarEmailRibbon {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: #f8fafc; /* Premium sleek accent background box */
-  border: 1px solid #e2e8f0;
-  padding: 4px 16px;
-  border-radius: 20px; /* High-end pill style shape */
-}
-
-.navbarEmailLink {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  color: #64748b;
-  font-size: 12.5px;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.navbarEmailLink:hover {
-  color: #66c641;
-}
-
-.navbarEmailIcon {
-  font-size: 14px;
-  color: #94a3b8;
-}
-
-.navbarEmailDivider {
-  width: 1px;
-  height: 12px;
-  background: #cbd5e1;
-}
-
-/* =========================================
-   NAVIGATION LINKS MAIN BLOCK (BOTTOM OF STACK)
-========================================= */
 .navbarMenuContainer {
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: clamp(12px, 1.4vw, 21px);
+  min-width: 0;
 }
 
 .navbarMenuItem {
   position: relative;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  font-size: 14.5px;
-  font-weight: 600;
-  color: #1e293b;
-  cursor: pointer;
-  padding: 4px 0;
-  transition: color 0.25s ease;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 0;
+  border: 0;
+  background: transparent;
+  color: #17212b;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.4;
   white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.25s ease;
 }
 
 .navbarMenuItem::after {
-  content: "";
   position: absolute;
-  bottom: -4px;
-  left: 50%;
-  width: 0%;
-  height: 2px;
-  background: #66c641;
-  transform: translateX(-50%);
-  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  right: 0;
+  bottom: 2px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  margin: auto;
+  background: #147541;
+  content: "";
+  transition: width 0.25s ease;
 }
 
-.navbarMenuItem:hover {
-  color: #66c641;
+.navbarMenuItem:hover,
+.navbarMenuItem:focus-visible {
+  color: #147541;
 }
 
-.navbarMenuItem:hover::after {
+.navbarMenuItem:hover::after,
+.navbarMenuItem:focus-visible::after {
   width: 100%;
 }
 
-/* =========================================
-   DROPDOWN HOVER ARCHITECTURE
-========================================= */
+.navbarHomeItem {
+  color: #147541;
+  font-weight: 700;
+}
+
+.navbarHomeItem::after {
+  width: 100%;
+}
+
 .navbarDropdownContainer {
   position: relative;
+  flex-shrink: 0;
 }
 
-.navbarDropdownContainer:hover .navbarDropdownMenu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0px);
-  pointer-events: auto;
-}
-
-.navbarDropdownMenu {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 1000;
-}
-
-.navbarSmallDropdown {
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.navbarLargeDropdown {
-  width: 440px;
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.navbarDropdownColumn {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.navbarDropdownTitle {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #66c641;
-  margin-bottom: 6px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.navbarDropdownItem {
-  text-decoration: none;
-  color: #475569;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-}
-
-.navbarDropdownItem:hover {
-  background: rgba(102, 198, 65, 0.06);
-  color: #66c641;
-  transform: translateX(3px);
+.navbarDropdownTrigger {
+  width: 100%;
 }
 
 .navbarArrowIcon {
-  font-size: 9px;
+  flex-shrink: 0;
+  font-size: 10px;
   transition: transform 0.25s ease;
 }
 
-.navbarDropdownContainer:hover .navbarArrowIcon {
+.navbarDropdownContainer:hover .navbarArrowIcon,
+.navbarDropdownOpen .navbarArrowIcon {
   transform: rotate(180deg);
 }
 
 /* =========================================
-   RIGHT ACTION CONTROLS & DESKTOP BUTTONS
+   ABOUT / ARTICLES DROPDOWNS
 ========================================= */
+
+.navbarDropdownMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  z-index: 10001;
+  padding: 12px;
+  border: 1px solid #e7eee8;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgba(20, 55, 32, 0.13);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    visibility 0.22s ease;
+}
+
+.navbarDropdownContainer:hover > .navbarDropdownMenu,
+.navbarDropdownContainer:focus-within > .navbarDropdownMenu,
+.navbarDropdownOpen > .navbarDropdownMenu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.navbarSmallDropdown {
+  display: flex;
+  flex-direction: column;
+  width: 265px;
+}
+
+.navbarLargeDropdown {
+  display: flex;
+  width: 370px;
+  gap: 18px;
+}
+
+.navbarDropdownColumn {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.navbarDropdownTitle {
+  margin: 0 0 5px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e9efe9;
+  color: #147541;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.navbarDropdownItem {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 7px;
+  color: #435148;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    padding 0.2s ease;
+}
+
+.navbarDropdownItem:hover {
+  padding-left: 16px;
+  background: #f0f7f1;
+  color: #147541;
+}
+
+/* =========================================
+   RIGHT ACTION CONTROLS
+========================================= */
+
 .navbarActionControlCluster {
   display: flex;
   align-items: center;
-  gap: 14px;
+  justify-content: flex-end;
   flex-shrink: 0;
+  gap: 10px;
 }
+
+/* =========================================
+   LOGIN BUTTON
+========================================= */
 
 .navbarLoginDropdown {
   position: relative;
+  flex-shrink: 0;
 }
 
 .navbarLoginButton {
-  display: flex;
+  display: inline-flex;
+  min-height: 42px;
   align-items: center;
-  gap: 6px;
-  background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  padding: 8px 16px;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border: 1px solid #cbd8d0;
   border-radius: 8px;
-  color: #475569;
-  font-size: 14px;
-  font-weight: 600;
+  background: #ffffff;
+  color: #17212b;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
-.navbarLoginButton:hover {
-  border-color: #66c641;
-  color: #66c641;
+.navbarLoginButton:hover,
+.navbarLoginDropdown:focus-within .navbarLoginButton {
+  border-color: #147541;
+  background: #f7fbf7;
+  color: #147541;
 }
 
 .navbarLoginIcon {
-  font-size: 15px;
+  font-size: 18px;
 }
+
+.navbarLoginArrow {
+  margin-left: 2px;
+  font-size: 10px;
+  transition: transform 0.25s ease;
+}
+
+.navbarLoginDropdown:hover .navbarLoginArrow,
+.navbarLoginDropdown:focus-within .navbarLoginArrow {
+  transform: rotate(180deg);
+}
+
+/* =========================================
+   LOGIN DROPDOWN
+========================================= */
 
 .navbarLoginDropdownMenu {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 7px);
   right: 0;
-  min-width: 155px;
+  z-index: 10002;
+  width: 180px;
+  padding: 7px 0;
+  border: 1px solid #e4ebe5;
+  border-radius: 10px;
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 8px;
-  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(20, 55, 32, 0.13);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(8px);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  z-index: 1000;
+  transform: translateY(7px);
+  transition: all 0.22s ease;
 }
 
-.navbarLoginDropdown:hover .navbarLoginDropdownMenu {
+.navbarLoginDropdownMenu::before {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  left: 0;
+  height: 8px;
+  content: "";
+}
+
+.navbarLoginDropdown:hover .navbarLoginDropdownMenu,
+.navbarLoginDropdown:focus-within .navbarLoginDropdownMenu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-.navbarLoginDropdownLink {
+.navbarDesktopLoginOption {
   display: block;
-  padding: 10px 14px;
-  color: #475569;
-  text-decoration: none;
+  padding: 11px 15px;
+  color: #34443a;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
+  text-decoration: none;
   transition: all 0.2s ease;
 }
 
-.navbarLoginDropdownLink:hover {
-  background: rgba(102, 198, 65, 0.06);
-  color: #66c641;
+.navbarDesktopLoginOption:hover {
+  background: #eff7f0;
+  color: #147541;
 }
 
+/* =========================================
+   SUBMIT PAPER BUTTON
+========================================= */
+
 .navbarPrimarySubmitButton {
-  display: flex;
+  display: inline-flex;
+  min-height: 43px;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  background: #66c641;
+  padding: 10px 17px;
+  border: 1px solid #53bd3b;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #65cc45, #40b832);
+  box-shadow: 0 5px 15px rgba(70, 180, 49, 0.17);
   color: #ffffff;
-  border: none;
-  padding: 11px 22px;
-  border-radius: 8px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(102, 198, 65, 0.25);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
 .navbarPrimarySubmitButton:hover {
-  background: #54b030;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(102, 198, 65, 0.38);
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #45b934, #188448);
+  box-shadow: 0 10px 24px rgba(38, 135, 61, 0.25);
 }
 
 .submitIconAnim {
+  font-size: 16px;
   transition: transform 0.25s ease;
 }
 
 .navbarPrimarySubmitButton:hover .submitIconAnim {
-  transform: translate(2px, -2px) scale(1.05);
+  transform: translate(2px, -2px);
 }
 
-/* RESPONSIVE TOGGLES DEFAULT */
-.navbarMobileIcon, 
-.navbarCloseButton, 
-.navbarMobileActionGroup {
+/* =========================================
+   MOBILE ELEMENTS - HIDDEN ON DESKTOP
+========================================= */
+
+.navbarMobileIcon,
+.navbarCloseButton,
+.navbarMobileHeader,
+.navbarMobileActionGroup,
+.navbarBackdrop {
   display: none;
 }
 
 /* =========================================
-   MEDIA QUERY ARCHITECTURE (RESPONSIVE CONFIG)
+   LAPTOP RESPONSIVE
 ========================================= */
-@media (max-width: 1400px) {
-  .navbarMenuContainer {
-    gap: 16px;
-  }
-}
 
-@media (max-width: 1200px) {
+@media (max-width: 1450px) {
   .navbarWrapper {
-    padding: 0 20px;
-    height: 95px;
+    gap: 14px;
+    padding-right: 2%;
+    padding-left: 2%;
   }
-  .navbarMenuItem {
-    font-size: 13.5px;
-  }
-}
 
-@media (max-width: 1024px) {
-  .hide-mobile-meta {
-    display: none;
-  }
-}
-
-@media (max-width: 992px) {
-  .navbarWrapper {
-    height: 80px; /* Snaps down cleanly on mobile views */
-    padding: 0 16px;
+  .navbarBrandSection {
+    min-width: 205px;
+    gap: 9px;
   }
 
   .navbarLogo {
-    width: 50px;
-    height: 50px;
+    width: 54px;
+    height: 54px;
   }
 
-  .navbarEmailRibbon {
-    display: none; /* Desktop position hidden to avoid viewport clipping */
+  .navbarBrandTitle {
+    font-size: 28px;
   }
 
-  .navbarMobileIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 8px;
-    background: #f1f5f9;
-    border: 1px solid #e2e8f0;
-    color: #1e293b;
-    font-size: 18px;
-    cursor: pointer;
+  .navbarBrandSubtitle {
+    max-width: 145px;
+    font-size: 10px;
   }
 
-  /* SLIDE OVERLAY PANEL CONFIGURATION */
+  .navbarMenuContainer {
+    gap: 12px;
+  }
+
+  .navbarMenuItem {
+    font-size: 12px;
+  }
+
+  .navbarActionControlCluster {
+    gap: 8px;
+  }
+
+  .navbarLoginButton {
+    gap: 6px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .navbarPrimarySubmitButton {
+    gap: 7px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+/* =========================================
+   TABLET AND MOBILE DRAWER
+========================================= */
+
+@media (max-width: 1100px) {
+  .navbarWrapper {
+    min-height: 76px;
+    padding: 9px 20px;
+    gap: 12px;
+  }
+
+  .navbarLogo {
+    width: 52px;
+    height: 52px;
+  }
+
+  .navbarBrandSection {
+    min-width: 0;
+  }
+
+  .navbarBrandTitle {
+    font-size: 27px;
+  }
+
+  .navbarBrandSubtitle {
+    max-width: 180px;
+  }
+
   .navbarMenuContainer {
     position: fixed;
     top: 0;
-    left: -100%;
-    width: 290px;
-    max-width: 85%;
-    height: 100vh;
-    background: #ffffff;
-    border-right: 1px solid #e2e8f0;
+    left: 0;
+    z-index: 10001;
     display: flex;
+    width: 330px;
+    max-width: 88%;
+    height: 100vh;
+    height: 100dvh;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: flex-start;
-    gap: 12px;
-    padding: 80px 20px 30px;
+    gap: 3px;
+    padding: 0 20px 24px;
+    overflow-x: hidden;
     overflow-y: auto;
-    margin: 0;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    opacity: 0;
-    z-index: 999999;
-    box-shadow: 15px 0 40px rgba(0, 0, 0, 0.06);
+    border-right: 1px solid #e1e9e2;
+    background: #ffffff;
+    box-shadow: 15px 0 50px rgba(20, 55, 32, 0.12);
+    visibility: hidden;
+    transform: translateX(-105%);
+    transition:
+      transform 0.3s ease,
+      visibility 0.3s ease;
   }
 
   .navbarMenuActive {
-    left: 0;
-    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  /* BACKDROP */
+
+  .navbarBackdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: block;
+    border: 0;
+    background: rgba(15, 30, 20, 0.45);
+    cursor: pointer;
+  }
+
+  /* DRAWER HEADER */
+
+  .navbarMobileHeader {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    min-height: 68px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 -20px 10px;
+    padding: 12px 20px;
+    border-bottom: 1px solid #e7eee8;
+    background: #ffffff;
+    color: #147541;
+    font-size: 16px;
+    font-weight: 700;
   }
 
   .navbarCloseButton {
-    display: flex;
+    display: inline-flex;
+    width: 38px;
+    height: 38px;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 20px;
-    right: 16px;
-    width: 36px;
-    height: 36px;
+    border: 1px solid #e0e8e1;
     border-radius: 8px;
-    background: #f1f5f9;
-    color: #475569;
+    background: #f4f8f4;
+    color: #33443a;
     font-size: 16px;
     cursor: pointer;
   }
 
+  .navbarCloseButton:hover {
+    background: #eaf4eb;
+    color: #147541;
+  }
+
+  /* MOBILE LINKS */
+
   .navbarMenuItem {
+    display: flex;
     width: 100%;
     justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #f1f5f9;
+    padding: 13px 4px;
+    border-bottom: 1px solid #edf1ed;
     font-size: 15px;
-    color: #1e293b;
+    text-align: left;
+    white-space: normal;
   }
 
   .navbarMenuItem::after {
     display: none;
   }
 
-  .navbarDropdownMenu {
-    position: relative;
-    top: 0;
-    left: 0;
-    transform: none !important;
-    width: 100%;
-    display: none;
-    box-shadow: none;
-    border: none;
-    padding: 6px 0 6px 12px;
-    background: #f8fafc;
-    border-radius: 6px;
-    margin-top: 4px;
+  .navbarHomeItem {
+    color: #147541;
   }
 
-  .navbarDropdownContainer:hover .navbarDropdownMenu {
+  .navbarDropdownContainer {
+    width: 100%;
+  }
+
+  .navbarDropdownTrigger {
+    cursor: pointer;
+  }
+
+  /* CLICK-BASED DROPDOWNS */
+
+  .navbarDropdownMenu,
+  .navbarLargeDropdown,
+  .navbarSmallDropdown {
+    position: static;
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px 8px 10px 12px;
+    border: none;
+    border-radius: 0;
+    background: #f6faf6;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .navbarDropdownContainer:hover > .navbarDropdownMenu,
+  .navbarDropdownContainer:focus-within > .navbarDropdownMenu {
+    transform: none;
+  }
+
+  .navbarDropdownOpen > .navbarDropdownMenu {
     display: flex;
   }
 
-  .navbarSmallDropdown, .navbarLargeDropdown {
-    width: 100%;
-    flex-direction: column;
+  .navbarDropdownItem {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .navbarDropdownItem:hover {
+    padding-left: 14px;
+  }
+
+  .navbarDropdownColumn {
     gap: 2px;
   }
 
-  .navbarDropdownItem {
-    font-size: 13px;
-    padding: 8px 10px;
-    color: #475569;
+  .navbarDropdownTitle {
+    margin: 4px 0;
+    padding: 8px;
   }
 
-  .navbarDropdownTitle {
-    font-size: 11px;
-    margin-top: 6px;
-    border-bottom: 1px solid #e2e8f0;
-  }
+  /* HIDE DESKTOP LOGIN */
 
   .navbarLoginDropdown {
     display: none;
   }
 
-  /* MOBILE-ONLY ACTION DRIVER FOOTERS */
+  /* HAMBURGER */
+
+  .navbarMobileIcon {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dce7dd;
+    border-radius: 9px;
+    background: #f4f8f4;
+    color: #176f3b;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .navbarMobileIcon:hover {
+    border-color: #147541;
+    background: #eaf4eb;
+  }
+
+  .navbarActionControlCluster {
+    margin-left: auto;
+  }
+
+  /* MOBILE PORTALS */
+
   .navbarMobileActionGroup {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    margin-top: auto;
-    padding-top: 20px;
-    gap: 12px;
-    border-top: 1px dashed #e2e8f0;
+    gap: 8px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px dashed #d9e4da;
   }
 
   .navbarMobileLoginHeader {
+    margin-bottom: 5px;
+    color: #147541;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 800;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    color: #94a3b8;
-    letter-spacing: 0.5px;
-  }
-
-  .navbarMobileLoginLinks {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
   }
 
   .navbarMobileLoginOption {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 4px;
-    background: #f1f5f9;
-    border-radius: 6px;
-    font-size: 12px;
+    display: block;
+    padding: 11px 12px;
+    border: 1px solid #e4ece4;
+    border-radius: 7px;
+    background: #f7faf7;
+    color: #34443a;
+    font-size: 13px;
     font-weight: 600;
-    color: #475569;
     text-decoration: none;
   }
 
   .navbarMobileLoginOption:hover {
-    background: rgba(102, 198, 65, 0.1);
-    color: #66c641;
+    background: #eaf5eb;
+    color: #147541;
   }
 
-  .navbarMobileEmails {
+  .navbarMobileContact {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    margin-top: 4px;
+    gap: 9px;
+    margin-top: 10px;
   }
 
-  .navbarMobileEmailItem {
-    display: flex;
-    align-items: center;
+  .navbarMobileContact a {
+    overflow-wrap: anywhere;
+    color: #5e6d62;
+    font-size: 12px;
+    text-decoration: none;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .navbarWrapper {
+    min-height: 68px;
+    padding: 8px 14px;
     gap: 8px;
-    font-size: 13px;
-    color: #64748b;
   }
-}
 
-@media (max-width: 480px) {
-  .navbarBrandMeta {
-    display: none;
+  .navbarLogo {
+    width: 45px;
+    height: 45px;
   }
+
+  .navbarBrandSection {
+    gap: 8px;
+  }
+
+  .navbarBrandTitle {
+    font-size: 23px;
+  }
+
+  .navbarBrandSubtitle {
+    max-width: 140px;
+    font-size: 9px;
+  }
+
+  .navbarActionControlCluster {
+    gap: 8px;
+  }
+
   .navbarPrimarySubmitButton {
-    padding: 9px 16px;
+    min-height: 38px;
+    gap: 6px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+  }
+
+  .submitIconAnim {
     font-size: 13px;
+  }
+
+  .navbarMobileIcon {
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
   }
 }
 
-/* ==========================================================================
-   DESKTOP LOGIN DROPDOWN STYLES
-   ========================================================================== */
+/* =========================================
+   EXTRA SMALL MOBILE
+========================================= */
 
-/* Container wrapper for absolute positioning */
-.navbarLoginDropdown {
-  position: relative;
-  display: inline-block;
-}
+@media (max-width: 380px) {
+  .navbarWrapper {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 
-/* Base button styling */
-.navbarLoginButton {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background-color: transparent;
-  color: #1e293b;
-  border: 1px solid #cbd5e1;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
+  .navbarLogo {
+    width: 40px;
+    height: 40px;
+  }
 
-.navbarLoginButton:hover {
-  background-color: #f8fafc;
-  border-color: #94a3b8;
-  color: #0f172a;
-}
+  .navbarBrandTitle {
+    font-size: 21px;
+  }
 
-.navbarLoginIcon {
-  font-size: 1.1rem;
-}
+  .navbarBrandSubtitle {
+    max-width: 105px;
+    font-size: 8px;
+  }
 
-.navbarLoginArrow {
-  font-size: 0.75rem;
-  transition: transform 0.2s ease-in-out;
-  margin-left: 2px;
-}
+  .navbarPrimarySubmitButton {
+    padding: 9px;
+  }
 
-/* Rotate arrow when hovering over dropdown container */
-.navbarLoginDropdown:hover .navbarLoginArrow {
-  transform: rotate(180deg);
-}
-
-/* Dropdown menu panel */
-.navbarLoginDropdownMenu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  margin-top: 6px;
-  width: 170px;
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  padding: 6px 0;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 1000;
-}
-
-/* Bridge gap so hovering between button and menu doesn't break hover state */
-.navbarLoginDropdownMenu::before {
-  content: "";
-  position: absolute;
-  top: -8px;
-  left: 0;
-  right: 0;
-  height: 8px;
-}
-
-/* Show menu on container hover */
-.navbarLoginDropdown:hover .navbarLoginDropdownMenu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* Individual menu item options */
-.navbarDesktopLoginOption {
-  display: block;
-  padding: 9px 16px;
-  font-size: 0.875rem;
-  color: #334155;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.15s ease, color 0.15s ease;
-}
-
-.navbarDesktopLoginOption:hover {
-  background-color: #f1f5f9;
-  color: #0284c7; /* Brand accent color */
-}
-
-/* Hide desktop login dropdown on mobile screens */
-@media (max-width: 991px) {
-  .navbarLoginDropdown {
+  .navbarPrimarySubmitButton span {
     display: none;
+  }
+
+  .navbarPrimarySubmitButton .submitIconAnim {
+    font-size: 17px;
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .navbarMainContainer *,
+  .navbarMainContainer *::before,
+  .navbarMainContainer *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

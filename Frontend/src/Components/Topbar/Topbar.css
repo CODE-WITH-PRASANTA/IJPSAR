@@ -1,247 +1,168 @@
 /* =========================================
-   TOPBAR MAIN
+   TOPBAR MAIN CONTAINER
 ========================================= */
 
 .topbarMainContainer {
+  position: relative;
   width: 100%;
-  background: #66C641;
-  border-top: 3px solid #d8ff3e;
+  background: #f5f7f5;
+  border-bottom: 1px solid #e5ebe5;
 
-  /* CHANGE THIS: from 'fixed' to 'absolute' or 'static' */
-  position: absolute; 
-  top: 0;
-  left: 0;
-
-  z-index: 99999;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
 }
 
 .topbarWrapper {
-  max-width: 1500px;
-  margin: auto;
-
-  padding: 12px 30px;
-
+  width: 100%;
+  max-width: 1800px;
+  min-height: 66px;
+  margin: 0 auto;
+  padding: 12px 4%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 24px;
 }
 
 /* =========================================
-   LEFT & RIGHT SECTION
+   JOURNAL INFORMATION
 ========================================= */
 
-.topbarLeftSection,
-.topbarRightSection {
+.topbarJournalInfo {
   display: flex;
   align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
+  gap: 24px;
 }
 
-/* =========================================
-   ITEMS
-========================================= */
-
-.topbarItem {
+.topbarInfoItem {
   display: flex;
   align-items: center;
-  gap: 8px;
-
-  color: #ffffff;
-
-  font-size: 15px;
+  gap: 10px;
+  color: #344256;
+  font-size: 14px;
   font-weight: 500;
-
   white-space: nowrap;
 }
 
-.topbarIcon {
-  color: #d8ff3e;
-  font-size: 16px;
+.topbarInfoIcon {
+  flex-shrink: 0;
+  color: #16743e;
+  font-size: 18px;
 }
+
+/* =========================================
+   EMAIL SECTION
+========================================= */
+
+.topbarEmailGroup {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.topbarEmailLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #344256;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.topbarEmailLink:hover {
+  color: #16743e;
+}
+
+.topbarEmailIcon {
+  flex-shrink: 0;
+  color: #16743e;
+  font-size: 20px;
+}
+
+/* =========================================
+   DIVIDERS
+========================================= */
 
 .topbarDivider {
   width: 1px;
-  height: 18px;
-  background: rgba(255, 255, 255, 0.25);
+  height: 24px;
+  flex-shrink: 0;
+  background: #cbd5d1;
 }
 
 /* =========================================
-   LOGIN DROPDOWN
+   TABLET RESPONSIVE
 ========================================= */
 
-.topbarLoginDropdown {
-  position: relative;
-}
-
-.topbarLoginButton {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  background: transparent;
-  border: none;
-  outline: none;
-
-  color: #ffffff;
-
-  font-size: 15px;
-  font-weight: 500;
-
-  cursor: pointer;
-
-  transition: 0.3s ease;
-}
-
-.topbarLoginButton:hover {
-  color: #d8ff3e;
-}
-.topbarDropdownMenu {
-  position: absolute;
-
-  top: calc(100% + 12px);
-  right: 0;
-
-  min-width: 170px;
-
-  background: #ffffff;
-
-  border-radius: 12px;
-
-  overflow: hidden;
-
-  opacity: 0;
-  visibility: hidden;
-
-  transform: translateY(10px);
-
-  transition: 0.3s ease;
-
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
-
-  z-index: 99999;
-}
-.topbarLoginDropdown {
-  position: relative;
-  z-index: 99999;
-}
-.topbarLoginDropdown:hover .topbarDropdownMenu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.topbarDropdownItem {
-  display: block;
-
-  padding: 12px 16px;
-
-  color: #062847;
-
-  text-decoration: none;
-
-  font-size: 14px;
-  font-weight: 600;
-
-  transition: 0.3s ease;
-}
-
-.topbarDropdownItem:hover {
-  background: #d8ff3e;
-  color: #111111;
-}
-
-/* =========================================
-   SUBMIT BUTTON
-========================================= */
-
-.topbarSubmitButton {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  background: transparent;
-  border: none;
-  outline: none;
-
-  color: #ffffff;
-
-  font-size: 15px;
-  font-weight: 500;
-
-  cursor: pointer;
-
-  transition: 0.3s ease;
-}
-
-.topbarSubmitButton:hover {
-  color: #d8ff3e;
-}
-
-/* =========================================
-   RESPONSIVE
-========================================= */
-
-@media (max-width: 1200px) {
-
+@media (max-width: 1000px) {
   .topbarWrapper {
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 12px 22px;
+    flex-wrap: wrap;
+    gap: 14px 24px;
+  }
+
+  .topbarJournalInfo,
+  .topbarEmailGroup {
     gap: 14px;
   }
 
-  .topbarLeftSection,
-  .topbarRightSection {
-    width: 100%;
+  .topbarInfoItem,
+  .topbarEmailLink {
+    gap: 7px;
+    font-size: 12px;
+  }
+
+  .topbarInfoIcon,
+  .topbarEmailIcon {
+    font-size: 16px;
   }
 }
 
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
 
-
-@media (max-width: 768px) {
-
+@media (max-width: 600px) {
   .topbarWrapper {
-    padding: 12px 15px;
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
-  .topbarItem,
-  .topbarLoginButton,
-  .topbarSubmitButton {
-    font-size: 13px;
+  .topbarJournalInfo,
+  .topbarEmailGroup {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px 14px;
   }
 
-  .topbarLeftSection,
-  .topbarRightSection {
-    gap: 10px;
+  .topbarInfoItem,
+  .topbarEmailLink {
+    font-size: 11px;
+  }
+
+  .topbarDivider {
+    height: 18px;
+  }
+
+  .topbarEmailGroup .topbarDivider {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .topbarJournalInfo,
+  .topbarEmailGroup {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 9px;
   }
 
   .topbarDivider {
     display: none;
-  }
-
-  .topbarDropdownMenu {
-    right: auto;
-    left: 0;
-  }
-}
-@media (max-width: 992px) {
-
-  .topbarMainContainer {
-    display: none;
-  }
-
-}
-
-@media (max-width: 500px) {
-
-  .topbarLeftSection,
-  .topbarRightSection {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .topbarItem {
-    white-space: normal;
   }
 }
